@@ -1,0 +1,127 @@
+#view-home {
+	.gradient {
+		width: 100%;
+		height: 100%;
+		#gradient .vertical(rgba(36,50,61,1) 0%, rgba(36,38,43,1) 100%);
+	}
+	.container {
+		
+		.btn-notifications, .btn-menu {
+			position: absolute;
+			top: 0px;
+			width: 60px;
+			height: 60px;
+			background-repeat: no-repeat;
+			background-position: center;
+			
+			&.pressed {
+				opacity: 0.5;
+			}
+		}
+		
+		.btn-notifications {
+			left: 0px;
+			background-image: url('/img/app/ui/icon-alarm.png');
+			background-size: 23.5px 26px;
+		}
+		
+		.btn-menu {
+			right: 0px;
+			background-image: url('/img/app/ui/icon-menu.png');
+			background-size: 29px 19px;
+		}
+		
+		.wrap {
+			position: relative;
+			width: 100%;
+			text-align: center;
+			
+			.logo {
+				width: 115.5px;
+				height: 84.5px;
+				
+				position: relative;
+				left: 50%;
+				transform: translateX(-50%);
+				background-image: url('/img/app/ui/logo.png');
+				background-size: 115.5px 84.5px;
+				
+				margin-top: 50px;
+				margin-bottom: 15px;
+			}
+			
+			.next-meetup {
+				text-transform: uppercase;
+				color: #aaabad;
+				font-size: 13px;
+				
+				margin-bottom: 8px;
+			}
+			
+			.day-count {
+				text-transform: uppercase;
+				color: #ffffff;
+				font-size: 45px;
+				font-weight: 800;
+				
+				margin-bottom: 8px;
+			}
+			
+			.meetup-date {
+				font-size: 18px;
+				color: #fff;
+				
+				margin-bottom: 8px;
+			}
+		}
+		.states {
+			position: absolute;
+			width: 100%;
+			bottom: 0px;
+			
+			.rsvp {
+				position: relative;
+				overflow: hidden;
+				.btn-plain {
+					float: left;
+					width: 50%;
+					&:last-of-type {
+						border-left: 1px solid #000;
+					}
+				}
+			}
+			
+			.rsvp-not-attending, .rsvp-attending {
+				position: relative;
+				overflow: hidden;
+				.text {
+					float: left;
+					width: 75%;
+				}
+				.cancel {
+					width: 25%;
+					float: left;
+					border-left: 1px solid #000;
+				}
+			}
+			
+			.sold-out {
+				position: relative;
+				overflow: hidden;
+				.text {
+					text-decoration: line-through;
+					color: #f17763;
+				}
+			}
+			
+			.tickets-soon {
+				position: relative;
+				overflow: hidden;
+				.text {
+					opacity: 0.25;
+					color: #fff;
+				}
+			}
+		}
+	}
+}

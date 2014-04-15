@@ -1,0 +1,16 @@
+{
+  "name": "sydjs-app",
+  "version": "1.0.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components"
+  ],
+  "dependencies": {
+    "zeptojs": "*",
+    "underscore": "*",
+    "moment": "*",
+    "backbone": "*",
+    "async": "*"
+  }
+}

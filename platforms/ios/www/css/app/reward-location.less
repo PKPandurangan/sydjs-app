@@ -1,0 +1,67 @@
+#view-reward-location {
+	.reward-details-wrap {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		background: white;
+		color: black;
+		text-align: center;
+
+		.reward-details {
+			.box-sizing(border-box);
+			overflow-y: auto;
+			padding: 20px;
+		}
+		.partner-logo {
+			margin: 0 auto;
+			width: 60px;
+			height: 60px;
+			border: 1px solid #C8C7CC;
+			border-radius: 8px;
+		}
+		.partner-name {
+			margin: 20px 0 0 0;
+			font-size: 15px;
+			font-weight: 500;
+		}
+		.title {
+			margin: 20px 0 0 0;
+			font-size: 28px;
+			font-weight: 500;
+		}
+		.description {
+			margin: 30px 0 0 0;
+			font-size: 15px;
+		}
+		.location {
+			.box-sizing(border-box);
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			padding: 20px;
+			width: 100%;
+			height: 70px;
+			border-top: 1px solid #C8C7CC;
+			text-align: center;
+			font-size: 13px;
+			&:before {
+				.ion-ios7-location;
+				.translate(-50%,0);
+				position: absolute;
+				top: -20px;
+				left: 50%;
+				color: #5b5b5b;
+				content: '\f1a6';
+				font-size: 34px;
+			}
+		}
+		.address { }
+	}
+
+	.button {
+		.box-sizing(border-box);
+		position: absolute;
+		bottom: 0px;
+		width: 100%;
+	}
+}

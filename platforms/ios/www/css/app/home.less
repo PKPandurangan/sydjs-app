@@ -1,0 +1,176 @@
+#view-home {
+
+	//-.menu {
+	//-	padding-bottom: 14px;
+	//-}
+
+	.subheading {
+		padding: 30px 15px 15px;
+		color: #999999;
+		text-transform: uppercase;
+		font-size: 14px;
+	}
+
+	// Rewards
+	.item.reward {
+		.translate3d();
+		position: relative;
+		overflow: hidden;
+		border-left: 6px solid #000;
+		background-position: center;
+		background-size: cover;
+
+		//-&:last-of-type {
+		//-	margin-bottom: 40px;
+		//-}
+
+		.cols {
+			display: table;
+			width: 100%;
+			height: 115px;
+			background: rgba(0,0,0,0.4);
+		}
+		.description {
+			display: table-cell;
+			vertical-align: middle;
+
+			.name {
+				width: 80%;
+				padding: 0 0 8px 15px;
+				text-transform: uppercase;
+				font-weight: 800;
+				font-size: 28px;
+				//-text-shadow: 0px 2px 0px black;
+				line-height: 28px;
+
+				.splash {
+					font-weight: 300;
+					display: inline-block;
+					margin: 0 10px;
+				}
+				.icon {
+					display: none;
+					vertical-align: top;
+					font-size: 26px;
+				}
+			}
+			.details {
+				padding-left: 15px;
+				width: 80%;
+				font-size: 13px;
+
+				.locked {
+					display: none;
+				}
+			}
+
+			#gradient .vertical(rgba(0,0,0,0.35) 40%, rgba(0,0,0,0.5) 100%);
+		}
+		.info {
+			position: absolute;
+			top: 50%;
+			right: 0px;
+			margin-top: -35px;
+			width: 22px;
+			height: 22px;
+			padding: 25px 10px 25px 25px;
+			background-image: url('/img/app/ui/buttons/info.png');
+			background-position: center;
+			background-size: 22px 22px;
+			background-repeat: no-repeat;
+		}
+
+		&.pressed {
+			.description {
+				#gradient .vertical(rgba(63,63,63,0.3) 0%, rgba(26,26,26,0.5) 100%);
+			}
+		}
+
+		&.pressed.locked {
+			.description {
+				#gradient .vertical(rgba(0,0,0,0.35) 40%, rgba(0,0,0,0.5) 100%);
+			}
+		}
+
+		&.cinemas { border-left-color: @cinemas; .shadow { background: fade(@cinemas, 30%); } }
+		&.food { border-left-color: @dining; .shadow {  background: fade(@dining, 30%); } }
+		&.days-out { border-left-color: @daysOut; .shadow { background: fade(@daysOut, 30%); } }
+		&.sports-sessions { border-left-color: @sports; .shadow { background: fade(@sports, 30%); } }
+		&.music-downloads { border-left-color: @music; .shadow { background: fade(@music, 30%); } }
+
+		&.cinemas { background-image: url('/img/app/ui/rewards/cinemas.jpg'); }
+		&.food { background-image: url('/img/app/ui/rewards/food.jpg'); }
+		&.days-out { background-image: url('/img/app/ui/rewards/days-out.jpg'); }
+		&.sports-sessions { background-image: url('/img/app/ui/rewards/sports-sessions.jpg'); }
+		&.music-downloads { background-image: url('/img/app/ui/rewards/music-downloads.jpg'); }
+
+		// Locked style
+		&.locked {
+			.description {
+				.name, .details { color: fade(white, 40%); }
+				.name .icon { display: inline-block; }
+				.details {
+					.unlocked {
+						display: none;
+					}
+					.locked {
+						display: inline-block;
+					}
+				}
+			}
+			.info {
+				display: none;
+			}
+		}
+	}
+
+	.item.reward + .item.reward { margin-top: 3px; }
+
+	// Claims
+	.item.claim {
+		.has-arrow-forward;
+		position: relative;
+		overflow: hidden;
+		margin: 0px;
+		border-left: 3px solid #000;
+		background: #fff;
+		color: #000;
+
+		//-&:last-of-type {
+		//-	margin-bottom: 40px;
+		//-}
+
+		.cell {
+			display: table-cell;
+			padding: 12px 35px 12px 15px;
+			width: 100%;
+			vertical-align: top;
+		}
+		.title {
+			font-size: 17px;
+		}
+		.summary {
+			margin-top: 5px;
+			color: #000;
+			font-size: 15px;
+		}
+		.time {
+			margin-top: 5px;
+			color: #929292;
+			font-size: 13px;
+		}
+
+		&.selected {
+			background: #EFEFEF;
+		}
+
+		&.cinema { border-left-color: @cinemas; }
+		&.food { border-left-color: @dining; }
+		&.days-out { border-left-color: @daysOut; }
+		&.sports { border-left-color: @sports; }
+		&.music { border-left-color: @music; }
+
+	}
+	.item.claim + .item.claim { border-top: 1px solid #C8C7CC; }
+
+}

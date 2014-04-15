@@ -1,0 +1,192 @@
+doctype html
+html
+	head
+		//- rollbar (development)
+		//- script.
+				var _rollbarConfig = {
+					accessToken: "c07d71c0e2f4463a85f2fa48c87b260b",
+					captureUncaught: true,
+					payload: {
+						environment: "production"
+					}
+				};
+				!function(a,b){function c(b){this.shimId=++h,this.notifier=null,this.parentShim=b,this.logger=function(){},a.console&&void 0===a.console.shimId&&(this.logger=a.console.log)}function d(b,c,d){!d[4]&&a._rollbarWrappedError&&(d[4]=a._rollbarWrappedError,a._rollbarWrappedError=null),b.uncaughtError.apply(b,d),c&&c.apply(a,arguments)}function e(b){var d=c;return g(function(){if(this.notifier)return this.notifier[b].apply(this.notifier,arguments);var c=this,e="scope"===b;e&&(c=new d(this));var f=Array.prototype.slice.call(arguments,0),g={shim:c,method:b,args:f,ts:new Date};return a._rollbarShimQueue.push(g),e?c:void 0})}function f(a,b){if(b.hasOwnProperty&&b.hasOwnProperty("addEventListener")){var c=b.addEventListener;b.addEventListener=function(b,d,e){c.call(this,b,a.wrap(d),e)};var d=b.removeEventListener;b.removeEventListener=function(a,b,c){d.call(this,a,b._wrapped||b,c)}}}function g(a,b){return b=b||this.logger,function(){try{return a.apply(this,arguments)}catch(c){b("Rollbar internal error:",c)}}}var h=0;c.init=function(a,b){var e=b.globalAlias||"Rollbar";if("object"==typeof a[e])return a[e];a._rollbarShimQueue=[],a._rollbarWrappedError=null,b=b||{};var h=new c;return g(function(){if(h.configure(b),b.captureUncaught){var c=a.onerror;a.onerror=function(){var a=Array.prototype.slice.call(arguments,0);d(h,c,a)};var g,i,j=["EventTarget","Window","Node","ApplicationCache","AudioTrackList","ChannelMergerNode","CryptoOperation","EventSource","FileReader","HTMLUnknownElement","IDBDatabase","IDBRequest","IDBTransaction","KeyOperation","MediaController","MessagePort","ModalWindow","Notification","SVGElementInstance","Screen","TextTrack","TextTrackCue","TextTrackList","WebSocket","WebSocketWorker","Worker","XMLHttpRequest","XMLHttpRequestEventTarget","XMLHttpRequestUpload"];for(g=0;g<j.length;++g)i=j[g],a[i]&&a[i].prototype&&f(h,a[i].prototype)}return a[e]=h,h},h.logger)()},c.prototype.loadFull=function(a,b,c,d){var e=g(function(){var a=b.createElement("script"),e=b.getElementsByTagName("script")[0];a.src=d.rollbarJsUrl,a.async=!c,a.onload=f,e.parentNode.insertBefore(a,e)},this.logger),f=g(function(){if(void 0===a._rollbarPayloadQueue)for(var b,c,d,e,f=new Error("rollbar.js did not load");b=a._rollbarShimQueue.shift();)for(d=b.args,e=0;e<d.length;++e)if(c=d[e],"function"==typeof c){c(f);break}},this.logger);g(function(){c?e():a.addEventListener?a.addEventListener("load",e,!1):a.attachEvent("onload",e)},this.logger)()},c.prototype.wrap=function(b){if("function"!=typeof b)return b;if(b._isWrap)return b;if(!b._wrapped){b._wrapped=function(){try{return b.apply(this,arguments)}catch(c){throw a._rollbarWrappedError=c,c}},b._wrapped._isWrap=!0;for(var c in b)b.hasOwnProperty(c)&&(b._wrapped[c]=b[c])}return b._wrapped};for(var i="log,debug,info,warn,warning,error,critical,global,configure,scope,uncaughtError".split(","),j=0;j<i.length;++j)c.prototype[i[j]]=e(i[j]);var k="//d37gvrvc0wt4s1.cloudfront.net/js/v1.0/rollbar.min.js";_rollbarConfig.rollbarJsUrl=_rollbarConfig.rollbarJsUrl||k;var l=c.init(a,_rollbarConfig);l.loadFull(a,b,!1,_rollbarConfig)}(window,document);
+
+		//- chartbeat (development)
+		//- script.
+			var _sf_startpt=(new Date()).getTime()
+		
+		//- utf-8
+		meta(charset='utf-8')
+		
+		//- app title
+		title SydJS
+		
+		//- splash screen
+		link(rel="apple-touch-startup-image", href='img/app/ui/backgrounds/startup-blank.png')
+		
+		//- include the stylesheet - this is compiled from all the included .less files in app.less
+		link(href='/css/app/app.min.css', rel='stylesheet')
+		
+		//- standard favicon
+		link(href='/favicon.ico', rel='shortcut icon', type='image/x-icon')
+		
+		//- standard viewport tag to set the viewport to the device's width,
+		//- Android 2.3 devices need this so 100% width works properly and
+		//- doesn't allow children to blow up the viewport width
+		meta(name="viewport", id="vp", content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width")
+		
+		//- width=device-width causes the iPhone 5 to letterbox the app, so
+		//- we want to exclude it for iPhone 5 to allow full screen apps
+		meta(name="viewport", id="vp", content="initial-scale=1.0,user-scalable=no,maximum-scale=1", media="(device-height: 568px)")
+		
+		//- enable full-screen mode when added to the home screen
+		meta(name="apple-mobile-web-app-capable", content="yes")
+		
+		//- let's go with a black status bar
+		meta(name="apple-mobile-web-app-status-bar-style", content="black")
+		
+		//- standalone app name
+		meta(name="apple-mobile-web-app-title", content="SydJS")
+		
+		//- auto telephone numbers? no thanks
+		meta(name="format-detection", content="telephone=no")
+		
+		//- provide app icons for iOS
+		link(rel="apple-touch-icon-precomposed", sizes="29x29", href="img/app/ios/icons/AppIcon29x29.png")
+		link(rel="apple-touch-icon-precomposed", sizes="58x58", href="img/app/ios/icons/AppIcon29x29@2x.png")
+		link(rel="apple-touch-icon-precomposed", sizes="40x40", href="img/app/ios/icons/AppIcon40x40.png")
+		link(rel="apple-touch-icon-precomposed", sizes="80x80", href="img/app/ios/icons/AppIcon40x40@2x.png")
+		link(rel="apple-touch-icon-precomposed", sizes="57x57", href="img/app/ios/icons/AppIcon57x57.png")
+		link(rel="apple-touch-icon-precomposed", sizes="114x114", href="img/app/ios/icons/AppIcon57x57@2x.png")
+		link(rel="apple-touch-icon-precomposed", sizes="60x60", href="img/app/ios/icons/AppIcon60x60.png")
+		link(rel="apple-touch-icon-precomposed", sizes="120x120", href="img/app/ios/icons/AppIcon60x60@2x.png")
+		link(rel="apple-touch-icon-precomposed", sizes="76x76", href="img/app/ios/icons/AppIcon76x76.png")
+		link(rel="apple-touch-icon-precomposed", sizes="152x152", href="img/app/ios/icons/AppIcon76x76@2x.png")
+		
+		//- description
+		meta(name="description", content="SydJS")
+		
+		//- mixpanel (development)
+		//- script.
+			(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+			typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
+			b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+			mixpanel.init("#{config.analytics.mixpanel.id}");
+	body
+		//- the viewport element contains each view the app includes
+		#viewport
+			#preloader
+			#app-loading: .box
+				.spinner
+				.label
+			#orientation-notice: .box SydJS only supports portrait orientation. <strong>Please rotate your device.</strong>
+			#system-notice: .box Sorry, SydJS currently supports iOS and Android devices only. Other devices will be supported soon.
+			#ping-notice: .box
+			
+			include app/home
+			include app/about
+			include app/schedule
+		
+		//- include common js libraries
+		script(src='components/zeptojs/src/zepto.js')
+		script(src='components/zeptojs/src/event.js')
+		script(src='components/zeptojs/src/ajax.js')
+		script(src='components/zeptojs/src/detect.js')
+		script(src='components/zeptojs/src/fx.js')
+		script(src='components/zeptojs/src/touch.js')
+		
+		script(src='components/underscore/underscore.js')
+		script(src='components/backbone/backbone.js')
+		script(src='components/moment/moment.js')
+		script(src='components/async/lib/async.js')
+		
+		//- include cordova js library
+		script(src='cordova.js')
+		
+		//- init containers
+		script.
+			var collections = {},
+				config = {
+					environment: 'development',
+					baseURL: 'http://localhost:3000'
+					// baseURL: 'http://beta.sydjs.com'
+					// baseURL: 'http://www.sydjs.com'
+				};
+		
+		//- class scripts
+		script(src='js/common/classes/app.js')
+		script(src='js/common/classes/view.js')
+		script(src='js/common/classes/version.js')
+		
+		//- ui scripts
+		script(src='js/common/ui/button.js')
+		script(src='js/common/ui/spinner.js')
+		
+		//- view scripts
+		script(src='js/app/views/home.js')
+		script(src='js/app/views/about.js')
+		script(src='js/app/views/schedule.js')
+		
+		//- google maps
+		script(src!='https://maps.googleapis.com/maps/api/js?key=AIzaSyBs7cuKgwlX5Ud7TKELK7EmBw_XmT-gRro&sensor=false')
+		
+		//- index script
+		script(src='js/app/index.js')
+		
+		//- init
+		script.
+			$(function() {
+				console.log( '[root] - App running locally...' );
+				app._local = true;
+				if (!/(iphone)|(ipad)|(android)/i.test(navigator.userAgent) ) {
+					console.log( '[root] - Detected non-mobile device, initalising app...' );
+					app.init();
+				} else {
+					console.log( '[root] - Detected mobile device, setting device ready event...' );
+					$(document).on( 'deviceready',  function() {
+						StatusBar.overlaysWebView(false); // Makes sure that the status bar is NOT part of the app viewport
+						StatusBar.backgroundColorByHexString("#212121"); // Force the status bar background to be the standard background colour
+						if (navigator.splashscreen && navigator.splashscreen.hide) {
+							navigator.splashscreen.hide();
+						}
+						console.log( '[root] - Mobile device is ready...' );
+						console.log( '[root] - Triggering app init.' );
+						app.init();
+					});
+				}
+			});
+		
+		//- chartbeat (development)
+		//- script.
+			var _sf_async_config = { uid: 46610, domain: 'sydjs.com', useCanonical: true };
+			(function() {
+				function loadChartbeat() {
+					window._sf_endpt = (new Date()).getTime();
+					var e = document.createElement('script');
+					e.setAttribute('language', 'javascript');
+					e.setAttribute('type', 'text/javascript');
+					e.setAttribute('src','//static.chartbeat.com/js/chartbeat.js');
+					document.body.appendChild(e);
+				};
+				var oldonload = window.onload;
+				window.onload = (typeof window.onload != 'function') ?
+				loadChartbeat : function() { oldonload(); loadChartbeat(); };
+			})();
+		
+		//- crazyegg (development)
+		//- script.
+			setTimeout(function(){var a=document.createElement("script");
+			var b=document.getElementsByTagName("script")[0];
+			a.src=document.location.protocol+"//dnn506yrbagrg.cloudfront.net/pages/scripts/0013/3329.js?"+Math.floor(new Date().getTime()/3600000);
+			a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+		
+		//- google analytics (development)
+		//- script.
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+			ga('create', '#{config.analytics.googleAnalytics.id}', '#{config.analytics.googleAnalytics.url}');
+			ga('send', 'pageview');
+			ga('require', 'ecommerce', 'ecommerce.js');

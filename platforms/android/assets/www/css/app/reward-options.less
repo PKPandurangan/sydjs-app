@@ -1,0 +1,129 @@
+#view-reward-options {
+
+	.titlebar {
+		.title {
+			width: 40%;
+		}
+	}
+
+	.subheading {
+		padding: 10px;
+		color: #999999;
+		text-transform: uppercase;
+		font-size: 15px;
+	}
+
+	.item {
+		position: relative;
+		overflow: hidden;
+		margin: 0px;
+		background: #fff;
+		color: #000;
+
+		&:last-of-type {
+			margin-bottom: 50px;
+		}
+
+		&.rewardPartnerLocation, &.cinema {
+			.has-arrow-forward;
+			.cell:last-of-type {
+				padding-right: 35px;
+			}
+		}
+
+		.cell {
+			position: relative;
+			vertical-align: top;
+			//-width: 100%;
+			display: table-cell;
+			//-height: 58px;
+			padding: 12px 15px;
+
+			&:not(:only-child):first-of-type {
+				&:after {
+					position: absolute;
+					top: 10%;
+					right: 0;
+					display: block;
+					width: 1px;
+					height: 80%;
+					background-color: #e5e5e5;
+					content: '';
+				}
+			}
+		}
+
+		//-.title, .summary {
+		//-	padding-left: 10px;
+		//-	padding-right: 14px;
+		//-}
+		.title {
+			font-size: 17px;
+			//-overflow: hidden;
+			//-text-overflow: ellipsis;
+			//-white-space: nowrap;
+			//-width: 100%;
+		}
+		.summary {
+			margin-top: 5px;
+			color: #929292;
+			font-size: 15px;
+		}
+
+		&.selected {
+			background: #EFEFEF;
+		}
+
+		// Cinemas
+		&.cinema, &.rewardPartnerLocation {
+			.distance {
+				width: auto;
+				text-align: right;
+			}
+			&.no-distance {
+				.distance {
+					display: none;
+				}
+			}
+			.number {
+				font-size: 17px;
+				//-width: 50px;
+				text-align: right;
+			}
+			.units {
+				color: #929292;
+				text-align: right;
+				//-width: 50px;
+				font-size: 13px;
+			}
+			//-.title, .summary {
+			//-	padding-left: 0px;
+			//-	padding-right: 0px
+			//-}
+		}
+
+		// Food
+		&.food {
+
+		}
+
+		// Music
+		&.music {
+
+		}
+
+	}
+
+	.item + .item { border-top: 1px solid #C8C7CC; }
+	
+	.info-window {
+		padding: 0;
+		background: white;
+		color: #000;
+		
+		a {
+			color: #000;
+		}
+	}
+
+}
