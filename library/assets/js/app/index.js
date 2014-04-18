@@ -289,8 +289,10 @@ _.extend(app, {
 			
 			$log( "[resumeSession] - Session info was retrieved at [" + moment( parseInt( date ) ).format('h:mm:ss a') + "]..." );
 			
-			$( '#preloader' ).animate({ opacity: 0 }, 250 );
-			app.view('home').show('slide-up');
+			app.getStatus(function() {
+				$( '#preloader' ).animate({ opacity: 0 }, 250 );
+				app.view('home').show('slide-up');
+			});
 		}
 		// If we don't have any data, just show the start screen (default behaviour)
 		else
@@ -312,7 +314,10 @@ _.extend(app, {
 		
 		$.ajax({
 			url: config.baseURL + '/api/app/status',
-			type: 'get',
+			type: 'post',
+			data: {
+				user: app.data.session.user.id
+			},
 			dataType: 'json',
 			cache: false,
 			success: function(data) {
@@ -496,9 +501,7 @@ app.on('init', function() {
 			
 			// Then resume the session
 			setTimeout(function() {
-				app.getStatus(function() {
-					app.resumeSession();
-				});
+				app.resumeSession();
 			}, 250);
 		
 		});
