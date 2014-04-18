@@ -82,7 +82,7 @@
 				$ticketsSoon.show();
 			}
 			
-			// Aniamte in states
+			// Animate in state
 			$states.css('transform', 'translate3d(0,0,0)');
 			
 			setTimeout(function() {
@@ -127,7 +127,11 @@
 						self._processingForm = false;
 						
 						// Update status
-						self.setState();
+						self.$('.states').animate({
+							translate3d: '0,0,0'
+						}, 250, 'ease-out', function() {
+							self.setState();
+						});
 					
 					} else {
 						
