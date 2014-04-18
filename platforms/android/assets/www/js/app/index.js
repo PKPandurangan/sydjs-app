@@ -343,69 +343,37 @@ _.extend(app, {
 			$log( "[resumeSession] - Showing [start] screen." );
 			
 			$( '#preloader' ).animate({ opacity: 0 }, 250 );
-			app.view('welcome').show('slide-up');
+			app.view('home').show('slide-up');
 		}
 		
 	},
 	
-	/* Claim Data */
+	/* Status Data */
 	
-	getClaims: function(callback) {
+	getStatus: function(callback) {
 	
-		$log( "[getClaims] - Claimed data doesn't exist, retrieving from server..." );
+		$log( "[getStatus] - Status data doesn't exist, retrieving from server..." );
 		
 		$.ajax({
-			url: config.baseURL + '/api/get-claims/' + app.data.session.customer._id,
+			url: config.baseURL + '/api/app/status',
 			type: 'get',
 			dataType: 'json',
 			cache: false,
 			success: function(data) {
 			
-				$log( "[getClaims] - Successfully retrieved claims." );
-				
-				_.each(data.claims, function(claim) {
-					collections.claims.add(claim);
-				});
+				$log( "[getStatus] - Successfully retrieved status." );
 				
 				return callback(false);
 			
 			},
 			error: function() {
 			
-				$log( "[getClaims] - Failed getting claims, assuming success anyway." );
+				$log( "[getStatus] - Failed getting status, assuming success anyway." );
 				
 				return callback(true);
 			
 			}
 		});
-	
-	},
-	
-	/* Data Checking */
-	
-	checkTestCode: function() {
-	
-		if ( !app.data.session.code )
-			return false;
-		
-		// In some cases, the code could be either a string or an array,
-		// this code is a preventive measure, just in case either is detected
-		var code = false;
-		
-		switch( typeof app.data.session.code ) {
-		
-			case 'string':
-				code = app.data.session.code.split(',').join('');
-			break;
-			
-			case 'array':
-			case 'object':
-				code = app.data.session.code.join('');
-			break;
-		
-		}
-		
-		return ( code === '999999' ? true : false );
 	
 	},
 	
@@ -502,55 +470,6 @@ _.extend(app, {
 			break;
 		}
 		
-	},
-	
-	trackEcommerce: function() {
-		
-		if (app.checkTestCode())
-			return;
-		
-		try {
-			
-			if (!window.ga)
-				return;
-			
-			var transactionData = {
-				id: app.data.payment.orderId,
-				affiliation: 'Gold Class Butler',
-				revenue: collections.orderedItems.getOrderTotal(),
-				shipping: 0,
-				tax: 0
-			};
-			
-			$log( '[trackEcommerce] - Adding Google Analytics transaction data: ', transactionData );
-			
-			ga('ecommerce:addTransaction', transactionData);
-			
-			_.each( collections.menuItems.getOrderedItems(), function(item) {
-				
-				var itemData = {
-					id: item.get('_id'),
-					name: item.get('name'),
-					sku: '',
-					category: item.get('category'),
-					price: item.get('price'),
-					quantity: item.get('count')
-				};
-				
-				$log( '[trackEcommerce] - Adding Google Analytics item data: ', itemData );
-				
-				ga('ecommerce:addItem', itemData);
-				
-			});
-			
-			$log( '[trackEcommerce] - Sending data to Google Analytics...' );
-			
-			ga('ecommerce:send');
-		
-		} catch(e) {
-			$log( '[trackEcommerce] - Encountered an issue with Google Analytics ecommerce...', e );
-		}
-		
 	}
 	
 });
@@ -591,7 +510,7 @@ app.on('init', function() {
 					// Load it, then continue along the queue
 					$log( "[init] - Claims data isn't loaded, loading..." );
 					
-					app.getClaims(function() {
+					app.getStatus(function() {
 						return cb();
 					});
 				
@@ -618,7 +537,9 @@ app.on('init', function() {
 			// app.hideLoadingSpinner();
 			
 			// Then resume the session
-			app.resumeSession();
+			setTimeout(function() {
+				app.resumeSession();
+			}, 250);
 		
 		});
 		

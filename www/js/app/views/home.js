@@ -64,11 +64,20 @@
 				$soldOut = $states.find('.sold-out'),
 				$ticketsSoon = $states.find('.tickets-soon');
 			
-			// $rsvp.hide();
-			$rsvpNotAttending.hide();
+			$rsvp.hide();
+			// $rsvpNotAttending.hide();
 			$rsvpAttending.hide();
 			$soldOut.hide();
 			$ticketsSoon.hide();
+			
+			// Ensure the payment details button is always reset when we view this screen
+			/*
+			$rsvp.css({
+				'opacity': 1,
+				'bottom': -100,
+				'-webkit-transform': 'translate3d(0,0,0)'
+			});
+			*/
 		
 		},
 		

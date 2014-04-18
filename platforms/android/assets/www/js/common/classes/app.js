@@ -396,37 +396,6 @@ _.extend(App.prototype, Backbone.Events, {
 		if ( !app._device.system ) {
 			$('#viewport').addClass( 'device-desktop' );
 		}
-		
-		// Non-iOS/Android: Blocked from the app
-		if ( app._device.mobile && app._device.system != 'ios' && app._device.system != 'android' ) {
-			$('#system-notice').addClass('show');
-			return;
-		}
-		
-		// iOS: Resize viewport in Chrome (non-tablet)
-		if ( app._device.system == 'ios' && app._device.browser == 'chrome' && !app._device.tablet ) {
-			$('#viewport').height(window.screen.availHeight - 44);
-		}
-		
-		// iOS: Add preload image in Safari if we aren't in the standalone app
-		if ( app._device.system == 'ios' && app._device.browser == 'safari' && !app._device.standalone ) {
-			$('#preloader').css({
-				'background-image': 'url(' + ( app._device.size == 'tall' ? '/img/app/ios/backgrounds/preload-safari-tall.png' : '/img/app/ios/backgrounds/preload-safari-short.png' ) + ')',
-				'background-position': 'top center',
-				'background-size': '320px',
-				'background-repeat': 'none',
-				'background-color': '#212121'
-			});
-		// Other add a generic one (without web app specific text)
-		} else {
-			$('#preloader').css({
-				'background-image': 'url(/img/app/ui/backgrounds/preload-generic-tall.png)',
-				'background-position': 'top center',
-				'background-size': '320px',
-				'background-repeat': 'none',
-				'background-color': '#212121'
-			});
-		}
 	
 	}
 	
