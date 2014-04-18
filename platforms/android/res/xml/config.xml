@@ -28,4 +28,7 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <feature name="Notificare">
+        <param name="android-package" value="re.notifica.cordova.NotificarePlugin" />
+    </feature>
 </widget>

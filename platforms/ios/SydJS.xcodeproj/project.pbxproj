@@ -48,6 +48,18 @@
 		8525FD2BB32E4576A7168089 /* CDVNotification.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1C8A1783776A41199F960662 /* CDVNotification.bundle */; };
 		AD5A1A838D014E9B83DACA01 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5296961787A4CB4B5E6BB69 /* AudioToolbox.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D4D75C1B741C4ACF9C9FA67B /* CDVSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1200AC30E4EF1BB1BC15C /* CDVSplashScreen.m */; };
+		BF2F51875E7D46AD91272442 /* NotificarePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 335219DFA1FB4305A2A60900 /* NotificarePlugin.m */; };
+		8DAEF0EBE164476C9E833FEA /* NotificareAppDelegateSurrogate.m in Sources */ = {isa = PBXBuildFile; fileRef = F652D99535F0485CA8EC0A0A /* NotificareAppDelegateSurrogate.m */; };
+		A6FD8F43DDF545B28DFA5A8C /* libNotificarePushLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C748A76D9E6C46E9BBE6BBC8 /* libNotificarePushLib.a */; };
+		1E1C3CC6C5894901847F3CA2 /* NotificareResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9691D981D3AE44F9AA02F333 /* NotificareResources.bundle */; };
+		5DF41834945F4B0AB1C93B22 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2182A3F75EA3425DAB815420 /* MessageUI.framework */; };
+		40D58BECF1FF4F7880581719 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E8868BCC064646FFA21A30A3 /* libicucore.dylib */; };
+		35A7A4A9232F4E1E86E5B6E0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1C4BE1218814C35B3AE58CD /* UIKit.framework */; };
+		9E5636423E4442748D11A915 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35984AD96D004BBCBAFC991B /* Foundation.framework */; };
+		B900B905A43341F68E279207 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99957169729A4BA7937EEF91 /* PassKit.framework */; };
+		6EEBA43800EF48F68CF571AB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F7BCD4822AA4E8DAB0C5252 /* MapKit.framework */; };
+		DD90DE092BBF4D9BB3E642C9 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D6611D4C244772B1DBA7DF /* Security.framework */; };
+		0CA761BFF0A44AC49DD29FA6 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12815CFF48BE48419B90F3C2 /* CFNetwork.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,6 +141,67 @@
 		E5296961787A4CB4B5E6BB69 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "AudioToolbox.framework"; path = "System/Library/Frameworks/AudioToolbox.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
 		15D1200AC30E4EF1BB1BC15C /* CDVSplashScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVSplashScreen.m"; path = "org.apache.cordova.splashscreen/CDVSplashScreen.m"; sourceTree = "<group>"; fileEncoding = 4; };
 		AB5FA00CF79D40C8B1C5E9A1 /* CDVSplashScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVSplashScreen.h"; path = "org.apache.cordova.splashscreen/CDVSplashScreen.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		335219DFA1FB4305A2A60900 /* NotificarePlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "NotificarePlugin.m"; path = "re.notifica.cordova/NotificarePlugin.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		F652D99535F0485CA8EC0A0A /* NotificareAppDelegateSurrogate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "NotificareAppDelegateSurrogate.m"; path = "re.notifica.cordova/NotificareAppDelegateSurrogate.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		C748A76D9E6C46E9BBE6BBC8 /* libNotificarePushLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libNotificarePushLib.a"; path = "SydJS/Plugins/re.notifica.cordova/libNotificarePushLib.a"; sourceTree = "<group>"; fileEncoding = 4; };
+		49002B09AD304FF783F19BA8 /* NotificarePlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificarePlugin.h"; path = "re.notifica.cordova/NotificarePlugin.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		34152822783D423B934BA5C3 /* NotificareAppDelegateSurrogate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareAppDelegateSurrogate.h"; path = "re.notifica.cordova/NotificareAppDelegateSurrogate.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		F763A22C05CC42F9A8063E3C /* NotificareApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareApp.h"; path = "re.notifica.cordova/NotificareApp.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		19F4EF13121A42048EBAF51F /* NotificareBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareBrowser.h"; path = "re.notifica.cordova/NotificareBrowser.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		78B1B37FF19344F7A35525DF /* NotificareCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareCallback.h"; path = "re.notifica.cordova/NotificareCallback.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		8BD7C9BEE6C84D34A05CF35B /* NotificareCustom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareCustom.h"; path = "re.notifica.cordova/NotificareCustom.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		171DA29F354B45228103E3BA /* NotificareMail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareMail.h"; path = "re.notifica.cordova/NotificareMail.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		E0A89DC4FCB443D8A693DB23 /* NotificareSMS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareSMS.h"; path = "re.notifica.cordova/NotificareSMS.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		65760D2E384240F6BD38A199 /* NotificareTelephone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareTelephone.h"; path = "re.notifica.cordova/NotificareTelephone.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		98DE5AB0989545AFB24FF33C /* ActionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "ActionDelegate.h"; path = "re.notifica.cordova/ActionDelegate.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		9526FBA7B5654711B5E9F86D /* ActionType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "ActionType.h"; path = "re.notifica.cordova/ActionType.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		75D5F9AE275048ECA619B028 /* NSData+NotificareMKBase64.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSData+NotificareMKBase64.h"; path = "re.notifica.cordova/NSData+NotificareMKBase64.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		1984D905F318402CA52E923F /* NSDate+NotificareRFC1123.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSDate+NotificareRFC1123.h"; path = "re.notifica.cordova/NSDate+NotificareRFC1123.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		B5FE32479A7C4756A610AF0D /* NSDictionary+NotificareRequestEncoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+NotificareRequestEncoding.h"; path = "re.notifica.cordova/NSDictionary+NotificareRequestEncoding.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		6C3B69DE11D24FFD8562D495 /* NSString+NotificareMKNetworkKitAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSString+NotificareMKNetworkKitAdditions.h"; path = "re.notifica.cordova/NSString+NotificareMKNetworkKitAdditions.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		611A42F9DE4849EA83251B61 /* UIAlertView+NotificareMKNetworkKitAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIAlertView+NotificareMKNetworkKitAdditions.h"; path = "re.notifica.cordova/UIAlertView+NotificareMKNetworkKitAdditions.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		72D361739C6842E4B84A797C /* NotificareReachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareReachability.h"; path = "re.notifica.cordova/NotificareReachability.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		26D72B816CD748E291EC4CE7 /* NotificareMKNetworkEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareMKNetworkEngine.h"; path = "re.notifica.cordova/NotificareMKNetworkEngine.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		94E5510CF77B4F2DB54ACEB7 /* NotificareMKNetworkKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareMKNetworkKit.h"; path = "re.notifica.cordova/NotificareMKNetworkKit.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		97C9CBC2236048AB9CFB0CAB /* NotificareMKNetworkOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareMKNetworkOperation.h"; path = "re.notifica.cordova/NotificareMKNetworkOperation.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		D48A4C07C2BB4B83909620EA /* base64.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "base64.h"; path = "re.notifica.cordova/base64.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		5A54AE3E48574693ACACDC53 /* NSData+SRB64Additions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSData+SRB64Additions.h"; path = "re.notifica.cordova/NSData+SRB64Additions.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		9E150688EC94477F99B43B53 /* SocketRocket-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "SocketRocket-Prefix.pch"; path = "re.notifica.cordova/SocketRocket-Prefix.pch"; sourceTree = "<group>"; fileEncoding = 4; };
+		0F88DEFA366D45618D164614 /* SRWebSocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "SRWebSocket.h"; path = "re.notifica.cordova/SRWebSocket.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		3F6EEB7EC70E40E387573DD3 /* Action.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Action.h"; path = "re.notifica.cordova/Action.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		DBC923508DEC45BAB17AE62B /* Attachment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Attachment.h"; path = "re.notifica.cordova/Attachment.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		5B8235AB83964B328330C635 /* Content.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Content.h"; path = "re.notifica.cordova/Content.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		8A49D31162B6422AB01C0184 /* Notification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Notification.h"; path = "re.notifica.cordova/Notification.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		98CF7F249EA9440F92BA41CB /* NSData+Hex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSData+Hex.h"; path = "re.notifica.cordova/NSData+Hex.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		BAB2ECC0FE1A49E88D1BF922 /* NSDictionary+FromPlist.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+FromPlist.h"; path = "re.notifica.cordova/NSDictionary+FromPlist.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		8B31799D8F51400AB6B8864E /* NSString+FromBundle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSString+FromBundle.h"; path = "re.notifica.cordova/NSString+FromBundle.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		9660D9480DCE493D8E0E91C9 /* NSString+Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSString+Utils.h"; path = "re.notifica.cordova/NSString+Utils.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		FE81B6C07510423F9F39F854 /* UIImage+FromBundle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIImage+FromBundle.h"; path = "re.notifica.cordova/UIImage+FromBundle.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		E72534F6689D4E9CA333EF47 /* NotificareAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareAlert.h"; path = "re.notifica.cordova/NotificareAlert.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		AF0212ADE328474385AA48B7 /* NotificareForm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareForm.h"; path = "re.notifica.cordova/NotificareForm.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		F3B0429CC727401799B14292 /* NotificareImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareImage.h"; path = "re.notifica.cordova/NotificareImage.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		27845F82B5BF4F7294FAB24B /* NotificareLocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareLocation.h"; path = "re.notifica.cordova/NotificareLocation.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		1A4F51F131D746229B126BD8 /* NotificareMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareMap.h"; path = "re.notifica.cordova/NotificareMap.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		D1EBC9A0171949B5B6E6F526 /* NotificarePassbook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificarePassbook.h"; path = "re.notifica.cordova/NotificarePassbook.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		BA6B8CDA6FC1455AAA7CEE19 /* NotificareRate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareRate.h"; path = "re.notifica.cordova/NotificareRate.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		87FBD405E32F46F784A330EB /* NotificareURL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareURL.h"; path = "re.notifica.cordova/NotificareURL.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		2A95BA49862749E5826324F9 /* NotificareVideo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareVideo.h"; path = "re.notifica.cordova/NotificareVideo.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		B4042B57407E4462831BD83B /* NotificareWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareWebView.h"; path = "re.notifica.cordova/NotificareWebView.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		7328FD9497FF46DA84A3187D /* NotificationDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificationDelegate.h"; path = "re.notifica.cordova/NotificationDelegate.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		DF0796E8E362409EA495D2A0 /* NotificationType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificationType.h"; path = "re.notifica.cordova/NotificationType.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		741D7A8D9A8B416980959571 /* Notificare.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Notificare.h"; path = "re.notifica.cordova/Notificare.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		65C5FB0180C444F7B7E969C7 /* NotificareActions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareActions.h"; path = "re.notifica.cordova/NotificareActions.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		58A150D55A924272A4E0DDA6 /* NotificareEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareEngine.h"; path = "re.notifica.cordova/NotificareEngine.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		A73FFEBEEA6C47FD8B6628C4 /* NotificarePushLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificarePushLib.h"; path = "re.notifica.cordova/NotificarePushLib.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		9691D981D3AE44F9AA02F333 /* NotificareResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = "NotificareResources.bundle"; path = "NotificareResources.bundle"; sourceTree = "<group>"; };
+		2182A3F75EA3425DAB815420 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "MessageUI.framework"; path = "System/Library/Frameworks/MessageUI.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		E8868BCC064646FFA21A30A3 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libicucore.dylib"; path = "usr/lib/libicucore.dylib"; sourceTree = SDKROOT; fileEncoding = 4; };
+		F1C4BE1218814C35B3AE58CD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "UIKit.framework"; path = "System/Library/Frameworks/UIKit.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		35984AD96D004BBCBAFC991B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Foundation.framework"; path = "System/Library/Frameworks/Foundation.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		99957169729A4BA7937EEF91 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "PassKit.framework"; path = "System/Library/Frameworks/PassKit.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		4F7BCD4822AA4E8DAB0C5252 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "MapKit.framework"; path = "System/Library/Frameworks/MapKit.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		A7D6611D4C244772B1DBA7DF /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Security.framework"; path = "System/Library/Frameworks/Security.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		12815CFF48BE48419B90F3C2 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "CFNetwork.framework"; path = "System/Library/Frameworks/CFNetwork.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +216,15 @@
 				5AEE5B35173C68D80009041E /* CoreLocation.framework in Frameworks */,
 				9E2F8E2D8C8347FFB41CBCB5 /* SystemConfiguration.framework in Frameworks */,
 				AD5A1A838D014E9B83DACA01 /* AudioToolbox.framework in Frameworks */,
+				A6FD8F43DDF545B28DFA5A8C /* libNotificarePushLib.a in Frameworks */,
+				5DF41834945F4B0AB1C93B22 /* MessageUI.framework in Frameworks */,
+				40D58BECF1FF4F7880581719 /* libicucore.dylib in Frameworks */,
+				35A7A4A9232F4E1E86E5B6E0 /* UIKit.framework in Frameworks */,
+				9E5636423E4442748D11A915 /* Foundation.framework in Frameworks */,
+				B900B905A43341F68E279207 /* PassKit.framework in Frameworks */,
+				6EEBA43800EF48F68CF571AB /* MapKit.framework in Frameworks */,
+				DD90DE092BBF4D9BB3E642C9 /* Security.framework in Frameworks */,
+				0CA761BFF0A44AC49DD29FA6 /* CFNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +307,7 @@
 				308D05311370CCF300D202BF /* splash */,
 				8D1107310486CEB800E47090 /* SydJS-Info.plist */,
 				1C8A1783776A41199F960662 /* CDVNotification.bundle */,
+				9691D981D3AE44F9AA02F333 /* NotificareResources.bundle */,
 			);
 			name = Resources;
 			path = "SydJS/Resources";
@@ -239,6 +322,15 @@
 				305D5FD0115AB8F900A74A75 /* MobileCoreServices.framework */,
 				20DDB938F5444DE7A80D2166 /* SystemConfiguration.framework */,
 				E5296961787A4CB4B5E6BB69 /* AudioToolbox.framework */,
+				C748A76D9E6C46E9BBE6BBC8 /* libNotificarePushLib.a */,
+				2182A3F75EA3425DAB815420 /* MessageUI.framework */,
+				E8868BCC064646FFA21A30A3 /* libicucore.dylib */,
+				F1C4BE1218814C35B3AE58CD /* UIKit.framework */,
+				35984AD96D004BBCBAFC991B /* Foundation.framework */,
+				99957169729A4BA7937EEF91 /* PassKit.framework */,
+				4F7BCD4822AA4E8DAB0C5252 /* MapKit.framework */,
+				A7D6611D4C244772B1DBA7DF /* Security.framework */,
+				12815CFF48BE48419B90F3C2 /* CFNetwork.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -268,6 +360,57 @@
 				64B2EC9C169F4096BEE3824F /* CDVNotification.h */,
 				15D1200AC30E4EF1BB1BC15C /* CDVSplashScreen.m */,
 				AB5FA00CF79D40C8B1C5E9A1 /* CDVSplashScreen.h */,
+				335219DFA1FB4305A2A60900 /* NotificarePlugin.m */,
+				F652D99535F0485CA8EC0A0A /* NotificareAppDelegateSurrogate.m */,
+				49002B09AD304FF783F19BA8 /* NotificarePlugin.h */,
+				34152822783D423B934BA5C3 /* NotificareAppDelegateSurrogate.h */,
+				F763A22C05CC42F9A8063E3C /* NotificareApp.h */,
+				19F4EF13121A42048EBAF51F /* NotificareBrowser.h */,
+				78B1B37FF19344F7A35525DF /* NotificareCallback.h */,
+				8BD7C9BEE6C84D34A05CF35B /* NotificareCustom.h */,
+				171DA29F354B45228103E3BA /* NotificareMail.h */,
+				E0A89DC4FCB443D8A693DB23 /* NotificareSMS.h */,
+				65760D2E384240F6BD38A199 /* NotificareTelephone.h */,
+				98DE5AB0989545AFB24FF33C /* ActionDelegate.h */,
+				9526FBA7B5654711B5E9F86D /* ActionType.h */,
+				75D5F9AE275048ECA619B028 /* NSData+NotificareMKBase64.h */,
+				1984D905F318402CA52E923F /* NSDate+NotificareRFC1123.h */,
+				B5FE32479A7C4756A610AF0D /* NSDictionary+NotificareRequestEncoding.h */,
+				6C3B69DE11D24FFD8562D495 /* NSString+NotificareMKNetworkKitAdditions.h */,
+				611A42F9DE4849EA83251B61 /* UIAlertView+NotificareMKNetworkKitAdditions.h */,
+				72D361739C6842E4B84A797C /* NotificareReachability.h */,
+				26D72B816CD748E291EC4CE7 /* NotificareMKNetworkEngine.h */,
+				94E5510CF77B4F2DB54ACEB7 /* NotificareMKNetworkKit.h */,
+				97C9CBC2236048AB9CFB0CAB /* NotificareMKNetworkOperation.h */,
+				D48A4C07C2BB4B83909620EA /* base64.h */,
+				5A54AE3E48574693ACACDC53 /* NSData+SRB64Additions.h */,
+				9E150688EC94477F99B43B53 /* SocketRocket-Prefix.pch */,
+				0F88DEFA366D45618D164614 /* SRWebSocket.h */,
+				3F6EEB7EC70E40E387573DD3 /* Action.h */,
+				DBC923508DEC45BAB17AE62B /* Attachment.h */,
+				5B8235AB83964B328330C635 /* Content.h */,
+				8A49D31162B6422AB01C0184 /* Notification.h */,
+				98CF7F249EA9440F92BA41CB /* NSData+Hex.h */,
+				BAB2ECC0FE1A49E88D1BF922 /* NSDictionary+FromPlist.h */,
+				8B31799D8F51400AB6B8864E /* NSString+FromBundle.h */,
+				9660D9480DCE493D8E0E91C9 /* NSString+Utils.h */,
+				FE81B6C07510423F9F39F854 /* UIImage+FromBundle.h */,
+				E72534F6689D4E9CA333EF47 /* NotificareAlert.h */,
+				AF0212ADE328474385AA48B7 /* NotificareForm.h */,
+				F3B0429CC727401799B14292 /* NotificareImage.h */,
+				27845F82B5BF4F7294FAB24B /* NotificareLocation.h */,
+				1A4F51F131D746229B126BD8 /* NotificareMap.h */,
+				D1EBC9A0171949B5B6E6F526 /* NotificarePassbook.h */,
+				BA6B8CDA6FC1455AAA7CEE19 /* NotificareRate.h */,
+				87FBD405E32F46F784A330EB /* NotificareURL.h */,
+				2A95BA49862749E5826324F9 /* NotificareVideo.h */,
+				B4042B57407E4462831BD83B /* NotificareWebView.h */,
+				7328FD9497FF46DA84A3187D /* NotificationDelegate.h */,
+				DF0796E8E362409EA495D2A0 /* NotificationType.h */,
+				741D7A8D9A8B416980959571 /* Notificare.h */,
+				65C5FB0180C444F7B7E969C7 /* NotificareActions.h */,
+				58A150D55A924272A4E0DDA6 /* NotificareEngine.h */,
+				A73FFEBEEA6C47FD8B6628C4 /* NotificarePushLib.h */,
 			);
 			name = Plugins;
 			path = "SydJS/Plugins";
@@ -432,6 +575,7 @@
 				7E7966E51810823500FA85AD /* icon-76@2x.png in Resources */,
 				30FC414916E50CA1004E6F35 /* icon-72@2x.png in Resources */,
 				8525FD2BB32E4576A7168089 /* CDVNotification.bundle in Resources */,
+				1E1C3CC6C5894901847F3CA2 /* NotificareResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,6 +614,8 @@
 				F6E2B8975D974050AFF7ED05 /* CDVStatusBar.m in Sources */,
 				7527E5AF03D54CB68753605D /* CDVNotification.m in Sources */,
 				D4D75C1B741C4ACF9C9FA67B /* CDVSplashScreen.m in Sources */,
+				BF2F51875E7D46AD91272442 /* NotificarePlugin.m in Sources */,
+				8DAEF0EBE164476C9E833FEA /* NotificareAppDelegateSurrogate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,6 +695,10 @@
 				);
 				PRODUCT_NAME = "SydJS";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/SydJS/Plugins/re.notifica.cordova\"",
+				);
 			};
 			name = Debug;
 		};
@@ -580,6 +730,10 @@
 				);
 				PRODUCT_NAME = "SydJS";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/SydJS/Plugins/re.notifica.cordova\"",
+				);
 			};
 			name = Release;
 		};

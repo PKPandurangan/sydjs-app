@@ -40,6 +40,9 @@
         <param name="ios-package" value="CDVSplashScreen" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="Notificare">
+        <param name="ios-package" value="NotificarePlugin" />
+    </feature>
     <name>SydJS</name>
     <description>
         A companion app to the SydJS website.

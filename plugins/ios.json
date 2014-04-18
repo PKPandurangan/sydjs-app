@@ -39,6 +39,10 @@
                         {
                             "xml": "<feature name=\"SplashScreen\"><param name=\"ios-package\" value=\"CDVSplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Notificare\"><param name=\"ios-package\" value=\"NotificarePlugin\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -48,18 +52,82 @@
                     "CoreGraphics.framework": [
                         {
                             "xml": "false",
-                            "count": 2
+                            "count": 3
                         }
                     ],
                     "SystemConfiguration.framework": [
                         {
                             "xml": "true",
                             "count": 1
+                        },
+                        {
+                            "xml": "false",
+                            "count": 1
                         }
                     ],
                     "AudioToolbox.framework": [
                         {
                             "xml": "true",
+                            "count": 1
+                        }
+                    ],
+                    "CoreLocation.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "MobileCoreServices.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "MessageUI.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "libicucore.dylib": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "UIKit.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "Foundation.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "PassKit.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "MapKit.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "Security.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "CFNetwork.framework": [
+                        {
+                            "xml": "false",
                             "count": 1
                         }
                     ]
@@ -84,6 +152,9 @@
             "PACKAGE_NAME": "com.sydjs"
         },
         "org.apache.cordova.splashscreen": {
+            "PACKAGE_NAME": "com.sydjs"
+        },
+        "re.notifica.cordova": {
             "PACKAGE_NAME": "com.sydjs"
         }
     },

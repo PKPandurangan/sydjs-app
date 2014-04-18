@@ -49,6 +49,13 @@ module.exports = [
         "clobbers": [
             "navigator.splashscreen"
         ]
+    },
+    {
+        "file": "plugins/re.notifica.cordova/www/notificare.js",
+        "id": "re.notifica.cordova.Notificare",
+        "clobbers": [
+            "Notificare"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -59,7 +66,8 @@ module.exports.metadata =
     "org.apache.cordova.network-information": "0.2.7",
     "org.apache.cordova.statusbar": "0.1.3",
     "org.apache.cordova.dialogs": "0.2.6",
-    "org.apache.cordova.splashscreen": "0.2.7"
+    "org.apache.cordova.splashscreen": "0.2.7",
+    "re.notifica.cordova": "0.1.1"
 }
 // BOTTOM OF METADATA
 });
