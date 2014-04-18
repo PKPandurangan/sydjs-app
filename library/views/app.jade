@@ -84,6 +84,8 @@ html
 			#system-notice: .box Sorry, SydJS currently supports iOS and Android devices only. Other devices will be supported soon.
 			#ping-notice: .box
 			
+			include app/signin
+			include app/register
 			include app/home
 			include app/about
 			include app/schedule
@@ -124,6 +126,8 @@ html
 		script(src='js/common/ui/spinner.js')
 		
 		//- view scripts
+		script(src='js/app/views/signin.js')
+		script(src='js/app/views/register.js')
 		script(src='js/app/views/home.js')
 		script(src='js/app/views/about.js')
 		script(src='js/app/views/schedule.js')

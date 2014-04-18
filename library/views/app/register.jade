@@ -1,0 +1,74 @@
+#view-register.view
+	.titlebar
+		.btn-back
+			.inner
+				.icon.ion-ios7-arrow-back
+				.label Back
+		.title Register your details
+	.container.scrollable
+		.form
+			.wrap
+				.line
+					input(type='text', id='view-register-details-field-firstName', placeholder='First Name', autocomplete='off')
+				.line
+					input(type='text', id='view-register-details-field-lastName', placeholder='Last Name', autocomplete='off')
+				.line
+					input(type='email', id='view-register-details-field-email', placeholder='Email Address', autocomplete='off')
+				.line
+					input(type='tel', id='view-register-details-field-phone', placeholder='Contact Number', autocomplete='off')
+				.line
+					input(type='text', id='view-register-details-field-street1', placeholder='Address', autocomplete='off')
+				.line
+					input(type='text', id='view-register-details-field-suburb', placeholder='Suburb', autocomplete='off')
+				.line.select.state
+					.label State
+					.icon.ion-ios7-arrow-down
+					select(id='view-register-details-field-state', autocomplete='off')
+						option(value='act') ACT
+						option(value='nsw') NSW
+						option(value='nt') NT
+						option(value='qld') QLD
+						option(value='sa') SA
+						option(value='tas') TAS
+						option(value='vic') VIC
+						option(value='wa') WA
+				.line
+					input(type='tel', id='view-register-details-field-postcode', placeholder='Postcode', autocomplete='off')
+				.line.select.dobDay
+					.label Birth Day
+					.icon.ion-ios7-arrow-down
+					select(id='view-register-details-field-birthdayDay', autocomplete='off')
+						option(value='') Birth Day
+						- for (var d = 1; d < 32; d++)
+							option(value=(d < 10 ? '0' : '') + d)=d
+				.line.select.dobMonth
+					.label Birth Month
+					.icon.ion-ios7-arrow-down
+					select(id='view-register-details-field-birthdayMonth', autocomplete='off')
+						option(value='') Birth Month
+						- var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+						each m in months
+							option(value=m)=m
+				.line.select.dobYear
+					.label Birth Year
+					.icon.ion-ios7-arrow-down
+					select(id='view-register-details-field-birthdayYear', autocomplete='off')
+						option(value='') Birth Year
+						- for (var y = 2000; y > 1920; y--)
+							option(value=y)=y
+				.line.select.isOptedIn
+					.label Send occasional updates
+					.switcher-isOptedIn.switcher.on
+						.state On
+						.handle
+						input(id='view-register-details-field-isOptedIn', type='hidden', value='yes', autocomplete='off')
+					.description I wish to provide my information to receive future promotional, marketing and publicity updates in any media from Continental Tyres.
+				.line.select.doesAgreeToTermsAndConditions
+					.label Agree to terms &amp; conditions
+					.switcher-doesAgreeToTermsAndConditions.switcher.on
+						.state On
+						.handle
+						input(id='view-register-details-field-doesAgreeToTermsAndConditions', type='hidden', value='yes', autocomplete='off')
+					.description I agree to the <a class="terms-and-conditions" href="javascript:;">terms and conditions</a>
+			.footer
+				.btn-plain.btn-center.yellow.btn-submit Save

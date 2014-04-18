@@ -25,8 +25,6 @@
 				
 				this.setState();
 				
-				this.getStatus();
-				
 				// Analytics
 				// app.trackEvent( 'googleanalytics', 'Rewards', { category: 'view', action: 'visible' } );
 				// app.trackEvent( 'mixpanel', 'Viewing Rewards', {} );
@@ -56,6 +54,8 @@
 		
 		setState: function() {
 		
+			var status = app.data.status.meetup;
+			
 			var $states = this.$('.states');
 			
 			var $rsvp = $states.find('.rsvp'),
@@ -65,20 +65,32 @@
 				$ticketsSoon = $states.find('.tickets-soon');
 			
 			$rsvp.hide();
-			// $rsvpNotAttending.hide();
+			$rsvpNotAttending.hide();
 			$rsvpAttending.hide();
 			$soldOut.hide();
 			$ticketsSoon.hide();
 			
-			// Ensure the payment details button is always reset when we view this screen
-			/*
-			$rsvp.css({
-				'opacity': 1,
-				'bottom': -100,
-				'-webkit-transform': 'translate3d(0,0,0)'
-			});
-			*/
-		
+			if (status.rsvped && status.attending) {
+				$rsvpAttending.show();
+			} else if (status.rsvped && !status.attending) {
+				$rsvpNotAttending.show();
+			} else if (status.ticketsAvailable && status.ticketsRemaining) {
+				$rsvp.show();
+			} else if (status.ticketsAvailable && status.ticketsAvailable == 0) {
+				$soldOut.show();
+			} else {
+				$ticketsSoon.show();
+			}
+			
+			// Aniamte in states
+			$states.css('transform', 'translate3d(0,0,0)');
+			
+			setTimeout(function() {
+				$states.animate({
+					translate3d: '0,-75px,0'
+				}, 250, 'ease-out');
+			}, 300);
+			
 		},
 		
 		rsvpAttending: function() {
@@ -91,12 +103,6 @@
 		
 		rsvpCancel: function() {
 			console.log('rsvp cancel');
-		},
-		
-		getStatus: function() {
-			app.getStatus(function(err) {
-				if (err) app.showNotification('Alert', 'Sorry, there was a problem retrieving latest status. Please try again.');
-			});
 		}
 		
 	});

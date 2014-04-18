@@ -76,8 +76,9 @@
 		}
 		.states {
 			position: absolute;
+			overflow: hidden;
+			bottom: -75px;
 			width: 100%;
-			bottom: 0px;
 			
 			.rsvp {
 				position: relative;
@@ -102,6 +103,9 @@
 					width: 100px;
 					border-left: 1px solid #000;
 				}
+				.btn-plain {
+					display: table-cell;
+				}
 			}
 			
 			.sold-out {
@@ -117,7 +121,7 @@
 				position: relative;
 				overflow: hidden;
 				.text {
-					opacity: 0.25;
+					opacity: 0.5;
 					color: #fff;
 				}
 			}

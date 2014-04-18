@@ -16,6 +16,8 @@ _.extend(app.data, {
 	
 	session: {}, // Session related data (code used etc)
 	
+	status: {}, // Status data (rsvp's etc)
+	
 	config: {} // Stores the config settings we get back from every ping request
 	
 });
@@ -246,17 +248,9 @@ _.extend(app, {
 		
 		$log( "[storeSessionInfo] - Storing session info into local storage." );
 		
-		// populate local storage with date stamp and data returned from the validate code function
-		localStorage.setItem( 'session_dateStamp', data.dateStamp );
-		localStorage.setItem( 'session_valid', data.valid );
-		
-		localStorage.setItem( 'session_customer', JSON.stringify( data.customer ) );
-		localStorage.setItem( 'session_code', data.code );
-		
-		localStorage.setItem( 'session_cinemas', JSON.stringify( data.cinemas ) );
-		localStorage.setItem( 'session_rewardPartnerLocations', JSON.stringify( data.rewardPartnerLocations ) );
-		
-		localStorage.setItem( 'session_claimedToday', JSON.stringify( data.claimedToday ) );
+		// populate local storage with date and user date
+		localStorage.setItem( 'session_date', data.date );
+		localStorage.setItem( 'session_user', JSON.stringify( data.user ) );
 		
 		this.populateSessionInfo(data);
 		
@@ -266,11 +260,7 @@ _.extend(app, {
 		
 		$log( "[populateSessionInfo] - Populating session info into app." );
 		
-		_.extend(this.data.session, _.pick(data, 'dateStamp', 'valid', 'customer', 'code', 'cinemas', 'rewardPartnerLocations', 'claimedToday'));
-		
-		// Set collection data
-		collections.cinemas.reset(data.cinemas);
-		collections.rewardPartnerLocations.reset(data.rewardPartnerLocations);
+		_.extend(this.data.session, _.pick(data, 'date', 'user'));
 		
 	},
 	
@@ -284,54 +274,20 @@ _.extend(app, {
 		// Check local storage for session data
 		$log( "[resumeSession] - Checking local storage..." );
 		
-		var dateStamp = localStorage.getItem( 'session_dateStamp' ),
-			valid = localStorage.getItem( 'session_valid' ) == 'true';
-		
-		var sessionTimeout = 10800000; // 3 hours
-		
-		var dateNow = new Date().getTime();
+		var date = localStorage.getItem( 'session_date' ),
+			user = localStorage.getItem( 'session_user' );
 		
 		// Check for timestamp and valid code
-		if ( dateStamp && valid )
+		if ( date && user)
 		{
-			$log( "[resumeSession] - Existing data found..." );
-			
-			$log( "[resumeSession] - Populating data from local storage..." );
+			$log( "[resumeSession] - Existing data found, populating data from local storage..." );
 			
 			app.populateSessionInfo({
-				dateStamp: localStorage.getItem( 'session_dateStamp' ),
-				valid: localStorage.getItem( 'session_valid' ),
-				
-				customer: JSON.parse( localStorage.getItem( 'session_customer' ) ),
-				code: localStorage.getItem( 'session_code' ),
-				
-				cinemas: JSON.parse( localStorage.getItem( 'session_cinemas' ) ),
-				rewardPartnerLocations: JSON.parse( localStorage.getItem( 'session_rewardPartnerLocations' ) ),
-				
-				claimedToday: JSON.parse( localStorage.getItem( 'session_claimedToday' ) )
+				date: localStorage.getItem( 'session_date' ),
+				user: JSON.parse( localStorage.getItem( 'session_user' ) )
 			});
 			
-			// Check if session time data is still valid (3 hour window)
-			var sessionInfoTimeDifference = ( parseInt( dateStamp ) + sessionTimeout ) - dateNow,
-				sessionInfoIsStillValid = sessionInfoTimeDifference > 0;
-			
-			$log( "[resumeSession] - Session info was retrieved at [" + moment( parseInt( dateStamp ) ).format('h:mm:ss a') + "]..." );
-			
-			if ( sessionInfoIsStillValid ) {
-				$log( "[resumeSession] - Session info will expire in [" + Math.round( sessionInfoTimeDifference / 60000 ) + "] minutes at [" + moment( parseInt( dateStamp ) + sessionTimeout ).format('h:mm:ss a') + "]..." );
-			} else {
-				$log( "[resumeSession] - Session info expired [" + Math.round( sessionInfoTimeDifference / 60000 ) + "] minutes ago at [" + moment().subtract( 'minutes', sessionInfoTimeDifference ).format('h:mm:ss a') + "]..." );
-			}
-			
-			// If session info is outdated, force them to enter the code again (erase a couple of fields)
-			if ( !sessionInfoIsStillValid ) {
-				$log( "[resumeSession] - Showing [start] screen." );
-				
-				$( '#preloader' ).animate({ opacity: 0 }, 250 );
-				app.signOut();
-				
-				return;
-			}
+			$log( "[resumeSession] - Session info was retrieved at [" + moment( parseInt( date ) ).format('h:mm:ss a') + "]..." );
 			
 			$( '#preloader' ).animate({ opacity: 0 }, 250 );
 			app.view('home').show('slide-up');
@@ -340,10 +296,10 @@ _.extend(app, {
 		else
 		{
 			$log( "[resumeSession] - No existing data found..." );
-			$log( "[resumeSession] - Showing [start] screen." );
+			$log( "[resumeSession] - Showing [signin] screen." );
 			
 			$( '#preloader' ).animate({ opacity: 0 }, 250 );
-			app.view('home').show('slide-up');
+			app.view('signin').show('slide-up');
 		}
 		
 	},
@@ -362,6 +318,8 @@ _.extend(app, {
 			success: function(data) {
 			
 				$log( "[getStatus] - Successfully retrieved status." );
+				
+				app.data.status = data;
 				
 				return callback(false);
 			
@@ -538,7 +496,9 @@ app.on('init', function() {
 			
 			// Then resume the session
 			setTimeout(function() {
-				app.resumeSession();
+				app.getStatus(function() {
+					app.resumeSession();
+				});
 			}, 250);
 		
 		});
