@@ -76,8 +76,9 @@
 		}
 		.states {
 			position: absolute;
+			overflow: hidden;
+			bottom: -75px;
 			width: 100%;
-			bottom: 0px;
 			
 			.rsvp {
 				position: relative;
@@ -85,6 +86,7 @@
 				.btn-plain {
 					float: left;
 					width: 50%;
+					display: table-cell;
 					&:last-of-type {
 						border-left: 1px solid #000;
 					}
@@ -95,13 +97,14 @@
 				position: relative;
 				overflow: hidden;
 				.text {
-					float: left;
 					width: 75%;
 				}
 				.cancel {
-					width: 25%;
-					float: left;
+					width: 100px;
 					border-left: 1px solid #000;
+				}
+				.btn-plain {
+					display: table-cell;
 				}
 			}
 			
@@ -118,7 +121,7 @@
 				position: relative;
 				overflow: hidden;
 				.text {
-					opacity: 0.25;
+					opacity: 0.5;
 					color: #fff;
 				}
 			}

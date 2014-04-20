@@ -19,6 +19,9 @@
     <feature name="SplashScreen">
         <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
     </feature>
+    <feature name="Notificare">
+        <param name="android-package" value="re.notifica.cordova.NotificarePlugin" />
+    </feature>
     <name>SydJS</name>
     <description>
         A companion app to the SydJS website.
@@ -28,7 +31,4 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
-    <feature name="Notificare">
-        <param name="android-package" value="re.notifica.cordova.NotificarePlugin" />
-    </feature>
 </widget>

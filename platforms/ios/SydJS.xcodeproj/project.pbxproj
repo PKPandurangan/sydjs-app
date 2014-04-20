@@ -6,8 +6,10 @@
 	objectVersion = 46;
 	objects = {
 /* Begin PBXBuildFile section */
+		0CA761BFF0A44AC49DD29FA6 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12815CFF48BE48419B90F3C2 /* CFNetwork.framework */; };
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		1E1C3CC6C5894901847F3CA2 /* NotificareResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9691D981D3AE44F9AA02F333 /* NotificareResources.bundle */; };
 		1F766FE113BBADB100FB74C0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F766FDC13BBADB100FB74C0 /* Localizable.strings */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		301BF552109A68D80062928A /* libCordova.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 301BF535109A57CC0062928A /* libCordova.a */; };
@@ -25,8 +27,15 @@
 		308D05391370CCF300D202BF /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 308D05301370CCF300D202BF /* icon@2x.png */; };
 		30A0434814DC770100060A13 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30A0434314DC770100060A13 /* Localizable.strings */; };
 		30FC414916E50CA1004E6F35 /* icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30FC414816E50CA1004E6F35 /* icon-72@2x.png */; };
+		35A7A4A9232F4E1E86E5B6E0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1C4BE1218814C35B3AE58CD /* UIKit.framework */; };
+		40D58BECF1FF4F7880581719 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E8868BCC064646FFA21A30A3 /* libicucore.dylib */; };
+		54AF4A539CE446CDB17985F5 /* CDVReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D91CA764F84DD09A75705C /* CDVReachability.m */; };
 		5AEE5B35173C68D80009041E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AEE5B34173C68D80009041E /* CoreLocation.framework */; };
 		5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */; };
+		5DF41834945F4B0AB1C93B22 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2182A3F75EA3425DAB815420 /* MessageUI.framework */; };
+		5E08D12D99F247E5878FDE6A /* CDVDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 193A5F89C70349808ADF6A9C /* CDVDevice.m */; };
+		6EEBA43800EF48F68CF571AB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F7BCD4822AA4E8DAB0C5252 /* MapKit.framework */; };
+		7527E5AF03D54CB68753605D /* CDVNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 2040D0D231D9499587AA15A8 /* CDVNotification.m */; };
 		7E7966DE1810823500FA85AD /* icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966D41810823500FA85AD /* icon-40.png */; };
 		7E7966DF1810823500FA85AD /* icon-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966D51810823500FA85AD /* icon-40@2x.png */; };
 		7E7966E01810823500FA85AD /* icon-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966D61810823500FA85AD /* icon-50.png */; };
@@ -37,29 +46,21 @@
 		7E7966E51810823500FA85AD /* icon-76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DB1810823500FA85AD /* icon-76@2x.png */; };
 		7E7966E61810823500FA85AD /* icon-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DC1810823500FA85AD /* icon-small.png */; };
 		7E7966E71810823500FA85AD /* icon-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DD1810823500FA85AD /* icon-small@2x.png */; };
-		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
-		5E08D12D99F247E5878FDE6A /* CDVDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 193A5F89C70349808ADF6A9C /* CDVDevice.m */; };
-		B227A3E73A53485E8E2D3779 /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5D90D4EB814A7B863CE6BC /* CDVInAppBrowser.m */; };
-		8B189E146DD64A38B364B0CA /* CDVConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = E461C3C8B31E4D3F98CC7A96 /* CDVConnection.m */; };
-		54AF4A539CE446CDB17985F5 /* CDVReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D91CA764F84DD09A75705C /* CDVReachability.m */; };
-		9E2F8E2D8C8347FFB41CBCB5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20DDB938F5444DE7A80D2166 /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		F6E2B8975D974050AFF7ED05 /* CDVStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A05E15D59C4D3D8D953D72 /* CDVStatusBar.m */; };
-		7527E5AF03D54CB68753605D /* CDVNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 2040D0D231D9499587AA15A8 /* CDVNotification.m */; };
 		8525FD2BB32E4576A7168089 /* CDVNotification.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1C8A1783776A41199F960662 /* CDVNotification.bundle */; };
-		AD5A1A838D014E9B83DACA01 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5296961787A4CB4B5E6BB69 /* AudioToolbox.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		D4D75C1B741C4ACF9C9FA67B /* CDVSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1200AC30E4EF1BB1BC15C /* CDVSplashScreen.m */; };
-		BF2F51875E7D46AD91272442 /* NotificarePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 335219DFA1FB4305A2A60900 /* NotificarePlugin.m */; };
+		8B189E146DD64A38B364B0CA /* CDVConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = E461C3C8B31E4D3F98CC7A96 /* CDVConnection.m */; };
 		8DAEF0EBE164476C9E833FEA /* NotificareAppDelegateSurrogate.m in Sources */ = {isa = PBXBuildFile; fileRef = F652D99535F0485CA8EC0A0A /* NotificareAppDelegateSurrogate.m */; };
-		A6FD8F43DDF545B28DFA5A8C /* libNotificarePushLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C748A76D9E6C46E9BBE6BBC8 /* libNotificarePushLib.a */; };
-		1E1C3CC6C5894901847F3CA2 /* NotificareResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9691D981D3AE44F9AA02F333 /* NotificareResources.bundle */; };
-		5DF41834945F4B0AB1C93B22 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2182A3F75EA3425DAB815420 /* MessageUI.framework */; };
-		40D58BECF1FF4F7880581719 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E8868BCC064646FFA21A30A3 /* libicucore.dylib */; };
-		35A7A4A9232F4E1E86E5B6E0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1C4BE1218814C35B3AE58CD /* UIKit.framework */; };
+		91CEA4C11902158C0062B0E3 /* Notificare.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91CEA4C01902158C0062B0E3 /* Notificare.plist */; };
+		9E2F8E2D8C8347FFB41CBCB5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20DDB938F5444DE7A80D2166 /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		9E5636423E4442748D11A915 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35984AD96D004BBCBAFC991B /* Foundation.framework */; };
+		A6FD8F43DDF545B28DFA5A8C /* libNotificarePushLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C748A76D9E6C46E9BBE6BBC8 /* libNotificarePushLib.a */; };
+		AD5A1A838D014E9B83DACA01 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5296961787A4CB4B5E6BB69 /* AudioToolbox.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		B227A3E73A53485E8E2D3779 /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5D90D4EB814A7B863CE6BC /* CDVInAppBrowser.m */; };
 		B900B905A43341F68E279207 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99957169729A4BA7937EEF91 /* PassKit.framework */; };
-		6EEBA43800EF48F68CF571AB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F7BCD4822AA4E8DAB0C5252 /* MapKit.framework */; };
+		BF2F51875E7D46AD91272442 /* NotificarePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 335219DFA1FB4305A2A60900 /* NotificarePlugin.m */; };
+		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
+		D4D75C1B741C4ACF9C9FA67B /* CDVSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1200AC30E4EF1BB1BC15C /* CDVSplashScreen.m */; };
 		DD90DE092BBF4D9BB3E642C9 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D6611D4C244772B1DBA7DF /* Security.framework */; };
-		0CA761BFF0A44AC49DD29FA6 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12815CFF48BE48419B90F3C2 /* CFNetwork.framework */; };
+		F6E2B8975D974050AFF7ED05 /* CDVStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A05E15D59C4D3D8D953D72 /* CDVStatusBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,14 +81,31 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F88DEFA366D45618D164614 /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRWebSocket.h; path = re.notifica.cordova/SRWebSocket.h; sourceTree = "<group>"; };
+		12815CFF48BE48419B90F3C2 /* CFNetwork.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		15D1200AC30E4EF1BB1BC15C /* CDVSplashScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVSplashScreen.m; path = org.apache.cordova.splashscreen/CDVSplashScreen.m; sourceTree = "<group>"; };
+		171DA29F354B45228103E3BA /* NotificareMail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareMail.h; path = re.notifica.cordova/NotificareMail.h; sourceTree = "<group>"; };
+		193A5F89C70349808ADF6A9C /* CDVDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVDevice.m; path = org.apache.cordova.device/CDVDevice.m; sourceTree = "<group>"; };
+		1984D905F318402CA52E923F /* NSDate+NotificareRFC1123.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+NotificareRFC1123.h"; path = "re.notifica.cordova/NSDate+NotificareRFC1123.h"; sourceTree = "<group>"; };
+		19F4EF13121A42048EBAF51F /* NotificareBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareBrowser.h; path = re.notifica.cordova/NotificareBrowser.h; sourceTree = "<group>"; };
+		1A4F51F131D746229B126BD8 /* NotificareMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareMap.h; path = re.notifica.cordova/NotificareMap.h; sourceTree = "<group>"; };
+		1C83FF5904FB4919B52CD03A /* CDVDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVDevice.h; path = org.apache.cordova.device/CDVDevice.h; sourceTree = "<group>"; };
+		1C8A1783776A41199F960662 /* CDVNotification.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CDVNotification.bundle; sourceTree = "<group>"; };
 		1D3623240D0F684500981E51 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		1D6058910D05DD3D006BFB54 /* SydJS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SydJS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* SydJS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SydJS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F766FDD13BBADB100FB74C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
 		1F766FE013BBADB100FB74C0 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = Localizable.strings; sourceTree = "<group>"; };
+		2040D0D231D9499587AA15A8 /* CDVNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVNotification.m; path = org.apache.cordova.dialogs/CDVNotification.m; sourceTree = "<group>"; };
+		20DDB938F5444DE7A80D2166 /* SystemConfiguration.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		2182A3F75EA3425DAB815420 /* MessageUI.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		26D72B816CD748E291EC4CE7 /* NotificareMKNetworkEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareMKNetworkEngine.h; path = re.notifica.cordova/NotificareMKNetworkEngine.h; sourceTree = "<group>"; };
+		27845F82B5BF4F7294FAB24B /* NotificareLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareLocation.h; path = re.notifica.cordova/NotificareLocation.h; sourceTree = "<group>"; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		301BF52D109A57CC0062928A /* CordovaLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CordovaLib.xcodeproj; path = "CordovaLib/CordovaLib.xcodeproj"; sourceTree = "<group>"; };
+		2A95BA49862749E5826324F9 /* NotificareVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareVideo.h; path = re.notifica.cordova/NotificareVideo.h; sourceTree = "<group>"; };
+		2E5D90D4EB814A7B863CE6BC /* CDVInAppBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVInAppBrowser.m; path = org.apache.cordova.inappbrowser/CDVInAppBrowser.m; sourceTree = "<group>"; };
+		301BF52D109A57CC0062928A /* CordovaLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CordovaLib.xcodeproj; path = CordovaLib/CordovaLib.xcodeproj; sourceTree = "<group>"; };
 		301BF56E109A69640062928A /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = SOURCE_ROOT; };
 		302D95EE14D2391D003F00A1 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		302D95EF14D2391D003F00A1 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
@@ -106,8 +124,30 @@
 		30A0434714DC770100060A13 /* se */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = se; path = Localizable.strings; sourceTree = "<group>"; };
 		30FC414816E50CA1004E6F35 /* icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-72@2x.png"; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* SydJS-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SydJS-Prefix.pch"; sourceTree = "<group>"; };
+		335219DFA1FB4305A2A60900 /* NotificarePlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NotificarePlugin.m; path = re.notifica.cordova/NotificarePlugin.m; sourceTree = "<group>"; };
+		34152822783D423B934BA5C3 /* NotificareAppDelegateSurrogate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareAppDelegateSurrogate.h; path = re.notifica.cordova/NotificareAppDelegateSurrogate.h; sourceTree = "<group>"; };
+		35984AD96D004BBCBAFC991B /* Foundation.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		3F6EEB7EC70E40E387573DD3 /* Action.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Action.h; path = re.notifica.cordova/Action.h; sourceTree = "<group>"; };
+		49002B09AD304FF783F19BA8 /* NotificarePlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificarePlugin.h; path = re.notifica.cordova/NotificarePlugin.h; sourceTree = "<group>"; };
+		49D91CA764F84DD09A75705C /* CDVReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVReachability.m; path = "org.apache.cordova.network-information/CDVReachability.m"; sourceTree = "<group>"; };
+		4ED032DB99E640E78119D59F /* CDVConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVConnection.h; path = "org.apache.cordova.network-information/CDVConnection.h"; sourceTree = "<group>"; };
+		4F7BCD4822AA4E8DAB0C5252 /* MapKit.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		58A150D55A924272A4E0DDA6 /* NotificareEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareEngine.h; path = re.notifica.cordova/NotificareEngine.h; sourceTree = "<group>"; };
+		5A54AE3E48574693ACACDC53 /* NSData+SRB64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+SRB64Additions.h"; path = "re.notifica.cordova/NSData+SRB64Additions.h"; sourceTree = "<group>"; };
 		5AEE5B34173C68D80009041E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		5B8235AB83964B328330C635 /* Content.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Content.h; path = re.notifica.cordova/Content.h; sourceTree = "<group>"; };
+		611A42F9DE4849EA83251B61 /* UIAlertView+NotificareMKNetworkKitAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIAlertView+NotificareMKNetworkKitAdditions.h"; path = "re.notifica.cordova/UIAlertView+NotificareMKNetworkKitAdditions.h"; sourceTree = "<group>"; };
+		64B2EC9C169F4096BEE3824F /* CDVNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVNotification.h; path = org.apache.cordova.dialogs/CDVNotification.h; sourceTree = "<group>"; };
+		65760D2E384240F6BD38A199 /* NotificareTelephone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareTelephone.h; path = re.notifica.cordova/NotificareTelephone.h; sourceTree = "<group>"; };
+		65C5FB0180C444F7B7E969C7 /* NotificareActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareActions.h; path = re.notifica.cordova/NotificareActions.h; sourceTree = "<group>"; };
+		6C3B69DE11D24FFD8562D495 /* NSString+NotificareMKNetworkKitAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+NotificareMKNetworkKitAdditions.h"; path = "re.notifica.cordova/NSString+NotificareMKNetworkKitAdditions.h"; sourceTree = "<group>"; };
+		7231D945DCB244B3B9CAD052 /* CDVReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVReachability.h; path = "org.apache.cordova.network-information/CDVReachability.h"; sourceTree = "<group>"; };
+		72D361739C6842E4B84A797C /* NotificareReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareReachability.h; path = re.notifica.cordova/NotificareReachability.h; sourceTree = "<group>"; };
+		7328FD9497FF46DA84A3187D /* NotificationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificationDelegate.h; path = re.notifica.cordova/NotificationDelegate.h; sourceTree = "<group>"; };
+		741D7A8D9A8B416980959571 /* Notificare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Notificare.h; path = re.notifica.cordova/Notificare.h; sourceTree = "<group>"; };
+		75D5F9AE275048ECA619B028 /* NSData+NotificareMKBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+NotificareMKBase64.h"; path = "re.notifica.cordova/NSData+NotificareMKBase64.h"; sourceTree = "<group>"; };
+		78B1B37FF19344F7A35525DF /* NotificareCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareCallback.h; path = re.notifica.cordova/NotificareCallback.h; sourceTree = "<group>"; };
 		7E7966D41810823500FA85AD /* icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-40.png"; sourceTree = "<group>"; };
 		7E7966D51810823500FA85AD /* icon-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-40@2x.png"; sourceTree = "<group>"; };
 		7E7966D61810823500FA85AD /* icon-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-50.png"; sourceTree = "<group>"; };
@@ -118,90 +158,52 @@
 		7E7966DB1810823500FA85AD /* icon-76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-76@2x.png"; sourceTree = "<group>"; };
 		7E7966DC1810823500FA85AD /* icon-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-small.png"; sourceTree = "<group>"; };
 		7E7966DD1810823500FA85AD /* icon-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-small@2x.png"; sourceTree = "<group>"; };
+		87FBD405E32F46F784A330EB /* NotificareURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareURL.h; path = re.notifica.cordova/NotificareURL.h; sourceTree = "<group>"; };
+		8A49D31162B6422AB01C0184 /* Notification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Notification.h; path = re.notifica.cordova/Notification.h; sourceTree = "<group>"; };
+		8B31799D8F51400AB6B8864E /* NSString+FromBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+FromBundle.h"; path = "re.notifica.cordova/NSString+FromBundle.h"; sourceTree = "<group>"; };
+		8BD7C9BEE6C84D34A05CF35B /* NotificareCustom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareCustom.h; path = re.notifica.cordova/NotificareCustom.h; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* SydJS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "SydJS-Info.plist"; path = "../SydJS-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		91CEA4C01902158C0062B0E3 /* Notificare.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Notificare.plist; sourceTree = "<group>"; };
+		94E5510CF77B4F2DB54ACEB7 /* NotificareMKNetworkKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareMKNetworkKit.h; path = re.notifica.cordova/NotificareMKNetworkKit.h; sourceTree = "<group>"; };
+		9526FBA7B5654711B5E9F86D /* ActionType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ActionType.h; path = re.notifica.cordova/ActionType.h; sourceTree = "<group>"; };
+		9660D9480DCE493D8E0E91C9 /* NSString+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Utils.h"; path = "re.notifica.cordova/NSString+Utils.h"; sourceTree = "<group>"; };
+		9691D981D3AE44F9AA02F333 /* NotificareResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NotificareResources.bundle; sourceTree = "<group>"; };
+		96A05E15D59C4D3D8D953D72 /* CDVStatusBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVStatusBar.m; path = org.apache.cordova.statusbar/CDVStatusBar.m; sourceTree = "<group>"; };
+		97C9CBC2236048AB9CFB0CAB /* NotificareMKNetworkOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareMKNetworkOperation.h; path = re.notifica.cordova/NotificareMKNetworkOperation.h; sourceTree = "<group>"; };
+		98CF7F249EA9440F92BA41CB /* NSData+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Hex.h"; path = "re.notifica.cordova/NSData+Hex.h"; sourceTree = "<group>"; };
+		98DE5AB0989545AFB24FF33C /* ActionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ActionDelegate.h; path = re.notifica.cordova/ActionDelegate.h; sourceTree = "<group>"; };
+		99957169729A4BA7937EEF91 /* PassKit.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
+		9E150688EC94477F99B43B53 /* SocketRocket-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = unknown; name = "SocketRocket-Prefix.pch"; path = "re.notifica.cordova/SocketRocket-Prefix.pch"; sourceTree = "<group>"; };
+		A73FFEBEEA6C47FD8B6628C4 /* NotificarePushLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificarePushLib.h; path = re.notifica.cordova/NotificarePushLib.h; sourceTree = "<group>"; };
+		A7D6611D4C244772B1DBA7DF /* Security.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		AB5FA00CF79D40C8B1C5E9A1 /* CDVSplashScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVSplashScreen.h; path = org.apache.cordova.splashscreen/CDVSplashScreen.h; sourceTree = "<group>"; };
+		AF0212ADE328474385AA48B7 /* NotificareForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareForm.h; path = re.notifica.cordova/NotificareForm.h; sourceTree = "<group>"; };
+		B4042B57407E4462831BD83B /* NotificareWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareWebView.h; path = re.notifica.cordova/NotificareWebView.h; sourceTree = "<group>"; };
+		B5FE32479A7C4756A610AF0D /* NSDictionary+NotificareRequestEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+NotificareRequestEncoding.h"; path = "re.notifica.cordova/NSDictionary+NotificareRequestEncoding.h"; sourceTree = "<group>"; };
+		BA6B8CDA6FC1455AAA7CEE19 /* NotificareRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareRate.h; path = re.notifica.cordova/NotificareRate.h; sourceTree = "<group>"; };
+		BAB2ECC0FE1A49E88D1BF922 /* NSDictionary+FromPlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+FromPlist.h"; path = "re.notifica.cordova/NSDictionary+FromPlist.h"; sourceTree = "<group>"; };
+		C15CDB8CE3394F8EAD3F5D51 /* CDVInAppBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVInAppBrowser.h; path = org.apache.cordova.inappbrowser/CDVInAppBrowser.h; sourceTree = "<group>"; };
+		C748A76D9E6C46E9BBE6BBC8 /* libNotificarePushLib.a */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = archive.ar; name = libNotificarePushLib.a; path = SydJS/Plugins/re.notifica.cordova/libNotificarePushLib.a; sourceTree = "<group>"; };
+		CF102FD78630469AA0107D3B /* CDVStatusBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVStatusBar.h; path = org.apache.cordova.statusbar/CDVStatusBar.h; sourceTree = "<group>"; };
+		D1EBC9A0171949B5B6E6F526 /* NotificarePassbook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificarePassbook.h; path = re.notifica.cordova/NotificarePassbook.h; sourceTree = "<group>"; };
+		D48A4C07C2BB4B83909620EA /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = base64.h; path = re.notifica.cordova/base64.h; sourceTree = "<group>"; };
 		D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x~iphone.png"; sourceTree = "<group>"; };
+		DBC923508DEC45BAB17AE62B /* Attachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Attachment.h; path = re.notifica.cordova/Attachment.h; sourceTree = "<group>"; };
+		DF0796E8E362409EA495D2A0 /* NotificationType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificationType.h; path = re.notifica.cordova/NotificationType.h; sourceTree = "<group>"; };
+		E0A89DC4FCB443D8A693DB23 /* NotificareSMS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareSMS.h; path = re.notifica.cordova/NotificareSMS.h; sourceTree = "<group>"; };
+		E461C3C8B31E4D3F98CC7A96 /* CDVConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVConnection.m; path = "org.apache.cordova.network-information/CDVConnection.m"; sourceTree = "<group>"; };
+		E5296961787A4CB4B5E6BB69 /* AudioToolbox.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		E72534F6689D4E9CA333EF47 /* NotificareAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareAlert.h; path = re.notifica.cordova/NotificareAlert.h; sourceTree = "<group>"; };
+		E8868BCC064646FFA21A30A3 /* libicucore.dylib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		EB87FDF21871DA7A0020F90C /* merges */ = {isa = PBXFileReference; lastKnownFileType = folder; name = merges; path = ../../merges; sourceTree = "<group>"; };
 		EB87FDF31871DA8E0020F90C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../www; sourceTree = "<group>"; };
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
-		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = "SydJS/config.xml"; sourceTree = "<group>"; };
-		193A5F89C70349808ADF6A9C /* CDVDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVDevice.m"; path = "org.apache.cordova.device/CDVDevice.m"; sourceTree = "<group>"; fileEncoding = 4; };
-		1C83FF5904FB4919B52CD03A /* CDVDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVDevice.h"; path = "org.apache.cordova.device/CDVDevice.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		2E5D90D4EB814A7B863CE6BC /* CDVInAppBrowser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVInAppBrowser.m"; path = "org.apache.cordova.inappbrowser/CDVInAppBrowser.m"; sourceTree = "<group>"; fileEncoding = 4; };
-		C15CDB8CE3394F8EAD3F5D51 /* CDVInAppBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVInAppBrowser.h"; path = "org.apache.cordova.inappbrowser/CDVInAppBrowser.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		E461C3C8B31E4D3F98CC7A96 /* CDVConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVConnection.m"; path = "org.apache.cordova.network-information/CDVConnection.m"; sourceTree = "<group>"; fileEncoding = 4; };
-		49D91CA764F84DD09A75705C /* CDVReachability.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVReachability.m"; path = "org.apache.cordova.network-information/CDVReachability.m"; sourceTree = "<group>"; fileEncoding = 4; };
-		4ED032DB99E640E78119D59F /* CDVConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVConnection.h"; path = "org.apache.cordova.network-information/CDVConnection.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		7231D945DCB244B3B9CAD052 /* CDVReachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVReachability.h"; path = "org.apache.cordova.network-information/CDVReachability.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		20DDB938F5444DE7A80D2166 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "SystemConfiguration.framework"; path = "System/Library/Frameworks/SystemConfiguration.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
-		96A05E15D59C4D3D8D953D72 /* CDVStatusBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVStatusBar.m"; path = "org.apache.cordova.statusbar/CDVStatusBar.m"; sourceTree = "<group>"; fileEncoding = 4; };
-		CF102FD78630469AA0107D3B /* CDVStatusBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVStatusBar.h"; path = "org.apache.cordova.statusbar/CDVStatusBar.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		2040D0D231D9499587AA15A8 /* CDVNotification.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVNotification.m"; path = "org.apache.cordova.dialogs/CDVNotification.m"; sourceTree = "<group>"; fileEncoding = 4; };
-		64B2EC9C169F4096BEE3824F /* CDVNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVNotification.h"; path = "org.apache.cordova.dialogs/CDVNotification.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		1C8A1783776A41199F960662 /* CDVNotification.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = "CDVNotification.bundle"; path = "CDVNotification.bundle"; sourceTree = "<group>"; };
-		E5296961787A4CB4B5E6BB69 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "AudioToolbox.framework"; path = "System/Library/Frameworks/AudioToolbox.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
-		15D1200AC30E4EF1BB1BC15C /* CDVSplashScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVSplashScreen.m"; path = "org.apache.cordova.splashscreen/CDVSplashScreen.m"; sourceTree = "<group>"; fileEncoding = 4; };
-		AB5FA00CF79D40C8B1C5E9A1 /* CDVSplashScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVSplashScreen.h"; path = "org.apache.cordova.splashscreen/CDVSplashScreen.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		335219DFA1FB4305A2A60900 /* NotificarePlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "NotificarePlugin.m"; path = "re.notifica.cordova/NotificarePlugin.m"; sourceTree = "<group>"; fileEncoding = 4; };
-		F652D99535F0485CA8EC0A0A /* NotificareAppDelegateSurrogate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "NotificareAppDelegateSurrogate.m"; path = "re.notifica.cordova/NotificareAppDelegateSurrogate.m"; sourceTree = "<group>"; fileEncoding = 4; };
-		C748A76D9E6C46E9BBE6BBC8 /* libNotificarePushLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libNotificarePushLib.a"; path = "SydJS/Plugins/re.notifica.cordova/libNotificarePushLib.a"; sourceTree = "<group>"; fileEncoding = 4; };
-		49002B09AD304FF783F19BA8 /* NotificarePlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificarePlugin.h"; path = "re.notifica.cordova/NotificarePlugin.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		34152822783D423B934BA5C3 /* NotificareAppDelegateSurrogate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareAppDelegateSurrogate.h"; path = "re.notifica.cordova/NotificareAppDelegateSurrogate.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		F763A22C05CC42F9A8063E3C /* NotificareApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareApp.h"; path = "re.notifica.cordova/NotificareApp.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		19F4EF13121A42048EBAF51F /* NotificareBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareBrowser.h"; path = "re.notifica.cordova/NotificareBrowser.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		78B1B37FF19344F7A35525DF /* NotificareCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareCallback.h"; path = "re.notifica.cordova/NotificareCallback.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		8BD7C9BEE6C84D34A05CF35B /* NotificareCustom.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareCustom.h"; path = "re.notifica.cordova/NotificareCustom.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		171DA29F354B45228103E3BA /* NotificareMail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareMail.h"; path = "re.notifica.cordova/NotificareMail.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		E0A89DC4FCB443D8A693DB23 /* NotificareSMS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareSMS.h"; path = "re.notifica.cordova/NotificareSMS.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		65760D2E384240F6BD38A199 /* NotificareTelephone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareTelephone.h"; path = "re.notifica.cordova/NotificareTelephone.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		98DE5AB0989545AFB24FF33C /* ActionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "ActionDelegate.h"; path = "re.notifica.cordova/ActionDelegate.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		9526FBA7B5654711B5E9F86D /* ActionType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "ActionType.h"; path = "re.notifica.cordova/ActionType.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		75D5F9AE275048ECA619B028 /* NSData+NotificareMKBase64.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSData+NotificareMKBase64.h"; path = "re.notifica.cordova/NSData+NotificareMKBase64.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		1984D905F318402CA52E923F /* NSDate+NotificareRFC1123.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSDate+NotificareRFC1123.h"; path = "re.notifica.cordova/NSDate+NotificareRFC1123.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		B5FE32479A7C4756A610AF0D /* NSDictionary+NotificareRequestEncoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+NotificareRequestEncoding.h"; path = "re.notifica.cordova/NSDictionary+NotificareRequestEncoding.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		6C3B69DE11D24FFD8562D495 /* NSString+NotificareMKNetworkKitAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSString+NotificareMKNetworkKitAdditions.h"; path = "re.notifica.cordova/NSString+NotificareMKNetworkKitAdditions.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		611A42F9DE4849EA83251B61 /* UIAlertView+NotificareMKNetworkKitAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIAlertView+NotificareMKNetworkKitAdditions.h"; path = "re.notifica.cordova/UIAlertView+NotificareMKNetworkKitAdditions.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		72D361739C6842E4B84A797C /* NotificareReachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareReachability.h"; path = "re.notifica.cordova/NotificareReachability.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		26D72B816CD748E291EC4CE7 /* NotificareMKNetworkEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareMKNetworkEngine.h"; path = "re.notifica.cordova/NotificareMKNetworkEngine.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		94E5510CF77B4F2DB54ACEB7 /* NotificareMKNetworkKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareMKNetworkKit.h"; path = "re.notifica.cordova/NotificareMKNetworkKit.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		97C9CBC2236048AB9CFB0CAB /* NotificareMKNetworkOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareMKNetworkOperation.h"; path = "re.notifica.cordova/NotificareMKNetworkOperation.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		D48A4C07C2BB4B83909620EA /* base64.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "base64.h"; path = "re.notifica.cordova/base64.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		5A54AE3E48574693ACACDC53 /* NSData+SRB64Additions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSData+SRB64Additions.h"; path = "re.notifica.cordova/NSData+SRB64Additions.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		9E150688EC94477F99B43B53 /* SocketRocket-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "SocketRocket-Prefix.pch"; path = "re.notifica.cordova/SocketRocket-Prefix.pch"; sourceTree = "<group>"; fileEncoding = 4; };
-		0F88DEFA366D45618D164614 /* SRWebSocket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "SRWebSocket.h"; path = "re.notifica.cordova/SRWebSocket.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		3F6EEB7EC70E40E387573DD3 /* Action.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Action.h"; path = "re.notifica.cordova/Action.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		DBC923508DEC45BAB17AE62B /* Attachment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Attachment.h"; path = "re.notifica.cordova/Attachment.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		5B8235AB83964B328330C635 /* Content.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Content.h"; path = "re.notifica.cordova/Content.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		8A49D31162B6422AB01C0184 /* Notification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Notification.h"; path = "re.notifica.cordova/Notification.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		98CF7F249EA9440F92BA41CB /* NSData+Hex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSData+Hex.h"; path = "re.notifica.cordova/NSData+Hex.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		BAB2ECC0FE1A49E88D1BF922 /* NSDictionary+FromPlist.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+FromPlist.h"; path = "re.notifica.cordova/NSDictionary+FromPlist.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		8B31799D8F51400AB6B8864E /* NSString+FromBundle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSString+FromBundle.h"; path = "re.notifica.cordova/NSString+FromBundle.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		9660D9480DCE493D8E0E91C9 /* NSString+Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSString+Utils.h"; path = "re.notifica.cordova/NSString+Utils.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		FE81B6C07510423F9F39F854 /* UIImage+FromBundle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIImage+FromBundle.h"; path = "re.notifica.cordova/UIImage+FromBundle.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		E72534F6689D4E9CA333EF47 /* NotificareAlert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareAlert.h"; path = "re.notifica.cordova/NotificareAlert.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		AF0212ADE328474385AA48B7 /* NotificareForm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareForm.h"; path = "re.notifica.cordova/NotificareForm.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		F3B0429CC727401799B14292 /* NotificareImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareImage.h"; path = "re.notifica.cordova/NotificareImage.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		27845F82B5BF4F7294FAB24B /* NotificareLocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareLocation.h"; path = "re.notifica.cordova/NotificareLocation.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		1A4F51F131D746229B126BD8 /* NotificareMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareMap.h"; path = "re.notifica.cordova/NotificareMap.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		D1EBC9A0171949B5B6E6F526 /* NotificarePassbook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificarePassbook.h"; path = "re.notifica.cordova/NotificarePassbook.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		BA6B8CDA6FC1455AAA7CEE19 /* NotificareRate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareRate.h"; path = "re.notifica.cordova/NotificareRate.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		87FBD405E32F46F784A330EB /* NotificareURL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareURL.h"; path = "re.notifica.cordova/NotificareURL.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		2A95BA49862749E5826324F9 /* NotificareVideo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareVideo.h"; path = "re.notifica.cordova/NotificareVideo.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		B4042B57407E4462831BD83B /* NotificareWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareWebView.h"; path = "re.notifica.cordova/NotificareWebView.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		7328FD9497FF46DA84A3187D /* NotificationDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificationDelegate.h"; path = "re.notifica.cordova/NotificationDelegate.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		DF0796E8E362409EA495D2A0 /* NotificationType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificationType.h"; path = "re.notifica.cordova/NotificationType.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		741D7A8D9A8B416980959571 /* Notificare.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Notificare.h"; path = "re.notifica.cordova/Notificare.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		65C5FB0180C444F7B7E969C7 /* NotificareActions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareActions.h"; path = "re.notifica.cordova/NotificareActions.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		58A150D55A924272A4E0DDA6 /* NotificareEngine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificareEngine.h"; path = "re.notifica.cordova/NotificareEngine.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		A73FFEBEEA6C47FD8B6628C4 /* NotificarePushLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NotificarePushLib.h"; path = "re.notifica.cordova/NotificarePushLib.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		9691D981D3AE44F9AA02F333 /* NotificareResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = "NotificareResources.bundle"; path = "NotificareResources.bundle"; sourceTree = "<group>"; };
-		2182A3F75EA3425DAB815420 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "MessageUI.framework"; path = "System/Library/Frameworks/MessageUI.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
-		E8868BCC064646FFA21A30A3 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libicucore.dylib"; path = "usr/lib/libicucore.dylib"; sourceTree = SDKROOT; fileEncoding = 4; };
-		F1C4BE1218814C35B3AE58CD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "UIKit.framework"; path = "System/Library/Frameworks/UIKit.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
-		35984AD96D004BBCBAFC991B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Foundation.framework"; path = "System/Library/Frameworks/Foundation.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
-		99957169729A4BA7937EEF91 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "PassKit.framework"; path = "System/Library/Frameworks/PassKit.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
-		4F7BCD4822AA4E8DAB0C5252 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "MapKit.framework"; path = "System/Library/Frameworks/MapKit.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
-		A7D6611D4C244772B1DBA7DF /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Security.framework"; path = "System/Library/Frameworks/Security.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
-		12815CFF48BE48419B90F3C2 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "CFNetwork.framework"; path = "System/Library/Frameworks/CFNetwork.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		F1C4BE1218814C35B3AE58CD /* UIKit.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		F3B0429CC727401799B14292 /* NotificareImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareImage.h; path = re.notifica.cordova/NotificareImage.h; sourceTree = "<group>"; };
+		F652D99535F0485CA8EC0A0A /* NotificareAppDelegateSurrogate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NotificareAppDelegateSurrogate.m; path = re.notifica.cordova/NotificareAppDelegateSurrogate.m; sourceTree = "<group>"; };
+		F763A22C05CC42F9A8063E3C /* NotificareApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareApp.h; path = re.notifica.cordova/NotificareApp.h; sourceTree = "<group>"; };
+		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = SydJS/config.xml; sourceTree = "<group>"; };
+		FE81B6C07510423F9F39F854 /* UIImage+FromBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+FromBundle.h"; path = "re.notifica.cordova/UIImage+FromBundle.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -241,7 +243,7 @@
 				1D3623250D0F684500981E51 /* AppDelegate.m */,
 			);
 			name = Classes;
-			path = "SydJS/Classes";
+			path = SydJS/Classes;
 			sourceTree = SOURCE_ROOT;
 		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
@@ -271,6 +273,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				91CEA4C01902158C0062B0E3 /* Notificare.plist */,
 				EB87FDF41871DAF40020F90C /* config.xml */,
 				EB87FDF31871DA8E0020F90C /* www */,
 				EB87FDF21871DA7A0020F90C /* merges */,
@@ -293,7 +296,7 @@
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
 			name = "Other Sources";
-			path = "SydJS";
+			path = SydJS;
 			sourceTree = "<group>";
 		};
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
@@ -310,7 +313,7 @@
 				9691D981D3AE44F9AA02F333 /* NotificareResources.bundle */,
 			);
 			name = Resources;
-			path = "SydJS/Resources";
+			path = SydJS/Resources;
 			sourceTree = "<group>";
 		};
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
@@ -413,7 +416,7 @@
 				A73FFEBEEA6C47FD8B6628C4 /* NotificarePushLib.h */,
 			);
 			name = Plugins;
-			path = "SydJS/Plugins";
+			path = SydJS/Plugins;
 			sourceTree = SOURCE_ROOT;
 		};
 		308D052D1370CCF300D202BF /* icons */ = {
@@ -493,8 +496,8 @@
 			dependencies = (
 				301BF551109A68C00062928A /* PBXTargetDependency */,
 			);
-			name = "SydJS";
-			productName = "SydJS";
+			name = SydJS;
+			productName = SydJS;
 			productReference = 1D6058910D05DD3D006BFB54 /* SydJS.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -506,7 +509,7 @@
 			attributes = {
 				LastUpgradeCheck = 510;
 			};
-			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "__CLI__" */;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "SydJS" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -569,6 +572,7 @@
 				7E7966DE1810823500FA85AD /* icon-40.png in Resources */,
 				3088BBC1154F3926009F9C59 /* Default@2x~iphone.png in Resources */,
 				7E7966E21810823500FA85AD /* icon-60.png in Resources */,
+				91CEA4C11902158C0062B0E3 /* Notificare.plist in Resources */,
 				3088BBC2154F3926009F9C59 /* Default~iphone.png in Resources */,
 				D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */,
 				7E7966E11810823500FA85AD /* icon-50@2x.png in Resources */,
@@ -679,6 +683,10 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "SydJS/SydJS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/SydJS/Plugins/re.notifica.cordova\"",
+				);
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					CoreFoundation,
@@ -693,12 +701,8 @@
 					"\"$(BUILT_PRODUCTS_DIR)/libCordova.a\"",
 					"-ObjC",
 				);
-				PRODUCT_NAME = "SydJS";
+				PRODUCT_NAME = SydJS;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/SydJS/Plugins/re.notifica.cordova\"",
-				);
 			};
 			name = Debug;
 		};
@@ -714,6 +718,10 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "SydJS/SydJS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/SydJS/Plugins/re.notifica.cordova\"",
+				);
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					CoreFoundation,
@@ -728,12 +736,8 @@
 					"\"$(BUILT_PRODUCTS_DIR)/libCordova.a\"",
 					"-ObjC",
 				);
-				PRODUCT_NAME = "SydJS";
+				PRODUCT_NAME = SydJS;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/SydJS/Plugins/re.notifica.cordova\"",
-				);
 			};
 			name = Release;
 		};
@@ -840,7 +844,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "__CLI__" */ = {
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "SydJS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
