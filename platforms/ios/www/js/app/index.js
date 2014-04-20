@@ -447,6 +447,21 @@ app.on('init', function() {
 	// Show the loading spinner
 	// app.showLoadingSpinner();
 	
+	Notificare.enableNotifications();
+	
+	Notificare.on('registration', function(deviceId) {
+		
+		// Register the device on Notificare API
+		Notificare.registerDevice(deviceId, 'testuser2@notifica.re', 'Test User 2', function() {
+			alert('registered with Notificare');
+		}, function(error) {
+			alert(error);
+		});
+		
+	});
+	
+	return;
+	
 	// Immediately ping server to get config and check if we're online then resume the session
 	app.pingServer( function( success ) {
 		
