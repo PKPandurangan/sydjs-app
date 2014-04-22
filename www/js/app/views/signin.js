@@ -154,7 +154,9 @@
 						self._processingForm = false;
 						
 						// Go to another view
-						app.view('home').show('slide-up');
+						app.getStatus(function() {
+							app.view('home').show('slide-up');
+						});
 					
 					} else {
 						

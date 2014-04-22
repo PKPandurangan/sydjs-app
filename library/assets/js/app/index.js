@@ -356,6 +356,44 @@ _.extend(app, {
 	
 	},
 	
+	/* Notifications */
+	
+	enableNotifications: function(callback) {
+	
+		if (app._device.system != 'ios' || app._device.system != 'android') {
+			app.showNotification('Sorry, notifications can only be configured on actual devices.');
+			return callback(true);
+		}
+		
+		console.log('Enabling notifications...');
+		
+		var user = app.data.session.user;
+		
+		Notificare.enableNotifications();
+		
+		Notificare.on('registration', function(deviceId) {
+			
+			console.log('Notification response...');
+			
+			Notificare.registerDevice(deviceId, user.email, (user.name.full ? user.name.full : 'Unknown'), function() {
+				app.showNotification('Alert', 'Registered for notifications with device id: [' + deviceId + '], email: [' + user.email + '], name: [' + (user.name.full ? user.name.full : 'Unknown') + '].');
+				if (callback) return callback();
+			}, function(err) {
+				app.showNotification('Alert', 'Error registering for notifications');
+				console.log(err);
+				if (callback) return callback(true);
+			});
+			
+		});
+	
+	},
+	
+	disableNotifications: function(callback) {
+	
+		Notificare.disableNotifications();
+	
+	},
+	
 	/* Analytics */
 	
 	setIdentity: function(key) {
@@ -446,21 +484,6 @@ app.on('init', function() {
 	
 	// Show the loading spinner
 	// app.showLoadingSpinner();
-	
-	Notificare.enableNotifications();
-	
-	Notificare.on('registration', function(deviceId) {
-		
-		// Register the device on Notificare API
-		Notificare.registerDevice(deviceId, 'testuser2@notifica.re', 'Test User 2', function() {
-			alert('registered with Notificare');
-		}, function(error) {
-			alert(error);
-		});
-		
-	});
-	
-	return;
 	
 	// Immediately ping server to get config and check if we're online then resume the session
 	app.pingServer( function( success ) {
