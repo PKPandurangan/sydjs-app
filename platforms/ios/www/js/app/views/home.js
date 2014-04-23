@@ -34,7 +34,7 @@
 		
 		buttons: {
 			'.btn-notifications': 'toggleNotifications',
-			'.btn-menu': 'toggleMenu',
+			'.btn-talks': 'toggleTalks',
 			
 			'.rsvp .btn-attending': 'rsvpAttending',
 			'.rsvp .btn-not-attending': 'rsvpNotAttending',
@@ -48,7 +48,7 @@
 			console.log('toggle notifications');
 		},
 		
-		toggleMenu: function() {
+		toggleTalks: function() {
 			console.log('toggle menu');
 		},
 		

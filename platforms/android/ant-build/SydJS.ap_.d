@@ -829,6 +829,7 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/app/reward-location.less \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/app/reward-options.less \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/app/reward-payment.less \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/app/schedule.less \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/app/signin.less \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/app/terms-and-conditions.less \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/app/voucher-details.less \
@@ -887,6 +888,7 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/app/ui/icon-alarm.png \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/app/ui/icon-cross-black.png \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/app/ui/icon-menu.png \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/app/ui/icon-talks.png \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/app/ui/logo.png \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/app/ui/partners \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/app/ui/rewards \
