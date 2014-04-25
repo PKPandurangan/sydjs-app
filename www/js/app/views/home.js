@@ -49,7 +49,12 @@
 		},
 		
 		toggleTalks: function() {
-			console.log('toggle menu');
+			
+			this.$('.states').animate({
+				translate3d: '0,0,0'
+			}, 300, 'ease-out');
+			
+			app.view('talks').show('slide-down');
 		},
 		
 		setState: function() {
@@ -89,7 +94,7 @@
 				$states.animate({
 					translate3d: '0,-75px,0'
 				}, 250, 'ease-out');
-			}, 300);
+			}, 150);
 			
 		},
 		

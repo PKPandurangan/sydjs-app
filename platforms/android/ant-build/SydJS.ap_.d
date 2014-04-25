@@ -831,6 +831,7 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/app/reward-payment.less \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/app/schedule.less \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/app/signin.less \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/app/talks.less \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/app/terms-and-conditions.less \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/app/voucher-details.less \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/app/voucher-success.less \
@@ -888,6 +889,7 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/app/ui/icon-alarm.png \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/app/ui/icon-cross-black.png \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/app/ui/icon-menu.png \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/app/ui/icon-talks-black.png \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/app/ui/icon-talks.png \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/app/ui/logo.png \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/app/ui/partners \
@@ -930,6 +932,7 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/app/views/forgot-password.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/app/views/home.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/app/views/register-details.js \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/app/views/register.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/app/views/reset-password.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/app/views/reward-info.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/app/views/reward-location.js \
@@ -939,6 +942,7 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/app/views/session.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/app/views/set-password.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/app/views/signin.js \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/app/views/talks.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/app/views/terms-and-conditions.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/app/views/voucher-details.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/app/views/voucher-success.js \
