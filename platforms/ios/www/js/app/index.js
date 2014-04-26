@@ -359,13 +359,12 @@ _.extend(app, {
 	/* Notifications */
 	
 	enableNotifications: function(callback) {
-	
-		if (app._device.system != 'ios' || app._device.system != 'android') {
-			app.showNotification('Sorry, notifications can only be configured on actual devices.');
-			return callback(true);
-		}
 		
 		console.log('Enabling notifications...');
+		
+		if (!app._device.system.match(/ios|android/)) {
+			return app.showNotification('Alert', 'Sorry, notifications can only be configured on actual devices.');
+		}
 		
 		var user = app.data.session.user;
 		

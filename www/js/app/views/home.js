@@ -45,7 +45,18 @@
 		},
 		
 		toggleNotifications: function() {
-			console.log('toggle notifications');
+		
+			app.showConfirm('New Meetups', 'Would you like a notification when a new meetup is announced?', 'No‚ thanks,Notify Me', function(pressed) {
+				switch(pressed) {
+					case 1: // No
+						console.log('User declined enable notifications.');
+					break;
+					case 2: // Yes
+						app.enableNotifications();
+					break;
+				}
+			});
+		
 		},
 		
 		toggleTalks: function() {
@@ -55,6 +66,7 @@
 			}, 300, 'ease-out');
 			
 			app.view('talks').show('slide-down');
+			
 		},
 		
 		setState: function() {

@@ -7,7 +7,7 @@
 		
 		position: relative;
 		left: 50%;
-		transform: translateX(-50%);
+		.translate(-50%, 0);
 		background-image: url('/img/app/ui/icon-talks-black.png');
 		background-size: 63.5px 48.5px;
 		
@@ -19,26 +19,31 @@
 		li {
 			list-style-type: none;
 			margin-bottom: 20px;
+			color: #212121;
 			.title {
 				display: block;
 				font-size: 18px;
 				font-weight: 800;
-				color: #212121;
 				display: block;
 			}
-			.person {
-				.author {
-					font-size: 16px;
-					color: #212121;
+			.people {
+				.authors {
 					display: block;
 					margin-top: 5px;
+					.author {
+						font-size: 16px;
+					}
 				}
-				.twitter {
-					font-size: 16px;
-					color: #2697de;
+				.twitters {
 					display: block;
 					margin-top: 5px;
+					.twitter {
+						font-size: 16px;
+						color: #2697de;
+						text-decoration: none;
+					}
 				}
+				
 			}
 		}
 	}

@@ -197,12 +197,30 @@ _.extend(App.prototype, Backbone.Events, {
 		return this._currentView;
 	},
 	
-	showNotification: function(title, message, label) {
+	showNotification: function(title, message, label, callback) {
 	
+		callback = callback || function() {};
+		
+		// Use native Cordova alert dialogs
 		if (navigator.notification && navigator.notification.alert) {
-			navigator.notification.alert(message, false, title || 'Alert', label || 'OK');
+			navigator.notification.alert(message, callback, title || 'Alert', label || 'OK');
+		// Fallback to browser alerts
 		} else {
 			alert(message);
+		}
+	
+	},
+	
+	showConfirm: function(title, message, labels, callback) {
+	
+		callback = callback || function() {};
+		
+		// Use native Cordova confirm dialogs
+		if (navigator.notification && navigator.notification.confirm) {
+			navigator.notification.confirm(message, callback, title || 'Confirm', labels || 'OK,Cancel');
+		// Fallback to browser confirms
+		} else {
+			if (confirm(message)) return callback();
 		}
 	
 	},
