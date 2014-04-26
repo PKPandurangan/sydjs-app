@@ -21,19 +21,31 @@
 		
 		.btn-notifications {
 			left: 0px;
-			background-image: url('/img/app/ui/icon-alarm.png');
-			background-size: 23.5px 26px;
+			img {
+				position: absolute;
+				width: 23.5px;
+				height: 26px;
+				top: 50%;
+				left: 50%;
+				.translate(-50%, -50%);
+			}
 		}
 		
 		.btn-talks {
 			right: 0px;
-			background-image: url('/img/app/ui/icon-talks.png');
-			background-size: 30.5px 23.5px;
+			img {
+				position: absolute;
+				width: 30.5px;
+				height: 23.5px;
+				top: 50%;
+				left: 50%;
+				.translate(-50%, -50%);
+			}
 		}
 		
 		.btn-menu {
 			right: 0px;
-			background-image: url('/img/app/ui/icon-menu.png');
+			content: url('/img/app/ui/icon-menu.png');
 			background-size: 29px 19px;
 		}
 		
@@ -108,6 +120,17 @@
 				.cancel {
 					width: 100px;
 					border-left: 1px solid #000;
+					.icon {
+						position: relative;
+						img {
+							position: absolute;
+							width: 20.5px;
+							height: 20px;
+							top: 50%;
+							left: 50%;
+							.translate(-50%, -50%);
+						}
+					}
 				}
 				.btn-plain {
 					display: table-cell;

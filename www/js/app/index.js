@@ -374,13 +374,51 @@ _.extend(app, {
 			
 			console.log('Notification response...');
 			
-			Notificare.registerDevice(deviceId, user.email, (user.name.full ? user.name.full : 'Unknown'), function() {
-				app.showNotification('Alert', 'Registered for notifications with device id: [' + deviceId + '], email: [' + user.email + '], name: [' + (user.name.full ? user.name.full : 'Unknown') + '].');
-				if (callback) return callback();
+			var userId = app.data.session.user.id,
+				userName = (user.name && user.name.full ? user.name.full : 'Unknown');
+			
+			Notificare.registerDevice(deviceId, userId, userName, function() {
+				
+				app.showNotification('Alert', 'Registered for notifications with device id: [' + deviceId + '], user id: [' + userId + '], name: [' + userName + '].');
+				
+				$.ajax({
+					url: config.baseURL + '/api/app/notify',
+					type: 'post',
+					data: {
+						user: app.data.session.user.id,
+						deviceId: deviceId,
+						userId: userId,
+						enabled: true
+					},
+					dataType: 'json',
+					cache: false,
+					success: function(data) {
+					
+						if (data.success) {
+							$log( "[getStatus] - Successfully enabled notifications." );
+							if (callback) return callback(false);
+						} else {
+							$log( "[getStatus] - Failed enabling notifications." );
+							if (callback) return callback(true);
+						}
+					
+					},
+					error: function() {
+					
+						$log( "[getStatus] - Failed enabling notifications." );
+						if (callback) return callback(true);
+					
+					}
+				});
+			
 			}, function(err) {
-				app.showNotification('Alert', 'Error registering for notifications');
+			
+				app.showNotification('Alert', 'Sorry, there was an issue registering you for notifications. Please try again.');
+				
 				console.log(err);
+				
 				if (callback) return callback(true);
+			
 			});
 			
 		});
@@ -389,7 +427,37 @@ _.extend(app, {
 	
 	disableNotifications: function(callback) {
 	
-		Notificare.disableNotifications();
+		Notificare.disableNotifications(function() {
+		
+			$.ajax({
+				url: config.baseURL + '/api/app/notify',
+				type: 'post',
+				data: {
+					user: app.data.session.user.id,
+					enabled: false
+				},
+				dataType: 'json',
+				cache: false,
+				success: function(data) {
+				
+					if (data.success) {
+						$log( "[getStatus] - Successfully disabled notifications." );
+						if (callback) return callback(false);
+					} else {
+						$log( "[getStatus] - Failed disabling notifications." );
+						if (callback) return callback(true);
+					}
+				
+				},
+				error: function() {
+				
+					$log( "[getStatus] - Failed disabling notifications." );
+					if (callback) return callback(true);
+				
+				}
+			});
+		
+		});
 	
 	},
 	
