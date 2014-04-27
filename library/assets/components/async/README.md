@@ -918,7 +918,7 @@ async.waterfall([
         callback(null, 'one', 'two');
     },
     function(arg1, arg2, callback){
-    	// arg1 now equals 'one' and arg2 now equals 'two'
+      // arg1 now equals 'one' and arg2 now equals 'two'
         callback(null, 'three');
     },
     function(arg1, callback){
@@ -1000,7 +1000,7 @@ app.get('/cats', function(request, response) {
     }
   }
   var User = request.models.User;
-  asyc.seq(
+  async.seq(
     _.bind(User.get, User),  // 'User.get' has signature (id, callback(err, data))
     handleError,
     function(user, fn) {
@@ -1076,6 +1076,7 @@ The `queue` object returned by this function has the following properties and
 methods:
 
 * `length()` - a function returning the number of items waiting to be processed.
+* `started` - a function returning whether or not any items have been pushed and processed by the queue
 * `running()` - a function returning the number of items currently being processed.
 * `idle()` - a function returning false if there are items waiting or being processed, or true if not.
 * `concurrency` - an integer for determining how many `worker` functions should be
@@ -1092,6 +1093,7 @@ methods:
 * `paused` - a boolean for determining whether the queue is in a paused state
 * `pause()` - a function that pauses the processing of tasks until `resume()` is called.
 * `resume()` - a function that resumes the processing of queued tasks when the queue is paused.
+* `kill()` - a function that empties remaining tasks from the queue forcing it to go idle.
 
 __Example__
 
@@ -1341,6 +1343,7 @@ result (if any) of the final attempt.
 
 __Arguments__
 
+* `times` - An integer indicating how many times to attempt the `task` before giving up. Defaults to 5.
 * `task(callback, results)` - A function which receives two arguments: (1) a `callback(err, result)`
   which must be called when finished, passing `err` (which can be `null`) and the `result` of 
   the function's execution, and (2) a `results` object, containing the results of

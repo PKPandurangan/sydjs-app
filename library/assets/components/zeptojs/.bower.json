@@ -9,7 +9,6 @@
     "commit": "fef90efe1c98f43f6ce1e1f2f793077e1c6994c5"
   },
   "_source": "git://github.com/madrobby/zepto.git",
-  "_target": "~1.1.3",
-  "_originalSource": "zeptojs",
-  "_direct": true
+  "_target": "*",
+  "_originalSource": "zeptojs"
 }

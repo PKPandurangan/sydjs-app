@@ -5,14 +5,51 @@ module.exports = function(grunt) {
 	// Configure Grunt
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
+		clean: {
+			options: {
+				force: true
+			},
+			release: ['../../www/']
+		},
 		copy: {
 			main: {
+				options: {},
 				files: [
 					{ expand: true, cwd: '../../', src: ['*.xml'], dest: '../../www/' },
-					{ expand: true, cwd: '../assets/', src: ['**'], dest: '../../www/', filter: function(filepath) {
-						return filepath.match(/.js|.css|.min.js|.min.css|.jpg|.png|.gif|.eot|.svg|.ttf|.woff/);
+					{ expand: true, cwd: '../assets/components', src: ['**'], dest: '../../www/components', filter: function(filepath) {
+						return filepath.match(/\.js|\.min.js/);
+					}},
+					{ expand: true, cwd: '../assets/css', src: ['**'], dest: '../../www/css', filter: function(filepath) {
+						return filepath.match(/\.css|\.min.css|\.eot|\.svg|\.ttf|\.woff/);
+					}},
+					{ expand: true, cwd: '../assets/img', src: ['**'], dest: '../../www/img', filter: function(filepath) {
+						return filepath.match(/\.jpg|\.png|\.gif|\.svg/);
+					}},
+					{ expand: true, cwd: '../assets/js', src: ['**'], dest: '../../www/js', filter: function(filepath) {
+						return filepath.match(/\.js|\.min.js/);
 					}}
 				]
+			}
+		},
+		uglify: {
+			my_target: {
+				options: {
+					mangle: false
+				},
+				files: {
+					'../../www/components/async.js': ['../assets/components/async/lib/async.js'],
+					'../../www/components/backbone.js': ['../assets/components/backbone/backbone.js'],
+					'../../www/components/moment.js': ['../assets/components/moment/moment.js'],
+					'../../www/components/underscore.js': ['../assets/components/underscore/underscore.js'],
+					'../../www/components/zepto.js': [
+						'../assets/components/zeptojs/src/zepto.js',
+						'../assets/components/zeptojs/src/event.js',
+						'../assets/components/zeptojs/src/ajax.js',
+						'../assets/components/zeptojs/src/detect.js',
+						'../assets/components/zeptojs/src/fx.js',
+						'../assets/components/zeptojs/src/touch.js'
+					]
+				}
 			}
 		},
 		jade: {
@@ -23,7 +60,7 @@ module.exports = function(grunt) {
 					}
 				},
 				files: {
-					'../../www/index.html': ['../views/app.jade']
+					'../../www/index.html': ['../assets/views/app.jade']
 				}
 			}
 		},
@@ -34,7 +71,7 @@ module.exports = function(grunt) {
 					compress: true
 				},
 				files: {
-					'../../www/css/app/app.min.css': '../assets/css/app.less'
+					'../../www/css/app.css': '../assets/css/app.less'
 				}
 			}
 		},
@@ -56,6 +93,7 @@ module.exports = function(grunt) {
 		},
 		watch: {
 			scripts: {
+				options: {},
 				files: [
 					'Gruntfile.js',
 					
@@ -64,20 +102,21 @@ module.exports = function(grunt) {
 					'../assets/**/*.less',
 					'../assets/**/*.js'
 				],
-				tasks: ['copy', 'jade', 'less', 'relativeRoot'],
-				options: {}
+				tasks: ['clean', 'copy', 'uglify', 'jade', 'less', 'relativeRoot', 'watch']
 			}
 		}
 	});
 	
 	// Load modules to run
+	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-jade');
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-relative-root');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	
 	// Set tasks to run
-	grunt.registerTask('default', ['copy', 'jade', 'less', 'relativeRoot', 'watch']);
+	grunt.registerTask('default', ['clean', 'copy', 'uglify', 'jade', 'less', 'relativeRoot', 'watch']);
 	
 };
