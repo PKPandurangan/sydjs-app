@@ -250,7 +250,7 @@ _.extend(app, {
 		
 		// populate local storage with date and user date
 		localStorage.setItem( 'session_date', data.date );
-		localStorage.setItem( 'session_user', JSON.stringify( data.user ) );
+		localStorage.setItem( 'session_userId', JSON.stringify( data.userId ) );
 		
 		this.populateSessionInfo(data);
 		
@@ -260,7 +260,7 @@ _.extend(app, {
 		
 		$log( "[populateSessionInfo] - Populating session info into app." );
 		
-		_.extend(this.data.session, _.pick(data, 'date', 'user'));
+		_.extend(this.data.session, _.pick(data, 'date', 'userId'));
 		
 	},
 	
@@ -275,7 +275,7 @@ _.extend(app, {
 		$log( "[resumeSession] - Checking local storage..." );
 		
 		var date = localStorage.getItem( 'session_date' ),
-			user = localStorage.getItem( 'session_user' );
+			user = localStorage.getItem( 'session_userId' );
 		
 		// Check for timestamp and valid code
 		if ( date && user)
@@ -284,7 +284,7 @@ _.extend(app, {
 			
 			app.populateSessionInfo({
 				date: localStorage.getItem( 'session_date' ),
-				user: JSON.parse( localStorage.getItem( 'session_user' ) )
+				userId: JSON.parse( localStorage.getItem( 'session_userId' ) )
 			});
 			
 			$log( "[resumeSession] - Session info was retrieved at [" + moment( parseInt( date ) ).format('h:mm:ss a') + "]..." );
@@ -316,7 +316,7 @@ _.extend(app, {
 			url: config.baseURL + '/api/app/status',
 			type: 'post',
 			data: {
-				user: app.data.session.user.id
+				user: app.data.session.userId
 			},
 			dataType: 'json',
 			cache: false,
@@ -328,7 +328,6 @@ _.extend(app, {
 				app.data.meetup = data.meetup;
 				
 				// Set user data
-				localStorage.setItem( 'session_user', JSON.stringify( data.user ) );
 				app.data.session = data.user;
 				
 				return callback(false);
@@ -365,56 +364,28 @@ _.extend(app, {
 	
 	enableNotifications: function(callback) {
 		
-		console.log('Enabling notifications...');
+		// app.showNotification('Alert', '[enableNotifications] - Enabling notifications...');
 		
 		if (!app._device.system || !app._device.system.match(/ios|android/)) {
 			return app.showNotification('Alert', 'Sorry, notifications can only be configured on actual devices.');
 		}
 		
-		var user = app.data.session.user;
+		var user = app.data.session;
 		
 		Notificare.enableNotifications();
 		
-		Notificare.on('registration', function(deviceId) {
+		Notificare.once('registration', function(deviceId) {
 			
 			console.log('[enableNotifications] - Notification response...');
 			
-			var userId = app.data.session.user.id,
+			var userId = user.userId,
 				userName = (user.name && user.name.full ? user.name.full : 'Unknown');
 			
 			Notificare.registerDevice(deviceId, userId, userName, function() {
 				
-				app.showNotification('Alert', 'Registered for notifications with device id: [' + deviceId + '], user id: [' + userId + '], name: [' + userName + '].');
+				// app.showNotification('Alert', 'Registered for notifications with device id: [' + deviceId + '], user id: [' + userId + '], name: [' + userName + '].');
 				
-				$.ajax({
-					url: config.baseURL + '/api/app/notify',
-					type: 'post',
-					data: {
-						user: app.data.session.user.id,
-						deviceId: deviceId,
-						userId: userId,
-						enabled: true
-					},
-					dataType: 'json',
-					cache: false,
-					success: function(data) {
-					
-						if (data.success) {
-							$log( "[enableNotifications] - Successfully enabled notifications." );
-							if (callback) return callback(false);
-						} else {
-							$log( "[enableNotifications] - Failed enabling notifications." );
-							if (callback) return callback(true);
-						}
-					
-					},
-					error: function() {
-					
-						$log( "[enableNotifications] - Failed enabling notifications." );
-						if (callback) return callback(true);
-					
-					}
-				});
+				app.setNotifications(true, deviceId, userId, callback);
 			
 			}, function(err) {
 			
@@ -432,36 +403,68 @@ _.extend(app, {
 	
 	disableNotifications: function(callback) {
 	
+		// app.showNotification('Alert', '[disableNotifications] - Disabling notifications...');
+		
 		Notificare.disableNotifications(function() {
+			app.setNotifications(false, false, false, callback);
+		});
+	
+	},
+	
+	setNotifications: function(enable, deviceId, userId, callback) {
+	
+		// app.showNotification('Alert', '[setNotifications] - enable: [' + enable + '].');
 		
-			$.ajax({
-				url: config.baseURL + '/api/app/notify',
-				type: 'post',
-				data: {
-					user: app.data.session.user.id,
-					enabled: false
-				},
-				dataType: 'json',
-				cache: false,
-				success: function(data) {
-				
-					if (data.success) {
-						$log( "[disableNotifications] - Successfully disabled notifications." );
-						if (callback) return callback(false);
-					} else {
-						$log( "[disableNotifications] - Failed disabling notifications." );
-						if (callback) return callback(true);
-					}
-				
-				},
-				error: function() {
-				
-					$log( "[disableNotifications] - Failed disabling notifications." );
-					if (callback) return callback(true);
-				
-				}
+		var data = {
+			user: app.data.session.userId
+		};
+		
+		if (enable) {
+			if (app.data.session.services.pushNotifications.isConfigured) {
+				_.extend(data, {
+					enable: true
+				});
+			} else {
+				_.extend(data, {
+					deviceId: deviceId,
+					userId: userId,
+					enable: true
+				});
+			}
+		} else {
+			_.extend(data, {
+				enable: false
 			});
+		}
 		
+		$.ajax({
+			url: config.baseURL + '/api/app/notify',
+			type: 'post',
+			data: data,
+			dataType: 'json',
+			cache: false,
+			success: function(data) {
+			
+				if (data.success) {
+					// app.showNotification('Alert', "[setNotifications] - Successfully set notifications." );
+					if (enable) {
+						app.data.session.services.pushNotifications.enabled = true;
+					} else {
+						app.data.session.services.pushNotifications.enabled = false;
+					}
+					if (callback) return callback(false);
+				} else {
+					app.showNotification('Alert', "[setNotifications] - Failed setting notifications." );
+					if (callback) return callback(true);
+				}
+			
+			},
+			error: function() {
+			
+				app.showNotification('Alert', "[setNotifications] - Failed setting notifications." );
+				if (callback) return callback(true);
+			
+			}
 		});
 	
 	},

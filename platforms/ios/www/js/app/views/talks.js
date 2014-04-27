@@ -45,7 +45,7 @@
 			var $list = this.$('.list');
 				$list.html('');
 			
-			var talks = app.data.status.meetup.talks;
+			var talks = app.data.meetup.talks;
 			
 			_.each(talks, function(talk) {
 			

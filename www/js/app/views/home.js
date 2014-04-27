@@ -23,6 +23,8 @@
 			},
 			visible: function() {
 				
+				this.setNotifications();
+				this.setMeetup();
 				this.setState();
 				
 				// Analytics
@@ -46,16 +48,40 @@
 		
 		toggleNotifications: function() {
 		
-			app.showConfirm('New Meetups', 'Would you like a notification when a new meetup is announced?', 'No‚ thanks,Notify Me', function(pressed) {
-				switch(pressed) {
-					case 1: // No
-						console.log('User declined enable notifications.');
-					break;
-					case 2: // Yes
-						app.enableNotifications();
-					break;
+			var self = this;
+			
+			var user = app.data.session;
+			
+			if (user.services.pushNotifications.isConfigured) {
+				if (user.services.pushNotifications.enabled) {
+					app.showLoadingSpinner();
+					app.disableNotifications(function() {
+						self.setNotifications();
+						app.hideLoadingSpinner();
+					});
+				} else {
+					app.showLoadingSpinner();
+					app.enableNotifications(function() {
+						self.setNotifications();
+						app.hideLoadingSpinner();
+					});
 				}
-			});
+			} else {
+				app.showConfirm('New Meetups', 'Would you like a notification when a new meetup is announced?', 'No‚ thanks,Notify Me', function(pressed) {
+					switch(pressed) {
+						case 1: // No
+							// app.showNotification('Alert', 'User declined enable notifications.');
+						break;
+						case 2: // Yes
+							app.showLoadingSpinner();
+							app.enableNotifications(function() {
+								self.setNotifications();
+								app.hideLoadingSpinner();
+							});
+						break;
+					}
+				});
+			}
 		
 		},
 		
@@ -69,16 +95,38 @@
 			
 		},
 		
-		setState: function() {
+		setNotifications: function() {
 		
-			var status = app.data.meetup;
+			var user = app.data.session;
+			
+			// Push Notifications
+			var $notifications = this.$('.btn-notifications');
+			
+			$notifications.html('<img src="img/app/ui/icon-alarm-white.svg" />');
+			
+			if (user.services.pushNotifications.isConfigured && user.services.pushNotifications.enabled) {
+				$notifications.html('<img src="img/app/ui/icon-alarm-green.svg" />');
+			}
+		
+		},
+		
+		setMeetup: function() {
+		
+			var meetup = app.data.meetup;
 			
 			// Days & Date
 			var $days = this.$('.meetup-days'),
 				$date = this.$('.meetup-date');
 			
-			$days.html(moment(status.date).diff(moment(), 'days') + ' Days');
-			$date.html(moment(status.date).format('ddd, DD MMMM YYYY'));
+			$days.html(moment(meetup.date).diff(moment(), 'days') + ' Days');
+			$date.html(moment(meetup.date).format('ddd, DD MMMM YYYY'));
+		
+		},
+		
+		setState: function() {
+		
+			var meetup = app.data.meetup,
+				user = app.data.session;
 			
 			// RSVP States
 			var $states = this.$('.states');
@@ -95,13 +143,13 @@
 			$soldOut.hide();
 			$ticketsSoon.hide();
 			
-			if (status.rsvped && status.attending) {
+			if (meetup.rsvped && meetup.attending) {
 				$rsvpAttending.show();
-			} else if (status.rsvped && !status.attending) {
+			} else if (meetup.rsvped && !meetup.attending) {
 				$rsvpNotAttending.show();
-			} else if (status.ticketsAvailable && status.ticketsRemaining) {
+			} else if (meetup.ticketsAvailable && meetup.ticketsRemaining) {
 				$rsvp.show();
-			} else if (status.ticketsAvailable && status.ticketsAvailable == 0) {
+			} else if (meetup.ticketsAvailable && meetup.ticketsAvailable == 0) {
 				$soldOut.show();
 			} else {
 				$ticketsSoon.show();
@@ -123,7 +171,7 @@
 			var self = this;
 			
 			var rsvpData = {
-				user: app.data.session.user.id,
+				user: app.data.session.userId,
 				meetup: app.data.meetup.id,
 				attending: options.attending,
 				cancel: options.cancel
