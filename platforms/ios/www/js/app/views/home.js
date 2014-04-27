@@ -102,10 +102,10 @@
 			// Push Notifications
 			var $notifications = this.$('.btn-notifications');
 			
-			$('<img src="img/app/ui/icon-alarm-white.svg" />').appendTo($notifications);
+			$notifications.html('<img src="img/app/ui/icon-alarm-white.svg" />');
 			
 			if (user.services.pushNotifications.isConfigured && user.services.pushNotifications.enabled) {
-				$('<img src="img/app/ui/icon-alarm-green.svg" />').appendTo($notifications);
+				$notifications.html('<img src="img/app/ui/icon-alarm-green.svg" />');
 			}
 		
 		},

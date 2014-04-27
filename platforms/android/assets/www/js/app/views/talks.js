@@ -43,8 +43,9 @@
 		renderTalks: function() {
 		
 			var $list = this.$('.list');
+				$list.html('');
 			
-			var talks = app.data.status.meetup.talks;
+			var talks = app.data.meetup.talks;
 			
 			_.each(talks, function(talk) {
 			
@@ -52,14 +53,32 @@
 					'<span class="title">' + talk.name + '</span>' +
 					'<span class="people">';
 				
+				var names = [],
+					twitters = [];
+				
 				_.each(talk.who, function(who) {
-					
-					html += '<span class="person">' +
-						(who.name ? '<span class="author">' + who.name.first + ' ' + who.name.last + '</span>' : '') +
-						(who.twitter ? '<a class="twitter" href="http://twitter.com/' + who.twitter + '">' + who.twitter + '</a>' : '') +
-					'</span>';
-					
+					if (who.name) names.push(who.name.first + ' ' + who.name.last);
+					if (who.twitter) twitters.push(who.twitter);
 				});
+				
+				if (names.length) {
+					html += '<span class="authors">';
+					_.each(names, function(name, index) {
+						if (names.length > 1 && names.length == index + 1) html += ' & ';
+						html += '<span class="author">' + name + '</span>';
+					});
+					html += '</span>';
+				}
+				
+				if (twitters.length) {
+					html += '<span class="twitters">';
+					_.each(twitters, function(twitter, index) {
+						if (twitters.length > 1 && twitters.length == index + 1) html += ' & ';
+						if (twitter.slice(0,1) != '@') twitter = '@' + twitter;
+						html += '<a href="http://twitter.com/' + twitter.slice(1) + '" class="twitter" target="_blank">' + twitter + '</a>';
+					});
+					html += '</span>';
+				}
 				
 				html += '</span>' +
 					'</li>';
