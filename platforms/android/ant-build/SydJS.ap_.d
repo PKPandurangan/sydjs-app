@@ -795,15 +795,10 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/app/home.less \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/app/signin.less \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/app/talks.less \
-/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/common/entypo.less \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/common/ionicons.css \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/common/layout.less \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/common/mixins.less \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/common/spinner.less \
-/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/fonts/entypo.eot \
-/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/fonts/entypo.svg \
-/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/fonts/entypo.ttf \
-/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/fonts/entypo.woff \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/fonts/ionicons.eot \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/fonts/ionicons.svg \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/fonts/ionicons.ttf \
