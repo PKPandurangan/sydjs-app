@@ -15,21 +15,24 @@ module.exports = function(grunt) {
 			main: {
 				options: {},
 				files: [
+					// Config XML
 					{
 						expand: true,
 						cwd: '../../',
 						src: ['*.xml'],
 						dest: '../../www/'
 					},
+					// CSS
 					{
 						expand: true,
 						cwd: '../assets/css',
 						src: ['**'],
 						dest: '../../www/css',
 						filter: function(filepath) {
-							return filepath.match(/\.css|\.min.css|\.eot|\.svg|\.ttf|\.woff/);
+							return filepath.match(/\.css|\.min.css/);
 						}
 					},
+					// Images
 					{
 						expand: true,
 						cwd: '../assets/img',
@@ -39,6 +42,7 @@ module.exports = function(grunt) {
 							return filepath.match(/\.jpg|\.png|\.gif|\.svg/);
 						}
 					},
+					// JS
 					{
 						expand: true,
 						cwd: '../assets/js',
@@ -47,6 +51,25 @@ module.exports = function(grunt) {
 						filter: function(filepath) {
 							return filepath.match(/\.js|\.min.js/);
 						}
+					},
+					// Ionicons
+					{
+						expand: true,
+						cwd: '../assets/components/ionicons/fonts',
+						src: ['**'],
+						dest: '../../www/fonts',
+						filter: function(filepath) {
+							return filepath.match(/\.svg/); // \.eot|\.ttf|\.woff
+						}
+					},
+					{
+						expand: true,
+						cwd: '../assets/components/ionicons/css',
+						src: ['ionicons.css'],
+						dest: '../../www/css',
+						filter: function(filepath) {
+							return filepath.match(/\.css/);
+						}
 					}
 				]
 			}
@@ -54,7 +77,7 @@ module.exports = function(grunt) {
 		uglify: {
 			my_target: {
 				options: {
-					mangle: false
+					mangle: true
 				},
 				files: {
 					'../../www/components/async.js': ['../assets/components/async/lib/async.js'],
@@ -120,7 +143,7 @@ module.exports = function(grunt) {
 					'Gruntfile.js',
 					
 					'../../config.xml',
-					'../views/**/*.jade',
+					'../assets/**/*.jade',
 					'../assets/**/*.less',
 					'../assets/**/*.js'
 				],
