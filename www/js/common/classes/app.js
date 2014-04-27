@@ -218,9 +218,13 @@ _.extend(App.prototype, Backbone.Events, {
 		// Use native Cordova confirm dialogs
 		if (navigator.notification && navigator.notification.confirm) {
 			navigator.notification.confirm(message, callback, title || 'Confirm', labels || 'OK,Cancel');
-		// Fallback to browser confirms
+		// Fallback to browser confirms (1 = OK, 2 = Cancel)
 		} else {
-			if (confirm(message)) return callback();
+			if (!confirm(message)) {
+				return callback(1);
+			} else {
+				return callback(2);
+			}
 		}
 	
 	},

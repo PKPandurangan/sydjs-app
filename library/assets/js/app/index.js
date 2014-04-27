@@ -324,7 +324,12 @@ _.extend(app, {
 			
 				$log( "[getStatus] - Successfully retrieved status." );
 				
-				app.data.status = data;
+				// Set meetup status
+				app.data.meetup = data.meetup;
+				
+				// Set user data
+				localStorage.setItem( 'session_user', JSON.stringify( data.user ) );
+				app.data.session = data.user;
 				
 				return callback(false);
 			
@@ -362,7 +367,7 @@ _.extend(app, {
 		
 		console.log('Enabling notifications...');
 		
-		if (!app._device.system.match(/ios|android/)) {
+		if (!app._device.system || !app._device.system.match(/ios|android/)) {
 			return app.showNotification('Alert', 'Sorry, notifications can only be configured on actual devices.');
 		}
 		
@@ -372,7 +377,7 @@ _.extend(app, {
 		
 		Notificare.on('registration', function(deviceId) {
 			
-			console.log('Notification response...');
+			console.log('[enableNotifications] - Notification response...');
 			
 			var userId = app.data.session.user.id,
 				userName = (user.name && user.name.full ? user.name.full : 'Unknown');
@@ -395,17 +400,17 @@ _.extend(app, {
 					success: function(data) {
 					
 						if (data.success) {
-							$log( "[getStatus] - Successfully enabled notifications." );
+							$log( "[enableNotifications] - Successfully enabled notifications." );
 							if (callback) return callback(false);
 						} else {
-							$log( "[getStatus] - Failed enabling notifications." );
+							$log( "[enableNotifications] - Failed enabling notifications." );
 							if (callback) return callback(true);
 						}
 					
 					},
 					error: function() {
 					
-						$log( "[getStatus] - Failed enabling notifications." );
+						$log( "[enableNotifications] - Failed enabling notifications." );
 						if (callback) return callback(true);
 					
 					}
@@ -413,9 +418,9 @@ _.extend(app, {
 			
 			}, function(err) {
 			
-				app.showNotification('Alert', 'Sorry, there was an issue registering you for notifications. Please try again.');
+				$log( "[enableNotifications] - Failed enabling notifications.", err );
 				
-				console.log(err);
+				app.showNotification('Alert', 'Sorry, there was an issue registering you for notifications. Please try again.');
 				
 				if (callback) return callback(true);
 			
@@ -441,17 +446,17 @@ _.extend(app, {
 				success: function(data) {
 				
 					if (data.success) {
-						$log( "[getStatus] - Successfully disabled notifications." );
+						$log( "[disableNotifications] - Successfully disabled notifications." );
 						if (callback) return callback(false);
 					} else {
-						$log( "[getStatus] - Failed disabling notifications." );
+						$log( "[disableNotifications] - Failed disabling notifications." );
 						if (callback) return callback(true);
 					}
 				
 				},
 				error: function() {
 				
-					$log( "[getStatus] - Failed disabling notifications." );
+					$log( "[disableNotifications] - Failed disabling notifications." );
 					if (callback) return callback(true);
 				
 				}

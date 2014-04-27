@@ -71,8 +71,16 @@
 		
 		setState: function() {
 		
-			var status = app.data.status.meetup;
+			var status = app.data.meetup;
 			
+			// Days & Date
+			var $days = this.$('.meetup-days'),
+				$date = this.$('.meetup-date');
+			
+			$days.html(moment(status.date).diff(moment(), 'days') + ' Days');
+			$date.html(moment(status.date).format('ddd, DD MMMM YYYY'));
+			
+			// RSVP States
 			var $states = this.$('.states');
 			
 			var $rsvp = $states.find('.rsvp'),
@@ -116,7 +124,7 @@
 			
 			var rsvpData = {
 				user: app.data.session.user.id,
-				meetup: app.data.status.meetup.id,
+				meetup: app.data.meetup.id,
 				attending: options.attending,
 				cancel: options.cancel
 			};
@@ -134,8 +142,8 @@
 						$log( "[toggleAttending] - RSVP successful.", rtnData );
 						
 						// Update local cached data
-						app.data.status.meetup.attending = rsvpData.attending;
-						app.data.status.meetup.rsvped = !options.cancel ? true : false;
+						app.data.meetup.attending = rsvpData.attending;
+						app.data.meetup.rsvped = !options.cancel ? true : false;
 						
 						// Hide loading spinner
 						app.hideLoadingSpinner();
