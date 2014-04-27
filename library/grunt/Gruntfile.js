@@ -15,19 +15,39 @@ module.exports = function(grunt) {
 			main: {
 				options: {},
 				files: [
-					{ expand: true, cwd: '../../', src: ['*.xml'], dest: '../../www/' },
-					{ expand: true, cwd: '../assets/components', src: ['**'], dest: '../../www/components', filter: function(filepath) {
-						return filepath.match(/\.js|\.min.js/);
-					}},
-					{ expand: true, cwd: '../assets/css', src: ['**'], dest: '../../www/css', filter: function(filepath) {
-						return filepath.match(/\.css|\.min.css|\.eot|\.svg|\.ttf|\.woff/);
-					}},
-					{ expand: true, cwd: '../assets/img', src: ['**'], dest: '../../www/img', filter: function(filepath) {
-						return filepath.match(/\.jpg|\.png|\.gif|\.svg/);
-					}},
-					{ expand: true, cwd: '../assets/js', src: ['**'], dest: '../../www/js', filter: function(filepath) {
-						return filepath.match(/\.js|\.min.js/);
-					}}
+					{
+						expand: true,
+						cwd: '../../',
+						src: ['*.xml'],
+						dest: '../../www/'
+					},
+					{
+						expand: true,
+						cwd: '../assets/css',
+						src: ['**'],
+						dest: '../../www/css',
+						filter: function(filepath) {
+							return filepath.match(/\.css|\.min.css|\.eot|\.svg|\.ttf|\.woff/);
+						}
+					},
+					{
+						expand: true,
+						cwd: '../assets/img',
+						src: ['**'],
+						dest: '../../www/img',
+						filter: function(filepath) {
+							return filepath.match(/\.jpg|\.png|\.gif|\.svg/);
+						}
+					},
+					{
+						expand: true,
+						cwd: '../assets/js',
+						src: ['**'],
+						dest: '../../www/js',
+						filter: function(filepath) {
+							return filepath.match(/\.js|\.min.js/);
+						}
+					}
 				]
 			}
 		},
@@ -43,9 +63,11 @@ module.exports = function(grunt) {
 					'../../www/components/underscore.js': ['../assets/components/underscore/underscore.js'],
 					'../../www/components/zepto.js': [
 						'../assets/components/zeptojs/src/zepto.js',
+						'../assets/components/zeptojs/src/data.js',
 						'../assets/components/zeptojs/src/event.js',
 						'../assets/components/zeptojs/src/ajax.js',
 						'../assets/components/zeptojs/src/detect.js',
+						'../assets/components/zeptojs/src/selector.js',
 						'../assets/components/zeptojs/src/fx.js',
 						'../assets/components/zeptojs/src/touch.js'
 					]
