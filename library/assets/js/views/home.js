@@ -97,6 +97,8 @@
 		
 		setNotifications: function() {
 		
+			if (!app.data.session) return;
+			
 			var user = app.data.session;
 			
 			// Push Notifications

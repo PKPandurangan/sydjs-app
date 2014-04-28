@@ -300,8 +300,10 @@ _.extend(app, {
 			$log( "[resumeSession] - No existing data found..." );
 			$log( "[resumeSession] - Showing [signin] screen." );
 			
-			$( '#preloader' ).animate({ opacity: 0 }, 250 );
-			app.view('signin').show('slide-up');
+			app.getStatus(function() {
+				$( '#preloader' ).animate({ opacity: 0 }, 250 );
+				app.view('home').show('slide-up');
+			});
 		}
 		
 	},
@@ -579,32 +581,7 @@ app.on('init', function() {
 				
 				return cb();
 			
-			},
-			
-			/*
-			function(cb) {
-			
-				// If we haven't got the claims data yet...
-				if ( !app.data.preload.claims ) {
-				
-					// Load it, then continue along the queue
-					$log( "[init] - Claims data isn't loaded, loading..." );
-					
-					app.getStatus(function() {
-						return cb();
-					});
-				
-				} else {
-					
-					// Otherwise continue along the queue
-					$log( "[init] - Claim data loaded, continuing..." );
-					
-					return cb();
-				
-				}
-			
 			}
-			*/
 		
 		], function(err) {
 		

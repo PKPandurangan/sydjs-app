@@ -59,7 +59,7 @@ module.exports = function(grunt) {
 						src: ['**'],
 						dest: '../../www/fonts',
 						filter: function(filepath) {
-							return filepath.match(/\.svg/); // \.eot|\.ttf|\.woff
+							return filepath.match(/\.tff|\.eot|\.woff|\.svg/);
 						}
 					},
 					{
