@@ -51,25 +51,6 @@ module.exports = function(grunt) {
 						filter: function(filepath) {
 							return filepath.match(/\.js|\.min.js/);
 						}
-					},
-					// Ionicons
-					{
-						expand: true,
-						cwd: '../assets/components/ionicons/fonts',
-						src: ['**'],
-						dest: '../../www/fonts',
-						filter: function(filepath) {
-							return filepath.match(/\.tff|\.eot|\.woff|\.svg/);
-						}
-					},
-					{
-						expand: true,
-						cwd: '../assets/components/ionicons/css',
-						src: ['ionicons.css'],
-						dest: '../../www/css',
-						filter: function(filepath) {
-							return filepath.match(/\.css/);
-						}
 					}
 				]
 			}

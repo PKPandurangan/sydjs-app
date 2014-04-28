@@ -314,12 +314,14 @@ _.extend(app, {
 	
 		$log( "[getStatus] - Status data doesn't exist, retrieving from server..." );
 		
+		var data = {};
+		
+		if (app.data.session.userId) data.user = app.data.session.userId;
+		
 		$.ajax({
 			url: config.baseURL + '/api/app/status',
 			type: 'post',
-			data: {
-				user: app.data.session.userId
-			},
+			data: data,
 			dataType: 'json',
 			cache: false,
 			success: function(data) {
