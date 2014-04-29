@@ -57,7 +57,7 @@
 		},
 		
 		previous: function() {
-			app.view('home').reveal('slide-right');
+			app.view('home').reveal('slide-up');
 		},
 		
 		clearFields: function() {

@@ -48,6 +48,13 @@
 		
 		toggleNotifications: function() {
 		
+			if (!app.data.session) {
+				app.showConfirm('Notifications', 'Sign in and receive useful notifications, such as new meetups announcements.', 'No‚ thanks,Register', function(pressed) {
+					if (pressed == 2) app.view('signin').show('slide-down');
+				});
+				return;
+			}
+			
 			var self = this;
 			
 			var user = app.data.session;
@@ -170,10 +177,19 @@
 		
 		toggleAttending: function(options) {
 		
+			if (!app.data.session) {
+				app.showConfirm('Notifications', 'Sign in and receive useful notifications, such as new meetups announcements.', 'No‚ thanks,Register', function(pressed) {
+					if (pressed == 2) app.view('signin').show('slide-down');
+				});
+				return;
+			}
+			
 			var self = this;
 			
+			var user = app.data.session;
+			
 			var rsvpData = {
-				user: app.data.session.userId,
+				user: user.userId,
 				meetup: app.data.meetup.id,
 				attending: options.attending,
 				cancel: options.cancel
