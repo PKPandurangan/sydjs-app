@@ -38,6 +38,8 @@
 			'.btn-notifications': 'toggleNotifications',
 			'.btn-talks': 'toggleTalks',
 			
+			'.btn-calendar': 'addCalendar',
+			
 			'.rsvp .btn-attending': 'rsvpAttending',
 			'.rsvp .btn-not-attending': 'rsvpNotAttending',
 			
@@ -130,6 +132,10 @@
 			$days.html(moment(meetup.date).diff(moment(), 'days') + ' Days');
 			$date.html(moment(meetup.date).format('ddd, DD MMMM YYYY'));
 		
+		},
+		
+		addCalendar: function() {
+			console.log('add to calendar');
 		},
 		
 		setState: function() {
