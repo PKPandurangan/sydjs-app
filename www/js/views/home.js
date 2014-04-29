@@ -129,8 +129,12 @@
 			var $days = this.$('.meetup-days'),
 				$date = this.$('.meetup-date');
 			
+			var $calendar = this.$('.btn-calendar');
+			
 			$days.html(moment(meetup.date).diff(moment(), 'days') + ' Days');
 			$date.html(moment(meetup.date).format('ddd, DD MMMM YYYY'));
+			
+			$calendar.find('.number').html(moment(meetup.date).format('DD'));
 		
 		},
 		
