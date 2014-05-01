@@ -128,7 +128,7 @@ module.exports = function(grunt) {
 					'../assets/**/*.less',
 					'../assets/**/*.js'
 				],
-				tasks: ['clean', 'copy', 'uglify', 'jade', 'less', 'relativeRoot', 'watch']
+				tasks: ['clean', 'copy', 'uglify', 'jade', 'less', 'relativeRoot'] // Does not include 'watch' which would spawn additional grunt processes
 			}
 		}
 	});
