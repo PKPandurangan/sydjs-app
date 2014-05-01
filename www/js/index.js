@@ -291,7 +291,7 @@ _.extend(app, {
 			
 			app.getStatus(function() {
 				$( '#preloader' ).animate({ opacity: 0 }, 250 );
-				app.view('home').show('slide-up');
+				app.view('signin').show('slide-up');
 			});
 		}
 		// If we don't have any data, just show the start screen (default behaviour)
@@ -302,7 +302,7 @@ _.extend(app, {
 			
 			app.getStatus(function() {
 				$( '#preloader' ).animate({ opacity: 0 }, 250 );
-				app.view('home').show('slide-up');
+				app.view('signin').show('slide-up');
 			});
 		}
 		
