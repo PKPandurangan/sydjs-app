@@ -247,13 +247,19 @@ _.extend(App.prototype, Backbone.Events, {
 			'z-index': this.currentViewZ() + 99,
 			'opacity': 0,
 			'display': 'block'
-		}).animate({ opacity: 1 }, 400, 'ease', function() {
+		}).velocity({
+			opacity: 1
+		}, {
+			duration: 400,
+			easing: 'easeInOutSine',
+			complete: function() {
+				
+				if (then) {
+					$log( "[showLoadingSpinner] - Has then() callback." );
+					then();
+				}
 			
-			if (then) {
-				$log( "[showLoadingSpinner] - Has then() callback." );
-				then();
 			}
-			
 		});
 		
 		if (label) {
@@ -277,16 +283,22 @@ _.extend(App.prototype, Backbone.Events, {
 		
 		this._spinnerVisible = false;
 		
-		$('#app-loading').animate({ opacity: 0 }, 400, 'ease', function() {
+		$('#app-loading').velocity({
+			opacity: 0
+		}, {
+			duration: 400,
+			easing: 'easeInOutSine',
+			complete: function() {
 			
-			$('#app-loading').hide();
-			$('#app-loading .spinner').spinner('stop');
+				$('#app-loading').hide();
+				$('#app-loading .spinner').spinner('stop');
+				
+				if (then) {
+					$log( "[hideLoadingSpinner] - Has then() callback." );
+					then();
+				}
 			
-			if (then) {
-				$log( "[hideLoadingSpinner] - Has then() callback." );
-				then();
 			}
-			
 		});
 	},
 	
