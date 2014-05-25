@@ -58,13 +58,14 @@ module.exports = function(grunt) {
 		uglify: {
 			my_target: {
 				options: {
-					mangle: true
+					mangle: false // TODO: Re-enable
 				},
 				files: {
 					'../../www/components/async.js': ['../assets/components/async/lib/async.js'],
 					'../../www/components/backbone.js': ['../assets/components/backbone/backbone.js'],
 					'../../www/components/moment.js': ['../assets/components/moment/moment.js'],
 					'../../www/components/underscore.js': ['../assets/components/underscore/underscore.js'],
+					'../../www/components/velocity.js': ['../assets/components/velocity/jquery.velocity.js'],
 					'../../www/components/zepto.js': [
 						'../assets/components/zeptojs/src/zepto.js',
 						'../assets/components/zeptojs/src/data.js',

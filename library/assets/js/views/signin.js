@@ -20,11 +20,11 @@
 					top: this.$('.titlebar').height()
 				});
 				
-				_.each(['github', 'facebook', 'twitter', 'email'], function(button) {
+				_.each(['github', 'facebook', 'google', 'twitter', 'email'], function(button) {
 				
 					var $button = self.$('.btn-' + button);
 					
-					$button.css('height', availableHeight / 4);
+					$button.css('height', availableHeight / 5);
 					
 				});
 				
@@ -37,8 +37,10 @@
 		},
 		
 		buttons: {
+			'.btn-back': 'previous',
 			'.btn-github': '',
 			'.btn-facebook': '',
+			'.btn-google': '',
 			'.btn-twitter': '',
 			'.btn-email': ''
 		},

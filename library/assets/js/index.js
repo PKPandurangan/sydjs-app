@@ -290,8 +290,8 @@ _.extend(app, {
 			$log( "[resumeSession] - Session info was retrieved at [" + moment( parseInt( date ) ).format('h:mm:ss a') + "]..." );
 			
 			app.getStatus(function() {
-				$( '#preloader' ).animate({ opacity: 0 }, 250 );
-				app.view('signin').show('slide-up');
+				$( '#preloader' ).velocity({ opacity: 0 }, { duration: 250 });
+				app.view('home').show('slide-up');
 			});
 		}
 		// If we don't have any data, just show the start screen (default behaviour)
@@ -301,8 +301,8 @@ _.extend(app, {
 			$log( "[resumeSession] - Showing [signin] screen." );
 			
 			app.getStatus(function() {
-				$( '#preloader' ).animate({ opacity: 0 }, 250 );
-				app.view('signin').show('slide-up');
+				$( '#preloader' ).velocity({ opacity: 0 }, { duration: 250 });
+				app.view('home').show('slide-up');
 			});
 		}
 		
@@ -353,10 +353,6 @@ _.extend(app, {
 	signOut: function() {
 	
 		app.data.session = {};
-		
-		collections.claims.reset();
-		collections.cinemas.reset();
-		collections.rewardPartnerLocations.reset();
 		
 		localStorage.clear();
 		

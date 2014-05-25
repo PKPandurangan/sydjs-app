@@ -284,7 +284,7 @@ _.extend(View.prototype, Backbone.Events, {
 	// Animation options are `slide-up`, `slide-down`, `slide-left`, and `slide-right`
 	show: function(anim) {
 		
-		// console.log("[show] - view [" + this.id + "]:show(" + ( anim || '' ) + ")");
+		console.log("[show] - view [" + this.id + "]:show(" + ( anim || '' ) + ")");
 		
 		if (app.inTransition() || this.isVisible()) {
 			// console.log("[show] - view [" + this.id + "]:show() bailing, app.inTransition: " + app.inTransition() + ", this.isVisible: " + this.isVisible());
@@ -306,36 +306,43 @@ _.extend(View.prototype, Backbone.Events, {
 		
 		if (anim) {
 			
-			var to = '0,0,0';
+			var translateX = 0,
+				translateY = 0;
 			
 			switch (anim) {
 				case 'slide-up':
-					to = '0,' + app.viewportSize.height + 'px,0';
+					translateY = app.viewportSize.height;
 				break;
 				case 'slide-down':
-					to = '0,' + (-app.viewportSize.height) + 'px,0';
+					translateY = -app.viewportSize.height;
 				break;
 				case 'slide-left':
-					to = (-app.viewportSize.width) + 'px,0,0';
+					translateX = -app.viewportSize.width;
 				break;
 				case 'slide-right':
-					to = app.viewportSize.width + 'px,0,0';
+					translateX = app.viewportSize.width;
 				break;
 			}
 			
-			// piggyback the animate function to handle translate3d
-			$.fx.off = true;
-			this.$el.animate({ translate3d: to });
-			this.$el.css('opacity', 1);
-			$.fx.off = false;
+			this.$el.css({
+				transform: 'translateX(' + translateX + 'px) translateY(' + translateY + 'px)',
+				opacity: 1
+			});
 			
-			// use 10ms timeout to ensure repaint has updated the offset before the animation begins
-			setTimeout(function() {
-				self.$el.animate({ translate3d: '0,0,0' }, 300, 'ease', function() {
+			this.$el.velocity({
+				translateX: [0, translateX],
+				translateY: [0, translateY]
+			}, {
+				duration: 300,
+				easing: 'easeInOutSine',
+				complete: function() {
+					
 					// console.log("[show] - transition complete");
+					
 					app.currentView(self, true);
-				});
-			}, 10);
+					
+				}
+			});
 			
 		} else {
 			this.$el.css('opacity', 1);
@@ -380,167 +387,49 @@ _.extend(View.prototype, Backbone.Events, {
 			
 			// console.log("[reveal] - view [" + this.id + "]:reveal starting animation");
 			
-			var to = '0,0,0';
-			
-			// piggyback the animate function to handle translate3d
-			$.fx.off = true;
-			prevView.$el.animate({ translate3d: to });
-			$.fx.off = false;
+			var translateX = 0,
+				translateY = 0;
 			
 			switch (anim) {
 				case 'slide-up':
-					to = '0,' + (-app.viewportSize.height) + 'px,0';
+					translateY = -app.viewportSize.height;
 				break;
 				case 'slide-down':
-					to = '0,' + app.viewportSize.height + 'px,0';
+					translateY = app.viewportSize.height;
 				break;
 				case 'slide-left':
-					to = (-app.viewportSize.width) + 'px,0,0';
+					translateX = -app.viewportSize.width;
+				break;
 				case 'slide-right':
-					to = app.viewportSize.width + 'px,0,0';
+					translateX = app.viewportSize.width;
 				break;
 			}
-			// use 10ms timeout to ensure repaint has updated the offset before the animation begins
-			setTimeout(function() {
-				// console.log("[reveal] - view [" + self.id + "]:reveal starting animation (timeout)");
-				prevView.$el.animate({ translate3d: to }, 300, 'ease', function() {
+			
+			prevView.$el.velocity({
+				translateX: [translateX, 0],
+				translateY: [translateY, 0]
+			}, {
+				duration: 300,
+				easing: 'easeInOutSine',
+				complete: function() {
+					
 					// console.log("[reveal] - view [" + self.id + "]:reveal animation complete");
 					app.currentView(self, true);
+					
 					// reset the position of the previous view
-					$.fx.off = true;
-					prevView.$el.animate({ translate3d: '0,0,0' });
-					$.fx.off = false;
-				});
-			}, 10);
+					prevView.$el.velocity({
+						translateX: 0,
+						translateY: 0
+					});
+				
+				}
+			});
 			
 		} else {
 			this.$el.css('opacity', 1);
 			this.trigger('visible');
 			app.currentView(this, true);
 		}
-		
-	},
-	
-	// `revealPanel` is like `reveal`, but has an offset of the target view,
-	// tapping the semi-hidden view slides it back in (used for side menu)
-	revealPanel: function(anim) {
-		
-		console.log("[revealPanel] - view [" + this.id + "]:revealPanel(" + ( anim || '' ) + ")");
-		
-		if (app.inTransition() || this.isVisible()) {
-			console.log("[revealPanel] - view [" + this.id + "]:revealPanel() bailing, app.inTransition: " + app.inTransition() + ", this.isVisible: " + this.isVisible());
-			return;
-		}
-		
-		var self = this,
-			prevView = app.currentView();
-		
-		if (!prevView) {
-			return this.show();
-		}
-		
-		this.prepare();
-		
-		// set z-indexes so the current view appears on top of this one
-		prevView.setZ(app.nextViewZ());
-		this.setZ(app.lastViewZ());
-		
-		// prepare the view
-		this.$el.show();
-		this.trigger('visible');
-		this.trigger('layout');
-		
-		if (!anim) {
-			$log( "[revealPanel] - drawer must be supplied with an animation." );
-			return;
-		}
-		
-		var to = '0,0,0';
-		
-		// piggyback the animate function to handle translate3d
-		$.fx.off = true;
-		prevView.$el.animate({ translate3d: to });
-		$.fx.off = false;
-		
-		switch (anim) {
-			case 'slide-up':
-				to = '0,-80px,0';
-			break;
-			case 'slide-down':
-				to = '0,80px,0';
-			break;
-			case 'slide-left':
-				to = ( app.viewportSize.width - 37 ) + 'px,0,0';
-			break;
-			case 'slide-right':
-				to = '-' + ( app.viewportSize.width - 47 ) + 'px,0,0';
-			break;
-		}
-		
-		// use 10ms timeout to ensure repaint has updated the offset before the animation begins
-		setTimeout(function() {
-		
-			prevView.$el.animate({ translate3d: to }, 300, 'ease', function() {
-				console.log("[revealPanel] - transition complete");
-				prevView.$el.on((app.touchSupport ? 'tap' : 'click'), function(e) { app.view('menu-options').concealPanel(anim); });
-				prevView.$el.on('swipeRight', function(e) { app.view('menu-options').concealPanel(anim); });
-				// tell the app the transition is complete (normally handled by app.currentView(), but panels don't change the current view)
-				app.doneTransition();
-			});
-			
-			// add drop shadow
-			prevView.$el.addClass( 'view-shadow' );
-			
-			// add obstruction
-			$( '<div class="view-obstruction">' ).css( 'opacity', 0 ).appendTo( prevView.$el );
-		
-		}, 10);
-		
-	},
-	
-	// `concealPanel` hides a panel that was previously revealed
-	concealPanel: function(anim) {
-		
-		console.log("[concealPanel] - view [" + this.id + "]:concealPanel(" + ( anim || '' ) + ")");
-		
-		var currentView = app.currentView();
-		
-		var self = this;
-		
-		currentView.$el.animate({ translate3d: '0,0,0' }, 300, 'ease', function() {
-			
-			app.currentView(currentView, false);
-			
-			$.fx.off = true;
-			currentView.$el.animate({ translate3d: '0,0,0' });
-			$.fx.off = false;
-			
-			currentView.$el.off((app.touchSupport ? 'tap' : 'click'));
-			currentView.$el.off('swipeRight');
-			
-			// remove obstruction
-			var $obstruction = currentView.$el.find( '.view-obstruction' );
-				$obstruction.remove();
-			
-			// make sure panel is hidden
-			self.$el.css({
-				'display': '',
-				'opacity': '',
-				'transform': '',
-				'z-index': ''
-			});
-			
-			// make sure anything is scrolled up
-			app.scrollContainer(self);
-			
-			// remove shadow
-			currentView.$el.removeClass( 'view-shadow' );
-			
-		});
-		
-		// trigger view events (may or may not want to keep this, needed for hamburger button)
-		currentView.trigger('visible');
-		currentView.trigger('layout');
 		
 	},
 	

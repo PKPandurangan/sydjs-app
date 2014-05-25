@@ -51,7 +51,7 @@
 		toggleNotifications: function() {
 		
 			if (!app.data.session) {
-				app.showConfirm('Notifications', 'Sign in and receive useful notifications, such as new meetups announcements.', 'No‚ thanks,Register', function(pressed) {
+				app.showConfirm('Notifications', 'Sign in and receive useful notifications, such as new meetups announcements.', 'No‚ thanks,Sign in', function(pressed) {
 					if (pressed == 2) app.view('signin').show('slide-down');
 				});
 				return;
@@ -96,9 +96,13 @@
 		
 		toggleTalks: function() {
 			
-			this.$('.states').animate({
-				translate3d: '0,0,0'
-			}, 300, 'ease-out');
+			this.$('.states').velocity({
+				translateX: 0,
+				translateY: 0
+			}, {
+				duration: 300,
+				easing: 'easeOutSine'
+			});
 			
 			app.view('talks').show('slide-down');
 			
@@ -125,16 +129,20 @@
 		
 			var meetup = app.data.meetup;
 			
-			// Days & Date
+			var $talks = this.$('.btn-talks');
+			
 			var $days = this.$('.meetup-days'),
 				$date = this.$('.meetup-date');
 			
 			var $calendar = this.$('.btn-calendar');
 			
-			$days.html(moment(meetup.date).diff(moment(), 'days') + ' Days');
-			$date.html(moment(meetup.date).format('ddd, DD MMMM YYYY'));
+			$days.html(meetup ? moment(meetup.date).diff(moment(), 'days') + ' Days' : 'Standby');
+			$date.html(meetup ? moment(meetup.date).format('ddd, DD MMMM YYYY') : 'Sharkie\'s on it...');
 			
-			$calendar.find('.number').html(moment(meetup.date).format('DD'));
+			$calendar[meetup ? 'show' : 'hide']();
+			$talks[meetup ? 'show' : 'hide']();
+			
+			meetup && $calendar.find('.number').html(moment(meetup.date).format('DD'));
 		
 		},
 		
@@ -178,9 +186,13 @@
 			$states.css('transform', 'translate3d(0,0,0)');
 			
 			setTimeout(function() {
-				$states.animate({
-					translate3d: '0,-75px,0'
-				}, 250, 'ease-out');
+				$states.velocity({
+					translateX: 0,
+					translateY: -75
+				}, {
+					duration: 250,
+					easing: 'easeOutSine'
+				});
 			}, 150);
 			
 		},
@@ -188,7 +200,7 @@
 		toggleAttending: function(options) {
 		
 			if (!app.data.session) {
-				app.showConfirm('Notifications', 'Sign in and receive useful notifications, such as new meetups announcements.', 'No‚ thanks,Register', function(pressed) {
+				app.showConfirm('Notifications', 'You must sign in to mark your attendance.', 'No‚ thanks,Sign in', function(pressed) {
 					if (pressed == 2) app.view('signin').show('slide-down');
 				});
 				return;
@@ -228,10 +240,15 @@
 						self._processingForm = false;
 						
 						// Update status
-						self.$('.states').animate({
-							translate3d: '0,0,0'
-						}, 250, 'ease-out', function() {
-							self.setState();
+						self.$('.states').velocity({
+							translateX: 0,
+							translateY: 0
+						}, {
+							duration: 250,
+							easing: 'easeOutSine',
+							complete: function() {
+								self.setState();
+							}
 						});
 					
 					} else {
