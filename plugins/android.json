@@ -31,6 +31,10 @@
                         {
                             "xml": "<feature name=\"Notificare\"><param name=\"android-package\" value=\"re.notifica.cordova.NotificarePlugin\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Calendar\"><param name=\"android-package\" value=\"nl.xservices.plugins.Calendar\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -87,6 +91,14 @@
                         {
                             "xml": "<uses-permission android:name=\"com.sydjs.permission.C2D_MESSAGE\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.READ_CALENDAR\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.WRITE_CALENDAR\" />",
+                            "count": 1
                         }
                     ],
                     "/manifest/application": [
@@ -131,6 +143,9 @@
             "PACKAGE_NAME": "com.sydjs"
         },
         "re.notifica.cordova": {
+            "PACKAGE_NAME": "com.sydjs"
+        },
+        "nl.x-services.plugins.calendar": {
             "PACKAGE_NAME": "com.sydjs"
         }
     },

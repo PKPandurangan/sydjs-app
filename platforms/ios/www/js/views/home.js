@@ -147,7 +147,26 @@
 		},
 		
 		addCalendar: function() {
-			console.log('add to calendar');
+			
+			var meetup = app.data.meetup;
+			
+			var startDate = moment(meetup.date).add('hours', 18).toDate(),
+				endDate = moment(meetup.date).add('hours', 21).toDate();
+			
+			var title = 'SydJS',
+				location = 'Level 6, 341 George St',
+				notes = meetup.name;
+			
+			var success = function(message) { alert("Success: " + JSON.stringify(message)); },
+				error = function(message) { alert("Error: " + message); };
+			
+			var reminders = {
+				firstReminderMinutes: 60,
+				secondReminderMinutes: null
+			}
+			
+			window.plugins.calendar.createEventWithOptions(title,location,notes,startDate,endDate,reminders,success,error);
+			
 		},
 		
 		setState: function() {

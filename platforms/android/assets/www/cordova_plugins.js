@@ -63,6 +63,13 @@ module.exports = [
         "clobbers": [
             "Notificare"
         ]
+    },
+    {
+        "file": "plugins/nl.x-services.plugins.calendar/www/Calendar.js",
+        "id": "nl.x-services.plugins.calendar.Calendar",
+        "clobbers": [
+            "Calendar"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -74,7 +81,8 @@ module.exports.metadata =
     "org.apache.cordova.statusbar": "0.1.3",
     "org.apache.cordova.dialogs": "0.2.6",
     "org.apache.cordova.splashscreen": "0.2.7",
-    "re.notifica.cordova": "0.1.1"
+    "re.notifica.cordova": "0.1.1",
+    "nl.x-services.plugins.calendar": "4.2.3"
 }
 // BOTTOM OF METADATA
 });

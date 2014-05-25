@@ -43,6 +43,10 @@
                         {
                             "xml": "<feature name=\"Notificare\"><param name=\"ios-package\" value=\"NotificarePlugin\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Calendar\"><param name=\"ios-package\" value=\"Calendar\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -130,6 +134,18 @@
                             "xml": "false",
                             "count": 1
                         }
+                    ],
+                    "EventKit.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "EventKitUI.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
                     ]
                 }
             }
@@ -155,6 +171,9 @@
             "PACKAGE_NAME": "com.sydjs"
         },
         "re.notifica.cordova": {
+            "PACKAGE_NAME": "com.sydjs"
+        },
+        "nl.x-services.plugins.calendar": {
             "PACKAGE_NAME": "com.sydjs"
         }
     },

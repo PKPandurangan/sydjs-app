@@ -62,6 +62,9 @@
 		D4D75C1B741C4ACF9C9FA67B /* CDVSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1200AC30E4EF1BB1BC15C /* CDVSplashScreen.m */; };
 		DD90DE092BBF4D9BB3E642C9 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D6611D4C244772B1DBA7DF /* Security.framework */; };
 		F6E2B8975D974050AFF7ED05 /* CDVStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A05E15D59C4D3D8D953D72 /* CDVStatusBar.m */; };
+		FDA625AC97C5416D9CFEF6CD /* Calendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 77769A06D855484A94A43954 /* Calendar.m */; };
+		9AAB06D0F9DD4A0BB6072628 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB222BE485B74504BDB93016 /* EventKit.framework */; };
+		4BCF755DCA08489691F6BBED /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C8441FCA314324BBA4570C /* EventKitUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -206,6 +209,10 @@
 		F763A22C05CC42F9A8063E3C /* NotificareApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareApp.h; path = re.notifica.cordova/NotificareApp.h; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = SydJS/config.xml; sourceTree = "<group>"; };
 		FE81B6C07510423F9F39F854 /* UIImage+FromBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+FromBundle.h"; path = "re.notifica.cordova/UIImage+FromBundle.h"; sourceTree = "<group>"; };
+		77769A06D855484A94A43954 /* Calendar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "Calendar.m"; path = "nl.x-services.plugins.calendar/Calendar.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		040DDB0B5595491283632206 /* Calendar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Calendar.h"; path = "nl.x-services.plugins.calendar/Calendar.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		AB222BE485B74504BDB93016 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "EventKit.framework"; path = "System/Library/Frameworks/EventKit.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		63C8441FCA314324BBA4570C /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "EventKitUI.framework"; path = "System/Library/Frameworks/EventKitUI.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +236,8 @@
 				6EEBA43800EF48F68CF571AB /* MapKit.framework in Frameworks */,
 				DD90DE092BBF4D9BB3E642C9 /* Security.framework in Frameworks */,
 				0CA761BFF0A44AC49DD29FA6 /* CFNetwork.framework in Frameworks */,
+				9AAB06D0F9DD4A0BB6072628 /* EventKit.framework in Frameworks */,
+				4BCF755DCA08489691F6BBED /* EventKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,6 +346,8 @@
 				4F7BCD4822AA4E8DAB0C5252 /* MapKit.framework */,
 				A7D6611D4C244772B1DBA7DF /* Security.framework */,
 				12815CFF48BE48419B90F3C2 /* CFNetwork.framework */,
+				AB222BE485B74504BDB93016 /* EventKit.framework */,
+				63C8441FCA314324BBA4570C /* EventKitUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -417,6 +428,8 @@
 				65C5FB0180C444F7B7E969C7 /* NotificareActions.h */,
 				58A150D55A924272A4E0DDA6 /* NotificareEngine.h */,
 				A73FFEBEEA6C47FD8B6628C4 /* NotificarePushLib.h */,
+				77769A06D855484A94A43954 /* Calendar.m */,
+				040DDB0B5595491283632206 /* Calendar.h */,
 			);
 			name = Plugins;
 			path = SydJS/Plugins;
@@ -629,6 +642,7 @@
 				D4D75C1B741C4ACF9C9FA67B /* CDVSplashScreen.m in Sources */,
 				BF2F51875E7D46AD91272442 /* NotificarePlugin.m in Sources */,
 				8DAEF0EBE164476C9E833FEA /* NotificareAppDelegateSurrogate.m in Sources */,
+				FDA625AC97C5416D9CFEF6CD /* Calendar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

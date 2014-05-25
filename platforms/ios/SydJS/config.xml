@@ -43,6 +43,9 @@
     <feature name="Notificare">
         <param name="ios-package" value="NotificarePlugin" />
     </feature>
+    <feature name="Calendar">
+        <param name="ios-package" value="Calendar" />
+    </feature>
     <name>SydJS</name>
     <description>
         A companion app to the SydJS website.
