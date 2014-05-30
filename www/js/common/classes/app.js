@@ -304,16 +304,19 @@ _.extend(App.prototype, Backbone.Events, {
 	
 	hideKeyboard: function() {
 		// hide the keyboard when hiding a screen (blur active element)
-		if ( document.activeElement.tagName.toLowerCase().match( /input|textarea|select/ ) )
+		if (document.activeElement.tagName.toLowerCase().match(/input|textarea|select/)) {
 			document.activeElement.blur();
+		}
 	},
 	
 	scrollContainer: function(view) {
-		if ( view.disableAutoScroll )
+		if ( view.disableAutoScroll ) {
 			return;
+		}
 		var scrollingContainer = view.$el.find( '.container' );
-		if ( scrollingContainer.length )
+		if ( scrollingContainer.length ) {
 			_.first(scrollingContainer).scrollTop = 0;
+		}
 	},
 	
 	initDevice: function() {
@@ -322,13 +325,11 @@ _.extend(App.prototype, Backbone.Events, {
 		
 		app._device = {
 			mobile: (/iphone|ipad|ipod|android/i.test(userAgent)),
-			standalone: window.navigator.standalone,
 			
 			system: false,
 			tablet: false,
 			
 			browser: false,
-			webkit: $.browser.webkit,
 			
 			model: false, // iOS specific
 			size: false // iOS specific
@@ -384,20 +385,11 @@ _.extend(App.prototype, Backbone.Events, {
 		
 		// Detect iOS model
 		if ( app._device.system == 'ios' && ( app._device.model == 'iphone' || app._device.model == 'ipod' ) ) {
-			if ( app._device.standalone ) {
-				if ( $(window).height() <= 460 ) {
-					app._device.size = 'short';
-				} else {
-					app._device.size = 'tall';
-				}
+			if ( $(window).height() <= 460 ) {
+				app._device.size = 'short';
 			} else {
-				if ( $(window).height() <= 356 ) {
-					app._device.size = 'short';
-				} else {
-					app._device.size = 'tall';
-				}
+				app._device.size = 'tall';
 			}
-			
 		}
 		
 		/* Device Specific Code */
@@ -421,13 +413,13 @@ _.extend(App.prototype, Backbone.Events, {
 			})();
 		}
 		
-		// Add mobile class so orientation detection is only used on mobile devices and standalone apps
-		if ( app._device.mobile || app._device.standalone ) {
+		// Add mobile class so orientation detection is only used on mobile devices
+		if (app._device.mobile) {
 			$('#viewport').addClass( 'device-mobile' );
 		}
 		
 		// Assume we're on a desktop if we have no system
-		if ( !app._device.system ) {
+		if (!app._device.system) {
 			$('#viewport').addClass( 'device-desktop' );
 		}
 	

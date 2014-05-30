@@ -25,7 +25,7 @@
 				
 				this.setNotifications();
 				this.setMeetup();
-				this.setState();
+				// this.setState();
 				
 				// Analytics
 				// app.trackEvent( 'googleanalytics', 'Rewards', { category: 'view', action: 'visible' } );
@@ -226,7 +226,7 @@
 		toggleAttending: function(options) {
 		
 			if (!app.data.session) {
-				app.showConfirm('Notifications', 'You must sign in to mark your attendance.', 'No‚ thanks,Sign in', function(pressed) {
+				app.showConfirm('Attendance', 'You must sign in to mark your attendance.', 'No‚ thanks,Sign in', function(pressed) {
 					if (pressed == 2) app.view('signin').show('slide-down');
 				});
 				return;

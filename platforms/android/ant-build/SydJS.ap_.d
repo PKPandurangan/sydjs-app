@@ -661,6 +661,7 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/views/register.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/views/signin.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/views/talks.js \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/plugins/nl.x-services.plugins.calendar \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/plugins/org.apache.cordova.device \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/plugins/org.apache.cordova.dialogs \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/plugins/org.apache.cordova.inappbrowser \
@@ -668,6 +669,8 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/plugins/org.apache.cordova.splashscreen \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/plugins/org.apache.cordova.statusbar \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/plugins/re.notifica.cordova \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/plugins/nl.x-services.plugins.calendar/www \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/plugins/nl.x-services.plugins.calendar/www/Calendar.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/plugins/org.apache.cordova.device/www \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/plugins/org.apache.cordova.device/www/device.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/plugins/org.apache.cordova.dialogs/www \

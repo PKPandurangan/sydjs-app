@@ -299,8 +299,6 @@ _.extend(View.prototype, Backbone.Events, {
 		this.setZ(app.nextViewZ());
 		
 		// prepare the view
-		this.$el.css('opacity', 0);
-		this.$el.show();
 		this.trigger('visible');
 		this.trigger('layout');
 		
@@ -310,41 +308,40 @@ _.extend(View.prototype, Backbone.Events, {
 				translateY = 0;
 			
 			switch (anim) {
-				case 'slide-up':
-					translateY = app.viewportSize.height;
-				break;
-				case 'slide-down':
-					translateY = -app.viewportSize.height;
-				break;
-				case 'slide-left':
-					translateX = -app.viewportSize.width;
-				break;
-				case 'slide-right':
-					translateX = app.viewportSize.width;
-				break;
+				case 'slide-up': translateY = app.viewportSize.height; break;
+				case 'slide-down': translateY = -app.viewportSize.height; break;
+				case 'slide-left': translateX = -app.viewportSize.width; break;
+				case 'slide-right': translateX = app.viewportSize.width; break;
 			}
 			
+			this.$el.show();
 			this.$el.css({
 				transform: 'translateX(' + translateX + 'px) translateY(' + translateY + 'px)',
+				'-webkit-transform': 'translateX(' + translateX + 'px) translateY(' + translateY + 'px)',
 				opacity: 1
 			});
 			
-			this.$el.velocity({
-				translateX: [0, translateX],
-				translateY: [0, translateY]
-			}, {
-				duration: 300,
-				easing: 'easeInOutSine',
-				complete: function() {
-					
-					// console.log("[show] - transition complete");
-					
-					app.currentView(self, true);
-					
-				}
-			});
+			setTimeout(function() {
+			
+				self.$el.velocity({
+					translateX: [0, translateX],
+					translateY: [0, translateY]
+				}, {
+					duration: 300,
+					easing: 'easeInOutSine',
+					complete: function() {
+						
+						// console.log("[show] - transition complete");
+						
+						app.currentView(self, true);
+						
+					}
+				});
+			
+			}, 10);
 			
 		} else {
+			this.$el.show();
 			this.$el.css('opacity', 1);
 			app.currentView(this, true);
 		}
@@ -379,7 +376,6 @@ _.extend(View.prototype, Backbone.Events, {
 		this.setZ(app.lastViewZ());
 		
 		// prepare the view
-		this.$el.show();
 		this.trigger('visible');
 		this.trigger('layout');
 		
@@ -391,39 +387,43 @@ _.extend(View.prototype, Backbone.Events, {
 				translateY = 0;
 			
 			switch (anim) {
-				case 'slide-up':
-					translateY = -app.viewportSize.height;
-				break;
-				case 'slide-down':
-					translateY = app.viewportSize.height;
-				break;
-				case 'slide-left':
-					translateX = -app.viewportSize.width;
-				break;
-				case 'slide-right':
-					translateX = app.viewportSize.width;
-				break;
+				case 'slide-up': translateY = -app.viewportSize.height; break;
+				case 'slide-down': translateY = app.viewportSize.height; break;
+				case 'slide-left': translateX = -app.viewportSize.width; break;
+				case 'slide-right': translateX = app.viewportSize.width; break;
 			}
 			
-			prevView.$el.velocity({
-				translateX: [translateX, 0],
-				translateY: [translateY, 0]
-			}, {
-				duration: 300,
-				easing: 'easeInOutSine',
-				complete: function() {
-					
-					// console.log("[reveal] - view [" + self.id + "]:reveal animation complete");
-					app.currentView(self, true);
-					
-					// reset the position of the previous view
-					prevView.$el.velocity({
-						translateX: 0,
-						translateY: 0
-					});
-				
-				}
+			this.$el.show();
+			this.$el.css({
+				transform: 'translateX(0px) translateY(0px)',
+				'-webkit-transform': 'translateX(0px) translateY(0px)'
 			});
+			
+			setTimeout(function() {
+			
+				prevView.$el.velocity({
+					translateX: [translateX, 0],
+					translateY: [translateY, 0]
+				}, {
+					duration: 300,
+					easing: 'easeInOutSine',
+					complete: function() {
+						
+						// console.log("[reveal] - view [" + self.id + "]:reveal animation complete");
+						app.currentView(self, true);
+						
+						// reset the position of the previous view
+						/*
+						prevView.$el.velocity({
+							translateX: 0,
+							translateY: 0
+						});
+						*/
+					
+					}
+				});
+			
+			}, 10);
 			
 		} else {
 			this.$el.css('opacity', 1);

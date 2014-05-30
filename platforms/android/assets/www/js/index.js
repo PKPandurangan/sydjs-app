@@ -28,14 +28,7 @@ _.extend(app, {
 	
 	setPerformanceConditions: function() {
 	
-		app._performanceConditions = {
-			startBackgroundMoving: true
-		}
-		
-		// Non-WebKit browsers, Android devices and any tablets don't get moving background images (just fading)
-		if ( !app._device.webkit || app._device.system == 'android' || app._device.tablet ) {
-			app._performanceConditions.startBackgroundMoving = false;
-		}
+		//
 	
 	},
 	

@@ -23,6 +23,9 @@
     <feature name="Notificare">
         <param name="android-package" value="re.notifica.cordova.NotificarePlugin" />
     </feature>
+    <feature name="Calendar">
+        <param name="android-package" value="nl.xservices.plugins.Calendar" />
+    </feature>
     <name>SydJS</name>
     <description>
         A companion app to the SydJS website.
@@ -32,7 +35,4 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
-    <feature name="Calendar">
-        <param name="android-package" value="nl.xservices.plugins.Calendar" />
-    </feature>
 </widget>

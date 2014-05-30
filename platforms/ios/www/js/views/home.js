@@ -25,7 +25,7 @@
 				
 				this.setNotifications();
 				this.setMeetup();
-				this.setState();
+				// this.setState();
 				
 				// Analytics
 				// app.trackEvent( 'googleanalytics', 'Rewards', { category: 'view', action: 'visible' } );
@@ -38,7 +38,7 @@
 			'.btn-notifications': 'toggleNotifications',
 			'.btn-talks': 'toggleTalks',
 			
-			'.btn-calendar': 'addCalendar',
+			'.btn-calendar': 'addToCalendar',
 			
 			'.rsvp .btn-attending': 'rsvpAttending',
 			'.rsvp .btn-not-attending': 'rsvpNotAttending',
@@ -146,9 +146,11 @@
 		
 		},
 		
-		addCalendar: function() {
+		addToCalendar: function() {
 			
 			var meetup = app.data.meetup;
+			
+			if (!meetup) return;
 			
 			var startDate = moment(meetup.date).add('hours', 18).toDate(),
 				endDate = moment(meetup.date).add('hours', 21).toDate();
@@ -157,8 +159,13 @@
 				location = 'Level 6, 341 George St',
 				notes = meetup.name;
 			
-			var success = function(message) { alert("Success: " + JSON.stringify(message)); },
-				error = function(message) { alert("Error: " + message); };
+			var success = function() {
+				app.showNotification('Added', 'The next meetup has been added to your calendar.');
+			}
+			
+			var error = function() {
+				app.showNotification('Not Added', 'The next meetup couldn\'t be added to your calendar.');
+			}
 			
 			var reminders = {
 				firstReminderMinutes: 60,
@@ -219,7 +226,7 @@
 		toggleAttending: function(options) {
 		
 			if (!app.data.session) {
-				app.showConfirm('Notifications', 'You must sign in to mark your attendance.', 'No‚ thanks,Sign in', function(pressed) {
+				app.showConfirm('Attendance', 'You must sign in to mark your attendance.', 'No‚ thanks,Sign in', function(pressed) {
 					if (pressed == 2) app.view('signin').show('slide-down');
 				});
 				return;
