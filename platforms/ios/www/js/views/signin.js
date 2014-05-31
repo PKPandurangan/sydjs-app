@@ -44,11 +44,15 @@
 			'.btn-facebook': '',
 			'.btn-google': '',
 			'.btn-twitter': '',
-			'.btn-email': ''
+			'.btn-email': 'emailSignin'
 		},
 		
 		previous: function() {
 			app.view('home').reveal('slide-down');
+		},
+		
+		emailSignin: function() {
+			app.view('email-signin').show('slide-up');
 		}
 		
 	});

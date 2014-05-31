@@ -1,0 +1,23 @@
+#view-email-signin.view
+	.titlebar
+		.statusbar
+		.wrap
+			.btn-right.black
+				.inner
+					.label Cancel
+			.title @
+	.container.scrollable
+		.form
+			.wrap
+				.line
+					input(type='email', id='view-email-signin-field-username', placeholder='Email Address', autocomplete='off')
+				.line
+					input(type='password', id='view-email-signin-field-password', placeholder='Password', autocomplete='off')
+		.btn-text: .pill
+			span New kid on the block? Sign up
+			span.icon
+		.btn-text: .pill
+			span I forgot my password
+			span.icon
+	.footer
+		.btn-plain.light-green.close Login
