@@ -24,7 +24,7 @@
 				
 				this.setNotifications();
 				this.setMeetup();
-				// this.setState();
+				this.setState();
 				
 				// Analytics
 				// app.trackEvent( 'googleanalytics', 'Rewards', { category: 'view', action: 'visible' } );
@@ -36,6 +36,8 @@
 		buttons: {
 			'.btn-notifications': 'toggleNotifications',
 			'.btn-talks': 'toggleTalks',
+			
+			'.btn-about': 'viewAbout',
 			
 			'.btn-calendar': 'addToCalendar',
 			
@@ -51,7 +53,7 @@
 		
 			if (!app.data.session) {
 				app.showConfirm('Notifications', 'Sign in and receive useful notifications, such as new meetups announcements.', 'No‚ thanks,Sign in', function(pressed) {
-					if (pressed == 2) app.view('signin').show('slide-down');
+					if (pressed == 2) app.view('signin').show('slide-up');
 				});
 				return;
 			}
@@ -103,8 +105,12 @@
 				easing: 'easeOutSine'
 			});
 			
-			app.view('talks').show('slide-down');
+			app.view('talks').show('slide-up');
 			
+		},
+		
+		viewAbout: function() {
+			app.view('about').show('slide-down');
 		},
 		
 		setNotifications: function() {
@@ -208,7 +214,12 @@
 			}
 			
 			// Animate in state
-			$states.css('transform', 'translate3d(0,0,0)');
+			/*
+			$states.css({
+				transform: 'translateX(0px) translateY(0px)',
+				'-webkit-transform': 'translateX(0px) translateY(0px)'
+			});
+			*/
 			
 			setTimeout(function() {
 				$states.velocity({
@@ -218,7 +229,7 @@
 					duration: 250,
 					easing: 'easeOutSine'
 				});
-			}, 150);
+			}, 500);
 			
 		},
 		
@@ -226,7 +237,7 @@
 		
 			if (!app.data.session) {
 				app.showConfirm('Attendance', 'You must sign in to mark your attendance.', 'No‚ thanks,Sign in', function(pressed) {
-					if (pressed == 2) app.view('signin').show('slide-down');
+					if (pressed == 2) app.view('signin').show('slide-up');
 				});
 				return;
 			}

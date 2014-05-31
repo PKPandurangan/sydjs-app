@@ -37,8 +37,6 @@ _.extend(App.prototype, Backbone.Events, {
 	
 	init: function() {
 		
-		FastClick.attach(document.body);
-		
 		this.initDevice();
 		this.initResize();
 		this.initScrolling();

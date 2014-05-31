@@ -12,7 +12,7 @@
 				
 				var self = this;
 				
-				this.$('.titlebar').css('height', Math.ceil(parseInt(this.$('.titlebar').css('height'), 10) + 21));
+				this.$('.titlebar').css('height', parseInt(this.$('.titlebar .wrap').css('height'), 10) + 21);
 				
 				var availableHeight = app.viewportSize.height
 					- this.$('.titlebar').height();
@@ -26,7 +26,7 @@
 				
 					var $button = self.$('.btn-' + button);
 					
-					$button.css('height', availableHeight / 5);
+					$button.css('height', Math.ceil(availableHeight / 5));
 					
 				});
 				
@@ -48,7 +48,7 @@
 		},
 		
 		previous: function() {
-			app.view('home').reveal('slide-up');
+			app.view('home').reveal('slide-down');
 		}
 		
 	});

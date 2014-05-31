@@ -37,7 +37,7 @@
 		},
 		
 		back: function() {
-			app.view('home').reveal('slide-up');
+			app.view('home').reveal('slide-down');
 		},
 		
 		renderTalks: function() {
