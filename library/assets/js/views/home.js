@@ -11,13 +11,12 @@
 		on: {
 			layout: function() {
 				
-				var availableHeight = app.viewportSize.height
-					- this.$('.titlebar').height()
-					- this.$('.toolbar').height();
-					
+				var availableHeight = app.viewportSize.height -
+					this.$('.statusbar').height();
+				
 				this.$('.container').css({
 					height: availableHeight,
-					top: this.$('.titlebar').height()
+					top: this.$('.statusbar').height()
 				});
 				
 			},

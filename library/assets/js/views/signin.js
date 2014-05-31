@@ -12,6 +12,8 @@
 				
 				var self = this;
 				
+				this.$('.titlebar').css('height', Math.ceil(parseInt(this.$('.titlebar').css('height'), 10) + 21));
+				
 				var availableHeight = app.viewportSize.height
 					- this.$('.titlebar').height();
 					

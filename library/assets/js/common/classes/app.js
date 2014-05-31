@@ -74,8 +74,10 @@ _.extend(App.prototype, Backbone.Events, {
 				width: $(window).width(),
 				height: $(window).height()
 			};
-			if (app._device.system == 'ios') {
-				app.viewportSize.height -= 20;
+			// determine if a status bar take up real estate
+			if (!app._device.system || app._device.system == 'ios') {
+				$('.statusbar').css('height', 21);
+				app._device.system == 'ios' && $('.statusbar').addClass('native');
 			}
 			// assume we're on a desktop if we have no system
 			if (!app._device.system) {

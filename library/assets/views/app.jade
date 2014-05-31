@@ -145,8 +145,6 @@ html
 				} else {
 					console.log( '[root] - Detected mobile device, setting device ready event...' );
 					$(document).on( 'deviceready',  function() {
-						StatusBar.overlaysWebView(false); // Makes sure that the status bar is NOT part of the app viewport
-						StatusBar.backgroundColorByHexString("#212121"); // Force the status bar background to be the standard background colour
 						if (navigator.splashscreen && navigator.splashscreen.hide) {
 							navigator.splashscreen.hide();
 						}

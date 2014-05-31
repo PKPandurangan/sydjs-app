@@ -144,6 +144,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	
 	// Set tasks to run
-	grunt.registerTask('default', ['clean', 'copy', 'uglify', 'jade', 'less', 'relativeRoot', 'watch']);
+	grunt.registerTask('components', ['uglify']);
+	grunt.registerTask('default', ['copy', 'jade', 'less', 'relativeRoot', 'watch']);
 	
 };

@@ -5,7 +5,7 @@
 // Elements are dynamically added and removed on start/stop so that the animation
 // isn't constantly running in the background when not required.
 
-(function($) {
+(function() {
 	
 	// Spinner Definition
 	// =================
@@ -57,4 +57,4 @@
 		
 	});
 	
-})(Zepto);
+})();
