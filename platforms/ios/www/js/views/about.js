@@ -30,11 +30,16 @@
 		},
 		
 		buttons: {
-			'.close': 'back'
+			'.close': 'back',
+			'.link': 'openLink'
 		},
 		
 		back: function() {
 			app.view('home').reveal('slide-up');
+		},
+		
+		openLink: function(e) {
+			window.open($(e.target).data().link, '_system');
 		}
 		
 	});
