@@ -187,10 +187,16 @@ input {
 	position: relative;
 	z-index: 100;
 	display: block;
-	background-image: url('../img/ui/ios-statusbar.png');
+	
 	background-repeat: no-repeat;
 	background-position: top left;
 	background-size: 320px;
+	&.white {
+		background-image: url('../img/ui/ios-statusbar-white.png');
+	}
+	&.black {
+		background-image: url('../img/ui/ios-statusbar-black.png');
+	}
 	&.native {
 		background: none;
 	}

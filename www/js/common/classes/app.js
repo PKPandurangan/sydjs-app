@@ -312,15 +312,22 @@ _.extend(App.prototype, Backbone.Events, {
 	},
 	
 	changeStatusBarStyle: function(style) {
-		// iOS: changes the colour of the transparent statusbar in iOS,
-		// not relevant to Android, there are more methods available but
-		// they have no visible change so have been left out, using a
-		// basic black and white theme
-		if (app._device.system != 'ios') return;
+		// iOS/Desktop: changes the colour of the transparent statusbar
+		// in iOS/Desktop, not relevant to Android, there are more
+		// methods available but they have no visible change so have
+		// been left out, using a basic black and white theme
 		if (!style) return;
-		switch(style) {
-			case 'black': StatusBar.styleDefault(); break;
-			case 'white': StatusBar.styleLightContent(); break;
+		if (app._device.system == 'ios') {
+			switch(style) {
+				case 'black': StatusBar.styleDefault(); break;
+				case 'white': StatusBar.styleLightContent(); break;
+			}
+		}
+		if (!app._device.system) {
+			switch(style) {
+				case 'black': $('.statusbar').removeClass('white').addClass('black'); break;
+				case 'white': $('.statusbar').removeClass('black').addClass('white'); break;
+			}
 		}
 	},
 	
