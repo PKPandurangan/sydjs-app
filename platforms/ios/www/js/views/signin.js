@@ -30,6 +30,9 @@
 					
 				});
 				
+				// iOS: Change status bar style to match view style
+				app.changeStatusBarStyle('white');
+				
 			},
 			hidden: function() {
 				

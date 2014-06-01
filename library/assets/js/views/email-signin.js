@@ -35,9 +35,13 @@
 				// Ensure form state is not set to processing when view is visible (shouldn't ever happen but left for safety)
 				this._processingForm = false;
 				
+				// iOS: Change status bar style to match view style
+				app.changeStatusBarStyle('black');
+				
 				// Analytics
 				// app.trackEvent( 'googleanalytics', 'Enter Password', { category: 'view', action: 'visible' } );
 				// app.trackEvent( 'mixpanel', 'Viewing Enter Password', {} );
+				
 				
 			},
 			hidden: function() {

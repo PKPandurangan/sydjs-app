@@ -26,6 +26,9 @@
 				this.setMeetup();
 				this.setState();
 				
+				// iOS: Change status bar style to match view style
+				app.changeStatusBarStyle('white');
+				
 				// Analytics
 				// app.trackEvent( 'googleanalytics', 'Rewards', { category: 'view', action: 'visible' } );
 				// app.trackEvent( 'mixpanel', 'Viewing Rewards', {} );
