@@ -43,10 +43,10 @@
 		
 		buttons: {
 			'.btn-back': 'previous',
-			'.btn-github': '',
-			'.btn-facebook': '',
-			'.btn-google': '',
-			'.btn-twitter': '',
+			'.btn-github': 'serviceSignin',
+			'.btn-facebook': 'serviceSignin',
+			'.btn-google': 'serviceSignin',
+			'.btn-twitter': 'serviceSignin',
 			'.btn-email': 'emailSignin'
 		},
 		
@@ -56,6 +56,10 @@
 		
 		emailSignin: function() {
 			app.view('signin-email').show('slide-up');
+		},
+		
+		serviceSignin: function() {
+			app.view('signin-service').show('slide-up');
 		}
 		
 	});
