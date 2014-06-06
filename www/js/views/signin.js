@@ -55,7 +55,7 @@
 		},
 		
 		emailSignin: function() {
-			app.view('email-signin').show('slide-up');
+			app.view('signin-email').show('slide-up');
 		}
 		
 	});

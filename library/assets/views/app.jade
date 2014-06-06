@@ -83,11 +83,11 @@ html
 			#ping-notice: .box
 			
 			include app/signin
-			include app/register
+			include app/signin-email
+			
 			include app/home
 			include app/about
 			include app/talks
-			include app/email-signin
 		
 		//- include common js libraries
 		//- script(src='components/jquery.js')
@@ -127,9 +127,8 @@ html
 		
 		//- view scripts
 		script(src='js/views/signin.js')
-		script(src='js/views/email-signin.js')
+		script(src='js/views/signin-email.js')
 		
-		script(src='js/views/register.js')
 		script(src='js/views/home.js')
 		script(src='js/views/about.js')
 		script(src='js/views/talks.js')

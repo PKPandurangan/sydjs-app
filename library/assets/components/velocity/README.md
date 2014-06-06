@@ -1,31 +1,37 @@
-##Velocity.js
+##Velocity
 
-**Documentation:** http://VelocityJS.org
+**Docs:** http://VelocityJS.org
 
 **Bower:**
 Package name is *velocity*.
 
 **NPM:**
-https://www.npmjs.org/package/velocity-animate
+Package name is *velocity-animate*.
 
-*Full release (including test suite) is scheduled for May 31st.*
+###**Updates**
+
+- UI Pack: http://velocityjs.org/#uiPack
+- Spring physics: http://velocityjs.org/#easing
+- Progress monitoring: http://velocityjs.org/#progress
+- Syntactic sugar: https://github.com/julianshapiro/velocity/issues/76 
+- *Coming soon: jQuery dependency removal.*
 
 ###**Resources**
 
-**Velocity's workflow:** http://css-tricks.com/improving-ui-animation-workflow-velocity-js
+- **Speed:** http://davidwalsh.name/css-js-animation
 
-**Velocity's speed:** http://davidwalsh.name/css-js-animation
+- **Codecast:** https://www.youtube.com/watch?v=MDLiVB6g2NY&hd=1
 
-**Velocity's codecast:** https://www.youtube.com/watch?v=MDLiVB6g2NY&hd=1
+- **Workflow:** http://css-tricks.com/improving-ui-animation-workflow-velocity-js
 
 ###**Comparisons**
 
-Famo.us is a full-fledged *mobile app framework* built around a physics engine.
+- **Famo.us** is a full-fledged *mobile app framework* built around a physics engine.
 
-GSAP is a fast, multi-purpose *animation platform*. It inspired me to pursue the development of Velocity.
+- **GSAP** is a fast, multi-purpose *animation platform*. It inspired me to pursue the development of Velocity.
 
-Velocity is a very fast and lightweight tool for dramatically improving *UI animation performance and workflow*.
+- **Velocity** is a very fast and lightweight tool for dramatically improving *UI animation performance and workflow*.
 
-###License
+====
 
 [MIT License](LICENSE). © Julian Shapiro (http://twitter.com/shapiro).

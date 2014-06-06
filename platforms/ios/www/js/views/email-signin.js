@@ -4,6 +4,7 @@
 		
 		on: {
 			layout: function() {
+				
 				var availableHeight = app.viewportSize.height
 					- this.$('.titlebar').height();
 				
@@ -11,26 +12,25 @@
 				if (app._device.system == 'ios' && document.activeElement.tagName.toLowerCase().match(/input|textarea|select/))
 					return;
 				
-				this.$('.titlebar').css('height', parseInt(this.$('.titlebar .wrap').css('height'), 10) + 21);
+				// cater for iOS 7 / desktop statusbar height
+				if (!app._device.system || app._device.system == 'ios') {
+					this.$('.titlebar').css('height', parseInt(this.$('.titlebar .wrap').css('height'), 10) + 21);
+				}
 				
+				// set height and position of main container to availabe height
 				this.$('.container').css({
 					height: availableHeight,
 					top: this.$('.titlebar').height()
 				});
+				
 			},
 			visible: function() {
 				
-				// iOS: prevent auto focusing the last field
-				if ( app._device.system == 'ios' ) {
-					var fields = this.$('input,textarea,select');
-						fields.prop( 'disabled', true );
-						setTimeout( function() { fields.prop( 'disabled', false ); }, 1000 );
-				}
+				this.$('.signin').show();
+				this.$('.signup').hide();
 				
-				// Android: Disable orientation detection temporarily to prevent keyboard from triggering it
-				if ( app._device.system == 'android' ) {
-					$('#viewport').addClass( 'ignore-orientation' );
-				}
+				// iOS: prevent auto focusing the last field
+				app.disableFields();
 				
 				// Ensure form state is not set to processing when view is visible (shouldn't ever happen but left for safety)
 				this._processingForm = false;
@@ -48,18 +48,20 @@
 				
 				this.clearFields();
 				
-				// Android: Disable orientation detection temporarily to prevent keyboard from triggering it
-				if ( app._device.system == 'android' ) {
-					$('#viewport').removeClass( 'ignore-orientation' );
-				}
-				
 			}
 		},
 		
 		buttons: {
 			'.btn-right': 'previous',
-			'.btn-submit': 'validateInput',
-			'.forgot-password': 'gotoForgotPassword'
+			
+			'.signin .action-submit': 'validateInput',
+			'.signin .action-forgot-password': 'showForgotPassword',
+			'.signin .action-signup': 'showSignup',
+			
+			'.signup .action-submit': 'validateInput',
+			'.signup .action-signin': 'showSignin',
+			
+			'.signin .forgot-password': 'gotoForgotPassword'
 		},
 		
 		previous: function() {

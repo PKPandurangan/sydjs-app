@@ -341,6 +341,16 @@ _.extend(App.prototype, Backbone.Events, {
 		}
 	},
 	
+	disableFields: function() {
+		// iOS: prevent auto focusing the last field, for some reason
+		// this happens intermittently 
+		if (app._device.system == 'ios') {
+			var fields = app.currentView().$el.find('input,textarea,select');
+				fields.prop( 'disabled', true );
+				setTimeout( function() { fields.prop( 'disabled', false ); }, 1000 );
+		}
+	},
+	
 	initDevice: function() {
 	
 		var userAgent = navigator.userAgent.toLowerCase();

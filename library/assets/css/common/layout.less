@@ -380,6 +380,7 @@ input {
 	.line {
 		overflow: hidden;
 		border-bottom: 1px solid #cccccc;
+		background: #fff;
 		
 		input, select {
 			.box-sizing(border-box);
@@ -441,7 +442,7 @@ input {
 	.switcher {
 		.size(35px, 70px);
 		position: absolute;
-		top: 7px;
+		top: 9px;
 		right: 14px;
 		border-radius: 100px;
 		
@@ -573,6 +574,10 @@ input {
 
 	&.pressed {
 		color: #fff;
+		
+		.pill {
+			opacity: 0.8;
+		}
 	}
 	
 	.pill {

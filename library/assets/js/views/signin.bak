@@ -19,16 +19,7 @@
 			visible: function() {
 				
 				// iOS: prevent auto focusing the last field
-				if ( app._device.system == 'ios' ) {
-					var fields = this.$('input,textarea,select');
-						fields.prop( 'disabled', true );
-						setTimeout( function() { fields.prop( 'disabled', false ); }, 1000 );
-				}
-				
-				// Android: Disable orientation detection temporarily to prevent keyboard from triggering it
-				if ( app._device.system == 'android' ) {
-					$('#viewport').addClass( 'ignore-orientation' );
-				}
+				app.disableFields();
 				
 				// Ensure form state is not set to processing when view is visible (shouldn't ever happen but left for safety)
 				this._processingForm = false;
@@ -41,11 +32,6 @@
 			hidden: function() {
 				
 				this.clearFields();
-				
-				// Android: Disable orientation detection temporarily to prevent keyboard from triggering it
-				if ( app._device.system == 'android' ) {
-					$('#viewport').removeClass( 'ignore-orientation' );
-				}
 				
 			}
 		},
