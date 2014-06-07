@@ -299,6 +299,7 @@ _.extend(View.prototype, Backbone.Events, {
 		this.setZ(app.nextViewZ());
 		
 		// prepare the view
+		this.$el.show();
 		this.trigger('visible');
 		this.trigger('layout');
 		
@@ -314,7 +315,6 @@ _.extend(View.prototype, Backbone.Events, {
 				case 'slide-right': translateX = app.viewportSize.width; break;
 			}
 			
-			this.$el.show();
 			this.$el.css({
 				transform: 'translateX(' + translateX + 'px) translateY(' + translateY + 'px)',
 				'-webkit-transform': 'translateX(' + translateX + 'px) translateY(' + translateY + 'px)',
@@ -365,9 +365,7 @@ _.extend(View.prototype, Backbone.Events, {
 		var self = this,
 			prevView = app.currentView();
 		
-		if (!prevView) {
-			return this.show();
-		}
+		if (!prevView) return this.show();
 		
 		this.prepare();
 		
@@ -376,6 +374,7 @@ _.extend(View.prototype, Backbone.Events, {
 		this.setZ(app.lastViewZ());
 		
 		// prepare the view
+		this.$el.show();
 		this.trigger('visible');
 		this.trigger('layout');
 		
@@ -393,10 +392,10 @@ _.extend(View.prototype, Backbone.Events, {
 				case 'slide-right': translateX = app.viewportSize.width; break;
 			}
 			
-			this.$el.show();
 			this.$el.css({
 				transform: 'translateX(0px) translateY(0px)',
-				'-webkit-transform': 'translateX(0px) translateY(0px)'
+				'-webkit-transform': 'translateX(0px) translateY(0px)',
+				opacity: 1
 			});
 			
 			setTimeout(function() {
@@ -412,13 +411,12 @@ _.extend(View.prototype, Backbone.Events, {
 						// console.log("[reveal] - view [" + self.id + "]:reveal animation complete");
 						app.currentView(self, true);
 						
-						// reset the position of the previous view
-						/*
-						prevView.$el.velocity({
-							translateX: 0,
-							translateY: 0
+						// reset position of previous view
+						prevView.$el.css({
+							transform: 'translateX(0px) translateY(0px)',
+							'-webkit-transform': 'translateX(0px) translateY(0px)',
+							opacity: 0
 						});
-						*/
 					
 					}
 				});
@@ -447,7 +445,7 @@ _.extend(View.prototype, Backbone.Events, {
 		app.hideKeyboard();
 		app.scrollContainer(this);
 		
-		// todo: handle anim
+		// TODO: Handle animation
 		this.$el.hide();
 		this.trigger('hidden');
 		

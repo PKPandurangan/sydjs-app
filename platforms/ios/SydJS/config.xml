@@ -22,9 +22,6 @@
     <feature name="Device">
         <param name="ios-package" value="CDVDevice" />
     </feature>
-    <feature name="InAppBrowser">
-        <param name="ios-package" value="CDVInAppBrowser" />
-    </feature>
     <feature name="NetworkStatus">
         <param name="ios-package" value="CDVConnection" />
     </feature>
@@ -45,6 +42,9 @@
     </feature>
     <feature name="Calendar">
         <param name="ios-package" value="Calendar" />
+    </feature>
+    <feature name="InAppBrowser">
+        <param name="ios-package" value="CDVInAppBrowser" />
     </feature>
     <name>SydJS</name>
     <description>

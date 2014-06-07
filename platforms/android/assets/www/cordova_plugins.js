@@ -8,13 +8,6 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.inappbrowser/www/inappbrowser.js",
-        "id": "org.apache.cordova.inappbrowser.inappbrowser",
-        "clobbers": [
-            "window.open"
-        ]
-    },
-    {
         "file": "plugins/org.apache.cordova.network-information/www/network.js",
         "id": "org.apache.cordova.network-information.network",
         "clobbers": [
@@ -70,19 +63,26 @@ module.exports = [
         "clobbers": [
             "Calendar"
         ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.inappbrowser/www/inappbrowser.js",
+        "id": "org.apache.cordova.inappbrowser.inappbrowser",
+        "clobbers": [
+            "window.open"
+        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
     "org.apache.cordova.device": "0.2.8",
-    "org.apache.cordova.inappbrowser": "0.3.3",
     "org.apache.cordova.network-information": "0.2.7",
     "org.apache.cordova.statusbar": "0.1.3",
     "org.apache.cordova.dialogs": "0.2.6",
     "org.apache.cordova.splashscreen": "0.2.7",
     "re.notifica.cordova": "0.1.1",
-    "nl.x-services.plugins.calendar": "4.2.3"
+    "nl.x-services.plugins.calendar": "4.2.3",
+    "org.apache.cordova.inappbrowser": "0.4.1-dev"
 }
 // BOTTOM OF METADATA
 });

@@ -43,10 +43,10 @@
 		
 		buttons: {
 			'.btn-back': 'previous',
-			'.btn-github': '',
-			'.btn-facebook': '',
-			'.btn-google': '',
-			'.btn-twitter': '',
+			'.btn-github': 'serviceSignin',
+			'.btn-facebook': 'serviceSignin',
+			'.btn-google': 'serviceSignin',
+			'.btn-twitter': 'serviceSignin',
 			'.btn-email': 'emailSignin'
 		},
 		
@@ -56,6 +56,43 @@
 		
 		emailSignin: function() {
 			app.view('signin-email').show('slide-up');
+		},
+		
+		serviceSignin: function(el) {
+			
+			var service = $(el.target).data().service;
+			
+			var options = 'location=no,toolbar=yes,toolbarposition=top,closebuttoncaption=Cancel';
+			
+			var authWindow = window.open('http://localhost:3000/auth/' + service, '_blank', options);
+			
+			authWindow.addEventListener('loadstop', function() {
+				
+				var checkAuthUser = setInterval(function() {
+					
+					authWindow.executeScript({ code: "localStorage.getItem('authUser')" },
+						
+						function(data) {
+							
+							var authUser = _.first(data);
+							
+							if (!authUser) return;
+							
+							clearInterval(checkAuthUser);
+							
+							authWindow.close();
+							
+							app.view('signin-service')._service = service;
+							app.view('signin-service').show('slide-up');
+							
+							// alert(authUser);
+							
+						}
+					);
+					
+				});
+				
+			});
 		}
 		
 	});
