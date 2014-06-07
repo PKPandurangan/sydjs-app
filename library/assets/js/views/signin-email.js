@@ -5,7 +5,7 @@
 		on: {
 			layout: function() {
 				
-				// cater for iOS 7 / desktop statusbar height
+				// iOS/Desktop cater for statusbar height
 				if (!app._device.system || app._device.system == 'ios') {
 					this.$('.titlebar').css('height', parseInt(this.$('.titlebar .wrap').css('height'), 10) + 21);
 				}
@@ -462,7 +462,7 @@
 			
 			this.field('alertsNotifications').val( on ? 'no' : 'yes' );
 		
-		},
+		}
 		
 	});
 

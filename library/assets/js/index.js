@@ -295,7 +295,8 @@ _.extend(app, {
 			
 			app.getStatus(function() {
 				$( '#preloader' ).velocity({ opacity: 0 }, { duration: 250 });
-				app.view('home').show('slide-up');
+				app.view('signin').show('slide-up');
+				// app.view('home').show('slide-up');
 			});
 		}
 		
