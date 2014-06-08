@@ -18,7 +18,9 @@ _.extend(app.data, {
 	
 	status: {}, // Status data (rsvp's etc)
 	
-	config: {} // Stores the config settings we get back from every ping request
+	config: {}, // Stores the config settings we get back from every ping request
+	
+	pushNotifications: {}
 	
 });
 
@@ -379,7 +381,7 @@ _.extend(app, {
 				
 				// app.showNotification('Alert', 'Registered for notifications with device id: [' + deviceId + '], user id: [' + userId + '], name: [' + userName + '].');
 				
-				app.setNotifications(true, deviceId, userId, callback);
+				app.setNotifications(true, callback);
 			
 			}, function(err) {
 			
@@ -404,66 +406,18 @@ _.extend(app, {
 		}
 		
 		Notificare.disableNotifications(function() {
-			app.setNotifications(false, false, false, callback);
+			app.setNotifications(false, callback);
 		});
 	
 	},
 	
-	setNotifications: function(enable, deviceId, userId, callback) {
+	setNotifications: function(enable, callback) {
 	
 		// app.showNotification('Alert', '[setNotifications] - enable: [' + enable + '].');
 		
-		var data = {
-			user: app.data.session.userId
-		};
+		app.data.pushNotifications.enabled = enable;
 		
-		if (enable) {
-			if (app.data.session.services.pushNotifications.isConfigured) {
-				_.extend(data, {
-					enable: true
-				});
-			} else {
-				_.extend(data, {
-					deviceId: deviceId,
-					userId: userId,
-					enable: true
-				});
-			}
-		} else {
-			_.extend(data, {
-				enable: false
-			});
-		}
-		
-		$.ajax({
-			url: config.baseURL + '/api/app/notify',
-			type: 'post',
-			data: data,
-			dataType: 'json',
-			cache: false,
-			success: function(data) {
-			
-				if (data.success) {
-					// app.showNotification('Alert', "[setNotifications] - Successfully set notifications." );
-					if (enable) {
-						app.data.session.services.pushNotifications.enabled = true;
-					} else {
-						app.data.session.services.pushNotifications.enabled = false;
-					}
-					if (callback) return callback(false);
-				} else {
-					app.showNotification('Alert', "[setNotifications] - Failed setting notifications." );
-					if (callback) return callback(true);
-				}
-			
-			},
-			error: function() {
-			
-				app.showNotification('Alert', "[setNotifications] - Failed setting notifications." );
-				if (callback) return callback(true);
-			
-			}
-		});
+		return callback && callback();
 	
 	},
 	

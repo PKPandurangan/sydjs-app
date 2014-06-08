@@ -63,10 +63,11 @@
 			
 			var self = this;
 			
-			var user = app.data.session;
+			var user = app.data.session,
+				pushNotifications = app.data.pushNotifications;
 			
-			if (user.services.pushNotifications.isConfigured) {
-				if (user.services.pushNotifications.enabled) {
+			if (pushNotifications.isConfigured) {
+				if (pushNotifications.enabled) {
 					app.showLoadingSpinner();
 					app.disableNotifications(function() {
 						self.setNotifications();
@@ -120,14 +121,15 @@
 		
 			if (!app.data.session) return;
 			
-			var user = app.data.session;
+			var user = app.data.session,
+				pushNotifications = app.data.pushNotifications;
 			
 			// Push Notifications
 			var $notifications = this.$('.btn-notifications');
 			
 			$notifications.html('<img src="img/ui/icon-alarm-white.svg" />');
 			
-			if (user.services.pushNotifications.isConfigured && user.services.pushNotifications.enabled) {
+			if (pushNotifications.isConfigured && pushNotifications.enabled) {
 				$notifications.html('<img src="img/ui/icon-alarm-green.svg" />');
 			}
 		
@@ -180,7 +182,7 @@
 				secondReminderMinutes: null
 			}
 			
-			window.plugins.calendar.createEventWithOptions(title,location,notes,startDate,endDate,reminders,success,error);
+			window.plugins.calendar.createEventWithOptions(title, location, notes, startDate, endDate, reminders, success, error);
 			
 		},
 		
@@ -204,13 +206,13 @@
 			$soldOut.hide();
 			$ticketsSoon.hide();
 			
-			if (meetup.rsvped && meetup.attending) {
+			if (meetup && meetup.rsvped && meetup.attending) {
 				$rsvpAttending.show();
-			} else if (meetup.rsvped && !meetup.attending) {
+			} else if (meetup && meetup.rsvped && !meetup.attending) {
 				$rsvpNotAttending.show();
-			} else if (meetup.ticketsAvailable && meetup.ticketsRemaining) {
+			} else if (meetup && meetup.ticketsAvailable && meetup.ticketsRemaining) {
 				$rsvp.show();
-			} else if (meetup.ticketsAvailable && meetup.ticketsAvailable == 0) {
+			} else if (meetup && meetup.ticketsAvailable && meetup.ticketsAvailable == 0) {
 				$soldOut.show();
 			} else {
 				$ticketsSoon.show();

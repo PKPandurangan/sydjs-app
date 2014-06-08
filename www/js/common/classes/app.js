@@ -351,6 +351,10 @@ _.extend(App.prototype, Backbone.Events, {
 		}
 	},
 	
+	getAPIEndpoint: function(api) {
+		return config.baseURL + '/api/app/' + api + '?version=' + app.data.versions.build;
+	},
+	
 	initDevice: function() {
 	
 		var userAgent = navigator.userAgent.toLowerCase();

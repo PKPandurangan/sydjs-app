@@ -83,6 +83,8 @@
 							authWindow.close();
 							
 							app.view('signin-service')._service = service;
+							app.view('signin-service')._authUser = JSON.parse(authUser);
+							
 							app.view('signin-service').show('slide-up');
 							
 							// alert(authUser);
