@@ -48,6 +48,36 @@ _.extend(app, {
 		
 		console.log( '[pingServer] - Pinging...' );
 		
+		var success = function(data) {
+		
+			console.log( "[pingServer] - Successfully pinged server." );
+			
+			// Set config
+			if ( data.config ) {
+				console.log( "[pingServer] - Setting config with:", data.config );
+				app.data.config = data.config;
+			}
+			
+			// Check the config
+			app.checkConfig();
+			
+			// Ping server again in 10 seconds
+			setTimeout( function() { return app.pingServer() }, 10000 );
+		
+		}
+		
+		var fail = function() {
+		
+			console.log( "[pingServer] - Received unexpected ping response, connection may be offline, displaying notification (if not displayed)." );
+			
+			// Show network notification
+			app.showPingNotification('noResponse');
+			
+			// Ping server again in 5 seconds (hastened)
+			setTimeout( function() { return app.pingServer() }, 5000 );
+		
+		}
+		
 		$.ajax({
 			url: app.getAPIEndpoint('ping'),
 			type: 'get',
@@ -60,49 +90,14 @@ _.extend(app, {
 				
 				// We currently have a callback when we start up the app, only in success function right now
 				// We probably shouldn't let the user use the app if we don't get a ping response
-				if ( callback )
-					callback( data.success );
+				if (callback) callback(data.success);
 				
 				// Check for successful response
-				if (data && data.success) {
-					
-					console.log( "[pingServer] - Successfully pinged server." );
-					
-					// Set config
-					if ( data.config ) {
-						console.log( "[pingServer] - Setting config with:", data.config );
-						app.data.config = data.config;
-					}
-					
-					// Check the config
-					app.checkConfig();
-					
-					// Ping server again in 10 seconds
-					setTimeout( function() { return app.pingServer() }, 10000 );
-					
-				} else {
-					
-					console.log( "[pingServer] - Received unexpected ping response, connection may be offline, displaying notification (if not displayed)." );
-					
-					// Show network notification
-					app.showPingNotification('noResponse');
-					
-					// Ping server again in 5 seconds (hastened)
-					setTimeout( function() { return app.pingServer() }, 5000 );
-					
-				}
+				return data && data.success ? success(data) : error();
 			
 			},
 			error: function() {
-			
-				console.log( "[pingServer] - Failed pinging server, network connection may be offline, displaying notification (if not displayed)." );
-				
-				// Show network notification
-				app.showPingNotification('noResponse');
-				
-				// Ping server again in 5 seconds (hastened)
-				setTimeout( function() { return app.pingServer() }, 5000 );
-			
+				return error();
 			}
 		});
 		
@@ -147,7 +142,7 @@ _.extend(app, {
 			case 'killSwitch':
 				html = '<div class="i">&#128340;</div>' +
 					'<div class="text">' +
-						'<div>Gold Class Butler is currently unavailable.</div>' +
+						'<div>SydJS is currently unavailable.</div>' +
 						'<div>Please check back soon!</div>' +
 					'</div>';
 			break;
@@ -155,7 +150,7 @@ _.extend(app, {
 			case 'versionIncompatibility':
 				html = '<div class="i">&#59141;</div>' +
 					'<div class="text">' +
-						'<div>A new version of Gold Class Butler is now available.</div>' +
+						'<div>A new version of SydJS is now available.</div>' +
 						'<div>Please update the app via the ' + ( app._device.system == 'ios' ? 'App Store' : 'Google Play Store' ) + '.</div>' +
 					'</div>';
 			break;
@@ -169,8 +164,7 @@ _.extend(app, {
 		
 		}
 		
-		if (!html)
-			return;
+		if (!html) return;
 		
 		$pingNotice.find('.box').html(html);
 		
@@ -311,6 +305,28 @@ _.extend(app, {
 		
 		if (app.data.session.userId) data.user = app.data.session.userId;
 		
+		var success = function(data) {
+			
+			console.log( "[getStatus] - Successfully retrieved status." );
+			
+			// Set meetup status
+			app.data.meetup = data.meetup;
+			
+			// Set user data
+			app.data.session = data.user;
+			
+			return callback(false);
+			
+		}
+		
+		var fail = function() {
+			
+			console.log( "[getStatus] - Failed getting status, assuming success anyway." );
+			
+			return callback(true);
+			
+		}
+		
 		$.ajax({
 			url: app.getAPIEndpoint('status'),
 			type: 'post',
@@ -318,24 +334,10 @@ _.extend(app, {
 			dataType: 'json',
 			cache: false,
 			success: function(data) {
-			
-				console.log( "[getStatus] - Successfully retrieved status." );
-				
-				// Set meetup status
-				app.data.meetup = data.meetup;
-				
-				// Set user data
-				app.data.session = data.user;
-				
-				return callback(false);
-			
+				return success(data);
 			},
 			error: function() {
-			
-				console.log( "[getStatus] - Failed getting status, assuming success anyway." );
-				
-				return callback(true);
-			
+				return error();
 			}
 		});
 	
