@@ -142,7 +142,7 @@
 			var self = this;
 			
 			if ( self._processingForm ) {
-				$log('[validateInput] - User tried to submit form but is already in a processing state.');
+				console.log('[validateInput] - User tried to submit form but is already in a processing state.');
 				return;
 			}
 			
@@ -157,7 +157,7 @@
 			};
 			
 			// Log data
-			$log("[validateInput] - Input data to be processed:", inputData);
+			console.log("[validateInput] - Input data to be processed:", inputData);
 			
 			// Validate the form data
 			if (!inputData.username.trim().length) {
@@ -172,7 +172,7 @@
 				return;
 			}
 			
-			$log("[validateInput] - Input data passed all validation checks, saving data...");
+			console.log("[validateInput] - Input data passed all validation checks, saving data...");
 			
 			// Show loading spinner
 			app.showLoadingSpinner();
@@ -192,13 +192,13 @@
 				password: data.password
 			};
 			
-			$log("[signinUser] - User data to be processed:", customerData);
+			console.log("[signinUser] - User data to be processed:", customerData);
 			
-			$log("[signinUser] - Processing data...");
+			console.log("[signinUser] - Processing data...");
 			
 			var success = function(data) {
 				
-				$log("[signinUser] - Password check successful.", data);
+				console.log("[signinUser] - Password check successful.", data);
 				
 				// Put data in local storage
 				app.storeSessionInfo(data);
@@ -218,7 +218,7 @@
 			
 			var error = function() {
 				
-				$log("[signinUser] - Password check failed, advise user to retry details.");
+				console.log("[signinUser] - Password check failed, advise user to retry details.");
 				
 				// Hide loading spinner
 				app.hideLoadingSpinner();
@@ -258,7 +258,7 @@
 			var self = this;
 			
 			if ( self._processingForm ) {
-				$log('[validateInput] - User tried to submit form but is already in a processing state.');
+				console.log('[validateInput] - User tried to submit form but is already in a processing state.');
 				return;
 			}
 			
@@ -277,7 +277,7 @@
 			};
 			
 			// Log data
-			$log("[validateInput] - Input data to be processed:", inputData);
+			console.log("[validateInput] - Input data to be processed:", inputData);
 			
 			// Validate the form data
 			if (!inputData.name.first.trim().length || !inputData.name.last.trim().length) {
@@ -298,7 +298,7 @@
 				return;
 			}
 			
-			$log("[validateInput] - Input data passed all validation checks, saving data...");
+			console.log("[validateInput] - Input data passed all validation checks, saving data...");
 			
 			// Show loading spinner
 			app.showLoadingSpinner();
@@ -312,12 +312,12 @@
 		
 			var self = this;
 			
-			$log("[saveDetails] - User data to be processed:", userData);
-			$log("[saveDetails] - Processing data...");
+			console.log("[saveDetails] - User data to be processed:", userData);
+			console.log("[saveDetails] - Processing data...");
 			
 			var success = function(data) {
 				
-				$log("[saveDetails] - Updated processed succesfully, showing message.", rtnData);
+				console.log("[saveDetails] - Updated processed succesfully, showing message.", rtnData);
 				
 				// Put data in local storage
 				app.storeSessionInfo(rtnData.data);
@@ -338,7 +338,7 @@
 			
 			var error = function() {
 				
-				$log( "[saveDetails] - Update failed, advise user to retry details.", rtnData );
+				console.log( "[saveDetails] - Update failed, advise user to retry details.", rtnData );
 				
 				// Hide loading spinner
 				app.hideLoadingSpinner();

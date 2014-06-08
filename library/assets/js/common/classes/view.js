@@ -275,7 +275,7 @@ _.extend(View.prototype, Backbone.Events, {
 	
 	// Whether the view is currently visible
 	isVisible: function() {
-		// $log( 'Is Visible:', app.currentView() == this );
+		// console.log( 'Is Visible:', app.currentView() == this );
 		return (app.currentView() == this);
 	},
 	

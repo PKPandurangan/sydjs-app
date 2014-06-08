@@ -104,26 +104,26 @@ _.extend(App.prototype, Backbone.Events, {
 		// capture touchstart so we can detect scroll direction
 		$(window).on('touchstart', function(e) {
 			start = e;
-			$log( '[initScrolling] - Touch Start event called.' );
+			console.log( '[initScrolling] - Touch Start event called.' );
 		});
 		
 		// reset on touchend
 		$(window).on('touchend', function(e) {
 			start = null;
-			$log( '[initScrolling] - Touch End event called.' );
+			console.log( '[initScrolling] - Touch End event called.' );
 		});
 		
 		// prevent touchmove events on the window to block document scrolling
 		$(window).on('touchmove', function(e) {
 			e.preventDefault();
-			$log( '[initScrolling] - Touch Move event called.' );
+			console.log( '[initScrolling] - Touch Move event called.' );
 		});
 		
 		// stop any events inside a scrollable area from bubbling, or the event will be
 		// cancelled by the window and the scrollable area won't scroll.
 		$(document).on('touchmove', '.scrollable', function(e) {
 			
-			$log( '[initScrolling] - Touch Move event called within scrollable container.' );
+			console.log( '[initScrolling] - Touch Move event called within scrollable container.' );
 			
 			// if the element won't scroll, default behaviour applies
 			if (e.currentTarget.scrollHeight <= e.currentTarget.offsetHeight)
@@ -241,7 +241,7 @@ _.extend(App.prototype, Backbone.Events, {
 			return;
 		}
 		
-		$log( "[showLoadingSpinner] - Showing loading spinner." );
+		console.log( "[showLoadingSpinner] - Showing loading spinner." );
 		
 		this._spinnerVisible = true;
 		
@@ -257,7 +257,7 @@ _.extend(App.prototype, Backbone.Events, {
 			complete: function() {
 				
 				if (then) {
-					$log( "[showLoadingSpinner] - Has then() callback." );
+					console.log( "[showLoadingSpinner] - Has then() callback." );
 					then();
 				}
 			
@@ -281,7 +281,7 @@ _.extend(App.prototype, Backbone.Events, {
 			return;
 		}
 		
-		$log( "[hideLoadingSpinner] - Hiding loading spinner." );
+		console.log( "[hideLoadingSpinner] - Hiding loading spinner." );
 		
 		this._spinnerVisible = false;
 		
@@ -296,7 +296,7 @@ _.extend(App.prototype, Backbone.Events, {
 				$('#app-loading .spinner').spinner('stop');
 				
 				if (then) {
-					$log( "[hideLoadingSpinner] - Has then() callback." );
+					console.log( "[hideLoadingSpinner] - Has then() callback." );
 					then();
 				}
 			

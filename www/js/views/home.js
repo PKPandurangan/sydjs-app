@@ -269,7 +269,7 @@
 					
 					if (rtnData.success) {
 					
-						$log( "[toggleAttending] - RSVP successful.", rtnData );
+						console.log( "[toggleAttending] - RSVP successful.", rtnData );
 						
 						// Update local cached data
 						app.data.meetup.attending = rsvpData.attending;
@@ -295,7 +295,7 @@
 					
 					} else {
 						
-						$log( "[toggleAttending] - Password check failed, advise user to retry details.", rtnData );
+						console.log( "[toggleAttending] - Password check failed, advise user to retry details.", rtnData );
 						
 						// Hide loading spinner
 						app.hideLoadingSpinner();
@@ -311,7 +311,7 @@
 				},
 				error: function(request, errType, err) {
 					
-					$log( "[toggleAttending] - Update failed, advise user to retry details." );
+					console.log( "[toggleAttending] - Update failed, advise user to retry details." );
 					
 					// Hide loading spinner
 					app.hideLoadingSpinner();

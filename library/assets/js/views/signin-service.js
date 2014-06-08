@@ -99,7 +99,7 @@
 			var self = this;
 			
 			if ( self._processingForm ) {
-				$log('[validateInput] - User tried to submit form but is already in a processing state.');
+				console.log('[validateInput] - User tried to submit form but is already in a processing state.');
 				return;
 			}
 			
@@ -117,7 +117,7 @@
 			};
 			
 			// Log data
-			$log("[validateInput] - Input data to be processed:", inputData);
+			console.log("[validateInput] - Input data to be processed:", inputData);
 			
 			// Validate the form data
 			if (!inputData['name.first'].trim().length || !inputData['name.last'].trim().length) {
@@ -132,7 +132,7 @@
 				return;
 			}
 			
-			$log("[validateInput] - Input data passed all validation checks, saving data...");
+			console.log("[validateInput] - Input data passed all validation checks, saving data...");
 			
 			// Show loading spinner
 			app.showLoadingSpinner();
@@ -146,15 +146,15 @@
 		
 			var self = this;
 			
-			$log("[saveDetails] - User data to be processed:", userData);
+			console.log("[saveDetails] - User data to be processed:", userData);
 			
-			$log("[saveDetails] - Processing data...");
+			console.log("[saveDetails] - Processing data...");
 			
 			console.log(userData);
 			
 			var success = function(data) {
 				
-				$log("[saveDetails] - Updated processed succesfully, showing message.", data);
+				console.log("[saveDetails] - Updated processed succesfully, showing message.", data);
 				
 				// Put data in local storage
 				app.storeSessionInfo(data);
@@ -177,7 +177,7 @@
 			
 			var error = function(data) {
 			
-				$log( "[saveDetails] - Update failed, advise user to retry details.", data );
+				console.log( "[saveDetails] - Update failed, advise user to retry details.", data );
 				
 				// Hide loading spinner
 				app.hideLoadingSpinner();
