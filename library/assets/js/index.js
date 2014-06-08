@@ -297,8 +297,7 @@ _.extend(app, {
 			
 			app.getStatus(function() {
 				$( '#preloader' ).velocity({ opacity: 0 }, { duration: 250 });
-				app.view('signin').show('slide-up');
-				// app.view('home').show('slide-up');
+				app.view('home').show('slide-up');
 			});
 		}
 		
@@ -363,6 +362,7 @@ _.extend(app, {
 		// app.showNotification('Alert', '[enableNotifications] - Enabling notifications...');
 		
 		if (!app._device.system || !app._device.system.match(/ios|android/)) {
+			app.hideLoadingSpinner();
 			return app.showNotification('Alert', 'Sorry, notifications can only be configured on actual devices.');
 		}
 		

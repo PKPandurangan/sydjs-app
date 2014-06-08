@@ -54,17 +54,18 @@
 		
 		toggleNotifications: function() {
 		
+			/*
 			if (!app.data.session) {
 				app.showConfirm('Notifications', 'Sign in and receive useful notifications, such as new meetups announcements.', 'No‚ thanks,Sign in', function(pressed) {
 					if (pressed == 2) app.view('signin').show('slide-up');
 				});
 				return;
 			}
+			*/
 			
 			var self = this;
 			
-			var user = app.data.session,
-				pushNotifications = app.data.pushNotifications;
+			var pushNotifications = app.data.pushNotifications;
 			
 			if (pushNotifications.isConfigured) {
 				if (pushNotifications.enabled) {
