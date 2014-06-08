@@ -43,9 +43,8 @@
 				// iOS: Change status bar style to match view style
 				app.changeStatusBarStyle('black');
 				
-				// Analytics
-				// app.trackEvent( 'googleanalytics', 'Enter Password', { category: 'view', action: 'visible' } );
-				// app.trackEvent( 'mixpanel', 'Viewing Enter Password', {} );
+				// analytics
+				app.trackEvent({ label: 'Signin Email', category: 'view', action: 'visible' });
 				
 				
 			},

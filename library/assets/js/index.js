@@ -423,8 +423,7 @@ _.extend(app, {
 	
 	setIdentity: function(key) {
 	
-		if (!window.mixpanel)
-			return;
+		if (!window.mixpanel) return;
 		
 		try {
 			mixpanel.identify(key);
@@ -432,68 +431,56 @@ _.extend(app, {
 	
 	},
 	
-	trackIdentity: function(properties, revenue) {
+	trackIdentity: function(options) {
 		
-		if (app.checkTestCode())
-			return;
+		// TODO: Decide what to do with this
+		if (app.checkTestCode()) return;
 		
-		if (!window.mixpanel)
-			return;
+		if (!window.mixpanel) return;
 		
 		try {
-			mixpanel.people.set(properties);
-			mixpanel.people.track_charge(revenue);
-			mixpanel.name_tag(app.data.payment.name + ( app.data.payment.email ? ' (' + app.data.payment.email + ')' : '' ) );
+			mixpanel.people.set(options);
+			mixpanel.name_tag(app.data.session.name.full + ( app.data.session.email ? ' (' + app.data.session.email + ')' : '' ) );
 		} catch(e) {}
 		
 	},
 	
-	trackEvent: function(service, label, properties) {
+	trackEvent: function(options) {
 		
-		if (app.checkTestCode())
-			return;
+		// TODO: Decide on what to do with this
+		// if (app.checkTestCode()) return;
 		
-		switch( service )
-		{
-			case 'mixpanel':
+		if (window.mixpanel) {
 			
-				if (!window.mixpanel)
-					return;
-				
-				console.log( '[trackEvent] - Logging event to Mixpanel with the following data:', label, properties );
-				
-				try {
-					mixpanel.track(label, properties);
-				} catch(e) {
-					console.log( '[trackEvent] - Encountered an issue while logging an event to Mixpanel...', e );
-				}
+			console.log('[trackEvent] - Logging event to Mixpanel with the following data:', options.label, options.properties);
 			
-			break;
+			try {
+				mixpanel.track('Viewing ' + options.label, options.properties);
+			} catch(e) {
+				console.log( '[trackEvent] - Encountered an issue while logging an event to Mixpanel...', e );
+			}
 			
-			case 'googleanalytics':
+		}
+		
+		if (window.ga) {
 			
-				if (!window.ga)
-					return;
-				
-				if ( !properties.category || !properties.action )
-					return;
-				
-				var data = {
-					category: properties.category,
-					action: properties.action,
-					label: properties.label || label || '',
-					value: properties.value || 0
-				}
-				
-				console.log( '[trackEvent] - Logging event to Google Analytics with the following data:', data );
-				
-				try {
-					ga('send', 'event', data.category, data.action, data.label, data.value);
-				} catch(e) {
-					console.log( '[trackEvent] - Encountered an issue while logging an event to Google Analytics...', e );
-				}
+			if (!options.category || !options.action) return;
 			
-			break;
+			var data = {
+				category: options.category, // required
+				action: options.action, // required
+				label: options.label || '',
+				value: options.value || 0
+			}
+			
+			console.log('[trackEvent] - Logging event to Google Analytics with the following data:', data);
+			
+			try {
+				ga('send', 'event', data.category, data.action, data.label, data.value);
+			} catch(e) {
+				console.log('[trackEvent] - Encountered an issue while logging an event to Google Analytics...', e);
+			}
+			
 		}
 		
 	}

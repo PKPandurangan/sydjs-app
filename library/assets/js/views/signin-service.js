@@ -44,9 +44,8 @@
 				// populate form fields
 				this.populateFields();
 				
-				// Analytics
-				// app.trackEvent( 'googleanalytics', 'Enter Password', { category: 'view', action: 'visible' } );
-				// app.trackEvent( 'mixpanel', 'Viewing Enter Password', {} );
+				// analytics
+				app.trackEvent({ label: 'Signin Service', category: 'view', action: 'visible' });
 				
 				
 			},
