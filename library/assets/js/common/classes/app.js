@@ -67,8 +67,8 @@ _.extend(App.prototype, Backbone.Events, {
 		this._inTransition = false;
 	},
 	
+	// handle resize events
 	initResize: function() {
-		// handle resize events
 		var resize = function() {
 			app.viewportSize = {
 				width: $(window).width(),
@@ -94,10 +94,9 @@ _.extend(App.prototype, Backbone.Events, {
 		$(window).on('resize', resize);
 	},
 	
+	// prevent native scrolling on the document - means that tap-dragging won't reveal
+	// the native background texture on iOS (outer-bounds of webview)
 	initScrolling: function() {
-		
-		// prevent native scrolling on the document - means that tap-dragging won't reveal
-		// the 'linen' texture on iOS.
 		
 		var start = null;
 		
@@ -160,16 +159,16 @@ _.extend(App.prototype, Backbone.Events, {
 		});
 		
 	},
-
+	
 	currentViewZ: function() {
 		return app._viewZ * 100;
 	},
-
+	
 	lastViewZ: function() {
 		app._viewZ--;
 		return app._viewZ * 100;
 	},
-
+	
 	nextViewZ: function() {
 		app._viewZ++;
 		return app._viewZ * 100;
@@ -304,31 +303,33 @@ _.extend(App.prototype, Backbone.Events, {
 		});
 	},
 	
-	hideKeyboard: function() {
-		// hide the keyboard when hiding a screen (blur active element)
+	// hide the keyboard when hiding a screen (blur active element)
+	hideKeyboard: function() {\
 		if (document.activeElement.tagName.toLowerCase().match(/input|textarea|select/)) {
 			document.activeElement.blur();
 		}
 	},
 	
-	changeStatusBarStyle: function(style) {
-		// iOS/Desktop: changes the colour of the transparent statusbar
-		// in iOS/Desktop, not relevant to Android, there are more
-		// methods available but they have no visible change so have
-		// been left out, using a basic black and white theme
+	// iOS/Desktop: changes the colour of the transparent statusbar
+	// not relevant to Android, there are more methods available but
+	// they have no visible change so have been left out, using a
+	// basic black and white theme
+	changeStatusBarStyle: function(style, delay) {
 		if (!style) return;
-		if (app._device.system == 'ios') {
-			switch(style) {
-				case 'black': StatusBar.styleDefault(); break;
-				case 'white': StatusBar.styleLightContent(); break;
+		setTimeout(function() {
+			if (app._device.system == 'ios') {
+				switch(style) {
+					case 'black': StatusBar.styleDefault(); break;
+					case 'white': StatusBar.styleLightContent(); break;
+				}
 			}
-		}
-		if (!app._device.system) {
-			switch(style) {
-				case 'black': $('.statusbar').removeClass('white').addClass('black'); break;
-				case 'white': $('.statusbar').removeClass('black').addClass('white'); break;
+			if (!app._device.system) {
+				switch(style) {
+					case 'black': $('.statusbar').removeClass('white').addClass('black'); break;
+					case 'white': $('.statusbar').removeClass('black').addClass('white'); break;
+				}
 			}
-		}
+		}, delay || 0);
 	},
 	
 	scrollContainer: function(view) {
@@ -341,9 +342,9 @@ _.extend(App.prototype, Backbone.Events, {
 		}
 	},
 	
+	// iOS: prevent auto focusing the last field, for some reason
+	// this happens intermittently 
 	disableFields: function() {
-		// iOS: prevent auto focusing the last field, for some reason
-		// this happens intermittently 
 		if (app._device.system == 'ios') {
 			var fields = app.currentView().$el.find('input,textarea,select');
 				fields.prop( 'disabled', true );
