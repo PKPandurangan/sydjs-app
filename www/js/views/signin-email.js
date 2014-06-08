@@ -237,8 +237,8 @@
 			}
 			
 			$.ajax({
-				url: config.baseURL + '/api/app/signin',
-				type: 'POST',
+				url: app.getAPIEndpoint('signin'),
+				type: 'post',
 				data: customerData,
 				dataType: 'json',
 				cache: false,
@@ -351,8 +351,8 @@
 			}
 			
 			$.ajax({
-				url: config.baseURL + '/api/create-customer' + '?version=' + app.data.versions.build,
-				type: 'POST',
+				url: app.getAPIEndpoint('create-customer'),
+				type: 'post',
 				data: customerData,
 				dataType: 'json',
 				cache: false,

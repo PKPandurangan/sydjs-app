@@ -258,69 +258,60 @@
 				cancel: options.cancel
 			};
 			
+			var success = function(data) {
+				
+				console.log( "[toggleAttending] - RSVP successful.", rtnData );
+				
+				// Update local cached data
+				app.data.meetup.attending = rsvpData.attending;
+				app.data.meetup.rsvped = !options.cancel ? true : false;
+				
+				// Hide loading spinner
+				app.hideLoadingSpinner();
+				
+				// Set form to no longer processing
+				self._processingForm = false;
+				
+				// Update status
+				self.$('.states').velocity({
+					translateX: 0,
+					translateY: 0
+				}, {
+					duration: 250,
+					easing: 'easeOutSine',
+					complete: function() {
+						self.setState();
+					}
+				});
+				
+			}
+			
+			var error = function() {
+				
+				console.log( "[toggleAttending] - Password check failed, advise user to retry details.", rtnData );
+				
+				// Hide loading spinner
+				app.hideLoadingSpinner();
+				
+				// Set form to no longer processing
+				self._processingForm = false;
+				
+				// Show message
+				app.showNotification('Alert', 'Sorry, we couldn\'t validate your password, please try again.');
+				
+			}
+			
 			$.ajax({
-				url: config.baseURL + '/api/app/rsvp',
+				url: app.getAPIEndpoint('rsvp'),
 				type: 'post',
 				data: rsvpData,
 				dataType: 'json',
 				cache: false,
-				success: function(rtnData) {
-					
-					if (rtnData.success) {
-					
-						console.log( "[toggleAttending] - RSVP successful.", rtnData );
-						
-						// Update local cached data
-						app.data.meetup.attending = rsvpData.attending;
-						app.data.meetup.rsvped = !options.cancel ? true : false;
-						
-						// Hide loading spinner
-						app.hideLoadingSpinner();
-						
-						// Set form to no longer processing
-						self._processingForm = false;
-						
-						// Update status
-						self.$('.states').velocity({
-							translateX: 0,
-							translateY: 0
-						}, {
-							duration: 250,
-							easing: 'easeOutSine',
-							complete: function() {
-								self.setState();
-							}
-						});
-					
-					} else {
-						
-						console.log( "[toggleAttending] - Password check failed, advise user to retry details.", rtnData );
-						
-						// Hide loading spinner
-						app.hideLoadingSpinner();
-						
-						// Set form to no longer processing
-						self._processingForm = false;
-						
-						// Show message
-						app.showNotification('Alert', 'Sorry, we couldn\'t validate your password, please try again.');
-					
-					}
-					
+				success: function(data) {
+					return data.success ? success(data) : error();
 				},
-				error: function(request, errType, err) {
-					
-					console.log( "[toggleAttending] - Update failed, advise user to retry details." );
-					
-					// Hide loading spinner
-					app.hideLoadingSpinner();
-					
-					// Set form to no longer processing
-					self._processingForm = false;
-					
-					// Show message
-					app.showNotification('Alert', 'Sorry, we couldn\'t validate your password, please try again.');
-				
+				error: function() {
+					return error();
 				}
 			});
 		

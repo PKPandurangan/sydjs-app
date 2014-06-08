@@ -49,7 +49,7 @@ _.extend(app, {
 		console.log( '[pingServer] - Pinging...' );
 		
 		$.ajax({
-			url: config.baseURL + '/api/app/ping',
+			url: app.getAPIEndpoint('ping'),
 			type: 'get',
 			dataType: 'json',
 			cache: false,
@@ -312,7 +312,7 @@ _.extend(app, {
 		if (app.data.session.userId) data.user = app.data.session.userId;
 		
 		$.ajax({
-			url: config.baseURL + '/api/app/status',
+			url: app.getAPIEndpoint('status'),
 			type: 'post',
 			data: data,
 			dataType: 'json',
