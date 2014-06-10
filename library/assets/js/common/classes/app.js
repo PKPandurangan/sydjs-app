@@ -304,7 +304,7 @@ _.extend(App.prototype, Backbone.Events, {
 	},
 	
 	// hide the keyboard when hiding a screen (blur active element)
-	hideKeyboard: function() {\
+	hideKeyboard: function() {
 		if (document.activeElement.tagName.toLowerCase().match(/input|textarea|select/)) {
 			document.activeElement.blur();
 		}

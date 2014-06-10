@@ -53,14 +53,10 @@
 		
 		toggleNotifications: function() {
 		
-			/*
-			if (!app.data.session) {
-				app.showConfirm('Notifications', 'Sign in and receive useful notifications, such as new meetups announcements.', 'No‚ thanks,Sign in', function(pressed) {
-					if (pressed == 2) app.view('signin').show('slide-up');
-				});
-				return;
+			if (!app._device.system || !app._device.system.match(/ios|android/)) {
+				app.hideLoadingSpinner();
+				return app.showNotification('Alert', 'Sorry, notification functionality can only be configured on actual devices.');
 			}
-			*/
 			
 			var self = this;
 			
@@ -121,8 +117,7 @@
 		
 			if (!app.data.session) return;
 			
-			var user = app.data.session,
-				pushNotifications = app.data.pushNotifications;
+			var pushNotifications = app.data.pushNotifications;
 			
 			// Push Notifications
 			var $notifications = this.$('.btn-notifications');
@@ -157,6 +152,11 @@
 		},
 		
 		addToCalendar: function() {
+			
+			if (!app._device.system || !app._device.system.match(/ios|android/)) {
+				return app.showNotification('Alert', 'Sorry, calendar functionality can only be configured on actual devices.');
+				return;
+			}
 			
 			var meetup = app.data.meetup;
 			
@@ -260,7 +260,7 @@
 			
 			var success = function(data) {
 				
-				console.log( "[toggleAttending] - RSVP successful.", rtnData );
+				console.log("[toggleAttending] - RSVP successful.", data);
 				
 				// Update local cached data
 				app.data.meetup.attending = rsvpData.attending;
@@ -286,9 +286,9 @@
 				
 			}
 			
-			var error = function() {
+			var error = function(data) {
 				
-				console.log( "[toggleAttending] - Password check failed, advise user to retry details.", rtnData );
+				console.log("[toggleAttending] - Password check failed, advise user to retry details.", data);
 				
 				// Hide loading spinner
 				app.hideLoadingSpinner();

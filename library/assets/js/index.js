@@ -361,11 +361,6 @@ _.extend(app, {
 		
 		// app.showNotification('Alert', '[enableNotifications] - Enabling notifications...');
 		
-		if (!app._device.system || !app._device.system.match(/ios|android/)) {
-			app.hideLoadingSpinner();
-			return app.showNotification('Alert', 'Sorry, notifications can only be configured on actual devices.');
-		}
-		
 		var user = app.data.session;
 		
 		Notificare.enableNotifications();
@@ -400,10 +395,6 @@ _.extend(app, {
 	disableNotifications: function(callback) {
 	
 		// app.showNotification('Alert', '[disableNotifications] - Disabling notifications...');
-		
-		if (!app._device.system || !app._device.system.match(/ios|android/)) {
-			return app.showNotification('Alert', 'Sorry, notifications can only be configured on actual devices.');
-		}
 		
 		Notificare.disableNotifications(function() {
 			app.setNotifications(false, callback);

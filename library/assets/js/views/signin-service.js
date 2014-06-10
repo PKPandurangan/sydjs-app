@@ -176,7 +176,7 @@
 			
 			var error = function(data) {
 			
-				console.log( "[saveDetails] - Update failed, advise user to retry details.", data );
+				console.log("[saveDetails] - Update failed, advise user to retry details.", data);
 				
 				// Hide loading spinner
 				app.hideLoadingSpinner();

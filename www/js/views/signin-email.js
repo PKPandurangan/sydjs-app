@@ -95,22 +95,18 @@
 			// iOS: prevent auto focusing the last field
 			app.disableFields();
 			
-			// alert('hiding:' + this._flow + '.container');
-			
 			this.$('.' + this._flow + '.container').velocity({
 				opacity: 0
 			}, {
-				duration: 300,
+				duration: 150,
 				easing: 'easeOutSine',
 				complete: function() {
-					
-					// alert('showing:' + flow + '.container');
 					
 					self.$('.' + flow + '.container').css('opacity', 0).show();
 					self.$('.' + flow + '.container').velocity({
 						opacity: 1
 					}, {
-						duration: 300,
+						duration: 150,
 						easing: 'easeOutSine',
 						complete: function() {
 							self.$('.' + self._flow + '.container').hide();
@@ -151,8 +147,8 @@
 			
 			// Collect the form data
 			var inputData = {
-				username: this.field('username').val(),
-				password: this.field('password').val()
+				username: this.field('signin-username').val(),
+				password: this.field('signin-password').val()
 			};
 			
 			// Log data
@@ -215,9 +211,9 @@
 			
 			}
 			
-			var error = function() {
+			var error = function(data) {
 				
-				console.log("[signinUser] - Password check failed, advise user to retry details.");
+				console.log("[signinUser] - Password check failed, advise user to retry details.", data);
 				
 				// Hide loading spinner
 				app.hideLoadingSpinner();
@@ -243,7 +239,7 @@
 				dataType: 'json',
 				cache: false,
 				success: function(data) {
-					data && data.success && data.session ? success(data) : error();
+					data && data.success && data.session ? success(data) : error(data);
 				},
 				error: function() {
 					return error();
@@ -267,12 +263,12 @@
 			
 			// Collect the form data
 			var inputData = {
-				'name.first': this.field('firstName').val(),
-				'name.last': this.field('lastName').val(),
-				email: this.field('email').val(),
-				password: this.field('password').val(),
-				website: this.field('website').val(),
-				alertsNotifications: this.field('alertsNotifications').val() == 'yes' ? true : false
+				'name.first': this.field('signup-firstName').val(),
+				'name.last': this.field('signup-lastName').val(),
+				email: this.field('signup-email').val(),
+				password: this.field('signup-password').val(),
+				website: this.field('signup-website').val(),
+				alertsNotifications: this.field('signup-alertsNotifications').val() == 'yes' ? true : false
 			};
 			
 			// Log data
@@ -316,10 +312,10 @@
 			
 			var success = function(data) {
 				
-				console.log("[saveDetails] - Updated processed succesfully, showing message.", rtnData);
+				console.log("[saveDetails] - Updated processed succesfully, showing message.", data);
 				
 				// Put data in local storage
-				app.storeSessionInfo(rtnData.data);
+				app.storeSessionInfo(data.data);
 				
 				// Hide loading spinner
 				app.hideLoadingSpinner();
@@ -335,9 +331,9 @@
 				
 			}
 			
-			var error = function() {
+			var error = function(data) {
 				
-				console.log( "[saveDetails] - Update failed, advise user to retry details.", rtnData );
+				console.log("[saveDetails] - Update failed, advise user to retry details.", data);
 				
 				// Hide loading spinner
 				app.hideLoadingSpinner();
@@ -346,7 +342,7 @@
 				self._processingForm = false;
 				
 				// Show message
-				app.showNotification('Alert', 'Sorry, your account could not be created. Please try again.\n\n' + rtnData.message);
+				app.showNotification('Alert', 'Sorry, your account could not be created. Please try again.\n\n' + data.message);
 				
 			}
 			
@@ -357,7 +353,7 @@
 				dataType: 'json',
 				cache: false,
 				success: function(data) {
-					return data.success ? success(data) : error();
+					return data.success ? success(data) : error(data);
 				},
 				error: function() {
 					return error();
