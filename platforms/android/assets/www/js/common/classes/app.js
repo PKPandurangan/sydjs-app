@@ -67,8 +67,8 @@ _.extend(App.prototype, Backbone.Events, {
 		this._inTransition = false;
 	},
 	
+	// handle resize events
 	initResize: function() {
-		// handle resize events
 		var resize = function() {
 			app.viewportSize = {
 				width: $(window).width(),
@@ -94,36 +94,35 @@ _.extend(App.prototype, Backbone.Events, {
 		$(window).on('resize', resize);
 	},
 	
+	// prevent native scrolling on the document - means that tap-dragging won't reveal
+	// the native background texture on iOS (outer-bounds of webview)
 	initScrolling: function() {
-		
-		// prevent native scrolling on the document - means that tap-dragging won't reveal
-		// the 'linen' texture on iOS.
 		
 		var start = null;
 		
 		// capture touchstart so we can detect scroll direction
 		$(window).on('touchstart', function(e) {
 			start = e;
-			$log( '[initScrolling] - Touch Start event called.' );
+			console.log( '[initScrolling] - Touch Start event called.' );
 		});
 		
 		// reset on touchend
 		$(window).on('touchend', function(e) {
 			start = null;
-			$log( '[initScrolling] - Touch End event called.' );
+			console.log( '[initScrolling] - Touch End event called.' );
 		});
 		
 		// prevent touchmove events on the window to block document scrolling
 		$(window).on('touchmove', function(e) {
 			e.preventDefault();
-			$log( '[initScrolling] - Touch Move event called.' );
+			console.log( '[initScrolling] - Touch Move event called.' );
 		});
 		
 		// stop any events inside a scrollable area from bubbling, or the event will be
 		// cancelled by the window and the scrollable area won't scroll.
 		$(document).on('touchmove', '.scrollable', function(e) {
 			
-			$log( '[initScrolling] - Touch Move event called within scrollable container.' );
+			console.log( '[initScrolling] - Touch Move event called within scrollable container.' );
 			
 			// if the element won't scroll, default behaviour applies
 			if (e.currentTarget.scrollHeight <= e.currentTarget.offsetHeight)
@@ -160,16 +159,16 @@ _.extend(App.prototype, Backbone.Events, {
 		});
 		
 	},
-
+	
 	currentViewZ: function() {
 		return app._viewZ * 100;
 	},
-
+	
 	lastViewZ: function() {
 		app._viewZ--;
 		return app._viewZ * 100;
 	},
-
+	
 	nextViewZ: function() {
 		app._viewZ++;
 		return app._viewZ * 100;
@@ -241,7 +240,7 @@ _.extend(App.prototype, Backbone.Events, {
 			return;
 		}
 		
-		$log( "[showLoadingSpinner] - Showing loading spinner." );
+		console.log( "[showLoadingSpinner] - Showing loading spinner." );
 		
 		this._spinnerVisible = true;
 		
@@ -257,7 +256,7 @@ _.extend(App.prototype, Backbone.Events, {
 			complete: function() {
 				
 				if (then) {
-					$log( "[showLoadingSpinner] - Has then() callback." );
+					console.log( "[showLoadingSpinner] - Has then() callback." );
 					then();
 				}
 			
@@ -281,7 +280,7 @@ _.extend(App.prototype, Backbone.Events, {
 			return;
 		}
 		
-		$log( "[hideLoadingSpinner] - Hiding loading spinner." );
+		console.log( "[hideLoadingSpinner] - Hiding loading spinner." );
 		
 		this._spinnerVisible = false;
 		
@@ -296,7 +295,7 @@ _.extend(App.prototype, Backbone.Events, {
 				$('#app-loading .spinner').spinner('stop');
 				
 				if (then) {
-					$log( "[hideLoadingSpinner] - Has then() callback." );
+					console.log( "[hideLoadingSpinner] - Has then() callback." );
 					then();
 				}
 			
@@ -304,31 +303,33 @@ _.extend(App.prototype, Backbone.Events, {
 		});
 	},
 	
+	// hide the keyboard when hiding a screen (blur active element)
 	hideKeyboard: function() {
-		// hide the keyboard when hiding a screen (blur active element)
 		if (document.activeElement.tagName.toLowerCase().match(/input|textarea|select/)) {
 			document.activeElement.blur();
 		}
 	},
 	
-	changeStatusBarStyle: function(style) {
-		// iOS/Desktop: changes the colour of the transparent statusbar
-		// in iOS/Desktop, not relevant to Android, there are more
-		// methods available but they have no visible change so have
-		// been left out, using a basic black and white theme
+	// iOS/Desktop: changes the colour of the transparent statusbar
+	// not relevant to Android, there are more methods available but
+	// they have no visible change so have been left out, using a
+	// basic black and white theme
+	changeStatusBarStyle: function(style, delay) {
 		if (!style) return;
-		if (app._device.system == 'ios') {
-			switch(style) {
-				case 'black': StatusBar.styleDefault(); break;
-				case 'white': StatusBar.styleLightContent(); break;
+		setTimeout(function() {
+			if (app._device.system == 'ios') {
+				switch(style) {
+					case 'black': StatusBar.styleDefault(); break;
+					case 'white': StatusBar.styleLightContent(); break;
+				}
 			}
-		}
-		if (!app._device.system) {
-			switch(style) {
-				case 'black': $('.statusbar').removeClass('white').addClass('black'); break;
-				case 'white': $('.statusbar').removeClass('black').addClass('white'); break;
+			if (!app._device.system) {
+				switch(style) {
+					case 'black': $('.statusbar').removeClass('white').addClass('black'); break;
+					case 'white': $('.statusbar').removeClass('black').addClass('white'); break;
+				}
 			}
-		}
+		}, delay || 0);
 	},
 	
 	scrollContainer: function(view) {
@@ -341,14 +342,18 @@ _.extend(App.prototype, Backbone.Events, {
 		}
 	},
 	
+	// iOS: prevent auto focusing the last field, for some reason
+	// this happens intermittently 
 	disableFields: function() {
-		// iOS: prevent auto focusing the last field, for some reason
-		// this happens intermittently 
 		if (app._device.system == 'ios') {
 			var fields = app.currentView().$el.find('input,textarea,select');
 				fields.prop( 'disabled', true );
 				setTimeout( function() { fields.prop( 'disabled', false ); }, 1000 );
 		}
+	},
+	
+	getAPIEndpoint: function(api) {
+		return config.baseURL + '/api/app/' + api + '?version=' + app.data.versions.build;
 	},
 	
 	initDevice: function() {

@@ -642,15 +642,12 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/plugins \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/components/async.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/components/backbone.js \
-/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/components/fastclick.js \
-/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/components/jquery.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/components/moment.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/components/underscore.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/components/velocity.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/components/zepto.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/app.css \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui \
-/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/arrow-up.png \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/backgrounds \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/icon-alarm-black.svg \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/icon-alarm-green.svg \
@@ -669,7 +666,6 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/icons \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/ios-statusbar-black.png \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/ios-statusbar-white.png \
-/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/ios-statusbar.png \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/logo.png \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/backgrounds/startup-blank.png \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/icons/email.png \
@@ -679,7 +675,6 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/icons/twitter.png \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/index.js \
-/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/test.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/views \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/classes \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/ui \
@@ -690,9 +685,7 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/ui/button.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/ui/spinner.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/views/about.js \
-/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/views/email-signin.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/views/home.js \
-/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/views/register.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/views/signin-email.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/views/signin-service.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/views/signin.js \

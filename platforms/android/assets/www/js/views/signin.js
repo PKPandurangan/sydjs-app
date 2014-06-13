@@ -33,6 +33,9 @@
 				// iOS: Change status bar style to match view style
 				app.changeStatusBarStyle('white');
 				
+				// analytics
+				app.trackEvent({ label: 'Signin', category: 'view', action: 'visible' });
+				
 			},
 			hidden: function() {
 				
@@ -83,6 +86,8 @@
 							authWindow.close();
 							
 							app.view('signin-service')._service = service;
+							app.view('signin-service')._authUser = JSON.parse(authUser);
+							
 							app.view('signin-service').show('slide-up');
 							
 							// alert(authUser);

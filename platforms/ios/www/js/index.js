@@ -4,12 +4,10 @@
 //	This is the main init script, which configures the application.
 //	It should be the last script included.
 
-var $log = function(){for(var a=0;a<arguments.length;a++){console.log(arguments[a])}}
-
 _.extend(app.data, {
 	
 	versions: {
-		build: '1.0.0' // The users current local build version, only really relevant to app store builds
+		build: '1.0.0' // The users current local build version
 	},
 	
 	user: {}, // Stores a user key we generate on startup that allows consistant analytics tracking
@@ -39,7 +37,7 @@ _.extend(app, {
 	pingServer: function( callback ) {
 		
 		if ( app._disablePing ) {
-			$log( '[pingServer] - Pinging is disabled, aborting.' );
+			console.log( '[pingServer] - Pinging is disabled, aborting.' );
 			return;
 		}
 		
@@ -48,10 +46,40 @@ _.extend(app, {
 			app._disablePing = true;
 		}
 		
-		$log( '[pingServer] - Pinging...' );
+		console.log( '[pingServer] - Pinging...' );
+		
+		var success = function(data) {
+		
+			console.log( "[pingServer] - Successfully pinged server." );
+			
+			// Set config
+			if ( data.config ) {
+				console.log( "[pingServer] - Setting config with:", data.config );
+				app.data.config = data.config;
+			}
+			
+			// Check the config
+			app.checkConfig();
+			
+			// Ping server again in 10 seconds
+			setTimeout( function() { return app.pingServer() }, 10000 );
+		
+		}
+		
+		var fail = function() {
+		
+			console.log( "[pingServer] - Received unexpected ping response, connection may be offline, displaying notification (if not displayed)." );
+			
+			// Show network notification
+			app.showPingNotification('noResponse');
+			
+			// Ping server again in 5 seconds (hastened)
+			setTimeout( function() { return app.pingServer() }, 5000 );
+		
+		}
 		
 		$.ajax({
-			url: config.baseURL + '/api/app/ping',
+			url: app.getAPIEndpoint('ping'),
 			type: 'get',
 			dataType: 'json',
 			cache: false,
@@ -62,49 +90,14 @@ _.extend(app, {
 				
 				// We currently have a callback when we start up the app, only in success function right now
 				// We probably shouldn't let the user use the app if we don't get a ping response
-				if ( callback )
-					callback( data.success );
+				if (callback) callback(data.success);
 				
 				// Check for successful response
-				if (data && data.success) {
-					
-					$log( "[pingServer] - Successfully pinged server." );
-					
-					// Set config
-					if ( data.config ) {
-						$log( "[pingServer] - Setting config with:", data.config );
-						app.data.config = data.config;
-					}
-					
-					// Check the config
-					app.checkConfig();
-					
-					// Ping server again in 10 seconds
-					setTimeout( function() { return app.pingServer() }, 10000 );
-					
-				} else {
-					
-					$log( "[pingServer] - Received unexpected ping response, connection may be offline, displaying notification (if not displayed)." );
-					
-					// Show network notification
-					app.showPingNotification('noResponse');
-					
-					// Ping server again in 5 seconds (hastened)
-					setTimeout( function() { return app.pingServer() }, 5000 );
-					
-				}
+				return data && data.success ? success(data) : error();
 			
 			},
 			error: function() {
-			
-				$log( "[pingServer] - Failed pinging server, network connection may be offline, displaying notification (if not displayed)." );
-				
-				// Show network notification
-				app.showPingNotification('noResponse');
-				
-				// Ping server again in 5 seconds (hastened)
-				setTimeout( function() { return app.pingServer() }, 5000 );
-			
+				return error();
 			}
 		});
 		
@@ -126,13 +119,13 @@ _.extend(app, {
 		
 		// Check if major build version is behind major compatibility version
 		if ( build.major < compatibility.major ) {
-			$log("[checkConfig] - Users build major version is behind compatibility major version.");
+			console.log("[checkConfig] - Users build major version is behind compatibility major version.");
 			return app.showPingNotification('versionIncompatibility');
 		}
 		
 		// Check if major build version is behind major production version
 		if ( build.major < production.major ) {
-			$log("[checkConfig] - Users build major version is behind production major version.");
+			console.log("[checkConfig] - Users build major version is behind production major version.");
 			return app.showPingNotification('versionIncompatibility');
 		}
 	
@@ -149,7 +142,7 @@ _.extend(app, {
 			case 'killSwitch':
 				html = '<div class="i">&#128340;</div>' +
 					'<div class="text">' +
-						'<div>Gold Class Butler is currently unavailable.</div>' +
+						'<div>SydJS is currently unavailable.</div>' +
 						'<div>Please check back soon!</div>' +
 					'</div>';
 			break;
@@ -157,7 +150,7 @@ _.extend(app, {
 			case 'versionIncompatibility':
 				html = '<div class="i">&#59141;</div>' +
 					'<div class="text">' +
-						'<div>A new version of Gold Class Butler is now available.</div>' +
+						'<div>A new version of SydJS is now available.</div>' +
 						'<div>Please update the app via the ' + ( app._device.system == 'ios' ? 'App Store' : 'Google Play Store' ) + '.</div>' +
 					'</div>';
 			break;
@@ -171,8 +164,7 @@ _.extend(app, {
 		
 		}
 		
-		if (!html)
-			return;
+		if (!html) return;
 		
 		$pingNotice.find('.box').html(html);
 		
@@ -196,7 +188,7 @@ _.extend(app, {
 	
 		app._disablePing = true;
 		
-		$log( '[pingServer] - Disabled pinging.' );
+		console.log( '[pingServer] - Disabled pinging.' );
 	
 	},
 	
@@ -220,7 +212,7 @@ _.extend(app, {
 		
 		app.setIdentity( app.data.user.key );
 		
-		$log( "[populateUser] - Set user key as [" + app.data.user.key + "]." );
+		console.log( "[populateUser] - Set user key as [" + app.data.user.key + "]." );
 	
 	},
 	
@@ -241,7 +233,7 @@ _.extend(app, {
 	
 	storeSessionInfo: function(data) {
 		
-		$log( "[storeSessionInfo] - Storing session info into local storage." );
+		console.log( "[storeSessionInfo] - Storing session info into local storage." );
 		
 		// populate local storage with date and user date
 		localStorage.setItem( 'session_date', data.date );
@@ -253,7 +245,7 @@ _.extend(app, {
 	
 	populateSessionInfo: function(data) {
 		
-		$log( "[populateSessionInfo] - Populating session info into app." );
+		console.log( "[populateSessionInfo] - Populating session info into app." );
 		
 		_.extend(this.data.session, _.pick(data, 'date', 'userId'));
 		
@@ -261,13 +253,13 @@ _.extend(app, {
 	
 	resumeSession: function() {
 		
-		$log( "[resumeSession] - Resuming session..." );
+		console.log( "[resumeSession] - Resuming session..." );
 		
 		// Make sure we have a user set
 		app.populateUser();
 		
 		// Check local storage for session data
-		$log( "[resumeSession] - Checking local storage..." );
+		console.log( "[resumeSession] - Checking local storage..." );
 		
 		var date = localStorage.getItem( 'session_date' ),
 			user = localStorage.getItem( 'session_userId' );
@@ -275,14 +267,14 @@ _.extend(app, {
 		// Check for timestamp and valid code
 		if ( date && user)
 		{
-			$log( "[resumeSession] - Existing data found, populating data from local storage..." );
+			console.log( "[resumeSession] - Existing data found, populating data from local storage..." );
 			
 			app.populateSessionInfo({
 				date: localStorage.getItem( 'session_date' ),
 				userId: JSON.parse( localStorage.getItem( 'session_userId' ) )
 			});
 			
-			$log( "[resumeSession] - Session info was retrieved at [" + moment( parseInt( date ) ).format('h:mm:ss a') + "]..." );
+			console.log( "[resumeSession] - Session info was retrieved at [" + moment( parseInt( date ) ).format('h:mm:ss a') + "]..." );
 			
 			app.getStatus(function() {
 				$( '#preloader' ).velocity({ opacity: 0 }, { duration: 250 });
@@ -292,8 +284,8 @@ _.extend(app, {
 		// If we don't have any data, just show the start screen (default behaviour)
 		else
 		{
-			$log( "[resumeSession] - No existing data found..." );
-			$log( "[resumeSession] - Showing [signin] screen." );
+			console.log( "[resumeSession] - No existing data found..." );
+			console.log( "[resumeSession] - Showing [signin] screen." );
 			
 			app.getStatus(function() {
 				$( '#preloader' ).velocity({ opacity: 0 }, { duration: 250 });
@@ -307,37 +299,45 @@ _.extend(app, {
 	
 	getStatus: function(callback) {
 	
-		$log( "[getStatus] - Status data doesn't exist, retrieving from server..." );
+		console.log( "[getStatus] - Status data doesn't exist, retrieving from server..." );
 		
 		var data = {};
 		
 		if (app.data.session.userId) data.user = app.data.session.userId;
 		
+		var success = function(data) {
+			
+			console.log( "[getStatus] - Successfully retrieved status." );
+			
+			// Set meetup status
+			app.data.meetup = data.meetup;
+			
+			// Set user data
+			app.data.session = data.user;
+			
+			return callback(false);
+			
+		}
+		
+		var fail = function() {
+			
+			console.log( "[getStatus] - Failed getting status, assuming success anyway." );
+			
+			return callback(true);
+			
+		}
+		
 		$.ajax({
-			url: config.baseURL + '/api/app/status',
+			url: app.getAPIEndpoint('status'),
 			type: 'post',
 			data: data,
 			dataType: 'json',
 			cache: false,
 			success: function(data) {
-			
-				$log( "[getStatus] - Successfully retrieved status." );
-				
-				// Set meetup status
-				app.data.meetup = data.meetup;
-				
-				// Set user data
-				app.data.session = data.user;
-				
-				return callback(false);
-			
+				return success(data);
 			},
 			error: function() {
-			
-				$log( "[getStatus] - Failed getting status, assuming success anyway." );
-				
-				return callback(true);
-			
+				return error();
 			}
 		});
 	
@@ -361,11 +361,6 @@ _.extend(app, {
 		
 		// app.showNotification('Alert', '[enableNotifications] - Enabling notifications...');
 		
-		if (!app._device.system || !app._device.system.match(/ios|android/)) {
-			app.hideLoadingSpinner();
-			return app.showNotification('Alert', 'Sorry, notifications can only be configured on actual devices.');
-		}
-		
 		var user = app.data.session;
 		
 		Notificare.enableNotifications();
@@ -385,7 +380,7 @@ _.extend(app, {
 			
 			}, function(err) {
 			
-				$log( "[enableNotifications] - Failed enabling notifications.", err );
+				console.log( "[enableNotifications] - Failed enabling notifications.", err );
 				
 				app.showNotification('Alert', 'Sorry, there was an issue registering you for notifications. Please try again.');
 				
@@ -400,10 +395,6 @@ _.extend(app, {
 	disableNotifications: function(callback) {
 	
 		// app.showNotification('Alert', '[disableNotifications] - Disabling notifications...');
-		
-		if (!app._device.system || !app._device.system.match(/ios|android/)) {
-			return app.showNotification('Alert', 'Sorry, notifications can only be configured on actual devices.');
-		}
 		
 		Notificare.disableNotifications(function() {
 			app.setNotifications(false, callback);
@@ -425,8 +416,7 @@ _.extend(app, {
 	
 	setIdentity: function(key) {
 	
-		if (!window.mixpanel)
-			return;
+		if (!window.mixpanel) return;
 		
 		try {
 			mixpanel.identify(key);
@@ -434,68 +424,56 @@ _.extend(app, {
 	
 	},
 	
-	trackIdentity: function(properties, revenue) {
+	trackIdentity: function(options) {
 		
-		if (app.checkTestCode())
-			return;
+		// TODO: Decide what to do with this
+		if (app.checkTestCode()) return;
 		
-		if (!window.mixpanel)
-			return;
+		if (!window.mixpanel) return;
 		
 		try {
-			mixpanel.people.set(properties);
-			mixpanel.people.track_charge(revenue);
-			mixpanel.name_tag(app.data.payment.name + ( app.data.payment.email ? ' (' + app.data.payment.email + ')' : '' ) );
+			mixpanel.people.set(options);
+			mixpanel.name_tag(app.data.session.name.full + ( app.data.session.email ? ' (' + app.data.session.email + ')' : '' ) );
 		} catch(e) {}
 		
 	},
 	
-	trackEvent: function(service, label, properties) {
+	trackEvent: function(options) {
 		
-		if (app.checkTestCode())
-			return;
+		// TODO: Decide on what to do with this
+		// if (app.checkTestCode()) return;
 		
-		switch( service )
-		{
-			case 'mixpanel':
+		if (window.mixpanel) {
 			
-				if (!window.mixpanel)
-					return;
-				
-				$log( '[trackEvent] - Logging event to Mixpanel with the following data:', label, properties );
-				
-				try {
-					mixpanel.track(label, properties);
-				} catch(e) {
-					$log( '[trackEvent] - Encountered an issue while logging an event to Mixpanel...', e );
-				}
+			console.log('[trackEvent] - Logging event to Mixpanel with the following data:', options.label, options.properties);
 			
-			break;
+			try {
+				mixpanel.track('Viewing ' + options.label, options.properties);
+			} catch(e) {
+				console.log( '[trackEvent] - Encountered an issue while logging an event to Mixpanel...', e );
+			}
 			
-			case 'googleanalytics':
+		}
+		
+		if (window.ga) {
 			
-				if (!window.ga)
-					return;
-				
-				if ( !properties.category || !properties.action )
-					return;
-				
-				var data = {
-					category: properties.category,
-					action: properties.action,
-					label: properties.label || label || '',
-					value: properties.value || 0
-				}
-				
-				$log( '[trackEvent] - Logging event to Google Analytics with the following data:', data );
-				
-				try {
-					ga('send', 'event', data.category, data.action, data.label, data.value);
-				} catch(e) {
-					$log( '[trackEvent] - Encountered an issue while logging an event to Google Analytics...', e );
-				}
+			if (!options.category || !options.action) return;
 			
-			break;
+			var data = {
+				category: options.category, // required
+				action: options.action, // required
+				label: options.label || '',
+				value: options.value || 0
+			}
+			
+			console.log('[trackEvent] - Logging event to Google Analytics with the following data:', data);
+			
+			try {
+				ga('send', 'event', data.category, data.action, data.label, data.value);
+			} catch(e) {
+				console.log('[trackEvent] - Encountered an issue while logging an event to Google Analytics...', e);
+			}
+			
 		}
 		
 	}
@@ -505,9 +483,9 @@ _.extend(app, {
 app.on('init', function() {
 	
 	// Log start of events
-	$log( "==================================================" );
-	$log( "[init] - App init started..." );
-	$log( "--------------------------------------------------" );
+	console.log( "==================================================" );
+	console.log( "[init] - App init started..." );
+	console.log( "--------------------------------------------------" );
 	
 	// Show the loading spinner
 	// app.showLoadingSpinner();
@@ -523,7 +501,7 @@ app.on('init', function() {
 				// effects around the app to improve performance, this must happen before any views are shown
 				app.setPerformanceConditions();
 				
-				$log( "[init] - Set performance conditions, continuing..." );
+				console.log( "[init] - Set performance conditions, continuing..." );
 				
 				return cb();
 			
@@ -532,9 +510,9 @@ app.on('init', function() {
 		], function(err) {
 		
 			// Log end of events
-			$log( "--------------------------------------------------" );
-			$log( "[init] - App init finished, resuming session." );
-			$log( "==================================================" );
+			console.log( "--------------------------------------------------" );
+			console.log( "[init] - App init finished, resuming session." );
+			console.log( "==================================================" );
 			
 			// Hide the loading spinner
 			// app.hideLoadingSpinner();

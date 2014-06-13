@@ -29,9 +29,8 @@
 				// iOS: Change status bar style to match view style
 				app.changeStatusBarStyle('white');
 				
-				// Analytics
-				// app.trackEvent( 'googleanalytics', 'Rewards', { category: 'view', action: 'visible' } );
-				// app.trackEvent( 'mixpanel', 'Viewing Rewards', {} );
+				// analytics
+				app.trackEvent({ label: 'Home', category: 'view', action: 'visible' });
 				
 			}
 		},
@@ -54,14 +53,10 @@
 		
 		toggleNotifications: function() {
 		
-			/*
-			if (!app.data.session) {
-				app.showConfirm('Notifications', 'Sign in and receive useful notifications, such as new meetups announcements.', 'No‚ thanks,Sign in', function(pressed) {
-					if (pressed == 2) app.view('signin').show('slide-up');
-				});
-				return;
+			if (!app._device.system || !app._device.system.match(/ios|android/)) {
+				app.hideLoadingSpinner();
+				return app.showNotification('Alert', 'Sorry, notification functionality can only be configured on actual devices.');
 			}
-			*/
 			
 			var self = this;
 			
@@ -122,10 +117,8 @@
 		
 			if (!app.data.session) return;
 			
-			var user = app.data.session,
-				pushNotifications = app.data.pushNotifications;
+			var pushNotifications = app.data.pushNotifications;
 			
-			// Push Notifications
 			var $notifications = this.$('.btn-notifications');
 			
 			$notifications.html('<img src="img/ui/icon-alarm-white.svg" />');
@@ -158,6 +151,11 @@
 		},
 		
 		addToCalendar: function() {
+			
+			if (!app._device.system || !app._device.system.match(/ios|android/)) {
+				return app.showNotification('Alert', 'Sorry, calendar functionality can only be configured on actual devices.');
+				return;
+			}
 			
 			var meetup = app.data.meetup;
 			
@@ -259,69 +257,60 @@
 				cancel: options.cancel
 			};
 			
+			var success = function(data) {
+				
+				console.log("[toggleAttending] - RSVP successful.", data);
+				
+				// Update local cached data
+				app.data.meetup.attending = rsvpData.attending;
+				app.data.meetup.rsvped = !options.cancel ? true : false;
+				
+				// Hide loading spinner
+				app.hideLoadingSpinner();
+				
+				// Set form to no longer processing
+				self._processingForm = false;
+				
+				// Update status
+				self.$('.states').velocity({
+					translateX: 0,
+					translateY: 0
+				}, {
+					duration: 250,
+					easing: 'easeOutSine',
+					complete: function() {
+						self.setState();
+					}
+				});
+				
+			}
+			
+			var error = function(data) {
+				
+				console.log("[toggleAttending] - Password check failed, advise user to retry details.", data);
+				
+				// Hide loading spinner
+				app.hideLoadingSpinner();
+				
+				// Set form to no longer processing
+				self._processingForm = false;
+				
+				// Show message
+				app.showNotification('Alert', 'Sorry, we couldn\'t validate your password, please try again.');
+				
+			}
+			
 			$.ajax({
-				url: config.baseURL + '/api/app/rsvp',
+				url: app.getAPIEndpoint('rsvp'),
 				type: 'post',
 				data: rsvpData,
 				dataType: 'json',
 				cache: false,
-				success: function(rtnData) {
-					
-					if (rtnData.success) {
-					
-						$log( "[toggleAttending] - RSVP successful.", rtnData );
-						
-						// Update local cached data
-						app.data.meetup.attending = rsvpData.attending;
-						app.data.meetup.rsvped = !options.cancel ? true : false;
-						
-						// Hide loading spinner
-						app.hideLoadingSpinner();
-						
-						// Set form to no longer processing
-						self._processingForm = false;
-						
-						// Update status
-						self.$('.states').velocity({
-							translateX: 0,
-							translateY: 0
-						}, {
-							duration: 250,
-							easing: 'easeOutSine',
-							complete: function() {
-								self.setState();
-							}
-						});
-					
-					} else {
-						
-						$log( "[toggleAttending] - Password check failed, advise user to retry details.", rtnData );
-						
-						// Hide loading spinner
-						app.hideLoadingSpinner();
-						
-						// Set form to no longer processing
-						self._processingForm = false;
-						
-						// Show message
-						app.showNotification('Alert', 'Sorry, we couldn\'t validate your password, please try again.');
-					
-					}
-					
+				success: function(data) {
+					return data.success ? success(data) : error();
 				},
-				error: function(request, errType, err) {
-					
-					$log( "[toggleAttending] - Update failed, advise user to retry details." );
-					
-					// Hide loading spinner
-					app.hideLoadingSpinner();
-					
-					// Set form to no longer processing
-					self._processingForm = false;
-					
-					// Show message
-					app.showNotification('Alert', 'Sorry, we couldn\'t validate your password, please try again.');
-				
+				error: function() {
+					return error();
 				}
 			});
 		

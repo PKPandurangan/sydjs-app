@@ -12,8 +12,9 @@
 			layout: function() {
 				
 				var availableHeight = app.viewportSize.height
+					- this.$('.statusbar').height()
 					- this.$('.titlebar').height()
-					- this.$('.toolbar').height();
+					- this.$('.footer').height();
 					
 				this.$('.container').css({
 					height: availableHeight,
@@ -28,9 +29,8 @@
 				// iOS: Change status bar style to match view style
 				app.changeStatusBarStyle('black');
 				
-				// Analytics
-				// app.trackEvent( 'googleanalytics', 'Rewards', { category: 'view', action: 'visible' } );
-				// app.trackEvent( 'mixpanel', 'Viewing Rewards', {} );
+				// analytics
+				app.trackEvent({ label: 'Talks', category: 'view', action: 'visible' });
 				
 			}
 		},
@@ -80,6 +80,12 @@
 						if (twitter.slice(0,1) != '@') twitter = '@' + twitter;
 						html += '<a href="http://twitter.com/' + twitter.slice(1) + '" class="twitter" target="_blank">' + twitter + '</a>';
 					});
+					html += '</span>';
+				}
+				
+				if (talk.description) {
+					html += '<span class="description">';
+						html += talk.description;
 					html += '</span>';
 				}
 				

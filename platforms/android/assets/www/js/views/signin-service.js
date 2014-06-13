@@ -41,9 +41,11 @@
 				// iOS: Change status bar style to match view style
 				app.changeStatusBarStyle('white');
 				
-				// Analytics
-				// app.trackEvent( 'googleanalytics', 'Enter Password', { category: 'view', action: 'visible' } );
-				// app.trackEvent( 'mixpanel', 'Viewing Enter Password', {} );
+				// populate form fields
+				this.populateFields();
+				
+				// analytics
+				app.trackEvent({ label: 'Signin Service', category: 'view', action: 'visible' });
 				
 				
 			},
@@ -70,11 +72,22 @@
 			app.view('signin').reveal('slide-down');
 		},
 		
+		populateFields: function() {
+		
+			var authUser = this._authUser;
+			
+			this.field('firstName').val(authUser.name.first);
+			this.field('lastName').val(authUser.name.last);
+			this.field('email').val(authUser.email);
+			this.field('website').val(authUser.website);
+		
+		},
+		
 		clearFields: function() {
 		
 			var self = this;
 			
-			_.each([ 'password' ], function(key) {
+			_.each(['firstName', 'lastName', 'email', 'website'], function(key) {
 				self.field(key).val('');
 			});
 		
@@ -85,7 +98,7 @@
 			var self = this;
 			
 			if ( self._processingForm ) {
-				$log('[validateInput] - User tried to submit form but is already in a processing state.');
+				console.log('[validateInput] - User tried to submit form but is already in a processing state.');
 				return;
 			}
 			
@@ -95,31 +108,18 @@
 			
 			// Collect the form data
 			var inputData = {
-				password: app.data.session.password,
-				code: app.data.session.codeId,
-				
-				name: {
-					first: this.field('firstName').val(),
-					last: this.field('lastName').val()
-				},
+				'name.first': this.field('firstName').val(),
+				'name.last': this.field('lastName').val(),
 				email: this.field('email').val(),
-				phone: this.field('phone').val(),
-				location: {
-					street1: this.field('street1').val(),
-					suburb: this.field('suburb').val(),
-					state: this.field('state').val().toUpperCase(),
-					postcode: this.field('postcode').val()
-				},
-				birthday: moment(this.field('birthdayYear').val() + '-' + this.field('birthdayMonth').val() + '-' + this.field('birthdayDay').val(), 'YYYY-MMM-DD').toDate(),
-				isOptedIn: this.field('isOptedIn').val() == 'yes' ? true : false,
-				doesAgreeToTermsAndConditions: this.field('doesAgreeToTermsAndConditions').val() == 'yes' ? true : false
+				website: this.field('website').val(),
+				alertsNotifications: this.field('alertsNotifications').val() == 'yes' ? true : false
 			};
 			
 			// Log data
-			$log("[validateInput] - Input data to be processed:", inputData);
+			console.log("[validateInput] - Input data to be processed:", inputData);
 			
 			// Validate the form data
-			if (!inputData.name.first.trim().length || !inputData.name.last.trim().length) {
+			if (!inputData['name.first'].trim().length || !inputData['name.last'].trim().length) {
 				self._processingForm = false;
 				app.showNotification('Alert', 'Please enter your full name.');
 				return;
@@ -131,25 +131,7 @@
 				return;
 			}
 			
-			if (!inputData.phone.trim().length) {
-				self._processingForm = false;
-				app.showNotification('Alert', 'Please enter your phone number.');
-				return;
-			}
-			
-			if (!inputData.location.street1.trim().length || !inputData.location.suburb.trim().length || !inputData.location.state.trim().length || !inputData.location.postcode.trim().length) {
-				self._processingForm = false;
-				app.showNotification('Alert', 'Please enter your address (street, suburb, state, postcode)');
-				return;
-			}
-			
-			if (!inputData.doesAgreeToTermsAndConditions) {
-				self._processingForm = false;
-				app.showNotification('Alert', 'Please agree to the terms & conditions');
-				return;
-			}
-			
-			$log("[validateInput] - Input data passed all validation checks, saving data...");
+			console.log("[validateInput] - Input data passed all validation checks, saving data...");
 			
 			// Show loading spinner
 			app.showLoadingSpinner();
@@ -159,90 +141,68 @@
 		
 		},
 		
-		actionSignup: function(data) {
+		actionSignup: function(userData) {
 		
 			var self = this;
 			
-			var customerData = {
-				password: data.password,
-				code: data.code,
+			console.log("[saveDetails] - User data to be processed:", userData);
+			
+			console.log("[saveDetails] - Processing data...");
+			
+			console.log(userData);
+			
+			var success = function(data) {
 				
-				name: data.name,
-				email: data.email,
-				phone: data.phone,
-				location: {
-					street1: data.location.street1,
-					suburb: data.location.suburb,
-					state: data.location.state,
-					postcode: data.location.postcode
-				},
-				birthday: data.birthday,
-				isOptedIn: data.isOptedIn,
-				doesAgreeToTermsAndConditions: data.doesAgreeToTermsAndConditions
-			};
+				console.log("[saveDetails] - Updated processed succesfully, showing message.", data);
+				
+				// Put data in local storage
+				app.storeSessionInfo(data);
+				
+				// Hide loading spinner
+				app.hideLoadingSpinner();
+				
+				// Set form to no longer processing
+				self._processingForm = false;
+				
+				// Clear fields
+				self.clearFields();
+				
+				// Go to another view
+				app.getStatus(function() {
+					app.view('home').show('slide-up');
+				});
+				
+			}
 			
-			$log("[saveDetails] - User data to be processed:", customerData);
+			var error = function(data) {
 			
-			$log("[saveDetails] - Processing data...");
+				console.log("[saveDetails] - Update failed, advise user to retry details.", data);
+				
+				// Hide loading spinner
+				app.hideLoadingSpinner();
+				
+				// Set form to no longer processing
+				self._processingForm = false;
+				
+				// Show message
+				app.showNotification('Alert', 'Sorry, your account could not be created. Please try again.\n\n' + data.message);
 			
-			console.log(customerData);
+			}
 			
 			$.ajax({
-				url: config.baseURL + '/api/create-customer' + '?version=' + app.data.versions.build,
-				type: 'POST',
-				data: customerData,
+				url: app.getAPIEndpoint('service-confirm'),
+				type: 'post',
+				data: {
+					authUser: this._authUser,
+					form: userData
+				},
 				dataType: 'json',
 				cache: false,
-				success: function(rtnData) {
-					
-					if (rtnData.success) {
-					
-						$log( "[saveDetails] - Updated processed succesfully, showing message.", rtnData  );
-						
-						// Put data in local storage
-						app.storeSessionInfo(rtnData.data);
-						
-						// Hide loading spinner
-						app.hideLoadingSpinner();
-						
-						// Set form to no longer processing
-						self._processingForm = false;
-						
-						// Clear fields
-						self.clearFields();
-						
-						// Go to another view
-						app.view('home').show('slide-up');
-					
-					} else {
-						
-						$log( "[saveDetails] - Update failed, advise user to retry details.", rtnData );
-						
-						// Hide loading spinner
-						app.hideLoadingSpinner();
-						
-						// Set form to no longer processing
-						self._processingForm = false;
-						
-						// Show message
-						app.showNotification('Alert', 'Sorry, your account could not be created. Please try again.\n\n' + rtnData.message);
-					
-					}
-					
+				success: function(data) {
+					return data.success ? success(data) : error(data);
 				},
-				error: function(request, errType, err) {
-					
-					$log( "[saveDetails] - Update failed, advise user to retry details." );
-					
-					// Hide loading spinner
-					app.hideLoadingSpinner();
-					
-					// Set form to no longer processing
-					self._processingForm = false;
-					
-					// Show message
-					app.showNotification('Alert', 'Sorry, your account could not be created. Please try again.\n\n' + rtnData.message);
-				
+				error: function() {
+					return error(data);
 				}
 			});
 			

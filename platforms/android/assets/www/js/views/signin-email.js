@@ -30,7 +30,7 @@
 				
 				// make sure the signin flow is shown
 				this._flow = 'signin';
-				this.$('.signin.container').show();
+				this.$('.signin.container').css('opacity', 1).show();
 				this.$('.signup.container').hide();
 				this.$('.recover.container').hide();
 				
@@ -43,9 +43,8 @@
 				// iOS: Change status bar style to match view style
 				app.changeStatusBarStyle('black');
 				
-				// Analytics
-				// app.trackEvent( 'googleanalytics', 'Enter Password', { category: 'view', action: 'visible' } );
-				// app.trackEvent( 'mixpanel', 'Viewing Enter Password', {} );
+				// analytics
+				app.trackEvent({ label: 'Signin Email', category: 'view', action: 'visible' });
 				
 				
 			},
@@ -96,22 +95,18 @@
 			// iOS: prevent auto focusing the last field
 			app.disableFields();
 			
-			// alert('hiding:' + this._flow + '.container');
-			
 			this.$('.' + this._flow + '.container').velocity({
 				opacity: 0
 			}, {
-				duration: 300,
+				duration: 150,
 				easing: 'easeOutSine',
 				complete: function() {
-					
-					// alert('showing:' + flow + '.container');
 					
 					self.$('.' + flow + '.container').css('opacity', 0).show();
 					self.$('.' + flow + '.container').velocity({
 						opacity: 1
 					}, {
-						duration: 300,
+						duration: 150,
 						easing: 'easeOutSine',
 						complete: function() {
 							self.$('.' + self._flow + '.container').hide();
@@ -142,7 +137,7 @@
 			var self = this;
 			
 			if ( self._processingForm ) {
-				$log('[validateInput] - User tried to submit form but is already in a processing state.');
+				console.log('[validateInput] - User tried to submit form but is already in a processing state.');
 				return;
 			}
 			
@@ -152,12 +147,12 @@
 			
 			// Collect the form data
 			var inputData = {
-				username: this.field('username').val(),
-				password: this.field('password').val()
+				username: this.field('signin-username').val(),
+				password: this.field('signin-password').val()
 			};
 			
 			// Log data
-			$log("[validateInput] - Input data to be processed:", inputData);
+			console.log("[validateInput] - Input data to be processed:", inputData);
 			
 			// Validate the form data
 			if (!inputData.username.trim().length) {
@@ -172,7 +167,7 @@
 				return;
 			}
 			
-			$log("[validateInput] - Input data passed all validation checks, saving data...");
+			console.log("[validateInput] - Input data passed all validation checks, saving data...");
 			
 			// Show loading spinner
 			app.showLoadingSpinner();
@@ -192,79 +187,62 @@
 				password: data.password
 			};
 			
-			$log("[signinUser] - User data to be processed:", customerData);
+			console.log("[signinUser] - User data to be processed:", customerData);
 			
-			$log("[signinUser] - Processing data...");
+			console.log("[signinUser] - Processing data...");
 			
-			console.log(customerData);
+			var success = function(data) {
+				
+				console.log("[signinUser] - Password check successful.", data);
+				
+				// Put data in local storage
+				app.storeSessionInfo(data);
+				
+				// Hide loading spinner
+				app.hideLoadingSpinner();
+				
+				// Set form to no longer processing
+				self._processingForm = false;
+				
+				// Go to another view
+				app.getStatus(function() {
+					app.view('home').show('slide-up');
+				});
+			
+			}
+			
+			var error = function(data) {
+				
+				console.log("[signinUser] - Password check failed, advise user to retry details.", data);
+				
+				// Hide loading spinner
+				app.hideLoadingSpinner();
+				
+				// Set form to no longer processing
+				self._processingForm = false;
+				
+				// Reset and focus field
+				self.field('password').val('');
+				setTimeout(function() {
+					self.field('password').focus();
+				}, 100);
+				
+				// Show message
+				app.showNotification('Alert', 'Sorry, we couldn\'t validate your password, please try again.');
+				
+			}
 			
 			$.ajax({
-				url: config.baseURL + '/api/app/signin',
-				type: 'POST',
+				url: app.getAPIEndpoint('signin'),
+				type: 'post',
 				data: customerData,
 				dataType: 'json',
 				cache: false,
-				success: function(rtnData) {
-					
-					if (rtnData.success && rtnData.session) {
-					
-						$log( "[signinUser] - Password check successful.", rtnData );
-						
-						// Put data in local storage
-						app.storeSessionInfo(rtnData);
-						
-						// Hide loading spinner
-						app.hideLoadingSpinner();
-						
-						// Set form to no longer processing
-						self._processingForm = false;
-						
-						// Go to another view
-						app.getStatus(function() {
-							app.view('home').show('slide-up');
-						});
-					
-					} else {
-						
-						$log( "[signinUser] - Password check failed, advise user to retry details.", rtnData );
-						
-						// Hide loading spinner
-						app.hideLoadingSpinner();
-						
-						// Set form to no longer processing
-						self._processingForm = false;
-						
-						// Reset and focus field
-						self.field('password').val('');
-						setTimeout(function() {
-							self.field('password').focus();
-						}, 100);
-						
-						// Show message
-						app.showNotification('Alert', 'Sorry, we couldn\'t validate your password, please try again.');
-					
-					}
-					
+				success: function(data) {
+					data && data.success && data.session ? success(data) : error(data);
 				},
-				error: function(request, errType, err) {
-					
-					$log( "[signinUser] - Update failed, advise user to retry details." );
-					
-					// Hide loading spinner
-					app.hideLoadingSpinner();
-					
-					// Set form to no longer processing
-					self._processingForm = false;
-					
-					// Reset and focus field
-					self.field('password').val('');
-					setTimeout(function() {
-						self.field('password').focus();
-					}, 100);
-					
-					// Show message
-					app.showNotification('Alert', 'Sorry, we couldn\'t validate your password, please try again.');
-				
+				error: function() {
+					return error();
 				}
 			});
 			
@@ -275,7 +253,7 @@
 			var self = this;
 			
 			if ( self._processingForm ) {
-				$log('[validateInput] - User tried to submit form but is already in a processing state.');
+				console.log('[validateInput] - User tried to submit form but is already in a processing state.');
 				return;
 			}
 			
@@ -285,28 +263,16 @@
 			
 			// Collect the form data
 			var inputData = {
-				password: app.data.session.password,
-				code: app.data.session.codeId,
-				
-				name: {
-					first: this.field('firstName').val(),
-					last: this.field('lastName').val()
-				},
-				email: this.field('email').val(),
-				phone: this.field('phone').val(),
-				location: {
-					street1: this.field('street1').val(),
-					suburb: this.field('suburb').val(),
-					state: this.field('state').val().toUpperCase(),
-					postcode: this.field('postcode').val()
-				},
-				birthday: moment(this.field('birthdayYear').val() + '-' + this.field('birthdayMonth').val() + '-' + this.field('birthdayDay').val(), 'YYYY-MMM-DD').toDate(),
-				isOptedIn: this.field('isOptedIn').val() == 'yes' ? true : false,
-				doesAgreeToTermsAndConditions: this.field('doesAgreeToTermsAndConditions').val() == 'yes' ? true : false
+				'name.first': this.field('signup-firstName').val(),
+				'name.last': this.field('signup-lastName').val(),
+				email: this.field('signup-email').val(),
+				password: this.field('signup-password').val(),
+				website: this.field('signup-website').val(),
+				alertsNotifications: this.field('signup-alertsNotifications').val() == 'yes' ? true : false
 			};
 			
 			// Log data
-			$log("[validateInput] - Input data to be processed:", inputData);
+			console.log("[validateInput] - Input data to be processed:", inputData);
 			
 			// Validate the form data
 			if (!inputData.name.first.trim().length || !inputData.name.last.trim().length) {
@@ -321,25 +287,13 @@
 				return;
 			}
 			
-			if (!inputData.phone.trim().length) {
+			if (!inputData.password.trim().length) {
 				self._processingForm = false;
-				app.showNotification('Alert', 'Please enter your phone number.');
+				app.showNotification('Alert', 'Please enter a password.');
 				return;
 			}
 			
-			if (!inputData.location.street1.trim().length || !inputData.location.suburb.trim().length || !inputData.location.state.trim().length || !inputData.location.postcode.trim().length) {
-				self._processingForm = false;
-				app.showNotification('Alert', 'Please enter your address (street, suburb, state, postcode)');
-				return;
-			}
-			
-			if (!inputData.doesAgreeToTermsAndConditions) {
-				self._processingForm = false;
-				app.showNotification('Alert', 'Please agree to the terms & conditions');
-				return;
-			}
-			
-			$log("[validateInput] - Input data passed all validation checks, saving data...");
+			console.log("[validateInput] - Input data passed all validation checks, saving data...");
 			
 			// Show loading spinner
 			app.showLoadingSpinner();
@@ -349,90 +303,60 @@
 		
 		},
 		
-		actionSignup: function(data) {
+		actionSignup: function(userData) {
 		
 			var self = this;
 			
-			var customerData = {
-				password: data.password,
-				code: data.code,
+			console.log("[saveDetails] - User data to be processed:", userData);
+			console.log("[saveDetails] - Processing data...");
+			
+			var success = function(data) {
 				
-				name: data.name,
-				email: data.email,
-				phone: data.phone,
-				location: {
-					street1: data.location.street1,
-					suburb: data.location.suburb,
-					state: data.location.state,
-					postcode: data.location.postcode
-				},
-				birthday: data.birthday,
-				isOptedIn: data.isOptedIn,
-				doesAgreeToTermsAndConditions: data.doesAgreeToTermsAndConditions
-			};
+				console.log("[saveDetails] - Updated processed succesfully, showing message.", data);
+				
+				// Put data in local storage
+				app.storeSessionInfo(data.data);
+				
+				// Hide loading spinner
+				app.hideLoadingSpinner();
+				
+				// Set form to no longer processing
+				self._processingForm = false;
+				
+				// Clear fields
+				self.clearFields();
+				
+				// Go to another view
+				app.view('home').show('slide-up');
+				
+			}
 			
-			$log("[saveDetails] - User data to be processed:", customerData);
-			
-			$log("[saveDetails] - Processing data...");
-			
-			console.log(customerData);
+			var error = function(data) {
+				
+				console.log("[saveDetails] - Update failed, advise user to retry details.", data);
+				
+				// Hide loading spinner
+				app.hideLoadingSpinner();
+				
+				// Set form to no longer processing
+				self._processingForm = false;
+				
+				// Show message
+				app.showNotification('Alert', 'Sorry, your account could not be created. Please try again.\n\n' + data.message);
+				
+			}
 			
 			$.ajax({
-				url: config.baseURL + '/api/create-customer' + '?version=' + app.data.versions.build,
-				type: 'POST',
+				url: app.getAPIEndpoint('create-customer'),
+				type: 'post',
 				data: customerData,
 				dataType: 'json',
 				cache: false,
-				success: function(rtnData) {
-					
-					if (rtnData.success) {
-					
-						$log( "[saveDetails] - Updated processed succesfully, showing message.", rtnData  );
-						
-						// Put data in local storage
-						app.storeSessionInfo(rtnData.data);
-						
-						// Hide loading spinner
-						app.hideLoadingSpinner();
-						
-						// Set form to no longer processing
-						self._processingForm = false;
-						
-						// Clear fields
-						self.clearFields();
-						
-						// Go to another view
-						app.view('home').show('slide-up');
-					
-					} else {
-						
-						$log( "[saveDetails] - Update failed, advise user to retry details.", rtnData );
-						
-						// Hide loading spinner
-						app.hideLoadingSpinner();
-						
-						// Set form to no longer processing
-						self._processingForm = false;
-						
-						// Show message
-						app.showNotification('Alert', 'Sorry, your account could not be created. Please try again.\n\n' + rtnData.message);
-					
-					}
-					
+				success: function(data) {
+					return data.success ? success(data) : error(data);
 				},
-				error: function(request, errType, err) {
-					
-					$log( "[saveDetails] - Update failed, advise user to retry details." );
-					
-					// Hide loading spinner
-					app.hideLoadingSpinner();
-					
-					// Set form to no longer processing
-					self._processingForm = false;
-					
-					// Show message
-					app.showNotification('Alert', 'Sorry, your account could not be created. Please try again.\n\n' + rtnData.message);
-				
+				error: function() {
+					return error();
 				}
 			});
 			
@@ -441,26 +365,23 @@
 		alertsNotifications: function(e) {
 		
 			var $switcher = this.$('.switcher-alertsNotifications.switcher'),
-				$handle = $switcher.find( '.handle' ),
-				$state = $switcher.find( '.state' );
+				$handle = $switcher.find('.handle'),
+				$state = $switcher.find('.state');
 			
-			var on = $switcher.hasClass( 'on' );
+			var on = $switcher.hasClass('on');
 			
-			if ( e && e.type && e.type == 'swipeRight' && on )
-				return;
+			if (e && e.type && e.type == 'swipeRight' && on) return;
+			if (e && e.type && e.type == 'swipeLeft' && !on) return;
 			
-			if ( e && e.type && e.type == 'swipeLeft' && !on )
-				return;
+			$state.text(on ? 'Off' : 'On');
 			
-			$state.text( on ? 'Off' : 'On' );
-			
-			$state.css( 'opacity', 0 );
+			$state.css('opacity', 0);
 			$state.animate({ opacity: 1 });
 			
-			$switcher.removeClass( 'on off' );
-			$switcher.addClass( on ? 'off' : 'on' );
+			$switcher.removeClass('on off');
+			$switcher.addClass(on ? 'off' : 'on');
 			
-			this.field('alertsNotifications').val( on ? 'no' : 'yes' );
+			this.field('alertsNotifications').val(on ? 'no' : 'yes');
 		
 		}
 		

@@ -29,9 +29,8 @@
 				// iOS: Change status bar style to match view style
 				app.changeStatusBarStyle('black');
 				
-				// Analytics
-				// app.trackEvent( 'googleanalytics', 'Rewards', { category: 'view', action: 'visible' } );
-				// app.trackEvent( 'mixpanel', 'Viewing Rewards', {} );
+				// analytics
+				app.trackEvent({ label: 'Talks', category: 'view', action: 'visible' });
 				
 			}
 		},

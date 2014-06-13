@@ -33,6 +33,9 @@
 				// iOS: Change status bar style to match view style
 				app.changeStatusBarStyle('white');
 				
+				// analytics
+				app.trackEvent({ label: 'Signin', category: 'view', action: 'visible' });
+				
 			},
 			hidden: function() {
 				
