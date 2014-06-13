@@ -119,7 +119,6 @@
 			
 			var pushNotifications = app.data.pushNotifications;
 			
-			// Push Notifications
 			var $notifications = this.$('.btn-notifications');
 			
 			$notifications.html('<img src="img/ui/icon-alarm-white.svg" />');
