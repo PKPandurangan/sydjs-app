@@ -89,6 +89,7 @@
 			// iOS: prevent auto focusing the last field
 			app.disableFields();
 			
+			// hide and show the desired flow
 			this.$('.' + this._flow + '.container').velocity({
 				opacity: 0
 			}, {

@@ -247,7 +247,7 @@ _.extend(app, {
 		
 		console.log( "[populateSessionInfo] - Populating session info into app." );
 		
-		_.extend(this.data.session, _.pick(data, 'date', 'userId'));
+		_.extend(app.data.session, _.pick(data, 'date', 'userId'));
 		
 	},
 	
@@ -310,10 +310,10 @@ _.extend(app, {
 			console.log( "[getStatus] - Successfully retrieved status." );
 			
 			// Set meetup status
-			app.data.meetup = data.meetup;
+			if (data.meetup) app.data.meetup = data.meetup;
 			
 			// Set user data
-			app.data.session = data.user;
+			if (data.user) app.data.session = data.user;
 			
 			return callback(false);
 			
