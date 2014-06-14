@@ -64,14 +64,8 @@
 			
 			'.signup .action-submit': 'validateSignup',
 			'.signup .action-signin': 'showSignin',
-			'.signup .switcher-alertsNotifications': 'alertsNotifications',
 			
 			'.recover .action-signin': 'showSignin'
-		},
-		
-		events: {
-			'swipeLeft': 'alertsNotifications',
-			'swipeRight': 'alertsNotifications'
 		},
 		
 		previous: function() {
@@ -360,29 +354,6 @@
 				}
 			});
 			
-		},
-		
-		alertsNotifications: function(e) {
-		
-			var $switcher = this.$('.switcher-alertsNotifications.switcher'),
-				$handle = $switcher.find('.handle'),
-				$state = $switcher.find('.state');
-			
-			var on = $switcher.hasClass('on');
-			
-			if (e && e.type && e.type == 'swipeRight' && on) return;
-			if (e && e.type && e.type == 'swipeLeft' && !on) return;
-			
-			$state.text(on ? 'Off' : 'On');
-			
-			$state.css('opacity', 0);
-			$state.animate({ opacity: 1 });
-			
-			$switcher.removeClass('on off');
-			$switcher.addClass(on ? 'off' : 'on');
-			
-			this.field('alertsNotifications').val(on ? 'no' : 'yes');
-		
 		}
 		
 	});

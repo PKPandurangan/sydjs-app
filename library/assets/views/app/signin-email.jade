@@ -36,11 +36,9 @@
 					input(type='password', id='view-signin-email-field-signup-password', placeholder='Password', autocomplete='off')
 				.line
 					input(type='text', id='view-signin-email-field-signup-website', placeholder='Website', autocomplete='off')
-				.line.select.alertsNotifications
+				.line.select
 					.label Get alerts &amp; notifications
-					.switcher-alertsNotifications.switcher.on
-						.state On
-						.handle
+					.switcher.on
 						input(id='view-signin-email-field-signup-alertsNotifications', type='hidden', value='yes', autocomplete='off')
 		.action-signin.btn-text: .pill
 			span Already have an account? Sign in

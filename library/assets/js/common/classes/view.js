@@ -95,6 +95,8 @@ _.extend(View.prototype, Backbone.Events, {
 			
 			this.initLists();
 			
+			this.initSwitchers();
+			
 			this.trigger('init');
 			
 		}
@@ -271,6 +273,59 @@ _.extend(View.prototype, Backbone.Events, {
 			});
 		});
 		
+	},
+	
+	// Looks for switchers, and if found, initialises them
+	initSwitchers: function() {
+	
+		var self = this,
+			switchers = this.$('.switcher');
+		
+		if (!switchers.size()) return;
+		
+		switchers.each(function() {
+		
+			var $switcher = $(this);
+				$input = $switcher.find('input');
+			
+			if (!$input.length) {
+				console.log('Switchers require an supplimentary input field.', $switcher);
+				return;
+			}
+			
+			var $state = $('<div class="state">On</div>').appendTo($switcher),
+				$handle = $('<div class="handle"></div>').appendTo($switcher);
+			
+			var toggle = function() {
+				
+				var on = $switcher.hasClass('on');
+				
+				$state.text(on ? 'Off' : 'On');
+				
+				$state.css('opacity', 0);
+				$state.animate({ opacity: 1 });
+				
+				$switcher.removeClass('on off');
+				$switcher.addClass(on ? 'off' : 'on');
+				
+				$input.val(on ? 'no' : 'yes');
+				
+			}
+			
+			$switcher.on(app.touchSupport ? 'tap' : 'click', function(e) {
+				return toggle();
+			});
+			
+			$switcher.on('swipeRight', function() {
+				if (!on) return toggle();
+			});
+			
+			$switcher.on('swipeLeft', function() {
+				if (on) return toggle();
+			});
+		
+		});
+	
 	},
 	
 	// Whether the view is currently visible
