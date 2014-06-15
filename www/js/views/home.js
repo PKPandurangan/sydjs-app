@@ -296,7 +296,7 @@
 				self._processingForm = false;
 				
 				// Show message
-				app.showNotification('Alert', 'Sorry, we couldn\'t mark your attendance, please try again.');
+				app.showNotification('Alert', 'Sorry, we couldn\'t mark your attendance, please try again.' + data ? '\n\n' + data.message : '');
 				
 			}
 			
@@ -307,7 +307,7 @@
 				dataType: 'json',
 				cache: false,
 				success: function(data) {
-					return data.success ? success(data) : error();
+					return data.success ? success(data) : error(data);
 				},
 				error: function() {
 					return error();

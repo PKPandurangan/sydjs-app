@@ -223,7 +223,7 @@
 				}, 100);
 				
 				// Show message
-				app.showNotification('Alert', 'Sorry, we couldn\'t validate your password, please try again.');
+				app.showNotification('Alert', 'Sorry, we couldn\'t validate your password, please try again.' + data ? '\n\n' + data.message : '');
 				
 			}
 			
@@ -270,7 +270,7 @@
 			console.log("[validateInput] - Input data to be processed:", inputData);
 			
 			// Validate the form data
-			if (!inputData.name.first.trim().length || !inputData.name.last.trim().length) {
+			if (!inputData['name.first'].trim().length || !inputData['name.first'].trim().length) {
 				self._processingForm = false;
 				app.showNotification('Alert', 'Please enter your full name.');
 				return;
@@ -307,10 +307,10 @@
 			
 			var success = function(data) {
 				
-				console.log("[saveDetails] - Updated processed succesfully, showing message.", data);
+				console.log("[saveDetails] - Processed succesfully, showing message.", data);
 				
 				// Put data in local storage
-				app.storeSessionInfo(data.data);
+				app.storeSessionInfo(data);
 				
 				// Hide loading spinner
 				app.hideLoadingSpinner();
@@ -337,14 +337,14 @@
 				self._processingForm = false;
 				
 				// Show message
-				app.showNotification('Alert', 'Sorry, your account could not be created. Please try again.\n\n' + data.message);
+				app.showNotification('Alert', 'Sorry, your account could not be created. Please try again.' + data ? '\n\n' + data.message : '');
 				
 			}
 			
 			$.ajax({
-				url: app.getAPIEndpoint('create-customer'),
+				url: app.getAPIEndpoint('signup'),
 				type: 'post',
-				data: customerData,
+				data: userData,
 				dataType: 'json',
 				cache: false,
 				success: function(data) {

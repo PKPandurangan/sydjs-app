@@ -147,7 +147,7 @@
 			
 			var success = function(data) {
 				
-				console.log("[saveDetails] - Updated processed succesfully, showing message.", data);
+				console.log("[saveDetails] - Processed succesfully, showing message.", data);
 				
 				// Put data in local storage
 				app.storeSessionInfo(data);
@@ -179,7 +179,7 @@
 				self._processingForm = false;
 				
 				// Show message
-				app.showNotification('Alert', 'Sorry, your account could not be created. Please try again.\n\n' + data.message);
+				app.showNotification('Alert', 'Sorry, your account could not be created. Please try again.' + data ? '\n\n' + data.message : '');
 			
 			}
 			
@@ -196,7 +196,7 @@
 					return data.success ? success(data) : error(data);
 				},
 				error: function() {
-					return error(data);
+					return error();
 				}
 			});
 			
