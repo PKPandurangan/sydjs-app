@@ -65,6 +65,7 @@
 			'.signup .action-submit': 'validateSignup',
 			'.signup .action-signin': 'showSignin',
 			
+			'.recover .action-submit': 'validateRecover',
 			'.recover .action-signin': 'showSignin'
 		},
 		
@@ -76,7 +77,14 @@
 		
 			var self = this;
 			
-			_.each([ 'password' ], function(key) {
+			// TODO: Check switcher being reset
+			
+			var fields = [];
+				fields.push(['signin-username', 'signin-password']);
+				fields.push(['signup-firstName', 'signup-lastName', 'signup-email', 'signup-password', 'signup-website', 'signup-alertsNotifications']);
+				fields.push(['recover-email']);
+			
+			_.each(fields, function(key) {
 				self.field(key).val('');
 			});
 		
@@ -173,16 +181,11 @@
 		},
 		
 		// Process the yser
-		actionSignin: function(data) {
+		actionSignin: function(userData) {
 		
 			var self = this;
 			
-			var customerData = {
-				username: data.username,
-				password: data.password
-			};
-			
-			console.log("[signinUser] - User data to be processed:", customerData);
+			console.log("[signinUser] - User data to be processed:", userData);
 			
 			console.log("[signinUser] - Processing data...");
 			
@@ -349,6 +352,109 @@
 				cache: false,
 				success: function(data) {
 					return data.success ? success(data) : error(data);
+				},
+				error: function() {
+					return error();
+				}
+			});
+			
+		},
+		
+		// Validate recover
+		validateRecover: function() {
+		
+			var self = this;
+			
+			if ( self._processingForm ) {
+				console.log('[validateInput] - User tried to submit form but is already in a processing state.');
+				return;
+			}
+			
+			self._processingForm = true;
+			
+			app.hideKeyboard();
+			
+			// Collect the form data
+			var inputData = {
+				email: this.field('recover-email').val()
+			};
+			
+			// Log data
+			console.log("[validateInput] - Input data to be processed:", inputData);
+			
+			// Validate the form data
+			if (!inputData.email.trim().length) {
+				self._processingForm = false;
+				app.showNotification('Alert', 'Please enter your email address.');
+				return;
+			}
+			
+			console.log("[validateInput] - Input data passed all validation checks, saving data...");
+			
+			// Show loading spinner
+			app.showLoadingSpinner();
+			
+			// Sign user in
+			this.actionRecover(inputData);
+		
+		},
+		
+		// Process the yser
+		actionRecover: function(userData) {
+		
+			var self = this;
+			
+			console.log("[actionRecover] - User data to be processed:", userData);
+			
+			console.log("[actionRecover] - Processing data...");
+			
+			var success = function(data) {
+				
+				console.log("[actionRecover] - Reset password successful.", data);
+				
+				// Hide loading spinner
+				app.hideLoadingSpinner();
+				
+				// Set form to no longer processing
+				self._processingForm = false;
+				
+				// Show alert message
+				app.showNotification('Alert', 'Your password has been reset, please check your email to continue.');
+				
+				// Go to another view
+				self.switchFlow('signin');
+			
+			}
+			
+			var error = function(data) {
+				
+				console.log("[signinUser] - Reset password failed, advise user to retry details.", data);
+				
+				// Hide loading spinner
+				app.hideLoadingSpinner();
+				
+				// Set form to no longer processing
+				self._processingForm = false;
+				
+				// Reset and focus field
+				self.field('recover-email').val('');
+				setTimeout(function() {
+					self.field('recover-email').focus();
+				}, 100);
+				
+				// Show message
+				app.showNotification('Alert', 'Sorry, we couldn\'t reset your password, please try again.' + data ? '\n\n' + data.message : '');
+				
+			}
+			
+			$.ajax({
+				url: app.getAPIEndpoint('recover'),
+				type: 'post',
+				data: userData,
+				dataType: 'json',
+				cache: false,
+				success: function(data) {
+					data && data.success ? success(data) : error(data);
 				},
 				error: function() {
 					return error();
