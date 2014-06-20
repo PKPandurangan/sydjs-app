@@ -67,7 +67,7 @@
 			
 			var options = 'location=no,toolbar=yes,toolbarposition=top,closebuttoncaption=Cancel';
 			
-			var authWindow = window.open('http://localhost:3000/auth/' + service, '_blank', options);
+			var authWindow = window.open(config.baseURL + '/auth/' + service '?target=app&version=' + app.data.versions.build, '_blank', options);
 			
 			authWindow.addEventListener('loadstop', function() {
 				
