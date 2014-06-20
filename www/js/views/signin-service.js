@@ -184,7 +184,7 @@
 			}
 			
 			$.ajax({
-				url: app.getAPIEndpoint('service-confirm'),
+				url: app.getAPIEndpoint('signin-service'),
 				type: 'post',
 				data: {
 					authUser: this._authUser,
