@@ -140,13 +140,16 @@
 			
 			var $calendar = this.$('.btn-calendar');
 			
-			$days.html(meetup ? moment(meetup.date).diff(moment(), 'days') + ' Days' : 'Standby');
-			$date.html(meetup ? moment(meetup.date).format('ddd, DD MMMM YYYY') : 'Sharkie\'s on it...');
+			var from = _.first(meetup.time.split('-')).trim(),
+				date = moment(meetup.date + (from ? ' ' + from : ''), 'YYYY-MM-DD' + (from ? ' ha' : ''));
+			
+			$days.html(meetup ? date.fromNow(true) : 'Standby');
+			$date.html(meetup ? date.format('ddd, DD MMMM YYYY') : 'Sharkie\'s on it...');
 			
 			$calendar[meetup ? 'show' : 'hide']();
 			$talks[meetup ? 'show' : 'hide']();
 			
-			meetup && $calendar.find('.number').html(moment(meetup.date).format('DD'));
+			meetup && $calendar.find('.number').html(date.format('DD'));
 		
 		},
 		

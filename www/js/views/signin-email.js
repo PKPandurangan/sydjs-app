@@ -105,6 +105,8 @@
 				easing: 'easeOutSine',
 				complete: function() {
 					
+					self.clearFields();
+					
 					self.$('.' + flow + '.container').css('opacity', 0).show();
 					self.$('.' + flow + '.container').velocity({
 						opacity: 1
@@ -150,7 +152,7 @@
 			
 			// Collect the form data
 			var inputData = {
-				username: this.field('signin-username').val(),
+				username: this.field('signin-email').val(),
 				password: this.field('signin-password').val()
 			};
 			
@@ -233,7 +235,7 @@
 			$.ajax({
 				url: app.getAPIEndpoint('signin'),
 				type: 'post',
-				data: customerData,
+				data: userData,
 				dataType: 'json',
 				cache: false,
 				success: function(data) {

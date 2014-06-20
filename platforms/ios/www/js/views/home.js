@@ -115,7 +115,7 @@
 		
 		setNotifications: function() {
 		
-			if (!app.data.session) return;
+			if (_.isEmpty(app.data.session)) return;
 			
 			var pushNotifications = app.data.pushNotifications;
 			
@@ -239,7 +239,7 @@
 		
 		toggleAttending: function(options) {
 		
-			if (!app.data.session) {
+			if (_.isEmpty(app.data.session)) {
 				app.showConfirm('Attendance', 'You must sign in to mark your attendance.', 'No‚ thanks,Sign in', function(pressed) {
 					if (pressed == 2) app.view('signin').show('slide-up');
 				});
@@ -287,7 +287,7 @@
 			
 			var error = function(data) {
 				
-				console.log("[toggleAttending] - Password check failed, advise user to retry details.", data);
+				console.log("[toggleAttending] - RSVP failed, advise user to retry.", data);
 				
 				// Hide loading spinner
 				app.hideLoadingSpinner();
@@ -296,7 +296,7 @@
 				self._processingForm = false;
 				
 				// Show message
-				app.showNotification('Alert', 'Sorry, we couldn\'t validate your password, please try again.');
+				app.showNotification('Alert', 'Sorry, we couldn\'t mark your attendance, please try again.' + data ? '\n\n' + data.message : '');
 				
 			}
 			
@@ -307,7 +307,7 @@
 				dataType: 'json',
 				cache: false,
 				success: function(data) {
-					return data.success ? success(data) : error();
+					return data.success ? success(data) : error(data);
 				},
 				error: function() {
 					return error();
