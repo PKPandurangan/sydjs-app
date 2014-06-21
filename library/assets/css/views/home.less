@@ -138,7 +138,7 @@
 		.states {
 			position: absolute;
 			overflow: hidden;
-			bottom: -75px;
+			bottom: 0px;
 			width: 100%;
 			
 			.rsvp {
@@ -148,23 +148,23 @@
 					float: left;
 					width: 50%;
 					display: table-cell;
+					background-color: rgba(255,255,255,1);
 					&:last-of-type {
 						border-left: 1px solid #000;
 					}
-				}
-			}
-			
-			.rsvp-not-attending, .rsvp-attending {
-				position: relative;
-				overflow: hidden;
-				.text {
-					width: 75%;
-				}
-				.cancel {
-					width: 100px;
-					border-left: 1px solid #000;
+					
+					.text {
+						position: absolute;
+						width: 100%;
+						height: 100%;
+						opacity: 1;
+					}
+					
 					.icon {
-						position: relative;
+						position: absolute;
+						width: 100%;
+						height: 100%;
+						opacity: 0;
 						img {
 							position: absolute;
 							width: 20.5px;
@@ -174,9 +174,6 @@
 							.translate(-50%, -50%);
 						}
 					}
-				}
-				.btn-plain {
-					display: table-cell;
 				}
 			}
 			
