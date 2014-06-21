@@ -140,8 +140,8 @@
 			
 			var $calendar = this.$('.btn-calendar');
 			
-			var from = _.first(meetup.time.split('-')).trim(),
-				date = moment(meetup.date + (from ? ' ' + from : ''), 'YYYY-MM-DD' + (from ? ' ha' : ''));
+			var from = meetup ? _.first(meetup.time.split('-')).trim() : false,
+				date = meetup ? moment(meetup.date + (from ? ' ' + from : ''), 'YYYY-MM-DD' + (from ? ' ha' : '')) : false;
 			
 			$days.html(meetup ? date.fromNow(true) : 'Standby');
 			$date.html(meetup ? date.format('ddd, DD MMMM YYYY') : 'Sharkie\'s on it...');
