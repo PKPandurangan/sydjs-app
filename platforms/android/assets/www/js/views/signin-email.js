@@ -64,14 +64,9 @@
 			
 			'.signup .action-submit': 'validateSignup',
 			'.signup .action-signin': 'showSignin',
-			'.signup .switcher-alertsNotifications': 'alertsNotifications',
 			
+			'.recover .action-submit': 'validateRecover',
 			'.recover .action-signin': 'showSignin'
-		},
-		
-		events: {
-			'swipeLeft': 'alertsNotifications',
-			'swipeRight': 'alertsNotifications'
 		},
 		
 		previous: function() {
@@ -82,7 +77,14 @@
 		
 			var self = this;
 			
-			_.each([ 'password' ], function(key) {
+			// TODO: Check switcher being reset
+			
+			var fields = [];
+				fields.push(['signin-username', 'signin-password']);
+				fields.push(['signup-firstName', 'signup-lastName', 'signup-email', 'signup-password', 'signup-website', 'signup-alertsNotifications']);
+				fields.push(['recover-email']);
+			
+			_.each(fields, function(key) {
 				self.field(key).val('');
 			});
 		
@@ -95,12 +97,15 @@
 			// iOS: prevent auto focusing the last field
 			app.disableFields();
 			
+			// hide and show the desired flow
 			this.$('.' + this._flow + '.container').velocity({
 				opacity: 0
 			}, {
 				duration: 150,
 				easing: 'easeOutSine',
 				complete: function() {
+					
+					self.clearFields();
 					
 					self.$('.' + flow + '.container').css('opacity', 0).show();
 					self.$('.' + flow + '.container').velocity({
@@ -147,7 +152,7 @@
 			
 			// Collect the form data
 			var inputData = {
-				username: this.field('signin-username').val(),
+				username: this.field('signin-email').val(),
 				password: this.field('signin-password').val()
 			};
 			
@@ -178,16 +183,11 @@
 		},
 		
 		// Process the yser
-		actionSignin: function(data) {
+		actionSignin: function(userData) {
 		
 			var self = this;
 			
-			var customerData = {
-				username: data.username,
-				password: data.password
-			};
-			
-			console.log("[signinUser] - User data to be processed:", customerData);
+			console.log("[signinUser] - User data to be processed:", userData);
 			
 			console.log("[signinUser] - Processing data...");
 			
@@ -228,14 +228,14 @@
 				}, 100);
 				
 				// Show message
-				app.showNotification('Alert', 'Sorry, we couldn\'t validate your password, please try again.');
+				app.showNotification('Alert', 'Sorry, we couldn\'t validate your password, please try again.' + data ? '\n\n' + data.message : '');
 				
 			}
 			
 			$.ajax({
-				url: app.getAPIEndpoint('signin'),
+				url: app.getAPIEndpoint('signin-email'),
 				type: 'post',
-				data: customerData,
+				data: userData,
 				dataType: 'json',
 				cache: false,
 				success: function(data) {
@@ -275,7 +275,7 @@
 			console.log("[validateInput] - Input data to be processed:", inputData);
 			
 			// Validate the form data
-			if (!inputData.name.first.trim().length || !inputData.name.last.trim().length) {
+			if (!inputData['name.first'].trim().length || !inputData['name.first'].trim().length) {
 				self._processingForm = false;
 				app.showNotification('Alert', 'Please enter your full name.');
 				return;
@@ -312,10 +312,10 @@
 			
 			var success = function(data) {
 				
-				console.log("[saveDetails] - Updated processed succesfully, showing message.", data);
+				console.log("[saveDetails] - Processed succesfully, showing message.", data);
 				
 				// Put data in local storage
-				app.storeSessionInfo(data.data);
+				app.storeSessionInfo(data);
 				
 				// Hide loading spinner
 				app.hideLoadingSpinner();
@@ -342,14 +342,14 @@
 				self._processingForm = false;
 				
 				// Show message
-				app.showNotification('Alert', 'Sorry, your account could not be created. Please try again.\n\n' + data.message);
+				app.showNotification('Alert', 'Sorry, your account could not be created. Please try again.' + data ? '\n\n' + data.message : '');
 				
 			}
 			
 			$.ajax({
-				url: app.getAPIEndpoint('create-customer'),
+				url: app.getAPIEndpoint('signup-email'),
 				type: 'post',
-				data: customerData,
+				data: userData,
 				dataType: 'json',
 				cache: false,
 				success: function(data) {
@@ -362,27 +362,107 @@
 			
 		},
 		
-		alertsNotifications: function(e) {
+		// Validate recover
+		validateRecover: function() {
 		
-			var $switcher = this.$('.switcher-alertsNotifications.switcher'),
-				$handle = $switcher.find('.handle'),
-				$state = $switcher.find('.state');
+			var self = this;
 			
-			var on = $switcher.hasClass('on');
+			if ( self._processingForm ) {
+				console.log('[validateInput] - User tried to submit form but is already in a processing state.');
+				return;
+			}
 			
-			if (e && e.type && e.type == 'swipeRight' && on) return;
-			if (e && e.type && e.type == 'swipeLeft' && !on) return;
+			self._processingForm = true;
 			
-			$state.text(on ? 'Off' : 'On');
+			app.hideKeyboard();
 			
-			$state.css('opacity', 0);
-			$state.animate({ opacity: 1 });
+			// Collect the form data
+			var inputData = {
+				email: this.field('recover-email').val()
+			};
 			
-			$switcher.removeClass('on off');
-			$switcher.addClass(on ? 'off' : 'on');
+			// Log data
+			console.log("[validateInput] - Input data to be processed:", inputData);
 			
-			this.field('alertsNotifications').val(on ? 'no' : 'yes');
+			// Validate the form data
+			if (!inputData.email.trim().length) {
+				self._processingForm = false;
+				app.showNotification('Alert', 'Please enter your email address.');
+				return;
+			}
+			
+			console.log("[validateInput] - Input data passed all validation checks, saving data...");
+			
+			// Show loading spinner
+			app.showLoadingSpinner();
+			
+			// Sign user in
+			this.actionRecover(inputData);
 		
+		},
+		
+		// Process the yser
+		actionRecover: function(userData) {
+		
+			var self = this;
+			
+			console.log("[actionRecover] - User data to be processed:", userData);
+			
+			console.log("[actionRecover] - Processing data...");
+			
+			var success = function(data) {
+				
+				console.log("[actionRecover] - Reset password successful.", data);
+				
+				// Hide loading spinner
+				app.hideLoadingSpinner();
+				
+				// Set form to no longer processing
+				self._processingForm = false;
+				
+				// Show alert message
+				app.showNotification('Alert', 'Your password has been reset, please check your email to continue.');
+				
+				// Go to another view
+				self.switchFlow('signin');
+			
+			}
+			
+			var error = function(data) {
+				
+				console.log("[signinUser] - Reset password failed, advise user to retry details.", data);
+				
+				// Hide loading spinner
+				app.hideLoadingSpinner();
+				
+				// Set form to no longer processing
+				self._processingForm = false;
+				
+				// Reset and focus field
+				self.field('recover-email').val('');
+				setTimeout(function() {
+					self.field('recover-email').focus();
+				}, 100);
+				
+				// Show message
+				app.showNotification('Alert', 'Sorry, we couldn\'t reset your password, please try again.' + data ? '\n\n' + data.message : '');
+				
+			}
+			
+			$.ajax({
+				url: app.getAPIEndpoint('signin-recover'),
+				type: 'post',
+				data: userData,
+				dataType: 'json',
+				cache: false,
+				success: function(data) {
+					data && data.success ? success(data) : error(data);
+				},
+				error: function() {
+					return error();
+				}
+			});
+			
 		}
 		
 	});

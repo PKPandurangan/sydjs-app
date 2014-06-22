@@ -233,7 +233,7 @@
 			}
 			
 			$.ajax({
-				url: app.getAPIEndpoint('signin'),
+				url: app.getAPIEndpoint('signin-email'),
 				type: 'post',
 				data: userData,
 				dataType: 'json',
@@ -347,7 +347,7 @@
 			}
 			
 			$.ajax({
-				url: app.getAPIEndpoint('signup'),
+				url: app.getAPIEndpoint('signup-email'),
 				type: 'post',
 				data: userData,
 				dataType: 'json',
@@ -450,7 +450,7 @@
 			}
 			
 			$.ajax({
-				url: app.getAPIEndpoint('recover'),
+				url: app.getAPIEndpoint('signin-recover'),
 				type: 'post',
 				data: userData,
 				dataType: 'json',

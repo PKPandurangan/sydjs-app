@@ -59,13 +59,7 @@
 		buttons: {
 			'.btn-right': 'previous',
 			
-			'.action-submit': 'validateSignup',
-			'.switcher-alertsNotifications': 'alertsNotifications'
-		},
-		
-		events: {
-			'swipeLeft': 'alertsNotifications',
-			'swipeRight': 'alertsNotifications'
+			'.action-submit': 'validateSignup'
 		},
 		
 		previous: function() {
@@ -153,7 +147,7 @@
 			
 			var success = function(data) {
 				
-				console.log("[saveDetails] - Updated processed succesfully, showing message.", data);
+				console.log("[saveDetails] - Processed succesfully, showing message.", data);
 				
 				// Put data in local storage
 				app.storeSessionInfo(data);
@@ -185,12 +179,12 @@
 				self._processingForm = false;
 				
 				// Show message
-				app.showNotification('Alert', 'Sorry, your account could not be created. Please try again.\n\n' + data.message);
+				app.showNotification('Alert', 'Sorry, your account could not be created. Please try again.' + data ? '\n\n' + data.message : '');
 			
 			}
 			
 			$.ajax({
-				url: app.getAPIEndpoint('service-confirm'),
+				url: app.getAPIEndpoint('signin-service'),
 				type: 'post',
 				data: {
 					authUser: this._authUser,
@@ -202,36 +196,10 @@
 					return data.success ? success(data) : error(data);
 				},
 				error: function() {
-					return error(data);
+					return error();
 				}
 			});
 			
-		},
-		
-		alertsNotifications: function(e) {
-		
-			var $switcher = this.$('.switcher-alertsNotifications.switcher'),
-				$handle = $switcher.find( '.handle' ),
-				$state = $switcher.find( '.state' );
-			
-			var on = $switcher.hasClass( 'on' );
-			
-			if ( e && e.type && e.type == 'swipeRight' && on )
-				return;
-			
-			if ( e && e.type && e.type == 'swipeLeft' && !on )
-				return;
-			
-			$state.text( on ? 'Off' : 'On' );
-			
-			$state.css( 'opacity', 0 );
-			$state.animate({ opacity: 1 });
-			
-			$switcher.removeClass( 'on off' );
-			$switcher.addClass( on ? 'off' : 'on' );
-			
-			this.field('alertsNotifications').val( on ? 'no' : 'yes' );
-		
 		}
 		
 	});
