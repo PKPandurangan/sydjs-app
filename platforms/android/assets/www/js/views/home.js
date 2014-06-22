@@ -63,18 +63,28 @@
 			
 			var meetup = app.data.meetup;
 			
+			var $logo = this.$('.logo');
+			
+			var availableHeight = app.viewportSize.height - this.$('.statusbar').height();
+			
 			// If it's the first time this view is visible, animate the elements in
-			var logoHeight = this.$('.logo').height(),
+			var logoHeight = $logo.height(),
 				meetupHeight = this.$('.meetup').height();
 			
-			this.$('.logo').velocity({
-				marginTop: -(logoHeight) -(meetupHeight) - this.$('.statusbar').height() - 30
-			}, { delay: 250, duration: 500, easing: 'easeInOutSine', complete: function() {
+			$logo.css('marginTop', (availableHeight / 2) - ($logo.height() / 2));
+			
+			$logo.velocity({
+				marginTop: logoHeight - this.$('.statusbar').height()
+			}, {
+				delay: 250, duration: 500, easing: 'easeInOutSine', complete: function() {
 				
-				var logoPosition = self.$('.logo').position();
+				var logoPosition = self.$('.logo').offset(),
+					logoParentPosition = self.$('.logo').parent().offset();
+				
+				var offset = logoPosition.top - logoParentPosition.top;
 				
 				self.$('.meetup').css({
-					marginTop: logoPosition.top + self.$('.statusbar').height() + 15
+					marginTop: offset + meetupHeight + self.$('.statusbar').height() + 140
 				});
 				
 				self.$('.btn-notifications').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
@@ -112,10 +122,12 @@
 						marginTop: meetupPosition() - 40
 					}, easing);
 					
+					$calendar.show();
 					$calendar.css({
-						'opacity': 0,
-						marginTop: meetupPosition() + 140
-					}).show().css('margin-left', -($calendar.width() / 2));
+						opacity: 0,
+						marginTop: meetupPosition() + 140,
+						marginLeft: app.viewportSize.width / 2 - $calendar.width() / 2
+					});
 					
 					$calendar.velocity({
 						marginTop: meetupPosition() + 100,
@@ -383,27 +395,14 @@
 				
 				console.log("[toggleAttending] - RSVP successful.", data);
 				
-				// Update local cached data
-				app.data.meetup.attending = rsvpData.attending;
-				app.data.meetup.rsvped = !options.cancel ? true : false;
-				
-				// Hide loading spinner
-				app.hideLoadingSpinner();
-				
 				// Set form to no longer processing
 				self._processingForm = false;
-				
-				// Update status
-				self.setState();
 				
 			}
 			
 			var error = function(data) {
 				
 				console.log("[toggleAttending] - RSVP failed, advise user to retry.", data);
-				
-				// Hide loading spinner
-				app.hideLoadingSpinner();
 				
 				// Set form to no longer processing
 				self._processingForm = false;
@@ -426,6 +425,13 @@
 					return error();
 				}
 			});
+			
+			// Update local cached data
+			app.data.meetup.attending = rsvpData.attending;
+			app.data.meetup.rsvped = !options.cancel ? true : false;
+			
+			// Update status
+			self.setState();
 		
 		},
 		
@@ -476,8 +482,8 @@
 		},
 		
 		rsvpCancel: function() {
-			this.toggleAttending({ attending: false, cancel: true });
 			app.data.meetup.rsvped && app.data.meetup.attending && this.animateCalendar('down');
+			this.toggleAttending({ attending: false, cancel: true });
 		}
 		
 	});

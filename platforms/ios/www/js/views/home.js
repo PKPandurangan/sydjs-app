@@ -412,13 +412,6 @@
 				
 			}
 			
-			// Update local cached data
-			app.data.meetup.attending = rsvpData.attending;
-			app.data.meetup.rsvped = !options.cancel ? true : false;
-			
-			// Update status
-			self.setState();
-			
 			$.ajax({
 				url: app.getAPIEndpoint('rsvp'),
 				type: 'post',
@@ -432,6 +425,13 @@
 					return error();
 				}
 			});
+			
+			// Update local cached data
+			app.data.meetup.attending = rsvpData.attending;
+			app.data.meetup.rsvped = !options.cancel ? true : false;
+			
+			// Update status
+			self.setState();
 		
 		},
 		
@@ -482,8 +482,8 @@
 		},
 		
 		rsvpCancel: function() {
-			this.toggleAttending({ attending: false, cancel: true });
 			app.data.meetup.rsvped && app.data.meetup.attending && this.animateCalendar('down');
+			this.toggleAttending({ attending: false, cancel: true });
 		}
 		
 	});

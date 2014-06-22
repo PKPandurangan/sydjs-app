@@ -76,7 +76,7 @@
 			$logo.velocity({
 				marginTop: logoHeight - this.$('.statusbar').height()
 			}, {
-				delay: 250, duration: 500, easing: 'easeInOutSine', complete: function() {
+				delay: 250, duration: 750, easing: 'easeInOutCubic', complete: function() {
 				
 				var logoPosition = self.$('.logo').offset(),
 					logoParentPosition = self.$('.logo').parent().offset();
@@ -228,8 +228,7 @@
 			
 			var $calendar = this.$('.btn-calendar');
 			
-			var from = meetup ? _.first(meetup.time.split('-')).trim() : false,
-				date = meetup ? moment(meetup.date + (from ? ' ' + from : ''), 'YYYY-MM-DD' + (from ? ' ha' : '')) : false;
+			var date = meetup ? moment(meetup.date) : false;
 			
 			$days.html(meetup ? date.fromNow(true) : 'Standby');
 			$date.html(meetup ? date.format('ddd, DD MMMM YYYY') : 'Sharkie\'s on it...');
