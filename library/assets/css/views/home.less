@@ -25,6 +25,7 @@
 		}
 		
 		.btn-notifications {
+			opacity: 0;
 			left: 0px;
 			img {
 				position: absolute;
@@ -37,6 +38,7 @@
 		}
 		
 		.btn-talks {
+			opacity: 0;
 			right: 0px;
 			img {
 				position: absolute;
@@ -48,28 +50,29 @@
 			}
 		}
 		
+		.logo {
+			position: absolute;
+			
+			width: 115.5px;
+			height: 84.5px;
+			
+			background-image: url('../img/ui/logo.png');
+			background-size: 115.5px 84.5px;
+			
+			top: 50%;
+			left: 50%;
+			.translate(-50%, -50%);
+			
+			&.pressed {
+				opacity: 0.8;
+			}
+		}
+		
 		.meetup {
-			position: relative;
+			position: absolute;
 			width: 100%;
 			text-align: center;
-			
-			.logo {
-				width: 115.5px;
-				height: 84.5px;
-				
-				position: relative;
-				left: 50%;
-				.translate(-50%, 0);
-				background-image: url('../img/ui/logo.png');
-				background-size: 115.5px 84.5px;
-				
-				margin-top: 80px;
-				margin-bottom: 40px;
-				
-				&.pressed {
-					opacity: 0.8;
-				}
-			}
+			opacity: 0;
 			
 			.next-meetup {
 				text-transform: uppercase;
@@ -97,16 +100,15 @@
 		}
 		
 		.btn-calendar {
-			position: relative;
+			position: absolute;
+			top: 0px;
 			left: 50%;
-			.translate(-50%, 0);
-			display: inline-block;
-			margin-top: 30px;
-			
+			display: none;
 			font-size: 16px;
 			padding: 10px 15px;
 			color: #60d8ff;
 			border: 1px solid #60d8ff;
+			.box-sizing(border-box);
 			.border-radius(50px);
 			
 			.icon {
@@ -138,7 +140,7 @@
 		.states {
 			position: absolute;
 			overflow: hidden;
-			bottom: 0px;
+			bottom: -75px;
 			width: 100%;
 			
 			.rsvp {

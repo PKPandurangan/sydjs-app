@@ -274,14 +274,14 @@ _.extend(app, {
 				userId: JSON.parse( localStorage.getItem( 'session_userId' ) )
 			});
 			
-			console.log( "[resumeSession] - Session info was retrieved at [" + moment( parseInt( date ) ).format('h:mm:ss a') + "]..." );
+			console.log( "[resumeSession] - Session info retrieved from [" + moment( parseInt( date ) ).format('DD/MM/YYYY h:mm:ssa') + "]..." );
 			
 			app.getStatus(function() {
 				$( '#preloader' ).velocity({ opacity: 0 }, { duration: 250 });
-				app.view('home').show('slide-up');
+				app.view('home').show();
 			});
 		}
-		// If we don't have any data, just show the start screen (default behaviour)
+		// If we don't have any data, just show the home screen (default behaviour)
 		else
 		{
 			console.log( "[resumeSession] - No existing data found..." );
@@ -289,7 +289,7 @@ _.extend(app, {
 			
 			app.getStatus(function() {
 				$( '#preloader' ).velocity({ opacity: 0 }, { duration: 250 });
-				app.view('home').show('slide-up');
+				app.view('home').show();
 			});
 		}
 		

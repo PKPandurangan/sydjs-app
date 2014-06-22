@@ -22,6 +22,10 @@
 			},
 			visible: function() {
 				
+				var self = this;
+				
+				this.animateView();
+				
 				this.setNotifications();
 				this.setMeetup();
 				this.setState();
@@ -49,6 +53,88 @@
 			'.rsvp-not-attending .btn-cancel': 'rsvpCancel',
 			
 			'.rsvp-attending .btn-cancel': 'rsvpCancel'
+		},
+		
+		animateView: function() {
+		
+			var self = this;
+			
+			if (this._animated) return;
+			
+			var meetup = app.data.meetup;
+			
+			// If it's the first time this view is visible, animate the elements in
+			var logoHeight = this.$('.logo').height(),
+				meetupHeight = this.$('.meetup').height();
+			
+			this.$('.logo').velocity({
+				marginTop: -(logoHeight) -(meetupHeight) - this.$('.statusbar').height() - 30
+			}, { delay: 500, duration: 750, easing: 'easeInOutSine', complete: function() {
+				
+				var logoPosition = self.$('.logo').position();
+				
+				self.$('.meetup').css({
+					marginTop: logoPosition.top + self.$('.statusbar').height() + 15
+				});
+				
+				self.$('.btn-notifications').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
+				meetup && meetup.talks.length && self.$('.btn-talks').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
+				
+				self.$('.meetup').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
+				self.$('.states').velocity({ bottom: 0 }, { duration: 500, easing: 'easeOutSine' });
+				
+				setTimeout(function() {
+					meetup && meetup.rsvped && meetup.attending && self.animateCalendar('up');
+				}, 500);
+				
+			}});
+			
+			this._animated = true;
+		
+		},
+		
+		animateCalendar: function(direction) {
+		
+			var self = this;
+			
+			var $calendar = this.$('.btn-calendar'),
+				$meetup = this.$('.meetup');
+			
+			var easing = { duration: 500, easing: 'easeOutSine' };
+			
+			var meetupPosition = function() {
+				return parseInt(self.$('.meetup').css('margin-top'));
+			}
+			
+			switch(direction) {
+				case 'up':
+					$meetup.velocity({
+						marginTop: meetupPosition() - 40
+					}, easing);
+					
+					$calendar.css({
+						'opacity': 0,
+						marginTop: meetupPosition() + 140
+					}).show().css('margin-left', -($calendar.width() / 2));
+					
+					$calendar.velocity({
+						marginTop: meetupPosition() + 100,
+						opacity: 1
+					}, easing);
+				break;
+				
+				case 'down':
+					$meetup.velocity({
+						marginTop: meetupPosition() + 40
+					}, easing);
+					
+					$calendar.velocity({
+						marginTop: meetupPosition() + 180,
+						opacity: 0
+					}, easing);
+				break;
+			}
+		
 		},
 		
 		toggleNotifications: function() {
@@ -96,17 +182,7 @@
 		},
 		
 		toggleTalks: function() {
-			
-			this.$('.states').velocity({
-				translateX: 0,
-				translateY: 0
-			}, {
-				duration: 300,
-				easing: 'easeOutSine'
-			});
-			
 			app.view('talks').show('slide-up');
-			
 		},
 		
 		viewAbout: function() {
@@ -145,9 +221,6 @@
 			
 			$days.html(meetup ? date.fromNow(true) : 'Standby');
 			$date.html(meetup ? date.format('ddd, DD MMMM YYYY') : 'Sharkie\'s on it...');
-			
-			$calendar[meetup ? 'show' : 'hide']();
-			$talks[meetup ? 'show' : 'hide']();
 			
 			meetup && $calendar.find('.number').html(date.format('DD'));
 		
@@ -394,6 +467,7 @@
 		},
 		
 		rsvpAttending: function() {
+			this.animateCalendar('up');
 			this.toggleAttending({ attending: true });
 		},
 		
@@ -403,6 +477,7 @@
 		
 		rsvpCancel: function() {
 			this.toggleAttending({ attending: false, cancel: true });
+			app.data.meetup.rsvped && app.data.meetup.attending && this.animateCalendar('down');
 		}
 		
 	});
