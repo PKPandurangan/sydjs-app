@@ -395,27 +395,14 @@
 				
 				console.log("[toggleAttending] - RSVP successful.", data);
 				
-				// Update local cached data
-				app.data.meetup.attending = rsvpData.attending;
-				app.data.meetup.rsvped = !options.cancel ? true : false;
-				
-				// Hide loading spinner
-				app.hideLoadingSpinner();
-				
 				// Set form to no longer processing
 				self._processingForm = false;
-				
-				// Update status
-				self.setState();
 				
 			}
 			
 			var error = function(data) {
 				
 				console.log("[toggleAttending] - RSVP failed, advise user to retry.", data);
-				
-				// Hide loading spinner
-				app.hideLoadingSpinner();
 				
 				// Set form to no longer processing
 				self._processingForm = false;
@@ -438,6 +425,13 @@
 					return error();
 				}
 			});
+			
+			// Update local cached data
+			app.data.meetup.attending = rsvpData.attending;
+			app.data.meetup.rsvped = !options.cancel ? true : false;
+			
+			// Update status
+			self.setState();
 		
 		},
 		
@@ -488,8 +482,8 @@
 		},
 		
 		rsvpCancel: function() {
-			this.toggleAttending({ attending: false, cancel: true });
 			app.data.meetup.rsvped && app.data.meetup.attending && this.animateCalendar('down');
+			this.toggleAttending({ attending: false, cancel: true });
 		}
 		
 	});

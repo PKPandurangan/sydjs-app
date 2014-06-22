@@ -68,14 +68,15 @@
 			var availableHeight = app.viewportSize.height - this.$('.statusbar').height();
 			
 			// If it's the first time this view is visible, animate the elements in
-			$logo.css('marginTop', (availableHeight / 2) - ($logo.height() / 2));
-			
 			var logoHeight = $logo.height(),
 				meetupHeight = this.$('.meetup').height();
 			
+			$logo.css('marginTop', (availableHeight / 2) - ($logo.height() / 2));
+			
 			$logo.velocity({
 				marginTop: logoHeight - this.$('.statusbar').height()
-			}, { delay: 250, duration: 500, easing: 'easeInOutSine', complete: function() {
+			}, {
+				delay: 250, duration: 500, easing: 'easeInOutSine', complete: function() {
 				
 				var logoPosition = self.$('.logo').offset(),
 					logoParentPosition = self.$('.logo').parent().offset();
@@ -394,27 +395,14 @@
 				
 				console.log("[toggleAttending] - RSVP successful.", data);
 				
-				// Update local cached data
-				app.data.meetup.attending = rsvpData.attending;
-				app.data.meetup.rsvped = !options.cancel ? true : false;
-				
-				// Hide loading spinner
-				app.hideLoadingSpinner();
-				
 				// Set form to no longer processing
 				self._processingForm = false;
-				
-				// Update status
-				self.setState();
 				
 			}
 			
 			var error = function(data) {
 				
 				console.log("[toggleAttending] - RSVP failed, advise user to retry.", data);
-				
-				// Hide loading spinner
-				app.hideLoadingSpinner();
 				
 				// Set form to no longer processing
 				self._processingForm = false;
@@ -423,6 +411,13 @@
 				app.showNotification('Alert', 'Sorry, we couldn\'t mark your attendance, please try again.' + data ? '\n\n' + data.message : '');
 				
 			}
+			
+			// Update local cached data
+			app.data.meetup.attending = rsvpData.attending;
+			app.data.meetup.rsvped = !options.cancel ? true : false;
+			
+			// Update status
+			self.setState();
 			
 			$.ajax({
 				url: app.getAPIEndpoint('rsvp'),
