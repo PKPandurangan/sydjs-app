@@ -22,13 +22,9 @@
 					top: this.$('.titlebar').height()
 				});
 				
-				_.each(['github', 'facebook', 'google', 'twitter', 'email'], function(button) {
-				
-					var $button = self.$('.btn-' + button);
-					
-					$button.css('height', Math.ceil(availableHeight / 5));
-					
-				});
+				setTimeout(function() {
+					self.animateView();
+				}, 100 );
 				
 				// iOS: Change status bar style to match view style
 				app.changeStatusBarStyle('white');
@@ -55,6 +51,33 @@
 		
 		previous: function() {
 			app.view('home').reveal('slide-down');
+		},
+		
+		animateView: function() {
+			
+			var self = this;
+			
+			var availableHeight = app.viewportSize.height
+				- this.$('.titlebar').height();
+			
+			var types = ['github', 'facebook', 'google', 'twitter', 'email'];
+			
+			_.each(types, function(button, index) {
+			
+				var $button = self.$('.btn-' + button);
+				
+				$button.css({
+					top: availableHeight,
+					height: Math.ceil(availableHeight) - (Math.ceil(availableHeight / 5) + (index + 1 == types.length ? Math.ceil(availableHeight / 10) : 0) * index)
+				});
+				
+				$button.find('.action').css('height', Math.ceil(availableHeight / 5));
+				
+				$button.velocity({
+					top: Math.ceil(availableHeight / 5) * index
+				}, { delay: index * 100, duration: 1000, easing: [ 600, 30 ] }); 
+				
+			});
 		},
 		
 		emailSignin: function() {

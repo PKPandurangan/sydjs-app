@@ -69,7 +69,7 @@
 			
 			this.$('.logo').velocity({
 				marginTop: -(logoHeight) -(meetupHeight) - this.$('.statusbar').height() - 30
-			}, { delay: 500, duration: 750, easing: 'easeInOutSine', complete: function() {
+			}, { delay: 250, duration: 500, easing: 'easeInOutSine', complete: function() {
 				
 				var logoPosition = self.$('.logo').position();
 				
