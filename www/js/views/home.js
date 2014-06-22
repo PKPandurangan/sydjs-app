@@ -30,6 +30,19 @@
 				this.setMeetup();
 				this.setState();
 				
+				// check for a pending action (if a user clicked attend/not attend and
+				// they come back from signup)
+				if (this._action) {
+					if (_.isEmpty(app.data.session)) return this._action = undefined;
+					setTimeout(function() {
+						switch(self._action) {
+							case 'attending': self.rsvpAttending(); break;
+							case 'notAttending': self.rsvpNotAttending(); break;
+						}
+						self._action = undefined;
+					}, 750);
+				}
+				
 				// iOS: Change status bar style to match view style
 				app.changeStatusBarStyle('white');
 				
@@ -445,8 +458,16 @@
 		toggleRSVP: function(button) {
 			
 			if (_.isEmpty(app.data.session)) {
+				var action = false;
+				switch(button) {
+					case 'left': if (!app.data.meetup.rsvped) action = 'attending'; break;
+					case 'right': if (!app.data.meetup.rsvped) action = 'notAttending'; break;
+				}
 				app.showConfirm('Attendance', 'You must sign in to mark your attendance.', 'No‚ thanks,Sign in', function(pressed) {
-					if (pressed == 2) app.view('signin').show('slide-up');
+					if (pressed == 2) {
+						app.view('home')._action = action;
+						app.view('signin').show('slide-up');
+					}
 				});
 				return;
 			}
