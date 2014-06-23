@@ -22,9 +22,14 @@
 					top: this.$('.titlebar').height()
 				});
 				
+				$('.btn-service').css({
+					top: availableHeight
+				});
+				
 				setTimeout(function() {
 					self.animateView();
-				}, 100 );
+				}, 100);
+				// }, 150 );
 				
 				// iOS: Change status bar style to match view style
 				app.changeStatusBarStyle('white');
