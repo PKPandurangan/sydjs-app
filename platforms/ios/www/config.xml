@@ -1,5 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.sydjs" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <preference name="AutoHideSplashScreen" value="false" />
+    <preference name="ShowSplashScreenSpinner" value="false" />
+    <preference name="FadeSplashScreen" value="true" />
+    <preference name="FadeSplashScreenDuration" value="1" />
     <name>SydJS</name>
     <description>
         A companion app to the SydJS website.

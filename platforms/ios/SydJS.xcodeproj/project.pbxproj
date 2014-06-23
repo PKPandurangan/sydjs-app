@@ -7,6 +7,7 @@
 	objects = {
 /* Begin PBXBuildFile section */
 		0CA761BFF0A44AC49DD29FA6 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12815CFF48BE48419B90F3C2 /* CFNetwork.framework */; };
+		11B2C8408E324805AB0C848D /* CDVSpinnerDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = B39845E00CBF41A3B828C6FA /* CDVSpinnerDialog.m */; };
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1E1C3CC6C5894901847F3CA2 /* NotificareResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9691D981D3AE44F9AA02F333 /* NotificareResources.bundle */; };
@@ -29,6 +30,7 @@
 		30FC414916E50CA1004E6F35 /* icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30FC414816E50CA1004E6F35 /* icon-72@2x.png */; };
 		35A7A4A9232F4E1E86E5B6E0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1C4BE1218814C35B3AE58CD /* UIKit.framework */; };
 		40D58BECF1FF4F7880581719 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E8868BCC064646FFA21A30A3 /* libicucore.dylib */; };
+		4BCF755DCA08489691F6BBED /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C8441FCA314324BBA4570C /* EventKitUI.framework */; };
 		54AF4A539CE446CDB17985F5 /* CDVReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D91CA764F84DD09A75705C /* CDVReachability.m */; };
 		5AEE5B35173C68D80009041E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AEE5B34173C68D80009041E /* CoreLocation.framework */; };
 		5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */; };
@@ -51,6 +53,7 @@
 		8DAEF0EBE164476C9E833FEA /* NotificareAppDelegateSurrogate.m in Sources */ = {isa = PBXBuildFile; fileRef = F652D99535F0485CA8EC0A0A /* NotificareAppDelegateSurrogate.m */; };
 		91491FD2190CD1820085AFE9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91491FD1190CD1820085AFE9 /* Images.xcassets */; };
 		91CEA4C11902158C0062B0E3 /* Notificare.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91CEA4C01902158C0062B0E3 /* Notificare.plist */; };
+		9AAB06D0F9DD4A0BB6072628 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB222BE485B74504BDB93016 /* EventKit.framework */; };
 		9E2F8E2D8C8347FFB41CBCB5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20DDB938F5444DE7A80D2166 /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		9E5636423E4442748D11A915 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35984AD96D004BBCBAFC991B /* Foundation.framework */; };
 		A6FD8F43DDF545B28DFA5A8C /* libNotificarePushLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C748A76D9E6C46E9BBE6BBC8 /* libNotificarePushLib.a */; };
@@ -63,9 +66,6 @@
 		DD90DE092BBF4D9BB3E642C9 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D6611D4C244772B1DBA7DF /* Security.framework */; };
 		F6E2B8975D974050AFF7ED05 /* CDVStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A05E15D59C4D3D8D953D72 /* CDVStatusBar.m */; };
 		FDA625AC97C5416D9CFEF6CD /* Calendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 77769A06D855484A94A43954 /* Calendar.m */; };
-		9AAB06D0F9DD4A0BB6072628 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB222BE485B74504BDB93016 /* EventKit.framework */; };
-		4BCF755DCA08489691F6BBED /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C8441FCA314324BBA4570C /* EventKitUI.framework */; };
-		11B2C8408E324805AB0C848D /* CDVSpinnerDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = B39845E00CBF41A3B828C6FA /* CDVSpinnerDialog.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +86,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		040DDB0B5595491283632206 /* Calendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Calendar.h; path = "nl.x-services.plugins.calendar/Calendar.h"; sourceTree = "<group>"; };
 		0F88DEFA366D45618D164614 /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SRWebSocket.h; path = re.notifica.cordova/SRWebSocket.h; sourceTree = "<group>"; };
 		12815CFF48BE48419B90F3C2 /* CFNetwork.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		15D1200AC30E4EF1BB1BC15C /* CDVSplashScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVSplashScreen.m; path = org.apache.cordova.splashscreen/CDVSplashScreen.m; sourceTree = "<group>"; };
@@ -143,6 +144,7 @@
 		5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		5B8235AB83964B328330C635 /* Content.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Content.h; path = re.notifica.cordova/Content.h; sourceTree = "<group>"; };
 		611A42F9DE4849EA83251B61 /* UIAlertView+NotificareMKNetworkKitAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIAlertView+NotificareMKNetworkKitAdditions.h"; path = "re.notifica.cordova/UIAlertView+NotificareMKNetworkKitAdditions.h"; sourceTree = "<group>"; };
+		63C8441FCA314324BBA4570C /* EventKitUI.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		64B2EC9C169F4096BEE3824F /* CDVNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVNotification.h; path = org.apache.cordova.dialogs/CDVNotification.h; sourceTree = "<group>"; };
 		65760D2E384240F6BD38A199 /* NotificareTelephone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareTelephone.h; path = re.notifica.cordova/NotificareTelephone.h; sourceTree = "<group>"; };
 		65C5FB0180C444F7B7E969C7 /* NotificareActions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareActions.h; path = re.notifica.cordova/NotificareActions.h; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 		7328FD9497FF46DA84A3187D /* NotificationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificationDelegate.h; path = re.notifica.cordova/NotificationDelegate.h; sourceTree = "<group>"; };
 		741D7A8D9A8B416980959571 /* Notificare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Notificare.h; path = re.notifica.cordova/Notificare.h; sourceTree = "<group>"; };
 		75D5F9AE275048ECA619B028 /* NSData+NotificareMKBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+NotificareMKBase64.h"; path = "re.notifica.cordova/NSData+NotificareMKBase64.h"; sourceTree = "<group>"; };
+		77769A06D855484A94A43954 /* Calendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Calendar.m; path = "nl.x-services.plugins.calendar/Calendar.m"; sourceTree = "<group>"; };
 		78B1B37FF19344F7A35525DF /* NotificareCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareCallback.h; path = re.notifica.cordova/NotificareCallback.h; sourceTree = "<group>"; };
 		7E7966D41810823500FA85AD /* icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-40.png"; sourceTree = "<group>"; };
 		7E7966D51810823500FA85AD /* icon-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-40@2x.png"; sourceTree = "<group>"; };
@@ -182,8 +185,10 @@
 		9E150688EC94477F99B43B53 /* SocketRocket-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = unknown; name = "SocketRocket-Prefix.pch"; path = "re.notifica.cordova/SocketRocket-Prefix.pch"; sourceTree = "<group>"; };
 		A73FFEBEEA6C47FD8B6628C4 /* NotificarePushLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificarePushLib.h; path = re.notifica.cordova/NotificarePushLib.h; sourceTree = "<group>"; };
 		A7D6611D4C244772B1DBA7DF /* Security.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		AB222BE485B74504BDB93016 /* EventKit.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		AB5FA00CF79D40C8B1C5E9A1 /* CDVSplashScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVSplashScreen.h; path = org.apache.cordova.splashscreen/CDVSplashScreen.h; sourceTree = "<group>"; };
 		AF0212ADE328474385AA48B7 /* NotificareForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareForm.h; path = re.notifica.cordova/NotificareForm.h; sourceTree = "<group>"; };
+		B39845E00CBF41A3B828C6FA /* CDVSpinnerDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVSpinnerDialog.m; path = hu.dpal.phonegap.plugins.SpinnerDialog/CDVSpinnerDialog.m; sourceTree = "<group>"; };
 		B4042B57407E4462831BD83B /* NotificareWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareWebView.h; path = re.notifica.cordova/NotificareWebView.h; sourceTree = "<group>"; };
 		B5FE32479A7C4756A610AF0D /* NSDictionary+NotificareRequestEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+NotificareRequestEncoding.h"; path = "re.notifica.cordova/NSDictionary+NotificareRequestEncoding.h"; sourceTree = "<group>"; };
 		BA6B8CDA6FC1455AAA7CEE19 /* NotificareRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareRate.h; path = re.notifica.cordova/NotificareRate.h; sourceTree = "<group>"; };
@@ -197,6 +202,7 @@
 		DBC923508DEC45BAB17AE62B /* Attachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Attachment.h; path = re.notifica.cordova/Attachment.h; sourceTree = "<group>"; };
 		DF0796E8E362409EA495D2A0 /* NotificationType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificationType.h; path = re.notifica.cordova/NotificationType.h; sourceTree = "<group>"; };
 		E0A89DC4FCB443D8A693DB23 /* NotificareSMS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareSMS.h; path = re.notifica.cordova/NotificareSMS.h; sourceTree = "<group>"; };
+		E0B5804D302046A293F6A1C5 /* CDVSpinnerDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVSpinnerDialog.h; path = hu.dpal.phonegap.plugins.SpinnerDialog/CDVSpinnerDialog.h; sourceTree = "<group>"; };
 		E461C3C8B31E4D3F98CC7A96 /* CDVConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVConnection.m; path = "org.apache.cordova.network-information/CDVConnection.m"; sourceTree = "<group>"; };
 		E5296961787A4CB4B5E6BB69 /* AudioToolbox.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		E72534F6689D4E9CA333EF47 /* NotificareAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareAlert.h; path = re.notifica.cordova/NotificareAlert.h; sourceTree = "<group>"; };
@@ -210,12 +216,6 @@
 		F763A22C05CC42F9A8063E3C /* NotificareApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareApp.h; path = re.notifica.cordova/NotificareApp.h; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = SydJS/config.xml; sourceTree = "<group>"; };
 		FE81B6C07510423F9F39F854 /* UIImage+FromBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+FromBundle.h"; path = "re.notifica.cordova/UIImage+FromBundle.h"; sourceTree = "<group>"; };
-		77769A06D855484A94A43954 /* Calendar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "Calendar.m"; path = "nl.x-services.plugins.calendar/Calendar.m"; sourceTree = "<group>"; fileEncoding = 4; };
-		040DDB0B5595491283632206 /* Calendar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Calendar.h"; path = "nl.x-services.plugins.calendar/Calendar.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		AB222BE485B74504BDB93016 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "EventKit.framework"; path = "System/Library/Frameworks/EventKit.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
-		63C8441FCA314324BBA4570C /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "EventKitUI.framework"; path = "System/Library/Frameworks/EventKitUI.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
-		B39845E00CBF41A3B828C6FA /* CDVSpinnerDialog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVSpinnerDialog.m"; path = "hu.dpal.phonegap.plugins.SpinnerDialog/CDVSpinnerDialog.m"; sourceTree = "<group>"; fileEncoding = 4; };
-		E0B5804D302046A293F6A1C5 /* CDVSpinnerDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVSpinnerDialog.h"; path = "hu.dpal.phonegap.plugins.SpinnerDialog/CDVSpinnerDialog.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
