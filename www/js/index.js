@@ -108,24 +108,23 @@ _.extend(app, {
 		var config = app.data.config;
 		
 		// Check kill switch
-		if ( config.killSwitch ) {
-			return app.showPingNotification('killSwitch');
+		if (config.killSwitch) return app.showPingNotification('killSwitch');
+		
+		var versions = {
+			build: app.data.versions.build.split('.'),
+			compatibility: config.versions.compatibility.split('.'),
+			production: config.versions.production.split('.')
 		}
 		
-		// Check version numbers
-		var build = new Version().parse( app.data.versions.build );
-			compatibility = new Version().parse( config.versions.compatibility ),
-			production = new Version().parse( config.versions.production );
-		
 		// Check if major build version is behind major compatibility version
-		if ( build.major < compatibility.major ) {
-			console.log("[checkConfig] - Users build major version is behind compatibility major version.");
+		if ( Number(versions.build[0]) < Number(versions.compatibility[0]) ) {
+			console.log('[checkConfig] - Users build major version is behind compatibility major version.');
 			return app.showPingNotification('versionIncompatibility');
 		}
 		
 		// Check if major build version is behind major production version
-		if ( build.major < production.major ) {
-			console.log("[checkConfig] - Users build major version is behind production major version.");
+		if ( Number(versions.build[0]) < Number(versions.production[0]) ) {
+			console.log('[checkConfig] - Users build major version is behind production major version.');
 			return app.showPingNotification('versionIncompatibility');
 		}
 	
