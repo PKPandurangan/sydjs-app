@@ -519,13 +519,15 @@
 			var topOffset = logoPosition.top - logoParentPosition.top,
 				leftOffset = logoPosition.left - logoParentPosition.left;
 			
-			var squidTopPosition = topOffset - $logo.height() + $squid.height() - 30,
-				squidLeftPosition = leftOffset + $logo.width() - $squid.width() + 20;
+			var squidTopPosition = topOffset - $logo.height() + $squid.height() - 20,
+				squidLeftPosition = leftOffset + $logo.width() - $squid.width() + 10;
 			
 			$squid.css({
 				top: squidTopPosition,
 				left: squidLeftPosition
 			});
+			
+			return;
 			
 			$squid.velocity({
 				rotateZ: '12deg'
