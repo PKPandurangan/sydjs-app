@@ -32,7 +32,7 @@
 -(UIView *)overlay {
     if (!_overlay) {
         _overlay = [[UIView alloc] initWithFrame:self.rectForView];
-        _overlay.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.25];
+        _overlay.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
         _indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         _indicator.center = _overlay.center;
         [_indicator startAnimating];
