@@ -65,6 +65,7 @@
 		FDA625AC97C5416D9CFEF6CD /* Calendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 77769A06D855484A94A43954 /* Calendar.m */; };
 		9AAB06D0F9DD4A0BB6072628 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB222BE485B74504BDB93016 /* EventKit.framework */; };
 		4BCF755DCA08489691F6BBED /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63C8441FCA314324BBA4570C /* EventKitUI.framework */; };
+		11B2C8408E324805AB0C848D /* CDVSpinnerDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = B39845E00CBF41A3B828C6FA /* CDVSpinnerDialog.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -213,6 +214,8 @@
 		040DDB0B5595491283632206 /* Calendar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Calendar.h"; path = "nl.x-services.plugins.calendar/Calendar.h"; sourceTree = "<group>"; fileEncoding = 4; };
 		AB222BE485B74504BDB93016 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "EventKit.framework"; path = "System/Library/Frameworks/EventKit.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
 		63C8441FCA314324BBA4570C /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "EventKitUI.framework"; path = "System/Library/Frameworks/EventKitUI.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		B39845E00CBF41A3B828C6FA /* CDVSpinnerDialog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVSpinnerDialog.m"; path = "hu.dpal.phonegap.plugins.SpinnerDialog/CDVSpinnerDialog.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		E0B5804D302046A293F6A1C5 /* CDVSpinnerDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVSpinnerDialog.h"; path = "hu.dpal.phonegap.plugins.SpinnerDialog/CDVSpinnerDialog.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -430,6 +433,8 @@
 				A73FFEBEEA6C47FD8B6628C4 /* NotificarePushLib.h */,
 				77769A06D855484A94A43954 /* Calendar.m */,
 				040DDB0B5595491283632206 /* Calendar.h */,
+				B39845E00CBF41A3B828C6FA /* CDVSpinnerDialog.m */,
+				E0B5804D302046A293F6A1C5 /* CDVSpinnerDialog.h */,
 			);
 			name = Plugins;
 			path = SydJS/Plugins;
@@ -643,6 +648,7 @@
 				BF2F51875E7D46AD91272442 /* NotificarePlugin.m in Sources */,
 				8DAEF0EBE164476C9E833FEA /* NotificareAppDelegateSurrogate.m in Sources */,
 				FDA625AC97C5416D9CFEF6CD /* Calendar.m in Sources */,
+				11B2C8408E324805AB0C848D /* CDVSpinnerDialog.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

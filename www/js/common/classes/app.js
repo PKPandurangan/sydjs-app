@@ -232,6 +232,16 @@ _.extend(App.prototype, Backbone.Events, {
 	
 	showLoadingSpinner: function(label, then) {
 		
+		// cater for native spinner (if it exists)
+		if (window.plugins && window.plugins.spinnerDialog) {
+			window.plugins.spinnerDialog.show();
+			if (then) {
+				console.log( "[showLoadingSpinner] - Has then() callback." );
+				then();
+			}
+			return;
+		}
+		
 		if (this._spinnerVisible) {
 			app.hideLoadingSpinner();
 			this._spinnerVisible = false;
@@ -274,6 +284,16 @@ _.extend(App.prototype, Backbone.Events, {
 	},
 	
 	hideLoadingSpinner: function(then) {
+		
+		// cater for native spinner (if it exists)
+		if (window.plugins && window.plugins.spinnerDialog) {
+			window.plugins.spinnerDialog.hide();
+			if (then) {
+				console.log( "[hideLoadingSpinner] - Has then() callback." );
+				then();
+			}
+			return;
+		}
 		
 		if (!this._spinnerVisible) {
 			// app.showNotification('Alert',  "[hideLoadingSpinner] - Tried to hide spinner but it's not visible." );

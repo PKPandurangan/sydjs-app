@@ -35,4 +35,7 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <feature name="SpinnerDialog">
+        <param name="android-package" value="hu.dpal.phonegap.plugins.SpinnerDialog" />
+    </feature>
 </widget>

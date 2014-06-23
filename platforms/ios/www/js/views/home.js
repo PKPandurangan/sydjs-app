@@ -30,6 +30,19 @@
 				this.setMeetup();
 				this.setState();
 				
+				// check for a pending action (if a user clicked attend/not attend and
+				// they come back from signup)
+				if (this._action) {
+					if (_.isEmpty(app.data.session)) return this._action = undefined;
+					setTimeout(function() {
+						switch(self._action) {
+							case 'attending': self.rsvpAttending(); break;
+							case 'notAttending': self.rsvpNotAttending(); break;
+						}
+						self._action = undefined;
+					}, 750);
+				}
+				
 				// iOS: Change status bar style to match view style
 				app.changeStatusBarStyle('white');
 				
@@ -76,7 +89,7 @@
 			$logo.velocity({
 				marginTop: logoHeight - this.$('.statusbar').height()
 			}, {
-				delay: 250, duration: 500, easing: 'easeInOutSine', complete: function() {
+				delay: 250, duration: 750, easing: 'easeInOutCubic', complete: function() {
 				
 				var logoPosition = self.$('.logo').offset(),
 					logoParentPosition = self.$('.logo').parent().offset();
@@ -211,7 +224,7 @@
 			
 			$notifications.html('<img src="img/ui/icon-alarm-white.svg" />');
 			
-			if (pushNotifications.isConfigured && pushNotifications.enabled) {
+			if (pushNotifications.enabled) {
 				$notifications.html('<img src="img/ui/icon-alarm-green.svg" />');
 			}
 		
@@ -228,8 +241,7 @@
 			
 			var $calendar = this.$('.btn-calendar');
 			
-			var from = meetup ? _.first(meetup.time.split('-')).trim() : false,
-				date = meetup ? moment(meetup.date + (from ? ' ' + from : ''), 'YYYY-MM-DD' + (from ? ' ha' : '')) : false;
+			var date = meetup ? moment(meetup.date) : false;
 			
 			$days.html(meetup ? date.fromNow(true) : 'Standby');
 			$date.html(meetup ? date.format('ddd, DD MMMM YYYY') : 'Sharkie\'s on it...');
@@ -382,6 +394,13 @@
 			
 			var self = this;
 			
+			if (self._processingForm) {
+				console.log('[toggleAttending] - User tried to submit form but is already in a processing state.');
+				return;
+			}
+			
+			self._processingForm = true;
+			
 			var user = app.data.session;
 			
 			var rsvpData = {
@@ -407,8 +426,25 @@
 				// Set form to no longer processing
 				self._processingForm = false;
 				
-				// Show message
-				app.showNotification('Alert', 'Sorry, we couldn\'t mark your attendance, please try again.' + data ? '\n\n' + data.message : '');
+				// Reset RSVP state
+				app.showLoadingSpinner();
+				
+				setTimeout(function() {
+				
+					// Show message
+					app.showNotification('Alert', 'Sorry, we couldn\'t mark your attendance, please try again.' + (data && data.message && data.message.length ? '\n\n' + data.message : ''));
+					
+					// Reset local cached data
+					app.data.meetup.attending = !app.data.meetup.attending;
+					app.data.meetup.rsvped = !app.data.meetup.rsvped;
+					
+					// Update status
+					self.setState();
+					
+					// Hide spinner
+					app.hideLoadingSpinner();
+				
+				}, 500);
 				
 			}
 			
@@ -446,8 +482,16 @@
 		toggleRSVP: function(button) {
 			
 			if (_.isEmpty(app.data.session)) {
+				var action = false;
+				switch(button) {
+					case 'left': if (!app.data.meetup.rsvped) action = 'attending'; break;
+					case 'right': if (!app.data.meetup.rsvped) action = 'notAttending'; break;
+				}
 				app.showConfirm('Attendance', 'You must sign in to mark your attendance.', 'No‚ thanks,Sign in', function(pressed) {
-					if (pressed == 2) app.view('signin').show('slide-up');
+					if (pressed == 2) {
+						app.view('home')._action = action;
+						app.view('signin').show('slide-up');
+					}
 				});
 				return;
 			}
@@ -484,6 +528,34 @@
 		rsvpCancel: function() {
 			app.data.meetup.rsvped && app.data.meetup.attending && this.animateCalendar('down');
 			this.toggleAttending({ attending: false, cancel: true });
+		},
+		
+		easterEgg: function() {
+			
+			var $squid = $('.squid'),
+				$logo = $('.logo');
+			
+			$squid.show();
+			
+			var logoPosition = $logo.offset(),
+				logoParentPosition = $logo.parent().offset();
+			
+			var topOffset = logoPosition.top - logoParentPosition.top,
+				leftOffset = logoPosition.left - logoParentPosition.left;
+			
+			var squidTopPosition = topOffset - $logo.height() + $squid.height() - 20,
+				squidLeftPosition = leftOffset + $logo.width() - $squid.width() + 10;
+			
+			$squid.css({
+				top: squidTopPosition,
+				left: squidLeftPosition
+			});
+			
+			return;
+			
+			$squid.velocity({
+				rotateZ: '12deg'
+			}, { loop: 100 });
 		}
 		
 	});

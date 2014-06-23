@@ -47,6 +47,10 @@
                         {
                             "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SpinnerDialog\"><param name=\"ios-package\" value=\"CDVSpinnerDialog\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -174,6 +178,9 @@
             "PACKAGE_NAME": "com.sydjs"
         },
         "org.apache.cordova.inappbrowser": {
+            "PACKAGE_NAME": "com.sydjs"
+        },
+        "hu.dpal.phonegap.plugins.SpinnerDialog": {
             "PACKAGE_NAME": "com.sydjs"
         }
     },

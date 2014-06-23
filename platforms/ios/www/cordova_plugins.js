@@ -63,6 +63,13 @@ module.exports = [
         "clobbers": [
             "window.open"
         ]
+    },
+    {
+        "file": "plugins/hu.dpal.phonegap.plugins.SpinnerDialog/www/spinner.js",
+        "id": "hu.dpal.phonegap.plugins.SpinnerDialog.SpinnerDialog",
+        "merges": [
+            "window.plugins.spinnerDialog"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -75,7 +82,8 @@ module.exports.metadata =
     "org.apache.cordova.splashscreen": "0.2.7",
     "re.notifica.cordova": "0.1.1",
     "nl.x-services.plugins.calendar": "4.2.3",
-    "org.apache.cordova.inappbrowser": "0.4.1-dev"
+    "org.apache.cordova.inappbrowser": "0.4.1-dev",
+    "hu.dpal.phonegap.plugins.SpinnerDialog": "0.2.1"
 }
 // BOTTOM OF METADATA
 });
