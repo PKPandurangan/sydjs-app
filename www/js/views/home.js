@@ -504,6 +504,32 @@
 		rsvpCancel: function() {
 			app.data.meetup.rsvped && app.data.meetup.attending && this.animateCalendar('down');
 			this.toggleAttending({ attending: false, cancel: true });
+		},
+		
+		easterEgg: function() {
+			
+			var $squid = $('.squid'),
+				$logo = $('.logo');
+			
+			$squid.show();
+			
+			var logoPosition = $logo.offset(),
+				logoParentPosition = $logo.parent().offset();
+			
+			var topOffset = logoPosition.top - logoParentPosition.top,
+				leftOffset = logoPosition.left - logoParentPosition.left;
+			
+			var squidTopPosition = topOffset - $logo.height() + $squid.height() - 30,
+				squidLeftPosition = leftOffset + $logo.width() - $squid.width() + 20;
+			
+			$squid.css({
+				top: squidTopPosition,
+				left: squidLeftPosition
+			});
+			
+			$squid.velocity({
+				rotateZ: '12deg'
+			}, { loop: 100 });
 		}
 		
 	});
