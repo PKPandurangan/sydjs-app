@@ -224,7 +224,7 @@
 			
 			$notifications.html('<img src="img/ui/icon-alarm-white.svg" />');
 			
-			if (pushNotifications.isConfigured && pushNotifications.enabled) {
+			if (pushNotifications.enabled) {
 				$notifications.html('<img src="img/ui/icon-alarm-green.svg" />');
 			}
 		
