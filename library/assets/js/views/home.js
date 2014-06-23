@@ -543,19 +543,20 @@
 			var topOffset = logoPosition.top - logoParentPosition.top,
 				leftOffset = logoPosition.left - logoParentPosition.left;
 			
-			var squidTopPosition = topOffset - $logo.height() + $squid.height() - 20,
-				squidLeftPosition = leftOffset + $logo.width() - $squid.width() + 10;
+			var squidTopPosition = topOffset - $logo.height() + $squid.height(),
+				squidLeftPosition = leftOffset + $logo.width() - $squid.width() + 1;
 			
 			$squid.css({
 				top: squidTopPosition,
 				left: squidLeftPosition
 			});
 			
-			return;
+			$squid.css('marginTop', -(topOffset) - $squid.height());
 			
 			$squid.velocity({
-				rotateZ: '12deg'
-			}, { loop: 100 });
+				marginTop: 0
+			}, { easing: 'easeOutBounce', duration: 1000 });
+			
 		}
 		
 	});
