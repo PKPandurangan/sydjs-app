@@ -394,6 +394,13 @@
 			
 			var self = this;
 			
+			if (self._processingForm) {
+				console.log('[toggleAttending] - User tried to submit form but is already in a processing state.');
+				return;
+			}
+			
+			self._processingForm = true;
+			
 			var user = app.data.session;
 			
 			var rsvpData = {
@@ -419,8 +426,25 @@
 				// Set form to no longer processing
 				self._processingForm = false;
 				
-				// Show message
-				app.showNotification('Alert', 'Sorry, we couldn\'t mark your attendance, please try again.' + data ? '\n\n' + data.message : '');
+				// Reset RSVP state
+				app.showLoadingSpinner();
+				
+				setTimeout(function() {
+				
+					// Show message
+					app.showNotification('Alert', 'Sorry, we couldn\'t mark your attendance, please try again.' + (data && data.message && data.message.length ? '\n\n' + data.message : ''));
+					
+					// Reset local cached data
+					app.data.meetup.attending = !app.data.meetup.attending;
+					app.data.meetup.rsvped = !app.data.meetup.rsvped;
+					
+					// Update status
+					self.setState();
+					
+					// Hide spinner
+					app.hideLoadingSpinner();
+				
+				}, 500);
 				
 			}
 			
