@@ -304,8 +304,6 @@
 				leftText = '',
 				rightText = '';
 			
-			var easing = { duration: 250, easing: 'easeOutSine' };
-			
 			switch(direction) {
 				case 'left':
 					left = '75%';
@@ -333,33 +331,36 @@
 				backgroundColorRed: color[0],
 				backgroundColorGreen: color[1],
 				backgroundColorBlue: color[2]
-			}, easing);
+			}, { duration: 400, easing: 'easeOutSine' });
 			
 			$right.velocity({
 				width: right,
 				backgroundColorRed: color[0],
 				backgroundColorGreen: color[1],
 				backgroundColorBlue: color[2]
-			}, easing);
+			}, { duration: 400, easing: 'easeOutSine' });
+			
+			var duration = 175,
+				easing = 'linear';
 			
 			switch(direction) {
 				case 'left':
-					$left.find('.icon').velocity({ opacity: 0, rotateZ: '90deg' }, easing);
-					$right.find('.icon').velocity({ opacity: 1, rotateZ: '270deg' }, easing);
-					$left.find('.text').text(leftText).velocity({ opacity: 1 }, easing);
-					$right.find('.text').velocity({ opacity: 0 }, easing);
+					$left.find('.text').text(leftText).velocity({ opacity: 1 }, { duration: duration, easing: easing });
+					$left.find('.icon').velocity({ opacity: 0, rotateZ: '135deg' }, { duration: duration, easing: 'easeOutSine' });
+					$right.find('.text').velocity({ opacity: 0 }, { duration: duration, easing: easing });
+					$right.find('.icon').velocity({ opacity: 1, rotateZ: '-90deg' }, { delay: duration, duration: duration, easing: 'easeOutSine' });
 				break;
 				case 'middle':
-					$left.find('.icon').velocity({ opacity: 0, rotateZ: '90deg' }, easing);
-					$right.find('.icon').velocity({ opacity: 0, rotateZ: '90deg' }, easing);
-					$left.find('.text').text(leftText).velocity({ opacity: 1 }, easing);
-					$right.find('.text').text(rightText).velocity({ opacity: 1 }, easing);
+					$left.find('.text').text(leftText).velocity({ opacity: 1 }, { delay: duration, duration: duration, easing: easing });
+					$left.find('.icon').velocity({ opacity: 0, rotateZ: '135deg' }, { duration: duration, easing: 'easeOutSine' });
+					$right.find('.text').text(rightText).velocity({ opacity: 1 }, { delay: duration, duration: duration, easing: easing });
+					$right.find('.icon').velocity({ opacity: 0, rotateZ: '-135deg' }, { duration: duration, easing: 'easeOutSine' });
 				break;
 				case 'right':
-					$left.find('.icon').velocity({ opacity: 1, rotateZ: '270deg' }, easing);
-					$right.find('.icon').velocity({ opacity: 0, rotateZ: '90deg' }, easing);
-					$left.find('.text').velocity({ opacity: 0 }, easing);
-					$right.find('.text').text(rightText).velocity({ opacity: 1 }, easing);
+					$left.find('.text').velocity({ opacity: 0 }, { duration: duration, easing: 'linear' });
+					$left.find('.icon').velocity({ opacity: 1, rotateZ: '90deg' }, { delay: duration, duration: duration, easing: 'easeOutSine' });
+					$right.find('.text').text(rightText).velocity({ opacity: 1 }, { duration: duration, easing: easing });
+					$right.find('.icon').velocity({ opacity: 0, rotateZ: '-135deg' }, { duration: duration, easing: 'easeOutSine' });
 				break;
 			}
 			
