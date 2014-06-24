@@ -16,56 +16,14 @@ html
 		//- script.
 			var _sf_startpt=(new Date()).getTime()
 		
-		//- utf-8
+		//- charset
 		meta(charset='utf-8')
 		
-		//- app title
+		//- title
 		title SydJS
 		
-		//- splash screen
-		link(rel="apple-touch-startup-image", href='img/ui/backgrounds/startup-blank.png')
-		
-		//- include the stylesheets
+		//- stylesheet
 		link(href='/css/app.css', rel='stylesheet')
-		
-		//- standard favicon
-		link(href='/favicon.ico', rel='shortcut icon', type='image/x-icon')
-		
-		//- standard viewport tag to set the viewport to the device's width,
-		//- Android 2.3 devices need this so 100% width works properly and
-		//- doesn't allow children to blow up the viewport width
-		meta(name="viewport", id="vp", content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width")
-		
-		//- width=device-width causes the iPhone 5 to letterbox the app, so
-		//- we want to exclude it for iPhone 5 to allow full screen apps
-		meta(name="viewport", id="vp", content="initial-scale=1.0,user-scalable=no,maximum-scale=1", media="(device-height: 568px)")
-		
-		//- enable full-screen mode when added to the home screen
-		meta(name="apple-mobile-web-app-capable", content="yes")
-		
-		//- let's go with a black status bar
-		meta(name="apple-mobile-web-app-status-bar-style", content="black")
-		
-		//- standalone app name
-		meta(name="apple-mobile-web-app-title", content="SydJS")
-		
-		//- auto telephone numbers? no thanks
-		meta(name="format-detection", content="telephone=no")
-		
-		//- provide app icons for iOS
-		link(rel="apple-touch-icon-precomposed", sizes="29x29", href="img/app/ios/icons/AppIcon29x29.png")
-		link(rel="apple-touch-icon-precomposed", sizes="58x58", href="img/app/ios/icons/AppIcon29x29@2x.png")
-		link(rel="apple-touch-icon-precomposed", sizes="40x40", href="img/app/ios/icons/AppIcon40x40.png")
-		link(rel="apple-touch-icon-precomposed", sizes="80x80", href="img/app/ios/icons/AppIcon40x40@2x.png")
-		link(rel="apple-touch-icon-precomposed", sizes="57x57", href="img/app/ios/icons/AppIcon57x57.png")
-		link(rel="apple-touch-icon-precomposed", sizes="114x114", href="img/app/ios/icons/AppIcon57x57@2x.png")
-		link(rel="apple-touch-icon-precomposed", sizes="60x60", href="img/app/ios/icons/AppIcon60x60.png")
-		link(rel="apple-touch-icon-precomposed", sizes="120x120", href="img/app/ios/icons/AppIcon60x60@2x.png")
-		link(rel="apple-touch-icon-precomposed", sizes="76x76", href="img/app/ios/icons/AppIcon76x76.png")
-		link(rel="apple-touch-icon-precomposed", sizes="152x152", href="img/app/ios/icons/AppIcon76x76@2x.png")
-		
-		//- description
-		meta(name="description", content="SydJS")
 		
 		//- mixpanel (development)
 		//- script.
@@ -93,9 +51,6 @@ html
 			include app/talks
 		
 		//- include common js libraries
-		//- script(src='components/jquery.js')
-		//- script(src='components/fastclick.js')
-		
 		script(src='components/zepto.js')
 		script(src='js/common/classes/velocity.shim.js')
 		

@@ -298,7 +298,7 @@ _.extend(app, {
 	
 	getStatus: function(callback) {
 	
-		console.log( "[getStatus] - Status data doesn't exist, retrieving from server..." );
+		console.log( "[getStatus] - Retrieving status data from server..." );
 		
 		var data = {};
 		
@@ -481,47 +481,29 @@ _.extend(app, {
 
 app.on('init', function() {
 	
-	// Log start of events
-	console.log( "==================================================" );
-	console.log( "[init] - App init started..." );
-	console.log( "--------------------------------------------------" );
+	// Logging
+	console.log('==================================================');
+	console.log('[init] - App init started...');
+	console.log('--------------------------------------------------');
 	
-	// Show the loading spinner
-	// app.showLoadingSpinner();
-	
+	// Show the loading view immeidately, which is a clone of the home view with the SydJS logo
+	// in the starting position
 	app.view('loading').show();
 	
 	// Immediately ping server to get config and check if we're online then resume the session
-	app.pingServer( function( success ) {
+	app.pingServer(function(success) {
 		
-		async.series([
+		// Set specific flags based on what device we're using, which will enable/disable certain
+		// effects around the app to improve performance, this must happen before any views are shown
+		app.setPerformanceConditions();
 		
-			function(cb) {
-			
-				// Set specific flags based on what device we're using, which will enable/disable certain
-				// effects around the app to improve performance, this must happen before any views are shown
-				app.setPerformanceConditions();
-				
-				console.log( "[init] - Set performance conditions, continuing..." );
-				
-				return cb();
-			
-			}
+		// Logging
+		console.log('--------------------------------------------------');
+		console.log('[init] - App init finished, resuming session.');
+		console.log('==================================================');
 		
-		], function(err) {
-		
-			// Log end of events
-			console.log( "--------------------------------------------------" );
-			console.log( "[init] - App init finished, resuming session." );
-			console.log( "==================================================" );
-			
-			// Hide the loading spinner
-			// app.hideLoadingSpinner();
-			
-			// Then resume the session
-			app.resumeSession();
-			
-		});
+		// Then resume the session
+		app.resumeSession();
 		
 	});
 	

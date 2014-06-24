@@ -139,26 +139,32 @@ _.extend(app, {
 		switch(type) {
 		
 			case 'killSwitch':
-				html = '<div class="i">&#128340;</div>' +
-					'<div class="text">' +
-						'<div>SydJS is currently unavailable.</div>' +
-						'<div>Please check back soon!</div>' +
-					'</div>';
+				html = '<div class="text">' +
+					'<div>SydJS is currently unavailable.</div>' +
+					'<div>Please check back soon!</div>' +
+				'</div>';
 			break;
 			
 			case 'versionIncompatibility':
-				html = '<div class="i">&#59141;</div>' +
-					'<div class="text">' +
-						'<div>A new version of SydJS is now available.</div>' +
-						'<div>Please update the app via the ' + ( app._device.system == 'ios' ? 'App Store' : 'Google Play Store' ) + '.</div>' +
-					'</div>';
+				var via = 'GitHub';
+				switch(app._device.system) {
+					case 'ios':
+						via = 'the App Store';
+					break;
+					case 'android':
+						via = 'the Google Play Store';
+					break;
+				}
+				html = '<div class="text">' +
+					'<div>A new version of the SydJS app is now available.</div>' +
+					'<div>Please update the app via ' + via + '.</div>' +
+				'</div>';
 			break;
 			
 			case 'noResponse':
-				html = '<div class="i">&#9888;</div>' +
-					'<div class="text">' +
-						'<div>Please check your internet connection.</div>' +
-					'</div>'
+				html = '<div class="text">' +
+					'<div>Please check your internet connection.</div>' +
+				'</div>';
 			break;
 		
 		}
@@ -298,7 +304,7 @@ _.extend(app, {
 	
 	getStatus: function(callback) {
 	
-		console.log( "[getStatus] - Status data doesn't exist, retrieving from server..." );
+		console.log( "[getStatus] - Retrieving status data from server..." );
 		
 		var data = {};
 		
