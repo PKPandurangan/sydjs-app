@@ -33,4 +33,5 @@
     <uses-permission android:name="com.sydjs.permission.C2D_MESSAGE" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 </manifest>

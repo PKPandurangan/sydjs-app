@@ -43,12 +43,30 @@
 					}, 750);
 				}
 				
+				// add shake event
+				if (window.shake) {
+					window.shake.startWatch(function() {
+						setTimeout(function() { self.easterEgg(); }, 500);
+						if (navigator.notification && navigator.notification.vibrate) navigator.notification.vibrate(1000);
+					});
+				}
+				
 				// iOS: Change status bar style to match view style
 				app.changeStatusBarStyle('white');
 				
 				// analytics
 				app.trackEvent({ label: 'Home', category: 'view', action: 'visible' });
 				
+			},
+			
+			hidden: function() {
+			
+				// stop watching for shake event
+				if (window.shake) window.shake.stopWatch();
+				
+				// hide any squid
+				this.$('.squid').hide();
+			
 			}
 		},
 		
@@ -532,8 +550,10 @@
 		
 		easterEgg: function() {
 			
-			var $squid = $('.squid'),
-				$logo = $('.logo');
+			var $squid = this.$('.squid'),
+				$logo = this.$('.logo');
+			
+			if ($squid.is(':visible')) return;
 			
 			$squid.show();
 			

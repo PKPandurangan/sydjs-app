@@ -382,8 +382,10 @@ _.extend(View.prototype, Backbone.Events, {
 					translateX: [0, translateX],
 					translateY: [0, translateY]
 				}, {
-					duration: 500,
-					easing: 'easeOutExpo',
+					duration: 300,
+					easing: 'easeInOutSine',
+					// duration: 500,
+					// easing: 'easeOutExpo',
 					complete: function() {
 						
 						// console.log("[show] - transition complete");
@@ -460,7 +462,9 @@ _.extend(View.prototype, Backbone.Events, {
 					translateY: [translateY, 0]
 				}, {
 					duration: 300,
-					easing: 'easeOutSine',
+					easing: 'easeInOutSine',
+					// duration: 300,
+					// easing: 'easeOutSine',
 					complete: function() {
 						
 						// console.log("[reveal] - view [" + self.id + "]:reveal animation complete");

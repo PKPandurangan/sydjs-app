@@ -77,6 +77,34 @@ module.exports = [
         "merges": [
             "window.plugins.spinnerDialog"
         ]
+    },
+    {
+        "file": "plugins/uk.co.ilee.shake/www/shake.js",
+        "id": "uk.co.ilee.shake.Shake",
+        "clobbers": [
+            "shake"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.vibration/www/vibration.js",
+        "id": "org.apache.cordova.vibration.notification",
+        "merges": [
+            "navigator.notification"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.device-motion/www/Acceleration.js",
+        "id": "org.apache.cordova.device-motion.Acceleration",
+        "clobbers": [
+            "Acceleration"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.device-motion/www/accelerometer.js",
+        "id": "org.apache.cordova.device-motion.accelerometer",
+        "clobbers": [
+            "navigator.accelerometer"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -90,7 +118,10 @@ module.exports.metadata =
     "re.notifica.cordova": "0.1.1",
     "nl.x-services.plugins.calendar": "4.2.3",
     "org.apache.cordova.inappbrowser": "0.4.1-dev",
-    "hu.dpal.phonegap.plugins.SpinnerDialog": "0.2.1"
+    "hu.dpal.phonegap.plugins.SpinnerDialog": "0.2.1",
+    "uk.co.ilee.shake": "0.1.3",
+    "org.apache.cordova.vibration": "0.3.10-dev",
+    "org.apache.cordova.device-motion": "0.2.9-dev"
 }
 // BOTTOM OF METADATA
 });

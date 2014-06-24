@@ -51,6 +51,14 @@
                         {
                             "xml": "<feature name=\"SpinnerDialog\"><param name=\"ios-package\" value=\"CDVSpinnerDialog\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Vibration\"><param name=\"ios-package\" value=\"CDVVibration\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Accelerometer\"><param name=\"ios-package\" value=\"CDVAccelerometer\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -76,7 +84,7 @@
                     "AudioToolbox.framework": [
                         {
                             "xml": "true",
-                            "count": 1
+                            "count": 2
                         }
                     ],
                     "CoreLocation.framework": [
@@ -150,6 +158,12 @@
                             "xml": "false",
                             "count": 1
                         }
+                    ],
+                    "CoreMotion.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
                     ]
                 }
             }
@@ -181,6 +195,15 @@
             "PACKAGE_NAME": "com.sydjs"
         },
         "hu.dpal.phonegap.plugins.SpinnerDialog": {
+            "PACKAGE_NAME": "com.sydjs"
+        },
+        "uk.co.ilee.shake": {
+            "PACKAGE_NAME": "com.sydjs"
+        },
+        "org.apache.cordova.vibration": {
+            "PACKAGE_NAME": "com.sydjs"
+        },
+        "org.apache.cordova.device-motion": {
             "PACKAGE_NAME": "com.sydjs"
         }
     },
