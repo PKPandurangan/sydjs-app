@@ -76,11 +76,13 @@ html
 	body
 		//- the viewport element contains each view the app includes
 		#viewport
-			#preloader
+			//- #preloader
 			#app-loading: .box
 				.spinner
 				.label
 			#ping-notice: .box
+			
+			include app/loading
 			
 			include app/signin
 			include app/signin-email
@@ -144,6 +146,8 @@ html
 		script(src='js/common/ui/spinner.js')
 		
 		//- view scripts
+		script(src='js/views/loading.js')
+		
 		script(src='js/views/signin.js')
 		script(src='js/views/signin-email.js')
 		script(src='js/views/signin-service.js')
@@ -151,9 +155,6 @@ html
 		script(src='js/views/home.js')
 		script(src='js/views/about.js')
 		script(src='js/views/talks.js')
-		
-		//- google maps
-		//- script(src!='https://maps.googleapis.com/maps/api/js?key=AIzaSyBs7cuKgwlX5Ud7TKELK7EmBw_XmT-gRro&sensor=false')
 		
 		//- index script
 		script(src='js/index.js')

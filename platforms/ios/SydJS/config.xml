@@ -55,9 +55,9 @@
         <param name="ios-package" value="CDVAccelerometer" />
     </feature>
     <preference name="AutoHideSplashScreen" value="false" />
-    <preference name="ShowSplashScreenSpinner" value="false" />
     <preference name="FadeSplashScreen" value="true" />
-    <preference name="FadeSplashScreenDuration" value="1" />
+    <preference name="FadeSplashScreenDuration" value="0.5f" />
+    <preference name="ShowSplashScreenSpinner" value="false" />
     <name>SydJS</name>
     <description>
         A companion app to the SydJS website.

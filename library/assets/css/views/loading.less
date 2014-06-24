@@ -1,0 +1,33 @@
+#view-loading {
+	.gradient {
+		.fill;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		#gradient .vertical(rgba(36,50,61,1) 0%, rgba(36,38,43,1) 100%);
+		z-index: 0;
+	}
+	.container {
+		
+		z-index: 2;
+		
+		.logo {
+			position: absolute;
+			top: 0px;
+			left: 50%;
+			
+			width: 115.5px;
+			height: 84.5px;
+			
+			background-image: url('../img/ui/logo.png');
+			background-size: 115.5px 84.5px;
+			
+			margin-left: -57.75px;
+			margin-top: -42.25px;
+			
+			&.pressed {
+				opacity: 0.8;
+			}
+		}
+	}
+}

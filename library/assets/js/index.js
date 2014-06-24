@@ -276,7 +276,7 @@ _.extend(app, {
 			console.log( "[resumeSession] - Session info retrieved from [" + moment( parseInt( date ) ).format('DD/MM/YYYY h:mm:ssa') + "]..." );
 			
 			app.getStatus(function() {
-				$( '#preloader' ).velocity({ opacity: 0 }, { duration: 250 });
+				// $( '#preloader' ).velocity({ opacity: 0 }, { duration: 250 });
 				app.view('home').show();
 			});
 		}
@@ -287,7 +287,7 @@ _.extend(app, {
 			console.log( "[resumeSession] - Showing [signin] screen." );
 			
 			app.getStatus(function() {
-				$( '#preloader' ).velocity({ opacity: 0 }, { duration: 250 });
+				// $( '#preloader' ).velocity({ opacity: 0 }, { duration: 250 });
 				app.view('home').show();
 			});
 		}
@@ -486,8 +486,7 @@ app.on('init', function() {
 	console.log( "[init] - App init started..." );
 	console.log( "--------------------------------------------------" );
 	
-	// Show the loading spinner
-	// app.showLoadingSpinner();
+	app.view('loading').show();
 	
 	// Immediately ping server to get config and check if we're online then resume the session
 	app.pingServer( function( success ) {
@@ -517,10 +516,8 @@ app.on('init', function() {
 			// app.hideLoadingSpinner();
 			
 			// Then resume the session
-			setTimeout(function() {
-				app.resumeSession();
-			}, 250);
-		
+			app.resumeSession();
+			
 		});
 		
 	});
