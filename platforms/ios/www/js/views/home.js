@@ -191,20 +191,12 @@
 			
 			var pushNotifications = app.data.pushNotifications;
 			
-			if (pushNotifications.isConfigured) {
-				if (pushNotifications.enabled) {
-					app.showLoadingSpinner();
-					app.disableNotifications(function() {
-						self.setNotifications();
-						app.hideLoadingSpinner();
-					});
-				} else {
-					app.showLoadingSpinner();
-					app.enableNotifications(function() {
-						self.setNotifications();
-						app.hideLoadingSpinner();
-					});
-				}
+			if (pushNotifications.enabled) {
+				app.showLoadingSpinner();
+				app.disableNotifications(function() {
+					self.setNotifications();
+					app.hideLoadingSpinner();
+				});
 			} else {
 				app.showConfirm('New Meetups', 'Would you like a notification when a new meetup is announced?', 'No‚ thanks,Notify Me', function(pressed) {
 					switch(pressed) {
@@ -233,8 +225,6 @@
 		},
 		
 		setNotifications: function() {
-		
-			if (_.isEmpty(app.data.session)) return;
 			
 			var pushNotifications = app.data.pushNotifications;
 			

@@ -368,8 +368,8 @@ _.extend(app, {
 			
 			console.log('[enableNotifications] - Notification response...');
 			
-			var userId = user.userId,
-				userName = (user.name && user.name.full ? user.name.full : 'Unknown');
+			var userId = (user && user.userId ? user.userId : app.data.user.key),
+				userName = (user && user.name && user.name.full ? user.name.full : 'Unknown');
 			
 			Notificare.registerDevice(deviceId, userId, userName, function() {
 				
