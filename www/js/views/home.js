@@ -249,7 +249,7 @@
 			
 			var $calendar = this.$('.btn-calendar');
 			
-			var date = meetup ? moment(meetup.date) : false;
+			var date = meetup ? moment(meetup.starts) : false;
 			
 			$days.html(meetup ? date.fromNow(true) : 'Standby');
 			$date.html(meetup ? date.format('ddd, DD MMMM YYYY') : 'Sharkie\'s on it...');
@@ -269,12 +269,12 @@
 			
 			if (!meetup) return;
 			
-			var startDate = moment(meetup.date).add('hours', 18).toDate(),
-				endDate = moment(meetup.date).add('hours', 21).toDate();
+			var starts = moment(meetup.starts).toDate(),
+				ends = moment(meetup.ends).toDate();
 			
-			var title = 'SydJS',
-				location = 'Level 6, 341 George St',
-				notes = meetup.name;
+			var title = 'SydJS' + (meetup.name ? ' - ' + meetup.name : ''),
+				location = meetup.place,
+				notes = meetup.description;
 			
 			var success = function() {
 				app.showNotification('Added', 'The next meetup has been added to your calendar.');
@@ -289,7 +289,7 @@
 				secondReminderMinutes: null
 			}
 			
-			window.plugins.calendar.createEventWithOptions(title, location, notes, startDate, endDate, reminders, success, error);
+			window.plugins.calendar.createEventWithOptions(title, location, notes, starts, ends, reminders, success, error);
 			
 		},
 		
