@@ -377,7 +377,7 @@ _.extend(App.prototype, Backbone.Events, {
 	},
 	
 	getAPIEndpoint: function(api) {
-		return config.baseURL + '/api/app/' + api + '?version=' + app.data.versions.build;
+		return config.baseURL + '/api/app/' + api + '?version=' + app.data.version;
 	},
 	
 	initDevice: function() {
