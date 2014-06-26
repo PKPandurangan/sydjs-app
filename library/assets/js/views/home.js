@@ -28,7 +28,7 @@
 				
 				this.setNotifications();
 				this.setMeetup();
-				this.setState();
+				this.setState(true);
 				
 				// check for a pending action (if a user clicked attend/not attend and
 				// they come back from signup)
@@ -141,7 +141,8 @@
 			var $calendar = this.$('.btn-calendar'),
 				$meetup = this.$('.meetup');
 			
-			var easing = { duration: 500, easing: 'easeOutSine' };
+			var duration = 500,
+				easing = 'easeOutSine';
 			
 			var meetupPosition = function() {
 				return parseInt(self.$('.meetup').css('margin-top'));
@@ -149,9 +150,12 @@
 			
 			switch(direction) {
 				case 'up':
+				
+					if ($calendar.is(':visible')) return;
+					
 					$meetup.velocity({
 						marginTop: meetupPosition() - 40
-					}, easing);
+					}, { duration: duration, easing: easing });
 					
 					$calendar.show();
 					$calendar.css({
@@ -163,18 +167,25 @@
 					$calendar.velocity({
 						marginTop: meetupPosition() + 100,
 						opacity: 1
-					}, easing);
+					}, { duration: duration, easing: easing });
+				
 				break;
 				
 				case 'down':
+				
+					if (!$calendar.is(':visible')) return;
+					
 					$meetup.velocity({
 						marginTop: meetupPosition() + 40
-					}, easing);
+					}, { duration: duration, easing: easing });
 					
 					$calendar.velocity({
 						marginTop: meetupPosition() + 180,
 						opacity: 0
-					}, easing);
+					}, { duration: duration, easing: easing, complete: function() {
+						$calendar.hide();
+					}});
+				
 				break;
 			}
 		
@@ -366,7 +377,9 @@
 			
 		},
 		
-		setState: function() {
+		setState: function(initial) {
+			
+			var self = this;
 			
 			var meetup = app.data.meetup,
 				user = app.data.session;
@@ -385,18 +398,20 @@
 			if (meetup && meetup.rsvped && meetup.attending) {
 				$rsvp.show();
 				this.moveButtons('left');
+				if (!initial) this.animateCalendar('up');
 			} else if (meetup && meetup.rsvped && !meetup.attending) {
 				$rsvp.show();
 				this.moveButtons('right');
+				if (!initial) this.animateCalendar('down');
 			} else if (meetup && meetup.ticketsAvailable && meetup.ticketsRemaining) {
 				$rsvp.show();
 				this.moveButtons('middle');
+				if (!initial) this.animateCalendar('down');
 			} else if (meetup && meetup.ticketsAvailable && meetup.ticketsAvailable == 0) {
 				$soldOut.show();
 			} else {
 				$ticketsSoon.show();
 			}
-			
 		},
 		
 		toggleAttending: function(options) {
@@ -526,7 +541,6 @@
 		},
 		
 		rsvpAttending: function() {
-			this.animateCalendar('up');
 			this.toggleAttending({ attending: true });
 		},
 		
@@ -535,7 +549,6 @@
 		},
 		
 		rsvpCancel: function() {
-			app.data.meetup.rsvped && app.data.meetup.attending && this.animateCalendar('down');
 			this.toggleAttending({ attending: false, cancel: true });
 		},
 		
