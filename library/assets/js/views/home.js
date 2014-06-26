@@ -260,12 +260,14 @@
 			
 			var $calendar = this.$('.btn-calendar');
 			
-			var date = meetup ? moment(meetup.starts) : false;
+			var meetupInProgress = meetup && meetup.starts && meetup.ends ? moment().isAfter(moment(meetup.starts)) && moment().isBefore(moment(meetup.ends)) : false;
 			
-			$days.html(meetup ? date.fromNow(true) : 'Standby');
-			$date.html(meetup ? date.format('ddd, DD MMMM YYYY') : 'Sharkie\'s on it...');
+			var startDate = meetup ? moment(meetup.starts) : false;
 			
-			meetup && $calendar.find('.number').html(date.format('DD'));
+			$days.html(meetupInProgress || startDate ? (meetupInProgress ? 'Now' : startDate.fromNow(true)) : 'Standby');
+			$date.html(startDate ? startDate.format('ddd, DD MMMM YYYY') : 'Sharkie\'s on it...');
+			
+			meetup && $calendar.find('.number').html(startDate.format('DD'));
 		
 		},
 		
