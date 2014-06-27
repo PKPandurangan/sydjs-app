@@ -440,8 +440,10 @@
 				
 				console.log("[toggleAttending] - RSVP successful.", data);
 				
-				// Set form to no longer processing
-				self._processingForm = false;
+				// Set form to no longer processing (after 500 milliseconds of animations)
+				setTimeout(function() {
+					self._processingForm = false;
+				}, 500);
 				
 			}
 			
@@ -449,12 +451,10 @@
 				
 				console.log("[toggleAttending] - RSVP failed, advise user to retry.", data);
 				
-				// Set form to no longer processing
-				self._processingForm = false;
-				
 				// Reset RSVP state
 				app.showLoadingSpinner();
 				
+				// Delay reseting the state so the animations take time to take effect gracefully
 				setTimeout(function() {
 				
 					// Show message
@@ -469,6 +469,11 @@
 					
 					// Hide spinner
 					app.hideLoadingSpinner();
+					
+					// Set form to no longer processing (after 500 milliseconds of animations)
+					setTimeout(function() {
+						self._processingForm = false;
+					}, 500);
 				
 				}, 500);
 				
