@@ -28,7 +28,11 @@
 				
 				this.setNotifications();
 				this.setMeetup();
-				this.setState();
+				this.setState(true);
+				
+				// preload green notifications icon
+				var $image = $(new Image());
+					$image.prop('src', 'img/ui/icon-alarm-green.svg');
 				
 				// check for a pending action (if a user clicked attend/not attend and
 				// they come back from signup)
@@ -119,7 +123,7 @@
 				});
 				
 				self.$('.btn-notifications').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
-				meetup && meetup.talks.length && self.$('.btn-talks').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
+				meetup && meetup.talks && meetup.talks.length && self.$('.btn-talks').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
 				
 				self.$('.meetup').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
 				self.$('.states').velocity({ bottom: 0 }, { duration: 500, easing: 'easeOutSine' });
@@ -141,7 +145,8 @@
 			var $calendar = this.$('.btn-calendar'),
 				$meetup = this.$('.meetup');
 			
-			var easing = { duration: 500, easing: 'easeOutSine' };
+			var duration = 500,
+				easing = 'easeOutSine';
 			
 			var meetupPosition = function() {
 				return parseInt(self.$('.meetup').css('margin-top'));
@@ -149,9 +154,12 @@
 			
 			switch(direction) {
 				case 'up':
+				
+					if ($calendar.is(':visible')) return;
+					
 					$meetup.velocity({
 						marginTop: meetupPosition() - 40
-					}, easing);
+					}, { duration: duration, easing: easing });
 					
 					$calendar.show();
 					$calendar.css({
@@ -163,18 +171,25 @@
 					$calendar.velocity({
 						marginTop: meetupPosition() + 100,
 						opacity: 1
-					}, easing);
+					}, { duration: duration, easing: easing });
+				
 				break;
 				
 				case 'down':
+				
+					if (!$calendar.is(':visible')) return;
+					
 					$meetup.velocity({
 						marginTop: meetupPosition() + 40
-					}, easing);
+					}, { duration: duration, easing: easing });
 					
 					$calendar.velocity({
 						marginTop: meetupPosition() + 180,
 						opacity: 0
-					}, easing);
+					}, { duration: duration, easing: easing, complete: function() {
+						$calendar.hide();
+					}});
+				
 				break;
 			}
 		
@@ -189,9 +204,9 @@
 			
 			var self = this;
 			
-			var pushNotifications = app.data.pushNotifications;
+			var pushNotifications = app.data.user.pushNotifications;
 			
-			if (pushNotifications.enabled) {
+			if (pushNotifications) {
 				app.showLoadingSpinner();
 				app.disableNotifications(function() {
 					self.setNotifications();
@@ -226,13 +241,13 @@
 		
 		setNotifications: function() {
 			
-			var pushNotifications = app.data.pushNotifications;
+			var pushNotifications = app.data.user.pushNotifications;
 			
 			var $notifications = this.$('.btn-notifications');
 			
 			$notifications.html('<img src="img/ui/icon-alarm-white.svg" />');
 			
-			if (pushNotifications.enabled) {
+			if (pushNotifications) {
 				$notifications.html('<img src="img/ui/icon-alarm-green.svg" />');
 			}
 		
@@ -249,12 +264,14 @@
 			
 			var $calendar = this.$('.btn-calendar');
 			
-			var date = meetup ? moment(meetup.starts) : false;
+			var meetupInProgress = meetup && meetup.starts && meetup.ends ? moment().isAfter(moment(meetup.starts)) && moment().isBefore(moment(meetup.ends)) : false;
 			
-			$days.html(meetup ? date.fromNow(true) : 'Standby');
-			$date.html(meetup ? date.format('ddd, DD MMMM YYYY') : 'Sharkie\'s on it...');
+			var startDate = meetup && meetup.starts ? moment(meetup.starts) : false;
 			
-			meetup && $calendar.find('.number').html(date.format('DD'));
+			$days.html(meetupInProgress || startDate ? (meetupInProgress ? 'Now' : startDate.fromNow(true)) : 'Standby');
+			$date.html(startDate ? startDate.format('ddd, DD MMMM YYYY') : 'Sharkie\'s on it...');
+			
+			meetup && meetup.starts && $calendar.find('.number').html(startDate.format('DD'));
 		
 		},
 		
@@ -345,18 +362,22 @@
 			
 			switch(direction) {
 				case 'left':
+					$left.data('button').disable();
 					$left.find('.text').text(leftText).velocity({ opacity: 1 }, { duration: duration, easing: easing });
 					$left.find('.icon').velocity({ opacity: 0, rotateZ: '135deg' }, { duration: duration, easing: 'easeOutSine' });
 					$right.find('.text').velocity({ opacity: 0 }, { duration: duration, easing: easing });
 					$right.find('.icon').velocity({ opacity: 1, rotateZ: '-90deg' }, { delay: duration, duration: duration, easing: 'easeOutSine' });
 				break;
 				case 'middle':
+					$left.data('button').enable();
+					$right.data('button').enable();
 					$left.find('.text').text(leftText).velocity({ opacity: 1 }, { delay: duration, duration: duration, easing: easing });
 					$left.find('.icon').velocity({ opacity: 0, rotateZ: '135deg' }, { duration: duration, easing: 'easeOutSine' });
 					$right.find('.text').text(rightText).velocity({ opacity: 1 }, { delay: duration, duration: duration, easing: easing });
 					$right.find('.icon').velocity({ opacity: 0, rotateZ: '-135deg' }, { duration: duration, easing: 'easeOutSine' });
 				break;
 				case 'right':
+					$right.data('button').disable();
 					$left.find('.text').velocity({ opacity: 0 }, { duration: duration, easing: 'linear' });
 					$left.find('.icon').velocity({ opacity: 1, rotateZ: '90deg' }, { delay: duration, duration: duration, easing: 'easeOutSine' });
 					$right.find('.text').text(rightText).velocity({ opacity: 1 }, { duration: duration, easing: easing });
@@ -366,7 +387,9 @@
 			
 		},
 		
-		setState: function() {
+		setState: function(initial) {
+			
+			var self = this;
 			
 			var meetup = app.data.meetup,
 				user = app.data.session;
@@ -385,18 +408,20 @@
 			if (meetup && meetup.rsvped && meetup.attending) {
 				$rsvp.show();
 				this.moveButtons('left');
+				if (!initial) this.animateCalendar('up');
 			} else if (meetup && meetup.rsvped && !meetup.attending) {
 				$rsvp.show();
 				this.moveButtons('right');
+				if (!initial) this.animateCalendar('down');
 			} else if (meetup && meetup.ticketsAvailable && meetup.ticketsRemaining) {
 				$rsvp.show();
 				this.moveButtons('middle');
+				if (!initial) this.animateCalendar('down');
 			} else if (meetup && meetup.ticketsAvailable && meetup.ticketsAvailable == 0) {
 				$soldOut.show();
 			} else {
 				$ticketsSoon.show();
 			}
-			
 		},
 		
 		toggleAttending: function(options) {
@@ -423,8 +448,10 @@
 				
 				console.log("[toggleAttending] - RSVP successful.", data);
 				
-				// Set form to no longer processing
-				self._processingForm = false;
+				// Set form to no longer processing (after 500 milliseconds of animations)
+				setTimeout(function() {
+					self._processingForm = false;
+				}, 500);
 				
 			}
 			
@@ -432,12 +459,10 @@
 				
 				console.log("[toggleAttending] - RSVP failed, advise user to retry.", data);
 				
-				// Set form to no longer processing
-				self._processingForm = false;
-				
 				// Reset RSVP state
 				app.showLoadingSpinner();
 				
+				// Delay reseting the state so the animations take time to take effect gracefully
 				setTimeout(function() {
 				
 					// Show message
@@ -452,6 +477,11 @@
 					
 					// Hide spinner
 					app.hideLoadingSpinner();
+					
+					// Set form to no longer processing (after 500 milliseconds of animations)
+					setTimeout(function() {
+						self._processingForm = false;
+					}, 500);
 				
 				}, 500);
 				
@@ -499,7 +529,7 @@
 				app.showConfirm('Attendance', 'You must sign in to mark your attendance.', 'No‚ thanks,Sign in', function(pressed) {
 					if (pressed == 2) {
 						app.view('home')._action = action;
-						app.view('signin').show('slide-up');
+						app.view('signin').show('slide-up', true);
 					}
 				});
 				return;
@@ -526,7 +556,6 @@
 		},
 		
 		rsvpAttending: function() {
-			this.animateCalendar('up');
 			this.toggleAttending({ attending: true });
 		},
 		
@@ -535,7 +564,6 @@
 		},
 		
 		rsvpCancel: function() {
-			app.data.meetup.rsvped && app.data.meetup.attending && this.animateCalendar('down');
 			this.toggleAttending({ attending: false, cancel: true });
 		},
 		

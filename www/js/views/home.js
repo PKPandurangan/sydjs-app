@@ -30,6 +30,10 @@
 				this.setMeetup();
 				this.setState(true);
 				
+				// preload green notifications icon
+				var $image = $(new Image());
+					$image.prop('src', 'img/ui/icon-alarm-green.svg');
+				
 				// check for a pending action (if a user clicked attend/not attend and
 				// they come back from signup)
 				if (this._action) {
@@ -202,7 +206,7 @@
 			
 			var pushNotifications = app.data.user.pushNotifications;
 			
-			if (pushNotifications.enabled) {
+			if (pushNotifications) {
 				app.showLoadingSpinner();
 				app.disableNotifications(function() {
 					self.setNotifications();
@@ -243,7 +247,7 @@
 			
 			$notifications.html('<img src="img/ui/icon-alarm-white.svg" />');
 			
-			if (pushNotifications.enabled) {
+			if (pushNotifications) {
 				$notifications.html('<img src="img/ui/icon-alarm-green.svg" />');
 			}
 		

@@ -133,10 +133,10 @@ _.extend(app, {
 	populateUser: function() {
 	
 		var userKey = localStorage.getItem( 'user_key' ),
-			userPushNotifications = localStorage.getItem( 'user_pushNotifications' );
+			userPushNotifications = localStorage.getItem( 'user_pushNotifications' ) == 'true' ? true : false;
 		
 		app.data.user.key = userKey || app.storeUser();
-		app.data.user.pushNotifications = userPushNotifications || false;
+		app.data.user.pushNotifications = userPushNotifications;
 		
 		app.setIdentity(app.data.user.key);
 		
@@ -248,7 +248,7 @@ _.extend(app, {
 			
 		}
 		
-		var fail = function() {
+		var error = function() {
 			
 			console.log('[getStatus] - Failed getting status, assuming success anyway.');
 			
@@ -335,7 +335,7 @@ _.extend(app, {
 	
 		// app.showNotification('Alert', '[setNotifications] - enable: [' + enable + '].');
 		
-		app.data.user.pushNotifications.enabled = enable;
+		app.data.user.pushNotifications = enable;
 		
 		localStorage.setItem( 'user_pushNotifications', enable );
 		
