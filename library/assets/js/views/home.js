@@ -119,7 +119,7 @@
 				});
 				
 				self.$('.btn-notifications').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
-				meetup && meetup.talks.length && self.$('.btn-talks').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
+				meetup && meetup.talks && meetup.talks.length && self.$('.btn-talks').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
 				
 				self.$('.meetup').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
 				self.$('.states').velocity({ bottom: 0 }, { duration: 500, easing: 'easeOutSine' });
@@ -262,12 +262,12 @@
 			
 			var meetupInProgress = meetup && meetup.starts && meetup.ends ? moment().isAfter(moment(meetup.starts)) && moment().isBefore(moment(meetup.ends)) : false;
 			
-			var startDate = meetup ? moment(meetup.starts) : false;
+			var startDate = meetup && meetup.starts ? moment(meetup.starts) : false;
 			
 			$days.html(meetupInProgress || startDate ? (meetupInProgress ? 'Now' : startDate.fromNow(true)) : 'Standby');
 			$date.html(startDate ? startDate.format('ddd, DD MMMM YYYY') : 'Sharkie\'s on it...');
 			
-			meetup && $calendar.find('.number').html(startDate.format('DD'));
+			meetup && meetup.starts && $calendar.find('.number').html(startDate.format('DD'));
 		
 		},
 		
