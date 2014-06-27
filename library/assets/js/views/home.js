@@ -516,7 +516,7 @@
 				app.showConfirm('Attendance', 'You must sign in to mark your attendance.', 'No‚ thanks,Sign in', function(pressed) {
 					if (pressed == 2) {
 						app.view('home')._action = action;
-						app.view('signin').show('slide-up');
+						app.view('signin').show('slide-up', true);
 					}
 				});
 				return;

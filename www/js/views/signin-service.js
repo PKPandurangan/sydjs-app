@@ -63,7 +63,7 @@
 		},
 		
 		previous: function() {
-			app.view('signin').reveal('slide-down');
+			app.view('signin').reveal('slide-down', true);
 		},
 		
 		populateFields: function() {

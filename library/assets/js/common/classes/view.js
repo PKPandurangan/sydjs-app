@@ -337,7 +337,7 @@ _.extend(View.prototype, Backbone.Events, {
 	// Show the view, optionally with an animation effect.
 	// 
 	// Animation options are `slide-up`, `slide-down`, `slide-left`, and `slide-right`
-	show: function(anim) {
+	show: function(anim, quick) {
 		
 		console.log("[show] - view [" + this.id + "]:show(" + ( anim || '' ) + ")");
 		
@@ -382,10 +382,8 @@ _.extend(View.prototype, Backbone.Events, {
 					translateX: [0, translateX],
 					translateY: [0, translateY]
 				}, {
-					duration: 300,
-					easing: 'easeInOutSine',
-					// duration: 500,
-					// easing: 'easeOutExpo',
+					duration: quick ? 300 : 500,
+					easing: quick ? 'easeInOutSine' : 'easeOutExpo',
 					complete: function() {
 						
 						// console.log("[show] - transition complete");
@@ -410,7 +408,7 @@ _.extend(View.prototype, Backbone.Events, {
 	// 
 	// Supports the same animation options as `show` but the effect is applied
 	// to the currently visible screen (if there is one)
-	reveal: function(anim) {
+	reveal: function(anim, quick) {
 		
 		console.log("[reveal] - view [" + this.id + "]:reveal(" + ( anim || '' ) + ")");
 		
@@ -461,10 +459,8 @@ _.extend(View.prototype, Backbone.Events, {
 					translateX: [translateX, 0],
 					translateY: [translateY, 0]
 				}, {
-					duration: 300,
-					easing: 'easeInOutSine',
-					// duration: 300,
-					// easing: 'easeOutSine',
+					duration: quick ? 300 : 300, // while these values are the same, the check is here for consistancy
+					easing: quick ? 'easeInOutSine' : 'easeOutSine',
 					complete: function() {
 						
 						// console.log("[reveal] - view [" + self.id + "]:reveal animation complete");
