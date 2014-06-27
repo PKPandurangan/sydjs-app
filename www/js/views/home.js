@@ -200,7 +200,7 @@
 			
 			var self = this;
 			
-			var pushNotifications = app.data.pushNotifications;
+			var pushNotifications = app.data.user.pushNotifications;
 			
 			if (pushNotifications.enabled) {
 				app.showLoadingSpinner();
@@ -237,7 +237,7 @@
 		
 		setNotifications: function() {
 			
-			var pushNotifications = app.data.pushNotifications;
+			var pushNotifications = app.data.user.pushNotifications;
 			
 			var $notifications = this.$('.btn-notifications');
 			
@@ -358,18 +358,22 @@
 			
 			switch(direction) {
 				case 'left':
+					$left.data('button').disable();
 					$left.find('.text').text(leftText).velocity({ opacity: 1 }, { duration: duration, easing: easing });
 					$left.find('.icon').velocity({ opacity: 0, rotateZ: '135deg' }, { duration: duration, easing: 'easeOutSine' });
 					$right.find('.text').velocity({ opacity: 0 }, { duration: duration, easing: easing });
 					$right.find('.icon').velocity({ opacity: 1, rotateZ: '-90deg' }, { delay: duration, duration: duration, easing: 'easeOutSine' });
 				break;
 				case 'middle':
+					$left.data('button').enable();
+					$right.data('button').enable();
 					$left.find('.text').text(leftText).velocity({ opacity: 1 }, { delay: duration, duration: duration, easing: easing });
 					$left.find('.icon').velocity({ opacity: 0, rotateZ: '135deg' }, { duration: duration, easing: 'easeOutSine' });
 					$right.find('.text').text(rightText).velocity({ opacity: 1 }, { delay: duration, duration: duration, easing: easing });
 					$right.find('.icon').velocity({ opacity: 0, rotateZ: '-135deg' }, { duration: duration, easing: 'easeOutSine' });
 				break;
 				case 'right':
+					$right.data('button').disable();
 					$left.find('.text').velocity({ opacity: 0 }, { duration: duration, easing: 'linear' });
 					$left.find('.icon').velocity({ opacity: 1, rotateZ: '90deg' }, { delay: duration, duration: duration, easing: 'easeOutSine' });
 					$right.find('.text').text(rightText).velocity({ opacity: 1 }, { duration: duration, easing: easing });

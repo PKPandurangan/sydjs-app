@@ -123,7 +123,7 @@ _.extend(app, {
 	storeUser: function() {
 	
 		var userKey = app.generateUser();
-	
+		
 		localStorage.setItem( 'user_key', userKey );
 		
 		return userKey;
@@ -132,13 +132,15 @@ _.extend(app, {
 	
 	populateUser: function() {
 	
-		var userKey = localStorage.getItem( 'user_key' );
+		var userKey = localStorage.getItem( 'user_key' ),
+			userPushNotifications = localStorage.getItem( 'user_pushNotifications' );
 		
 		app.data.user.key = userKey || app.storeUser();
+		app.data.user.pushNotifications = userPushNotifications || false;
 		
 		app.setIdentity(app.data.user.key);
 		
-		console.log('[populateUser] - Set user key as [' + app.data.user.key + '].');
+		console.log('[populateUser] - Set user key as [' + app.data.user.key + '], push notifications as [' + app.data.user.pushNotifications + '].');
 	
 	},
 	
@@ -333,7 +335,9 @@ _.extend(app, {
 	
 		// app.showNotification('Alert', '[setNotifications] - enable: [' + enable + '].');
 		
-		app.data.pushNotifications.enabled = enable;
+		app.data.user.pushNotifications.enabled = enable;
+		
+		localStorage.setItem( 'user_pushNotifications', enable );
 		
 		return callback && callback();
 	
