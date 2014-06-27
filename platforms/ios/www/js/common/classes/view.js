@@ -495,10 +495,13 @@ _.extend(View.prototype, Backbone.Events, {
 	// Hides the current view
 	hide: function() {
 		
+		var self = this;
+		
 		console.log("[hide] - view [" + this.id + "]:hide()");
 		
 		app.hideKeyboard();
-		app.scrollContainer(this);
+		
+		app.scrollContainer(self);
 		
 		// TODO: Handle animation
 		this.$el.hide();

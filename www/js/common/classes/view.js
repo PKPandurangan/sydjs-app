@@ -501,11 +501,7 @@ _.extend(View.prototype, Backbone.Events, {
 		
 		app.hideKeyboard();
 		
-		// wait a moment, then scroll the content back up in case we come
-		// back to this view
-		setTimeout(function() {
-			app.scrollContainer(self);
-		}, 1000);
+		app.scrollContainer(self);
 		
 		// TODO: Handle animation
 		this.$el.hide();
