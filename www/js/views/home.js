@@ -526,6 +526,9 @@
 		toggleRSVP: function(button) {
 			
 			if (_.isEmpty(app.data.session)) {
+				app.view('signin').show('slide-up', true);
+				return;
+				/*
 				var action = false;
 				switch(button) {
 					case 'left': if (!app.data.meetup.rsvped) action = 'attending'; break;
@@ -538,6 +541,7 @@
 					}
 				});
 				return;
+				*/
 			}
 			
 			switch(button) {
