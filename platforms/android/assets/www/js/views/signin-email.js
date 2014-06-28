@@ -70,7 +70,7 @@
 		},
 		
 		previous: function() {
-			app.view('signin').reveal('slide-down');
+			app.view('signin').reveal('slide-down', true);
 		},
 		
 		clearFields: function() {
@@ -228,7 +228,7 @@
 				}, 100);
 				
 				// Show message
-				app.showNotification('Alert', 'Sorry, we couldn\'t validate your password, please try again.' + data ? '\n\n' + data.message : '');
+				app.showNotification('Alert', 'Sorry, we couldn\'t validate your password, please try again.' + (data && data.message && data.message.length ? '\n\n' + data.message : ''));
 				
 			}
 			
@@ -342,7 +342,7 @@
 				self._processingForm = false;
 				
 				// Show message
-				app.showNotification('Alert', 'Sorry, your account could not be created. Please try again.' + data ? '\n\n' + data.message : '');
+				app.showNotification('Alert', 'Sorry, your account could not be created. Please try again.' + (data && data.message && data.message.length ? '\n\n' + data.message : ''));
 				
 			}
 			
@@ -445,7 +445,7 @@
 				}, 100);
 				
 				// Show message
-				app.showNotification('Alert', 'Sorry, we couldn\'t reset your password, please try again.' + data ? '\n\n' + data.message : '');
+				app.showNotification('Alert', 'Sorry, we couldn\'t reset your password, please try again.' + (data && data.message && data.message.length ? '\n\n' + data.message : ''));
 				
 			}
 			

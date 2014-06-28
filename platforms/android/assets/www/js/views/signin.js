@@ -22,9 +22,13 @@
 					top: this.$('.titlebar').height()
 				});
 				
+				$('.btn-service').css({
+					top: availableHeight
+				});
+				
 				setTimeout(function() {
 					self.animateView();
-				}, 100 );
+				}, 150);
 				
 				// iOS: Change status bar style to match view style
 				app.changeStatusBarStyle('white');
@@ -41,7 +45,7 @@
 		},
 		
 		buttons: {
-			'.btn-back': 'previous',
+			'.btn-right': 'previous',
 			'.btn-github': 'serviceSignin',
 			'.btn-facebook': 'serviceSignin',
 			'.btn-google': 'serviceSignin',
@@ -90,7 +94,7 @@
 			
 			var options = 'location=no,toolbar=yes,toolbarposition=top,closebuttoncaption=Cancel';
 			
-			var authWindow = window.open(config.baseURL + '/auth/' + service + '?target=app&version=' + app.data.versions.build, '_blank', options);
+			var authWindow = window.open(config.baseURL + '/auth/' + service + '?target=app&version=' + app.data.version, '_blank', options);
 			
 			authWindow.addEventListener('loadstop', function() {
 				

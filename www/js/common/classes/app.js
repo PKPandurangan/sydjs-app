@@ -39,7 +39,6 @@ _.extend(App.prototype, Backbone.Events, {
 		
 		this.initDevice();
 		this.initResize();
-		this.initScrolling();
 		
 		this.trigger('init');
 		
@@ -92,72 +91,6 @@ _.extend(App.prototype, Backbone.Events, {
 		}
 		resize();
 		$(window).on('resize', resize);
-	},
-	
-	// prevent native scrolling on the document - means that tap-dragging won't reveal
-	// the native background texture on iOS (outer-bounds of webview)
-	initScrolling: function() {
-		
-		var start = null;
-		
-		// capture touchstart so we can detect scroll direction
-		$(window).on('touchstart', function(e) {
-			start = e;
-			console.log( '[initScrolling] - Touch Start event called.' );
-		});
-		
-		// reset on touchend
-		$(window).on('touchend', function(e) {
-			start = null;
-			console.log( '[initScrolling] - Touch End event called.' );
-		});
-		
-		// prevent touchmove events on the window to block document scrolling
-		$(window).on('touchmove', function(e) {
-			e.preventDefault();
-			console.log( '[initScrolling] - Touch Move event called.' );
-		});
-		
-		// stop any events inside a scrollable area from bubbling, or the event will be
-		// cancelled by the window and the scrollable area won't scroll.
-		$(document).on('touchmove', '.scrollable', function(e) {
-			
-			console.log( '[initScrolling] - Touch Move event called within scrollable container.' );
-			
-			// if the element won't scroll, default behaviour applies
-			if (e.currentTarget.scrollHeight <= e.currentTarget.offsetHeight)
-				return;
-			
-			// if the element is scrolled to the top and the user is scrolling up,
-			// or the element is scrolled to the bottom and the user is scrolling down,
-			// offset the scrollTop by 1 to trick the browser into over-scrolling the
-			// container (otherwise the whole window will be scrolled).
-			// 
-			// the effect is a bit jumpy but seems to be the best we can do in this case.
-			if (start) {
-				if (start.pageY > e.pageY && e.currentTarget.scrollTop == e.currentTarget.scrollHeight - e.currentTarget.offsetHeight){
-					// down
-					console.log('app:initScrolling() on document.touchmove: modifying scrollTop to handle scroll: down')
-					e.currentTarget.scrollTop--;
-				}
-					
-				else if (start.pageY < e.pageY && e.currentTarget.scrollTop == 0) {
-					// up
-					console.log('app:initScrolling() on document.touchmove: modifying scrollTop to handle scroll: up')
-					e.currentTarget.scrollTop = 1;
-				}
-				// only do this once!
-				if (start.pageY != e.pageY) {
-					console.log('app:initScrolling() on document.touchmove: resetting start = null')
-					start = null;
-				}
-			}
-			
-			// allow the scroll
-			e.stopPropagation();
-			
-		});
-		
 	},
 	
 	currentViewZ: function() {

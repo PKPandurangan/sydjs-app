@@ -47,11 +47,16 @@
 					}, 750);
 				}
 				
-				// add shake event
+				// add shake event for easter egg
+				this._shakes = 0;
 				if (window.shake) {
 					window.shake.startWatch(function() {
-						setTimeout(function() { self.easterEgg(); }, 500);
-						if (navigator.notification && navigator.notification.vibrate) navigator.notification.vibrate(1000);
+						self._shakes++;
+						if (self._shakes == 3) {
+							setTimeout(function() { self.easterEgg(); }, 500);
+							if (navigator.notification && navigator.notification.vibrate) navigator.notification.vibrate(1000);
+							self._shakes = 0;
+						}
 					});
 				}
 				
@@ -76,9 +81,10 @@
 		
 		buttons: {
 			'.btn-notifications': 'toggleNotifications',
-			'.btn-talks': 'toggleTalks',
+			'.btn-talks': 'viewTalks',
 			
 			'.btn-about': 'viewAbout',
+			'.btn-meetup': 'viewTalks',
 			
 			'.btn-calendar': 'addToCalendar',
 			
@@ -231,7 +237,7 @@
 		
 		},
 		
-		toggleTalks: function() {
+		viewTalks: function() {
 			app.view('talks').show('slide-up');
 		},
 		
@@ -521,6 +527,9 @@
 		toggleRSVP: function(button) {
 			
 			if (_.isEmpty(app.data.session)) {
+				app.view('signin').show('slide-up', true);
+				return;
+				/*
 				var action = false;
 				switch(button) {
 					case 'left': if (!app.data.meetup.rsvped) action = 'attending'; break;
@@ -533,6 +542,7 @@
 					}
 				});
 				return;
+				*/
 			}
 			
 			switch(button) {

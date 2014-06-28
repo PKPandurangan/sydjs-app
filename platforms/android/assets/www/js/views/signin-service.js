@@ -63,7 +63,7 @@
 		},
 		
 		previous: function() {
-			app.view('signin').reveal('slide-down');
+			app.view('signin').reveal('slide-down', true);
 		},
 		
 		populateFields: function() {
@@ -179,7 +179,7 @@
 				self._processingForm = false;
 				
 				// Show message
-				app.showNotification('Alert', 'Sorry, your account could not be created. Please try again.' + data ? '\n\n' + data.message : '');
+				app.showNotification('Alert', 'Sorry, your account could not be created. Please try again.' + (data && data.message && data.message.length ? '\n\n' + data.message : ''));
 			
 			}
 			

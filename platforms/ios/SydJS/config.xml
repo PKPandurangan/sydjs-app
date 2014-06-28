@@ -54,6 +54,7 @@
     <feature name="Accelerometer">
         <param name="ios-package" value="CDVAccelerometer" />
     </feature>
+    <preference name="DisallowOverscroll" value="true" />
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="FadeSplashScreen" value="true" />
     <preference name="FadeSplashScreenDuration" value="0.5f" />

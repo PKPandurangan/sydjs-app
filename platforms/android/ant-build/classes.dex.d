@@ -38,6 +38,10 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/com/sydjs/R$xml.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/com/sydjs/R.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/com/sydjs/SydJS.class \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/hu/dpal/phonegap/plugins/SpinnerDialog$1$1.class \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/hu/dpal/phonegap/plugins/SpinnerDialog$1.class \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/hu/dpal/phonegap/plugins/SpinnerDialog$2.class \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/hu/dpal/phonegap/plugins/SpinnerDialog.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/nl/xservices/plugins/accessor/AbstractCalendarAccessor$Attendee.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/nl/xservices/plugins/accessor/AbstractCalendarAccessor$Event.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/nl/xservices/plugins/accessor/AbstractCalendarAccessor$KeyIndex.class \
@@ -46,6 +50,8 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/nl/xservices/plugins/accessor/LegacyCalendarAccessor.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/nl/xservices/plugins/Calendar.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/org/apache/cordova/device/Device.class \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/org/apache/cordova/devicemotion/AccelListener$1.class \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/org/apache/cordova/devicemotion/AccelListener.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/org/apache/cordova/dialogs/Notification$1$1.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/org/apache/cordova/dialogs/Notification$1$2.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/org/apache/cordova/dialogs/Notification$1.class \
@@ -81,6 +87,7 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/org/apache/cordova/networkinformation/NetworkManager$1.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/org/apache/cordova/networkinformation/NetworkManager.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/org/apache/cordova/splashscreen/SplashScreen.class \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/org/apache/cordova/vibration/Vibration.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/re/notifica/cordova/IntentReceiver$1.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/re/notifica/cordova/IntentReceiver.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/re/notifica/cordova/NotificarePlugin$1.class \
