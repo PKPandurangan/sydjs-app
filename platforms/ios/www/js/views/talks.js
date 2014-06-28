@@ -95,6 +95,15 @@
 				$(html).appendTo($list);
 			
 			});
+			
+			$list.find('a').each(function() {
+				var $link = $(this);
+				$link.on(app.touchSupport ? 'tap' : 'click', function(e) {
+					e.preventDefault();
+					e.stopPropagation();
+					window.open($link.prop('href'), '_system');
+				});
+			});
 		
 		}
 		

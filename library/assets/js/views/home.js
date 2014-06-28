@@ -102,7 +102,7 @@
 			
 			if (this._animated) return;
 			
-			var meetup = app.data.meetup;
+			var meetup = app.data.meetups.next;
 			
 			var $logo = this.$('.logo');
 			
@@ -261,7 +261,7 @@
 		
 		setMeetup: function() {
 		
-			var meetup = app.data.meetup;
+			var meetup = app.data.meetups.next;
 			
 			var $talks = this.$('.btn-talks');
 			
@@ -288,7 +288,7 @@
 				return;
 			}
 			
-			var meetup = app.data.meetup;
+			var meetup = app.data.meetups.next;
 			
 			if (!meetup) return;
 			
@@ -397,7 +397,7 @@
 			
 			var self = this;
 			
-			var meetup = app.data.meetup,
+			var meetup = app.data.meetups.next,
 				user = app.data.session;
 			
 			// RSVP States
@@ -445,7 +445,7 @@
 			
 			var rsvpData = {
 				user: user.userId,
-				meetup: app.data.meetup.id,
+				meetup: app.data.meetups.next.id,
 				attending: options.attending,
 				cancel: options.cancel
 			};
@@ -475,8 +475,8 @@
 					app.showNotification('Alert', 'Sorry, we couldn\'t mark your attendance, please try again.' + (data && data.message && data.message.length ? '\n\n' + data.message : ''));
 					
 					// Reset local cached data
-					app.data.meetup.attending = !app.data.meetup.attending;
-					app.data.meetup.rsvped = !app.data.meetup.rsvped;
+					app.data.meetups.next.attending = !app.data.meetups.next.attending;
+					app.data.meetups.next.rsvped = !app.data.meetups.next.rsvped;
 					
 					// Update status
 					self.setState();
@@ -508,8 +508,8 @@
 			});
 			
 			// Update local cached data
-			app.data.meetup.attending = rsvpData.attending;
-			app.data.meetup.rsvped = !options.cancel ? true : false;
+			app.data.meetups.attending = rsvpData.attending;
+			app.data.meetups.rsvped = !options.cancel ? true : false;
 			
 			// Update status
 			self.setState();
@@ -532,8 +532,8 @@
 				/*
 				var action = false;
 				switch(button) {
-					case 'left': if (!app.data.meetup.rsvped) action = 'attending'; break;
-					case 'right': if (!app.data.meetup.rsvped) action = 'notAttending'; break;
+					case 'left': if (!app.data.meetups.next.rsvped) action = 'attending'; break;
+					case 'right': if (!app.data.meetups.next.rsvped) action = 'notAttending'; break;
 				}
 				app.showConfirm('Attendance', 'You must sign in to mark your attendance.', 'No‚ thanks,Sign in', function(pressed) {
 					if (pressed == 2) {
@@ -547,17 +547,17 @@
 			
 			switch(button) {
 				case 'left':
-					if (app.data.meetup.rsvped && !app.data.meetup.attending) {
+					if (app.data.meetups.next.rsvped && !app.data.meetups.next.attending) {
 						this.rsvpCancel();
-					} else if (!app.data.meetup.rsvped) {
+					} else if (!app.data.meetups.next.rsvped) {
 						this.rsvpAttending();
 					}
 				break;
 				
 				case 'right':
-					if (app.data.meetup.rsvped && app.data.meetup.attending) {
+					if (app.data.meetups.next.rsvped && app.data.meetups.next.attending) {
 						this.rsvpCancel();
-					} else if (!app.data.meetup.rsvped) {
+					} else if (!app.data.meetups.next.rsvped) {
 						this.rsvpNotAttending();
 					}
 				break;
