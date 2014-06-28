@@ -47,11 +47,16 @@
 					}, 750);
 				}
 				
-				// add shake event
+				// add shake event for easter egg
+				this._shakes = 0;
 				if (window.shake) {
 					window.shake.startWatch(function() {
-						setTimeout(function() { self.easterEgg(); }, 500);
-						if (navigator.notification && navigator.notification.vibrate) navigator.notification.vibrate(1000);
+						self._shakes++;
+						if (self._shakes == 3) {
+							setTimeout(function() { self.easterEgg(); }, 500);
+							if (navigator.notification && navigator.notification.vibrate) navigator.notification.vibrate(1000);
+							self._shakes = 0;
+						}
 					});
 				}
 				
