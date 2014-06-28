@@ -81,9 +81,10 @@
 		
 		buttons: {
 			'.btn-notifications': 'toggleNotifications',
-			'.btn-talks': 'toggleTalks',
+			'.btn-talks': 'viewTalks',
 			
 			'.btn-about': 'viewAbout',
+			'.btn-meetup': 'viewTalks',
 			
 			'.btn-calendar': 'addToCalendar',
 			
@@ -236,7 +237,7 @@
 		
 		},
 		
-		toggleTalks: function() {
+		viewTalks: function() {
 			app.view('talks').show('slide-up');
 		},
 		
