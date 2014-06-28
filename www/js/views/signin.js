@@ -45,7 +45,7 @@
 		},
 		
 		buttons: {
-			'.btn-back': 'previous',
+			'.btn-right': 'previous',
 			'.btn-github': 'serviceSignin',
 			'.btn-facebook': 'serviceSignin',
 			'.btn-google': 'serviceSignin',
