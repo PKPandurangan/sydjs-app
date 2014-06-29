@@ -280,7 +280,7 @@ _.extend(app, {
 		
 		localStorage.clear();
 		
-		app.view('welcome').show('slide-up');
+		app.view('signout').show('slide-up');
 	
 	},
 	

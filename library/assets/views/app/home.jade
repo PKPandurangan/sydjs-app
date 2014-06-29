@@ -1,8 +1,11 @@
 #view-home.view
 	.statusbar
-	.container
+	.corners
+		.btn-menu
+			.cross: span
 		.btn-notifications: img(src='img/ui/icon-alarm-white.svg')
-		.btn-talks: img(src='img/ui/icon-talks-white.svg')
+	.container
+		//- .btn-talks: img(src='img/ui/icon-talks-white.svg')
 		.btn-about.logo
 		.btn-meetup.meetup
 			.next-meetup Next Meetup
@@ -28,3 +31,9 @@
 		.squid
 			.wiggler: img(src='img/ui/squid.svg', width=65)
 	.gradient
+	.menu
+		.buttons
+			.btn-join.button: .wrap Join
+			.btn-signout.button: .wrap Sign out
+			.btn-about.button: .wrap About
+			.btn-credits.button: .wrap Credits
