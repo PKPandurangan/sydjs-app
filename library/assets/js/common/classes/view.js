@@ -312,7 +312,7 @@ _.extend(View.prototype, Backbone.Events, {
 				
 			}
 			
-			$switcher.on(app.touchSupport ? 'tap' : 'click', function(e) {
+			$switcher.on('click', function(e) {
 				return toggle();
 			});
 			

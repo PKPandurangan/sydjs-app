@@ -48,7 +48,7 @@
 			var $list = this.$('.list');
 				$list.html('');
 			
-			var talks = app.data.meetup.talks;
+			var talks = app.data.meetups.next.talks;
 			
 			_.each(talks, function(talk) {
 			
@@ -98,7 +98,7 @@
 			
 			$list.find('a').each(function() {
 				var $link = $(this);
-				$link.on(app.touchSupport ? 'tap' : 'click', function(e) {
+				$link.click(function(e) {
 					e.preventDefault();
 					e.stopPropagation();
 					window.open($link.prop('href'), '_system');

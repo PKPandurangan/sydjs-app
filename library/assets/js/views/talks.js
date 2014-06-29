@@ -98,10 +98,10 @@
 			
 			$list.find('a').each(function() {
 				var $link = $(this);
-				$link.on(app.touchSupport ? 'tap' : 'click', function(e) {
+				$link.click(function(e) {
 					e.preventDefault();
 					e.stopPropagation();
-					// window.open($link.prop('href'), '_system');
+					window.open($link.prop('href'), '_system');
 				});
 			});
 		

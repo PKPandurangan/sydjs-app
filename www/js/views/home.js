@@ -397,8 +397,7 @@
 			
 			var self = this;
 			
-			var meetup = app.data.meetups.next,
-				user = app.data.session;
+			var meetup = app.data.meetups.next;
 			
 			// RSVP States
 			var $states = this.$('.states');
@@ -508,8 +507,8 @@
 			});
 			
 			// Update local cached data
-			app.data.meetups.attending = rsvpData.attending;
-			app.data.meetups.rsvped = !options.cancel ? true : false;
+			app.data.meetups.next.attending = rsvpData.attending;
+			app.data.meetups.next.rsvped = !options.cancel ? true : false;
 			
 			// Update status
 			self.setState();
