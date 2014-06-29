@@ -58,6 +58,9 @@
 					}, 750);
 				}
 				
+				// enable tilting background
+				this.$('.background').removeClass('disabled');
+				
 				// add shake event for easter egg
 				this._shakes = 0;
 				if (window.shake) {
@@ -84,7 +87,10 @@
 				// make sure menu is hidden
 				this.$('.menu').css('opacity', 0).hide();
 				this._menuOpen = false;
-			
+				
+				// disable tilting background
+				this.$('.background').addClass('disabled');
+				
 				// stop watching for shake event
 				if (window.shake) window.shake.stopWatch();
 				
@@ -99,7 +105,7 @@
 			'.corners .btn-notifications': 'toggleNotifications',
 			// '.corners .btn-talks': 'viewTalks',
 			
-			'.container .btn-about': 'viewAbout',
+			// '.container .btn-about': 'viewAbout',
 			'.container .btn-meetup': 'viewTalks',
 			
 			'.container .btn-calendar': 'addToCalendar',
@@ -130,7 +136,7 @@
 			var photoTilt = new PhotoTilt({
 				url: 'img/background.jpg',
 				container: this.$('.background')[0],
-				maxTilt: 25
+				maxTilt: 250
 			});
 			
 		},
@@ -154,9 +160,11 @@
 			$logo.css('marginTop', (availableHeight / 2) - ($logo.height() / 2));
 			
 			$logo.velocity({
-				marginTop: logoHeight - this.$('.statusbar').height()
+				marginTop: this.$('.statusbar').height() - 32,
+				scaleX: 0.4,
+				scaleY: 0.4
 			}, {
-				delay: 250, duration: 750, easing: 'easeInOutCubic', complete: function() {
+				delay: 0, duration: 1000, easing: 'easeInOutCubic', complete: function() {
 				
 				var logoPosition = self.$('.logo').offset(),
 					logoParentPosition = self.$('.logo').parent().offset();
@@ -164,19 +172,24 @@
 				var offset = logoPosition.top - logoParentPosition.top;
 				
 				self.$('.meetup').css({
-					marginTop: offset + meetupHeight + self.$('.statusbar').height() + 140
+					marginTop: offset + meetupHeight + self.$('.statusbar').height() + 150
 				});
 				
 				self.$('.btn-menu').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
 				self.$('.btn-notifications').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
 				// meetup && meetup.talks && meetup.talks.length && self.$('.btn-talks').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
 				
-				self.$('.meetup').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
-				self.$('.states').velocity({ bottom: 0 }, { duration: 500, easing: 'easeOutSine' });
+				setTimeout(function() {
+					self.$('.meetup').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
+				}, 250);
+				
+				setTimeout(function() {
+					self.$('.states').velocity({ bottom: 0 }, { duration: 500, easing: 'easeOutSine' });
+				}, 500);
 				
 				setTimeout(function() {
 					meetup && meetup.rsvped && meetup.attending && self.animateCalendar('up');
-				}, 500);
+				}, 750);
 				
 			}});
 			

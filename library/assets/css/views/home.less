@@ -14,40 +14,20 @@
 			right: 0;
 			bottom: 0;
 			overflow: hidden;
+			
+			img {
+				position: absolute;
+				left: 0;
+				top: 0;
+				
+				-webkit-transition: -webkit-transform 1.5s linear;
+				-webkit-backface-visibility: hidden;
+				-webkit-perspective: 1000;
+				-webkit-transform: translatez(0);
+			}
 		}
 		
-		.mask img {
-			position: absolute;
-			left: 0;
-			top: 0;
-		}
-		
-		.tilt-bar {
-			position: fixed;
-			bottom: 30px;
-			left: 10px;
-			right: 10px;
-			height: 1px;
-			z-index: 1;
-			background-color: rgba(255,255,255,0.3);
-		}
-		
-		.tilt-indicator {
-			background-color: rgba(255,255,255,0.8);
-			height: 1px;
-			position: absolute;
-		}
-		
-		.mask img,
-		.tilt-indicator {
-			-webkit-transition: -webkit-transform 3s linear;
-			-webkit-backface-visibility: hidden;
-			-webkit-perspective: 1000;
-			-webkit-transform: translatez(0);
-		}
-		
-		.disable-transitions .mask img,
-		.disable-transitions .tilt-indicator {
+		&.disabled .mask img {
 			-webkit-transition: none;
 		}
 		
@@ -192,17 +172,13 @@
 		
 		.logo {
 			position: absolute;
-			top: 0px;
-			left: 50%;
-			
-			width: 115.5px;
+			width: 100%;
 			height: 84.5px;
 			
 			background-image: url('../img/ui/logo.png');
-			background-size: 115.5px 84.5px;
-			
-			margin-left: -57.75px;
-			margin-top: -42.25px;
+			background-size: 115.5px;
+			background-position: center;
+			background-repeat: no-repeat;
 			
 			&.pressed {
 				opacity: 0.8;

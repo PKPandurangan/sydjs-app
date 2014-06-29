@@ -42,7 +42,7 @@ var PhotoTilt = function(options) {
 	var updatePosition = function() {
 		
 		var tilt = latestTilt;
-			
+		
 		if (tilt > 0) {
 			tilt = Math.min(tilt, config.maxTilt);
 		} else {
@@ -65,17 +65,15 @@ var PhotoTilt = function(options) {
 			
 			window.addEventListener('deviceorientation', function(eventData) {
 				
-				if (!disableTilt) {
-					
-					if (averageGamma.length > 8) {
-						averageGamma.shift();
-					}
-					
-					averageGamma.push(eventData.gamma);
-					
-					latestTilt = averageGamma.reduce(function(a, b) { return a+b; }) / averageGamma.length;
-					
+				if (disableTilt) return;
+				
+				if (averageGamma.length > 8) {
+					averageGamma.shift();
 				}
+				
+				averageGamma.push(eventData.gamma);
+				
+				latestTilt = averageGamma.reduce(function(a, b) { return a+b; }) / averageGamma.length;
 				
 			}, false);
 			
@@ -114,11 +112,11 @@ var PhotoTilt = function(options) {
 		
 		if (tiltCenterOffset > 0) {
 			disableTilt = false;
-			container.classList.remove('disable-transitions');
+			container.classList.remove('disabled');
 		} else {
 			disableTilt = true;
 			latestTilt = 0;
-			container.classList.add('disable-transitions');
+			container.classList.add('disabled');
 		}
 		
 		mask.appendChild(img);
