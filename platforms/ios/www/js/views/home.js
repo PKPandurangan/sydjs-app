@@ -32,11 +32,14 @@
 				
 				var self = this;
 				
+				this.setBackground();
+				
 				this.animateView();
 				
 				this.setNotifications();
 				this.setMeetup();
 				this.setState(true);
+				this.setSession();
 				
 				// preload green notifications icon
 				var $image = $(new Image());
@@ -108,8 +111,28 @@
 			'.container .rsvp-attending .btn-cancel': 'rsvpCancel',
 			
 			'.menu .btn-join': 'menuJoin',
+			'.menu .btn-signout': 'menuSignout',
 			'.menu .btn-about': 'menuAbout',
 			'.menu .btn-credits': 'menuCredits',
+		},
+		
+		setBackground: function() {
+			
+			var self = this;
+			
+			this.$('.background').css('opacity', 0);
+			this.$('.background').velocity({
+				opacity: 1
+			}, {
+				duration: 500, easing: 'linear'
+			});
+			
+			var photoTilt = new PhotoTilt({
+				url: 'img/background.jpg',
+				container: this.$('.background')[0],
+				maxTilt: 25
+			});
+			
 		},
 		
 		animateView: function() {
@@ -290,10 +313,6 @@
 		
 		viewTalks: function() {
 			app.view('talks').show('slide-up');
-		},
-		
-		viewAbout: function() {
-			app.view('about').show('slide-down');
 		},
 		
 		setNotifications: function() {
@@ -627,16 +646,30 @@
 			this.toggleAttending({ attending: false, cancel: true });
 		},
 		
+		setSession: function() {
+			this.$('.menu .btn-signout').hide();
+			this.$('.menu .btn-join').hide();
+			if (app.data.session.userId) {
+				this.$('.menu .btn-signout').show();
+			} else {
+				this.$('.menu .btn-join').show();
+			}
+		},
+		
 		menuJoin: function() {
-			
+			app.view('signin').show('slide-up', true);
+		},
+		
+		menuSignout: function() {
+			app.signOut();
 		},
 		
 		menuAbout: function() {
-			
+			app.view('about').show('slide-down');
 		},
 		
 		menuCredits: function() {
-			
+			// app.view('credits').show('slide-down');
 		},
 		
 		easterEgg: function() {

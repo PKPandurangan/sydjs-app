@@ -32,6 +32,8 @@
 				
 				var self = this;
 				
+				this.setBackground();
+				
 				this.animateView();
 				
 				this.setNotifications();
@@ -112,6 +114,25 @@
 			'.menu .btn-signout': 'menuSignout',
 			'.menu .btn-about': 'menuAbout',
 			'.menu .btn-credits': 'menuCredits',
+		},
+		
+		setBackground: function() {
+			
+			var self = this;
+			
+			this.$('.background').css('opacity', 0);
+			this.$('.background').velocity({
+				opacity: 1
+			}, {
+				duration: 500, easing: 'linear'
+			});
+			
+			var photoTilt = new PhotoTilt({
+				url: 'img/background.jpg',
+				container: this.$('.background')[0],
+				maxTilt: 25
+			});
+			
 		},
 		
 		animateView: function() {
