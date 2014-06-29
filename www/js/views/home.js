@@ -294,10 +294,6 @@
 			app.view('talks').show('slide-up');
 		},
 		
-		viewAbout: function() {
-			app.view('about').show('slide-down');
-		},
-		
 		setNotifications: function() {
 			
 			var pushNotifications = app.data.user.pushNotifications;
@@ -640,7 +636,7 @@
 		},
 		
 		menuJoin: function() {
-			
+			app.view('signin').show('slide-up', true);
 		},
 		
 		menuSignout: function() {
@@ -648,11 +644,11 @@
 		},
 		
 		menuAbout: function() {
-			
+			app.view('about').show('slide-down');
 		},
 		
 		menuCredits: function() {
-			
+			// app.view('credits').show('slide-down');
 		},
 		
 		easterEgg: function() {
