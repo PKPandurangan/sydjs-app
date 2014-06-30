@@ -51,7 +51,19 @@ module.exports = function(grunt) {
 						filter: function(filepath) {
 							return filepath.match(/\.js|\.min.js/);
 						}
+					},
+					// Fonts
+					/*
+					{
+						expand: true,
+						cwd: '../assets/fonts',
+						src: ['**'],
+						dest: '../../www/fonts',
+						filter: function(filepath) {
+							return filepath.match(/\.ttf/);
+						}
 					}
+					*/
 				]
 			}
 		},

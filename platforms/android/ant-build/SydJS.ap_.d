@@ -647,6 +647,7 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/components/velocity.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/components/zepto.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/app.css \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/background.jpg \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/backgrounds \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/icon-alarm-black.svg \
@@ -680,6 +681,7 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/classes \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/ui \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/classes/app.js \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/classes/phototilt.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/classes/velocity.shim.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/classes/view.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/ui/button.js \
@@ -690,6 +692,7 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/views/signin-email.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/views/signin-service.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/views/signin.js \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/views/signout.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/views/talks.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/plugins/hu.dpal.phonegap.plugins.SpinnerDialog \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/plugins/nl.x-services.plugins.calendar \

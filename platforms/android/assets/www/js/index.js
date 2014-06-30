@@ -14,7 +14,7 @@ _.extend(app.data, {
 	
 	session: {}, // Session related data (code used etc)
 	
-	meetup: {}, // Meetup related data
+	meetups: {}, // Meetup related data
 	
 	pushNotifications: {}
 	
@@ -239,7 +239,7 @@ _.extend(app, {
 			app.checkConfig();
 			
 			// Set meetup status
-			if (data.meetup) app.data.meetup = data.meetup;
+			if (data.meetups) app.data.meetups = data.meetups;
 			
 			// Set user data
 			if (data.user) app.data.session = data.user;
@@ -280,7 +280,7 @@ _.extend(app, {
 		
 		localStorage.clear();
 		
-		app.view('welcome').show('slide-up');
+		app.view('signout').show('slide-up');
 	
 	},
 	

@@ -13,8 +13,7 @@
 				
 				var availableHeight = app.viewportSize.height
 					- this.$('.statusbar').height()
-					- this.$('.titlebar').height()
-					- this.$('.footer').height();
+					- this.$('.titlebar').height();
 					
 				this.$('.container').css({
 					height: availableHeight,
@@ -25,6 +24,8 @@
 			visible: function() {
 				
 				this.renderTalks();
+				
+				this.animateView();
 				
 				// iOS: Change status bar style to match view style
 				app.changeStatusBarStyle('black');
@@ -48,7 +49,9 @@
 			var $list = this.$('.list');
 				$list.html('');
 			
-			var talks = app.data.meetup.talks;
+			var talks = app.data.meetups.next.talks;
+			
+			$list.css('padding-bottom', 25);
 			
 			_.each(talks, function(talk) {
 			
@@ -95,7 +98,24 @@
 				$(html).appendTo($list);
 			
 			});
+			
+			$list.find('a').each(function() {
+				var $link = $(this);
+				$link.click(function(e) {
+					e.preventDefault();
+					window.open($link.prop('href'), '_system');
+				});
+			});
 		
+		},
+		
+		animateView: function() {
+			var self = this;
+			this.$('.footer').css('bottom', -75);
+			this.$('.footer').velocity({ bottom: 0 }, { delay: 250, duration: 500, easing: 'easeOutSine', complete: function() {
+				self.$('.container').css('height', self.$('.container').height() - 75);
+				self.$('.list').css('padding-bottom', 25);
+			}});
 		}
 		
 	});
