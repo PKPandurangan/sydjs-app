@@ -683,7 +683,6 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/ui \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/classes/app.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/classes/touch.js \
-/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/classes/velocity.shim.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/classes/view.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/ui/button.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/ui/spinner.js \
