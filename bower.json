@@ -13,6 +13,7 @@
     "moment": "*",
     "backbone": "*",
     "async": "*",
-    "velocity": "*"
+    "velocity": "*",
+    "jquery.parallaxify": "*"
   }
 }
