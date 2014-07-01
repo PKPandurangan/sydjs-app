@@ -7,7 +7,6 @@
     "components"
   ],
   "dependencies": {
-    "zeptojs": "*",
     "jquery": "*",
     "underscore": "*",
     "moment": "*",

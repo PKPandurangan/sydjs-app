@@ -75,24 +75,11 @@ module.exports = function(grunt) {
 				files: {
 					'../../www/components/async.js': ['../assets/components/async/lib/async.js'],
 					'../../www/components/backbone.js': ['../assets/components/backbone/backbone.js'],
-					// '../../www/components/fastclick.js': ['../assets/components/fastclick/lib/fastclick.js'],
 					'../../www/components/jquery.js': ['../assets/components/jquery/dist/jquery.js'],
 					'../../www/components/moment.js': ['../assets/components/moment/moment.js'],
 					'../../www/components/underscore.js': ['../assets/components/underscore/underscore.js'],
 					'../../www/components/velocity.js': ['../assets/components/velocity/jquery.velocity.js'],
-					'../../www/components/parallaxify.js': ['../assets/components/jquery.parallaxify/jquery.parallaxify.js'],
-					/*
-					'../../www/components/zepto.js': [
-						'../assets/components/zeptojs/src/zepto.js',
-						'../assets/components/zeptojs/src/data.js',
-						'../assets/components/zeptojs/src/event.js',
-						'../assets/components/zeptojs/src/ajax.js',
-						'../assets/components/zeptojs/src/detect.js',
-						'../assets/components/zeptojs/src/selector.js',
-						'../assets/components/zeptojs/src/fx.js',
-						'../assets/components/zeptojs/src/touch.js'
-					]
-					*/
+					'../../www/components/parallaxify.js': ['../assets/components/jquery.parallaxify/jquery.parallaxify.js']
 				}
 			}
 		},
