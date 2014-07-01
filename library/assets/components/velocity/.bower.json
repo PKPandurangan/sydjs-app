@@ -1,6 +1,6 @@
 {
   "name": "velocity",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "homepage": "http://velocityjs.org",
   "authors": [
     {
@@ -33,11 +33,11 @@
     "type": "git",
     "url": "http://github.com/julianshapiro/velocity.git"
   },
-  "_release": "0.2.0",
+  "_release": "0.3.0",
   "_resolution": {
     "type": "version",
-    "tag": "0.2.0",
-    "commit": "71e6e00c37b75e36d754fc0c783789c00d6edf21"
+    "tag": "0.3.0",
+    "commit": "637bf59397e7d2c931c27ce0b46bffe070ec9286"
   },
   "_source": "git://github.com/julianshapiro/velocity.git",
   "_target": "*",
