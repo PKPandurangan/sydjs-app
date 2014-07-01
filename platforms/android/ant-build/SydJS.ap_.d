@@ -642,10 +642,11 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/plugins \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/components/async.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/components/backbone.js \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/components/jquery.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/components/moment.js \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/components/parallaxify.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/components/underscore.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/components/velocity.js \
-/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/components/zepto.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/app.css \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/background.jpg \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui \
@@ -681,7 +682,7 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/classes \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/ui \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/classes/app.js \
-/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/classes/phototilt.js \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/classes/touch.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/classes/velocity.shim.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/classes/view.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/ui/button.js \

@@ -53,11 +53,14 @@ html
 			include app/signout
 		
 		//- include common js libraries
-		script(src='components/zepto.js')
-		script(src='js/common/classes/velocity.shim.js')
+		//- script(src='components/zepto.js')
+		//- script(src='js/common/classes/velocity.shim.js')
+		
+		script(src='components/jquery.js')
 		
 		script(src='components/velocity.js')
 		script(src='components/underscore.js')
+		script(src='components/parallaxify.js')
 		script(src='components/backbone.js')
 		script(src='components/async.js')
 		script(src='components/moment.js')
@@ -95,9 +98,9 @@ html
 				};
 		
 		//- class scripts
+		script(src='js/common/classes/touch.js')
 		script(src='js/common/classes/app.js')
 		script(src='js/common/classes/view.js')
-		script(src='js/common/classes/phototilt.js')
 		
 		//- ui scripts
 		script(src='js/common/ui/button.js')
@@ -129,7 +132,7 @@ html
 					app.init();
 				} else {
 					console.log( '[root] - Detected mobile device, setting device ready event...' );
-					$(document).on( 'deviceready',  function() {
+					$(document).on('deviceready', function() {
 						if (navigator.splashscreen && navigator.splashscreen.hide) {
 							navigator.splashscreen.hide();
 						}

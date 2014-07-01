@@ -1,36 +1,13 @@
 #view-home {
 	.background {
-		width: 100%;
-		height: 100%;
+		width: 1280px;
+		height: 800px;
 		position: absolute;
 		top: 0px;
 		left: 0px;
 		z-index: 0;
-		
-		.mask {
-			position: absolute;
-			top:0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			overflow: hidden;
-			
-			img {
-				position: absolute;
-				left: 0;
-				top: 0;
-				
-				-webkit-transition: -webkit-transform 1.5s linear;
-				-webkit-backface-visibility: hidden;
-				-webkit-perspective: 1000;
-				-webkit-transform: translatez(0);
-			}
-		}
-		
-		&.disabled .mask img {
-			-webkit-transition: none;
-		}
-		
+		background-image: url('../img/background.jpg');
+		background-repeat: no-repeat;
 	}
 	.gradient {
 		.fill;
