@@ -80,9 +80,9 @@
 			// TODO: Check switcher being reset
 			
 			var fields = [];
-				fields.push(['signin-email', 'signin-password']);
-				fields.push(['signup-firstName', 'signup-lastName', 'signup-email', 'signup-password', 'signup-website', 'signup-alertsNotifications']);
-				fields.push(['recover-email']);
+				fields.push('signin-email', 'signin-password');
+				fields.push('signup-firstName', 'signup-lastName', 'signup-email', 'signup-password', 'signup-website', 'signup-alertsNotifications');
+				fields.push('recover-email');
 			
 			_.each(fields, function(key) {
 				self.field(key).val('');
