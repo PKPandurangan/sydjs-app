@@ -169,10 +169,9 @@
 			$logo.css('marginTop', logoPosition);
 			
 			$logo.velocity({
-				opacity: 0,
-				top: -($logo.height() / 2)
+				opacity: 0
 			}, {
-				duration: 500, easing: 'easeOut', complete: function() {
+				duration: 300, easing: 'easeOut', complete: function() {
 				
 				self.$('.meetup').css({
 					marginTop: (availableHeight / 2) - (self.$('.meetup').height() / 2) - self.$('.statusbar').height()

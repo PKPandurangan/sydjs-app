@@ -59,9 +59,6 @@
 					}, 750);
 				}
 				
-				// enable tilting background
-				this.$('.background').removeClass('disabled');
-				
 				// add shake event for easter egg
 				this._shakes = 0;
 				if (window.shake) {
@@ -86,11 +83,10 @@
 			hidden: function() {
 			
 				// make sure menu is hidden
-				this.$('.menu').css('opacity', 0).hide();
-				this._menuOpen = false;
+				this.toggleMenu();
 				
-				// disable tilting background
-				this.$('.background').addClass('disabled');
+				// disable parallaxify background
+				this._parallaxify.data('plugin_parallaxify').destroy()
 				
 				// stop watching for shake event
 				if (window.shake) window.shake.stopWatch();
@@ -103,6 +99,7 @@
 		
 		buttons: {
 			'.corners .btn-menu': 'toggleMenu',
+			'.corners .btn-logo': 'viewTalks',
 			'.corners .btn-notifications': 'toggleNotifications',
 			// '.corners .btn-talks': 'viewTalks',
 			
@@ -130,7 +127,7 @@
 			$background.css('margin-left', -(305 - (app.viewportSize.width / 2)));
 			$background.css('margin-top', -(400 - (app.viewportSize.height / 2))); // 400
 			
-			this.$el.parallaxify({
+			this._parallaxify = this.$el.parallaxify({
 				positionProperty: 'transform',
 				motionType: 'gaussian',
 				useMouseMove: false,
@@ -169,10 +166,9 @@
 			$logo.css('marginTop', logoPosition);
 			
 			$logo.velocity({
-				opacity: 0,
-				top: -($logo.height() / 2)
+				opacity: 0
 			}, {
-				duration: 750, easing: 'easeOut', complete: function() {
+				duration: 300, easing: 'easeOut', complete: function() {
 				
 				self.$('.meetup').css({
 					marginTop: (availableHeight / 2) - (self.$('.meetup').height() / 2) - self.$('.statusbar').height()
