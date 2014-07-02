@@ -127,13 +127,14 @@
 			
 			var $background = this.$('.background');
 			
-			$background.css('margin-left', -(640 - (app.viewportSize.width / 2)));
+			$background.css('margin-left', -(305 - (app.viewportSize.width / 2)));
 			$background.css('margin-top', -(400 - (app.viewportSize.height / 2))); // 400
 			
 			this.$el.parallaxify({
 				positionProperty: 'transform',
 				motionType: 'gaussian',
-				alphaFilter: 0.45,
+				useMouseMove: false,
+				alphaFilter: 0.9,
 				adjustBasePosition: false
 			});
 			
@@ -163,25 +164,22 @@
 			var logoHeight = $logo.height(),
 				meetupHeight = this.$('.meetup').height();
 			
-			$logo.css('marginTop', (availableHeight / 2) - ($logo.height() / 2));
+			var logoPosition = (availableHeight / 2) - ($logo.height() / 2);
+			
+			$logo.css('marginTop', logoPosition);
 			
 			$logo.velocity({
-				marginTop: this.$('.statusbar').height() - 32,
-				scaleX: 0.4,
-				scaleY: 0.4
+				opacity: 0,
+				top: -($logo.height() / 2)
 			}, {
-				delay: 0, duration: 1000, easing: 'easeInOutCubic', complete: function() {
-				
-				var logoPosition = self.$('.logo').offset(),
-					logoParentPosition = self.$('.logo').parent().offset();
-				
-				var offset = logoPosition.top - logoParentPosition.top;
+				duration: 750, easing: 'easeOut', complete: function() {
 				
 				self.$('.meetup').css({
-					marginTop: offset + meetupHeight + self.$('.statusbar').height() + 150
+					marginTop: (availableHeight / 2) - (self.$('.meetup').height() / 2) - self.$('.statusbar').height()
 				});
 				
 				self.$('.btn-menu').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
+				self.$('.btn-logo').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
 				self.$('.btn-notifications').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
 				// meetup && meetup.talks && meetup.talks.length && self.$('.btn-talks').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
 				
