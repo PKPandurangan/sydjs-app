@@ -169,6 +169,7 @@
 				beta : 0,
 				gamma : 0
 			};
+			console.log(1);
 
 			this._defineElements();
 			this._defineGetters();
@@ -461,6 +462,8 @@
 			if (this.useSensorMoz) window.removeEventListener('MozOrientation', this._handleSensorMoz, false);
 
 			$(window).unbind('load.' + this.name).unbind('resize.' + this.name).unbind('orientationchange.' + this.name);
+			
+			this.$element.data('plugin_' + pluginName, null);
 		},
 		_processSensorData: function() {
 

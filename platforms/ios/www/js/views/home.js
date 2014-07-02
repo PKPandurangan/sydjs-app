@@ -86,7 +86,7 @@
 				this.toggleMenu(true);
 				
 				// disable parallaxify background
-				this._parallaxify.data('plugin_parallaxify').destroy()
+				this._parallaxify && this._parallaxify.data('plugin_parallaxify').destroy();
 				
 				// stop watching for shake event
 				if (window.shake) window.shake.stopWatch();
@@ -124,9 +124,9 @@
 			
 			var $background = this.$('.background');
 			
-			$background.css('margin-left', -(500 - (app.viewportSize.width / 2)));
-			$background.css('margin-top', -(400 - (app.viewportSize.height / 2))); // 400
-			
+			$background.css('margin-left', -(410 - (app.viewportSize.width / 2)));
+			$background.css('margin-top', -(361 - (app.viewportSize.height / 2))); // 400
+			return;
 			this._parallaxify = this.$el.parallaxify({
 				positionProperty: 'transform',
 				motionType: 'gaussian',
@@ -275,7 +275,7 @@
 				return;
 			}
 			
-			if (hideOnly) return;
+			if (typeof hideOnly == 'boolean') return;
 			
 			this._menuOpen = true;
 			

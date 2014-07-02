@@ -86,7 +86,7 @@
 				this.toggleMenu(true);
 				
 				// disable parallaxify background
-				this._parallaxify.data('plugin_parallaxify').destroy()
+				this._parallaxify && this._parallaxify.data('plugin_parallaxify').destroy();
 				
 				// stop watching for shake event
 				if (window.shake) window.shake.stopWatch();
