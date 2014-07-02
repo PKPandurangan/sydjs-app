@@ -144,6 +144,19 @@ _.extend(app, {
 	
 	},
 	
+	preloadUser: function(callback) {
+		
+		var $image = $(new Image());
+		
+		$image.on({
+			load: function() { callback() },
+			error: function() { callback() }
+		});
+		
+		$image.prop('src', app.data.session.avatar);
+		
+	},
+	
 	generateUser: function() {
 	
 		var key = '',

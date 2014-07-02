@@ -1,6 +1,6 @@
 (function() {
 	
-	new View('signout', {
+	new View('signed-in', {
 		
 		on: {
 			layout: function() {
@@ -16,7 +16,7 @@
 				app.changeStatusBarStyle('black');
 				
 				// analytics
-				app.trackEvent({ label: 'Signout', category: 'view', action: 'visible' });
+				app.trackEvent({ label: 'Signed In', category: 'view', action: 'visible' });
 				
 			},
 			hidden: function() {
@@ -47,11 +47,11 @@
 			
 			this.$('.message').velocity({
 				marginTop: position - 50,
-			}, { duration: 2500, easing: 'linear', queue: false });
+			}, { duration: 2000, easing: 'linear', queue: false });
 			
 			setTimeout(function() {
 				app.view('home').reveal('slide-up');
-			}, 2500);
+			}, 2000);
 		
 		}
 		

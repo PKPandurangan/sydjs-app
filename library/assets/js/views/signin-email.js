@@ -80,7 +80,7 @@
 			// TODO: Check switcher being reset
 			
 			var fields = [];
-				fields.push(['signin-username', 'signin-password']);
+				fields.push(['signin-email', 'signin-password']);
 				fields.push(['signup-firstName', 'signup-lastName', 'signup-email', 'signup-password', 'signup-website', 'signup-alertsNotifications']);
 				fields.push(['recover-email']);
 			
@@ -162,7 +162,7 @@
 			// Validate the form data
 			if (!inputData.username.trim().length) {
 				self._processingForm = false;
-				app.showNotification('Alert', 'Please enter your username.');
+				app.showNotification('Alert', 'Please enter your email.');
 				return;
 			}
 			 
@@ -206,7 +206,9 @@
 				
 				// Go to another view
 				app.getStatus(function() {
-					app.view('home').show('slide-up');
+					app.preloadUser(function() {
+						app.view('signin-successful').show('slide-up');
+					});
 				});
 			
 			}
@@ -327,7 +329,11 @@
 				self.clearFields();
 				
 				// Go to another view
-				app.view('home').show('slide-up');
+				app.getStatus(function() {
+					app.preloadUser(function() {
+						app.view('signin-successful').show('slide-up');
+					});
+				});
 				
 			}
 			

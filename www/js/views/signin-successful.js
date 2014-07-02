@@ -1,6 +1,6 @@
 (function() {
 	
-	new View('signout', {
+	new View('signin-successful', {
 		
 		on: {
 			layout: function() {
@@ -16,7 +16,7 @@
 				app.changeStatusBarStyle('black');
 				
 				// analytics
-				app.trackEvent({ label: 'Signout', category: 'view', action: 'visible' });
+				app.trackEvent({ label: 'Signed In', category: 'view', action: 'visible' });
 				
 			},
 			hidden: function() {
@@ -26,11 +26,9 @@
 			}
 		},
 		
-		buttons: {
-			//
-		},
-		
 		animateView: function() {
+			
+			this.$('.heading').html('Hi ' + (app.data.session.name.first || 'there') + '!');
 			
 			var availableHeight = app.viewportSize.height;
 			
@@ -44,6 +42,8 @@
 			this.$('.message').velocity({
 				opacity: 1
 			}, { duration: 500, easing: 'linear' });
+			
+			this.$('.avatar').css('background-image', 'url(' + app.data.session.avatar + ')');
 			
 			this.$('.message').velocity({
 				marginTop: position - 50,

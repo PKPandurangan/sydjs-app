@@ -47,11 +47,11 @@
 			
 			this.$('.message').velocity({
 				marginTop: position - 50,
-			}, { duration: 2000, easing: 'linear', queue: false });
+			}, { duration: 2500, easing: 'linear', queue: false });
 			
 			setTimeout(function() {
 				app.view('home').reveal('slide-up');
-			}, 2000);
+			}, 2500);
 		
 		}
 		

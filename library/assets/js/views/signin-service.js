@@ -163,7 +163,9 @@
 				
 				// Go to another view
 				app.getStatus(function() {
-					app.view('home').show('slide-up');
+					app.preloadUser(function() {
+						app.view('signin-successful').show('slide-up');
+					});
 				});
 				
 			}
