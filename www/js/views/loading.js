@@ -27,7 +27,7 @@
 				var availableHeight = app.viewportSize.height -
 					this.$('.statusbar').height();
 				
-				this.$('.logo').css('marginTop', (availableHeight / 2) - (this.$('.logo').height() / 2));
+				this.$('.logo').css('marginTop', (availableHeight / 2) - (this.$('.logo').height() / 2) - this.$('.statusbar').height());
 				
 				// iOS: Change status bar style to match view style
 				app.changeStatusBarStyle('white');

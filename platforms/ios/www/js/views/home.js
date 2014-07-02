@@ -59,9 +59,6 @@
 					}, 750);
 				}
 				
-				// enable tilting background
-				this.$('.background').removeClass('disabled');
-				
 				// add shake event for easter egg
 				this._shakes = 0;
 				if (window.shake) {
@@ -86,11 +83,10 @@
 			hidden: function() {
 			
 				// make sure menu is hidden
-				this.$('.menu').css('opacity', 0).hide();
-				this._menuOpen = false;
+				this.toggleMenu(true);
 				
-				// disable tilting background
-				this.$('.background').addClass('disabled');
+				// disable parallaxify background
+				this._parallaxify.data('plugin_parallaxify').destroy()
 				
 				// stop watching for shake event
 				if (window.shake) window.shake.stopWatch();
@@ -103,6 +99,7 @@
 		
 		buttons: {
 			'.corners .btn-menu': 'toggleMenu',
+			'.corners .btn-logo': 'viewTalks',
 			'.corners .btn-notifications': 'toggleNotifications',
 			// '.corners .btn-talks': 'viewTalks',
 			
@@ -127,10 +124,10 @@
 			
 			var $background = this.$('.background');
 			
-			$background.css('margin-left', -(305 - (app.viewportSize.width / 2)));
+			$background.css('margin-left', -(500 - (app.viewportSize.width / 2)));
 			$background.css('margin-top', -(400 - (app.viewportSize.height / 2))); // 400
 			
-			this.$el.parallaxify({
+			this._parallaxify = this.$el.parallaxify({
 				positionProperty: 'transform',
 				motionType: 'gaussian',
 				useMouseMove: false,
@@ -164,7 +161,7 @@
 			var logoHeight = $logo.height(),
 				meetupHeight = this.$('.meetup').height();
 			
-			var logoPosition = (availableHeight / 2) - ($logo.height() / 2);
+			var logoPosition = (availableHeight / 2) - ($logo.height() / 2) - this.$('.statusbar').height();
 			
 			$logo.css('marginTop', logoPosition);
 			
@@ -174,21 +171,27 @@
 				duration: 300, easing: 'easeOut', complete: function() {
 				
 				self.$('.meetup').css({
-					marginTop: (availableHeight / 2) - (self.$('.meetup').height() / 2) - self.$('.statusbar').height()
+					marginTop: ((availableHeight / 2) - (self.$('.meetup').height() / 2) - self.$('.statusbar').height()) + 10
 				});
 				
-				self.$('.btn-menu').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
-				self.$('.btn-logo').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
-				self.$('.btn-notifications').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
-				// meetup && meetup.talks && meetup.talks.length && self.$('.btn-talks').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
+				self.$('.btn-menu').css('top', -15);
+				self.$('.btn-logo').css('top', -15);
+				self.$('.btn-notifications').css('top', -15);
+				
+				setTimeout(function() {
+					self.$('.btn-menu').velocity({ top: 0, opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
+					self.$('.btn-logo').velocity({ top: 0, opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
+					self.$('.btn-notifications').velocity({ top: 0, opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
+					// meetup && meetup.talks && meetup.talks.length && self.$('.btn-talks').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
+				}, 400);
 				
 				setTimeout(function() {
 					self.$('.meetup').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
-				}, 250);
+				}, 0);
 				
 				setTimeout(function() {
 					self.$('.states').velocity({ bottom: 0 }, { duration: 500, easing: 'easeOutSine' });
-				}, 500);
+				}, 300);
 				
 				setTimeout(function() {
 					meetup && meetup.rsvped && meetup.attending && self.animateCalendar('up');
@@ -257,7 +260,7 @@
 		
 		},
 		
-		toggleMenu: function() {
+		toggleMenu: function(hideOnly) {
 			
 			var self = this;
 			
@@ -271,6 +274,8 @@
 				this._menuOpen = false;
 				return;
 			}
+			
+			if (hideOnly) return;
 			
 			this._menuOpen = true;
 			
