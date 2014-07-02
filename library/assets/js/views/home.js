@@ -101,12 +101,10 @@
 			'.corners .btn-menu': 'toggleMenu',
 			'.corners .btn-logo': 'viewTalks',
 			'.corners .btn-notifications': 'toggleNotifications',
-			// '.corners .btn-talks': 'viewTalks',
 			
-			// '.container .btn-about': 'viewAbout',
 			'.container .btn-meetup': 'viewTalks',
-			
-			'.container .btn-calendar': 'addToCalendar',
+			'.container .actions .btn-talks': 'viewTalks',
+			'.container .actions .btn-calendar': 'addToCalendar',
 			
 			'.container .rsvp .btn-left': 'leftRSVP',
 			'.container .rsvp .btn-right': 'rightRSVP',
@@ -182,7 +180,6 @@
 					self.$('.btn-menu').velocity({ top: 0, opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
 					self.$('.btn-logo').velocity({ top: 0, opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
 					self.$('.btn-notifications').velocity({ top: 0, opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
-					// meetup && meetup.talks && meetup.talks.length && self.$('.btn-talks').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
 				}, 400);
 				
 				setTimeout(function() {
@@ -204,7 +201,9 @@
 		},
 		
 		animateCalendar: function(direction) {
-		
+			
+			return;
+			
 			var self = this;
 			
 			var $calendar = this.$('.btn-calendar'),
@@ -622,6 +621,12 @@
 		toggleRSVP: function(button) {
 			
 			if (_.isEmpty(app.data.session)) {
+				var action = false;
+				switch(button) {
+					case 'left': if (!app.data.meetups.next.rsvped) action = 'attending'; break;
+					case 'right': if (!app.data.meetups.next.rsvped) action = 'notAttending'; break;
+				}
+				app.view('home')._action = action;
 				app.view('signin').show('slide-up', true);
 				return;
 				/*
