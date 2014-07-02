@@ -356,17 +356,22 @@
 			
 			var $talks = this.$('.btn-talks');
 			
-			var $days = this.$('.meetup-days'),
-				$date = this.$('.meetup-date');
+			var $name = this.$('.meetup-name'),
+				$days = this.$('.meetup-days'),
+				$date = this.$('.meetup-date'),
+				$place = this.$('.meetup-place');
 			
 			var $calendar = this.$('.btn-calendar');
 			
 			var meetupInProgress = meetup && meetup.starts && meetup.ends ? moment().isAfter(moment(meetup.starts)) && moment().isBefore(moment(meetup.ends)) : false;
 			
-			var startDate = meetup && meetup.starts ? moment(meetup.starts) : false;
+			var startDate = meetup && meetup.starts ? moment(meetup.starts) : false,
+				endDate = meetup && meetup.ends ? moment(meetup.ends) : false;
 			
+			$name.html(meetup.name);
 			$days.html(meetupInProgress || startDate ? (meetupInProgress ? 'Now' : startDate.fromNow(true)) : 'Standby');
-			$date.html(startDate ? startDate.format('ddd, DD MMMM YYYY') : 'Sharkie\'s on it...');
+			$date.html(startDate ? startDate.format('ddd, DD MMM') + ' &#8212; ' + startDate.format('h:mma') + '-' + endDate.format('h:mma') : 'Sharkie\'s on it...');
+			$place.html(meetup.map);
 			
 			meetup && meetup.starts && $calendar.find('.number').html(startDate.format('DD'));
 		
