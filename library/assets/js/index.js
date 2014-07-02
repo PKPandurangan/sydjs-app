@@ -427,6 +427,9 @@ app.on('init', function() {
 	// in the starting position
 	app.view('loading').show();
 	
+	// set the home background so it's inited before we reach the view
+	app.view('home').setBackground();
+	
 	// Logging
 	console.log('[init] - App init finished, resuming session...');
 	

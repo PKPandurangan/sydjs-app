@@ -33,6 +33,7 @@
 				var self = this;
 				
 				this.setBackground();
+				this.showBackground();
 				
 				this.animateView();
 				
@@ -124,28 +125,25 @@
 		
 		setBackground: function() {
 			
-			var self = this;
-			
 			var $background = this.$('.background');
 			
 			$background.css('margin-left', -(640 - (app.viewportSize.width / 2)));
-			$background.css('margin-top', -(400 - (app.viewportSize.height / 2)));
-			
-			/*
-			$background.css('opacity', 0);
-			$background.velocity({
-				opacity: 1
-			}, {
-				duration: 500, easing: 'linear'
-			});
-			*/
+			$background.css('margin-top', -(400 - (app.viewportSize.height / 2))); // 400
 			
 			this.$el.parallaxify({
 				positionProperty: 'transform',
-				motionType: 'natural',
-				motionAngleX: 120,
-				motionAngleY: 120
+				motionType: 'gaussian',
+				alphaFilter: 0.45,
+				adjustBasePosition: false
 			});
+			
+		},
+		
+		showBackground: function() {
+			
+			// velocity causes visual artifacts if it's used for opacity
+			// using a standard css transition here
+			this.$('.background').addClass('show');
 			
 		},
 		
