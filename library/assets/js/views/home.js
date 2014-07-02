@@ -268,7 +268,7 @@
 				this.$('.btn-menu .cross').removeClass('open');
 				this.$('.menu').velocity({
 					opacity: 0
-				}, { duration: 250, easing: 'easeOutSine', complete: function() {
+				}, { duration: 150, easing: 'easeOutSine', complete: function() {
 					self.$('.menu').hide();
 				}});
 				this._menuOpen = false;
@@ -292,7 +292,7 @@
 			
 			this.$('.menu').velocity({
 				opacity: 1
-			}, { duration: 250, easing: 'easeOutSine' });
+			}, { duration: 150, easing: 'easeOutSine' });
 			
 		},
 		
