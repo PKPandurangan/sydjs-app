@@ -111,8 +111,8 @@
 		
 		animateView: function() {
 			var self = this;
-			this.$('.footer').css('bottom', -75);
-			this.$('.footer').velocity({ bottom: 0 }, { delay: 250, duration: 500, easing: 'easeOutSine', complete: function() {
+			this.$('.footer').css('transform', 'translateY(' + app.viewportSize.height + 'px)');
+			this.$('.footer').velocity({ translateY: [app.viewportSize.height - 95, app.viewportSize.height] }, { delay: 250, duration: 500, easing: 'easeOutSine', complete: function() {
 				self.$('.container').css('height', self.$('.container').height() - 75);
 				self.$('.list').css('padding-bottom', 25);
 			}});

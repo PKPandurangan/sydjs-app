@@ -85,8 +85,8 @@
 				// make sure menu is hidden
 				this.toggleMenu(true);
 				
-				// disable parallaxify background
-				this._parallaxify && this._parallaxify.data('plugin_parallaxify').destroy();
+				// destroy the parallaxify effect
+				this.destroyBackground();
 				
 				// stop watching for shake event
 				if (window.shake) window.shake.stopWatch();
@@ -143,6 +143,11 @@
 			
 		},
 		
+		destroyBackground: function() {
+			if (!this._parallaxify || !this._parallaxify.data('plugin_parallaxify')) return;
+			this._parallaxify && this._parallaxify.data('plugin_parallaxify').destroy();
+		},
+		
 		animateView: function() {
 		
 			var self = this;
@@ -151,19 +156,19 @@
 			
 			var meetup = app.data.meetups.next;
 			
-			var $logo = this.$('.logo');
-			
 			var availableHeight = app.viewportSize.height - this.$('.statusbar').height();
 			
 			// If it's the first time this view is visible, animate the elements in
-			var logoHeight = $logo.height(),
+			var logoHeight = this.$('.logo').height(),
 				meetupHeight = this.$('.meetup').height();
 			
-			var logoPosition = (availableHeight / 2) - ($logo.height() / 2) - this.$('.statusbar').height();
+			var logoPosition = (availableHeight / 2) - (this.$('.logo').height() / 2) - this.$('.statusbar').height();
 			
-			$logo.css('marginTop', logoPosition);
+			this.$('.corners').css({ 'transform': 'translateY(-15px)', opacity: 0 });
+			this.$('.logo').css('marginTop', logoPosition);
+			this.$('.states').css('transform', 'translateY(' + app.viewportSize.height + 'px)');
 			
-			$logo.velocity({
+			this.$('.logo').velocity({
 				opacity: 0
 			}, {
 				duration: 300, easing: 'easeOut', complete: function() {
@@ -172,14 +177,8 @@
 					marginTop: ((availableHeight / 2) - (self.$('.meetup').height() / 2) - self.$('.statusbar').height()) + 10
 				});
 				
-				self.$('.btn-menu').css('top', -15);
-				self.$('.btn-logo').css('top', -15);
-				self.$('.btn-notifications').css('top', -15);
-				
 				setTimeout(function() {
-					self.$('.btn-menu').velocity({ top: 0, opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
-					self.$('.btn-logo').velocity({ top: 0, opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
-					self.$('.btn-notifications').velocity({ top: 0, opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
+					self.$('.corners').velocity({ translateY: [0, -15], opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
 				}, 400);
 				
 				setTimeout(function() {
@@ -187,7 +186,7 @@
 				}, 200);
 				
 				setTimeout(function() {
-					self.$('.states').velocity({ bottom: 0 }, { duration: 500, easing: 'easeOutSine' });
+					self.$('.states').velocity({ translateY: [app.viewportSize.height - 95, app.viewportSize.height] }, { duration: 500, easing: 'easeOutSine' });
 				}, 300);
 				
 				setTimeout(function() {
@@ -265,6 +264,9 @@
 			
 			if (this._menuOpen) {
 				this.$('.btn-menu .cross').removeClass('open');
+				this.$('.corners .btn-logo, .corners .btn-notifications').velocity({
+					opacity: 1
+				}, { duration: 150, easing: 'easeOutSine' });
 				this.$('.menu').velocity({
 					opacity: 0
 				}, { duration: 150, easing: 'easeOutSine', complete: function() {
@@ -278,14 +280,13 @@
 			
 			this._menuOpen = true;
 			
-			var availableHeight = app.viewportSize.height -
-				this.$('.statusbar').height();
+			var availableHeight = app.viewportSize.height - this.$('.statusbar').height();
+			
+			this.$('.corners .btn-logo, .corners .btn-notifications').velocity({ opacity: 0 }, { duration: 150, easing: 'easeOutSine' });
 			
 			this.$('.menu').css('opacity', 0).show();
 			
-			this.$('.buttons').css({
-				marginTop: (availableHeight / 2) - (this.$('.buttons').height() / 2) + this.$('.statusbar').height()
-			});
+			this.$('.buttons').css({ marginTop: (availableHeight / 2) - (this.$('.buttons').height() / 2) + this.$('.statusbar').height() });
 			
 			this.$('.btn-menu .cross').addClass('open');
 			
@@ -332,6 +333,7 @@
 		},
 		
 		viewTalks: function() {
+			this.destroyBackground();
 			app.view('talks').show('slide-up');
 		},
 		
@@ -628,6 +630,7 @@
 					case 'right': if (!app.data.meetups.next.rsvped) action = 'notAttending'; break;
 				}
 				app.view('home')._action = action;
+				this.destroyBackground();
 				app.view('signin').show('slide-up', true);
 				return;
 				/*
@@ -639,6 +642,7 @@
 				app.showConfirm('Attendance', 'You must sign in to mark your attendance.', 'No‚ thanks,Sign in', function(pressed) {
 					if (pressed == 2) {
 						app.view('home')._action = action;
+						this.destroyBackground();
 						app.view('signin').show('slide-up', true);
 					}
 				});
@@ -689,6 +693,7 @@
 		},
 		
 		menuJoin: function() {
+			this.destroyBackground();
 			app.view('signin').show('slide-up', true);
 		},
 		
@@ -697,10 +702,12 @@
 		},
 		
 		menuAbout: function() {
+			this.destroyBackground();
 			app.view('about').show('slide-down');
 		},
 		
 		menuCredits: function() {
+			this.destroyBackground();
 			app.view('credits').show('slide-down');
 		},
 		

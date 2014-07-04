@@ -34,8 +34,8 @@
 	}
 	.corners {
 		position: absolute;
-		top: 0px;
 		width: 100%;
+		z-index: 5;
 		.btn-menu, .btn-logo, .btn-notifications {
 			position: absolute;
 			top: 0px;
@@ -50,7 +50,6 @@
 		}
 		
 		.btn-menu {
-			opacity: 0;
 			left: 0px;
 			z-index: 4;
 			
@@ -130,7 +129,6 @@
 		}
 		
 		.btn-logo {
-			opacity: 0;
 			left: 50%;
 			margin-left: -30px;
 			z-index: 3;
@@ -138,14 +136,9 @@
 			background-size: 50px;
 			background-repeat: no-repeat;
 			background-position: center;
-			
-			&.pressed {
-				opacity: 0.8;
-			}
 		}
 		
 		.btn-notifications {
-			opacity: 0;
 			right: 0px;
 			z-index: 3;
 			img {
@@ -333,7 +326,6 @@
 		.states {
 			position: absolute;
 			overflow: hidden;
-			bottom: -75px;
 			width: 100%;
 			
 			.rsvp {
@@ -417,7 +409,7 @@
 		}
 	}
 	.menu {
-		z-index: 3;
+		z-index: 4;
 		display: none;
 		background: #2697de;
 		position: absolute;

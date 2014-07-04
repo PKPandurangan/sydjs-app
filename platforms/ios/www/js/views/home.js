@@ -85,8 +85,8 @@
 				// make sure menu is hidden
 				this.toggleMenu(true);
 				
-				// disable parallaxify background
-				this._parallaxify && this._parallaxify.data('plugin_parallaxify').destroy();
+				// destroy the parallaxify effect
+				this.destroyBackground();
 				
 				// stop watching for shake event
 				if (window.shake) window.shake.stopWatch();
@@ -101,12 +101,10 @@
 			'.corners .btn-menu': 'toggleMenu',
 			'.corners .btn-logo': 'viewTalks',
 			'.corners .btn-notifications': 'toggleNotifications',
-			// '.corners .btn-talks': 'viewTalks',
 			
-			// '.container .btn-about': 'viewAbout',
 			'.container .btn-meetup': 'viewTalks',
-			
-			'.container .btn-calendar': 'addToCalendar',
+			'.container .actions .btn-talks': 'viewTalks',
+			'.container .actions .btn-calendar': 'addToCalendar',
 			
 			'.container .rsvp .btn-left': 'leftRSVP',
 			'.container .rsvp .btn-right': 'rightRSVP',
@@ -126,7 +124,7 @@
 			
 			$background.css('margin-left', -(410 - (app.viewportSize.width / 2)));
 			$background.css('margin-top', -(361 - (app.viewportSize.height / 2))); // 400
-			return;
+			
 			this._parallaxify = this.$el.parallaxify({
 				positionProperty: 'transform',
 				motionType: 'gaussian',
@@ -145,6 +143,11 @@
 			
 		},
 		
+		destroyBackground: function() {
+			if (!this._parallaxify || !this._parallaxify.data('plugin_parallaxify')) return;
+			this._parallaxify && this._parallaxify.data('plugin_parallaxify').destroy();
+		},
+		
 		animateView: function() {
 		
 			var self = this;
@@ -153,19 +156,19 @@
 			
 			var meetup = app.data.meetups.next;
 			
-			var $logo = this.$('.logo');
-			
 			var availableHeight = app.viewportSize.height - this.$('.statusbar').height();
 			
 			// If it's the first time this view is visible, animate the elements in
-			var logoHeight = $logo.height(),
+			var logoHeight = this.$('.logo').height(),
 				meetupHeight = this.$('.meetup').height();
 			
-			var logoPosition = (availableHeight / 2) - ($logo.height() / 2) - this.$('.statusbar').height();
+			var logoPosition = (availableHeight / 2) - (this.$('.logo').height() / 2) - this.$('.statusbar').height();
 			
-			$logo.css('marginTop', logoPosition);
+			this.$('.corners').css({ 'transform': 'translateY(-15px)', opacity: 0 });
+			this.$('.logo').css('marginTop', logoPosition);
+			this.$('.states').css('transform', 'translateY(' + app.viewportSize.height + 'px)');
 			
-			$logo.velocity({
+			this.$('.logo').velocity({
 				opacity: 0
 			}, {
 				duration: 300, easing: 'easeOut', complete: function() {
@@ -174,23 +177,16 @@
 					marginTop: ((availableHeight / 2) - (self.$('.meetup').height() / 2) - self.$('.statusbar').height()) + 10
 				});
 				
-				self.$('.btn-menu').css('top', -15);
-				self.$('.btn-logo').css('top', -15);
-				self.$('.btn-notifications').css('top', -15);
-				
 				setTimeout(function() {
-					self.$('.btn-menu').velocity({ top: 0, opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
-					self.$('.btn-logo').velocity({ top: 0, opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
-					self.$('.btn-notifications').velocity({ top: 0, opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
-					// meetup && meetup.talks && meetup.talks.length && self.$('.btn-talks').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
+					self.$('.corners').velocity({ translateY: [0, -15], opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
 				}, 400);
 				
 				setTimeout(function() {
 					self.$('.meetup').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
-				}, 0);
+				}, 200);
 				
 				setTimeout(function() {
-					self.$('.states').velocity({ bottom: 0 }, { duration: 500, easing: 'easeOutSine' });
+					self.$('.states').velocity({ translateY: [app.viewportSize.height - 95, app.viewportSize.height] }, { duration: 500, easing: 'easeOutSine' });
 				}, 300);
 				
 				setTimeout(function() {
@@ -204,7 +200,9 @@
 		},
 		
 		animateCalendar: function(direction) {
-		
+			
+			return;
+			
 			var self = this;
 			
 			var $calendar = this.$('.btn-calendar'),
@@ -266,9 +264,12 @@
 			
 			if (this._menuOpen) {
 				this.$('.btn-menu .cross').removeClass('open');
+				this.$('.corners .btn-logo, .corners .btn-notifications').velocity({
+					opacity: 1
+				}, { duration: 150, easing: 'easeOutSine' });
 				this.$('.menu').velocity({
 					opacity: 0
-				}, { duration: 250, easing: 'easeOutSine', complete: function() {
+				}, { duration: 150, easing: 'easeOutSine', complete: function() {
 					self.$('.menu').hide();
 				}});
 				this._menuOpen = false;
@@ -279,20 +280,19 @@
 			
 			this._menuOpen = true;
 			
-			var availableHeight = app.viewportSize.height -
-				this.$('.statusbar').height();
+			var availableHeight = app.viewportSize.height - this.$('.statusbar').height();
+			
+			this.$('.corners .btn-logo, .corners .btn-notifications').velocity({ opacity: 0 }, { duration: 150, easing: 'easeOutSine' });
 			
 			this.$('.menu').css('opacity', 0).show();
 			
-			this.$('.buttons').css({
-				marginTop: (availableHeight / 2) - (this.$('.buttons').height() / 2) + this.$('.statusbar').height()
-			});
+			this.$('.buttons').css({ marginTop: (availableHeight / 2) - (this.$('.buttons').height() / 2) + this.$('.statusbar').height() });
 			
 			this.$('.btn-menu .cross').addClass('open');
 			
 			this.$('.menu').velocity({
 				opacity: 1
-			}, { duration: 250, easing: 'easeOutSine' });
+			}, { duration: 150, easing: 'easeOutSine' });
 			
 		},
 		
@@ -333,6 +333,7 @@
 		},
 		
 		viewTalks: function() {
+			this.destroyBackground();
 			app.view('talks').show('slide-up');
 		},
 		
@@ -351,24 +352,32 @@
 		},
 		
 		setMeetup: function() {
-		
-			var meetup = app.data.meetups.next;
 			
-			var $talks = this.$('.btn-talks');
+			var meetup = app.parseMeetup();
 			
-			var $days = this.$('.meetup-days'),
-				$date = this.$('.meetup-date');
+			var $state = this.$('.meetup-state').show(),
+				$name = this.$('.meetup-name').show(),
+				$days = this.$('.meetup-days').show(),
+				$date = this.$('.meetup-date').show(),
+				$place = this.$('.meetup-place').show();
 			
 			var $calendar = this.$('.btn-calendar');
 			
-			var meetupInProgress = meetup && meetup.starts && meetup.ends ? moment().isAfter(moment(meetup.starts)) && moment().isBefore(moment(meetup.ends)) : false;
+			var startDate = meetup.data.starts ? moment(meetup.data.starts) : false,
+				endDate = meetup.data.ends ? moment(meetup.data.ends) : false;
 			
-			var startDate = meetup && meetup.starts ? moment(meetup.starts) : false;
+			$state.html((meetup.next ? 'Next' : 'Last') + ' Meetup');
+			$name.html(meetup.data.name);
+			$days.html(meetup.next && (meetup.inProgress || startDate) ? (meetup.inProgress ? 'Now' : startDate.fromNow(true)) : '');
+			$date.html(startDate ? startDate.format('ddd, DD MMM') + ' &#8212; ' + startDate.format('h:mma') + '-' + endDate.format('h:mma') : '');
+			$place.html(meetup.map || 'Level 6, 341 George St');
 			
-			$days.html(meetupInProgress || startDate ? (meetupInProgress ? 'Now' : startDate.fromNow(true)) : 'Standby');
-			$date.html(startDate ? startDate.format('ddd, DD MMMM YYYY') : 'Sharkie\'s on it...');
+			$calendar.find('.number').html(meetup.next && meetup.data.starts ? startDate.format('DD') : '');
 			
-			meetup && meetup.starts && $calendar.find('.number').html(startDate.format('DD'));
+			if (!meetup.next) $days.hide();
+			
+			this.$('.actions')[meetup.next ? 'removeClass' : 'addClass']('single');
+			this.$('.meetup')[meetup.next ? 'removeClass' : 'addClass']('last');
 		
 		},
 		
@@ -376,7 +385,6 @@
 			
 			if (!app._device.system || !app._device.system.match(/ios|android/)) {
 				return app.showNotification('Alert', 'Sorry, calendar functionality can only be configured on actual devices.');
-				return;
 			}
 			
 			var meetup = app.data.meetups.next;
@@ -475,7 +483,7 @@
 				break;
 				case 'right':
 					$right.data('button').disable();
-					$left.find('.text').velocity({ opacity: 0 }, { duration: duration, easing: 'linear' });
+					$left.find('.text').velocity({ opacity: 0 }, { duration: duration, easing: easing });
 					$left.find('.icon').velocity({ opacity: 1, rotateZ: '90deg' }, { delay: duration, duration: duration, easing: 'easeOutSine' });
 					$right.find('.text').text(rightText).velocity({ opacity: 1 }, { duration: duration, easing: easing });
 					$right.find('.icon').velocity({ opacity: 0, rotateZ: '-135deg' }, { duration: duration, easing: 'easeOutSine' });
@@ -490,7 +498,6 @@
 			
 			var meetup = app.data.meetups.next;
 			
-			// RSVP States
 			var $states = this.$('.states');
 			
 			var $rsvp = $states.find('.rsvp'),
@@ -547,7 +554,7 @@
 				// Set form to no longer processing (after 500 milliseconds of animations)
 				setTimeout(function() {
 					self._processingForm = false;
-				}, 500);
+				}, 350);
 				
 			}
 			
@@ -577,9 +584,9 @@
 					// Set form to no longer processing (after 500 milliseconds of animations)
 					setTimeout(function() {
 						self._processingForm = false;
-					}, 500);
+					}, 350);
 				
-				}, 500);
+				}, 350);
 				
 			}
 			
@@ -617,6 +624,13 @@
 		toggleRSVP: function(button) {
 			
 			if (_.isEmpty(app.data.session)) {
+				var action = false;
+				switch(button) {
+					case 'left': if (!app.data.meetups.next.rsvped) action = 'attending'; break;
+					case 'right': if (!app.data.meetups.next.rsvped) action = 'notAttending'; break;
+				}
+				app.view('home')._action = action;
+				this.destroyBackground();
 				app.view('signin').show('slide-up', true);
 				return;
 				/*
@@ -628,6 +642,7 @@
 				app.showConfirm('Attendance', 'You must sign in to mark your attendance.', 'No‚ thanks,Sign in', function(pressed) {
 					if (pressed == 2) {
 						app.view('home')._action = action;
+						this.destroyBackground();
 						app.view('signin').show('slide-up', true);
 					}
 				});
@@ -678,6 +693,7 @@
 		},
 		
 		menuJoin: function() {
+			this.destroyBackground();
 			app.view('signin').show('slide-up', true);
 		},
 		
@@ -686,11 +702,13 @@
 		},
 		
 		menuAbout: function() {
+			this.destroyBackground();
 			app.view('about').show('slide-down');
 		},
 		
 		menuCredits: function() {
-			// app.view('credits').show('slide-down');
+			this.destroyBackground();
+			app.view('credits').show('slide-down');
 		},
 		
 		easterEgg: function() {

@@ -144,6 +144,19 @@ _.extend(app, {
 	
 	},
 	
+	preloadUser: function(callback) {
+		
+		var $image = $(new Image());
+		
+		$image.on({
+			load: function() { callback() },
+			error: function() { callback() }
+		});
+		
+		$image.prop('src', app.data.session.avatar);
+		
+	},
+	
 	generateUser: function() {
 	
 		var key = '',
@@ -269,6 +282,16 @@ _.extend(app, {
 				return error();
 			}
 		});
+	
+	},
+	
+	parseMeetup: function() {
+	
+		return {
+			next: app.data.meetups.next ? true : false,
+			data: app.data.meetups.next || app.data.meetups.last,
+			inProgress: app.data.meetups.next && app.data.meetups.next.starts && app.data.meetups.next.ends ? moment().isAfter(moment(app.data.meetups.next.starts)) && moment().isBefore(moment(app.data.meetups.next.ends)) : false
+		}
 	
 	},
 	

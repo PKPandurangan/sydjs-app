@@ -169,7 +169,6 @@
 				beta : 0,
 				gamma : 0
 			};
-			console.log(1);
 
 			this._defineElements();
 			this._defineGetters();
