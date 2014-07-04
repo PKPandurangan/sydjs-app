@@ -200,14 +200,14 @@
 			text-align: center;
 			opacity: 0;
 			
-			.next-meetup {
+			.meetup-state {
 				text-transform: uppercase;
 				color: #fff;
 				opacity: 0.7;
 				font-size: 13px;
 				font-weight: 400;
 				
-				margin-bottom: 5px;
+				margin-bottom: 10px;
 			}
 			
 			.meetup-days {
@@ -216,7 +216,7 @@
 				font-size: 45px;
 				font-weight: 800;
 				
-				margin-bottom: 16px;
+				margin-bottom: 10px;
 			}
 			
 			.meetup-name {
@@ -225,7 +225,7 @@
 				font-weight: 600;
 				text-transform: uppercase;
 				
-				margin-bottom: 8px;
+				margin-bottom: 10px;
 			}
 			
 			.meetup-date {
@@ -234,7 +234,7 @@
 				font-weight: 400;
 				font-size: 13px;
 				
-				margin-bottom: 8px;
+				margin-bottom: 10px;
 			}
 			
 			.meetup-place {
@@ -242,7 +242,7 @@
 				opacity: 0.8;
 				font-size: 12px;
 				
-				margin-bottom: 24px;
+				margin-bottom: 40px;
 			}
 			
 			.actions {
@@ -301,6 +301,25 @@
 					.text {
 						margin-left: 0px;
 					}
+				}
+				
+				&.single {
+					.left {
+						border-right: none;
+						padding: 12px 62px;
+					}
+					.right {
+						display: none;
+					}
+				}
+			}
+			
+			&.last {
+				.meetup-name {
+					font-size: 30px;
+				}
+				.meetup-days {
+					margin-bottom: 15px;
 				}
 			}
 			
@@ -366,7 +385,7 @@
 				position: relative;
 				overflow: hidden;
 				.text {
-					opacity: 0.5;
+					opacity: 0.25;
 					color: #fff;
 				}
 			}

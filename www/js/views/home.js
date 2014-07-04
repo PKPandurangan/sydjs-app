@@ -99,7 +99,7 @@
 		
 		buttons: {
 			'.corners .btn-menu': 'toggleMenu',
-			'.corners .btn-logo': 'viewTalks',
+			'.corners .btn-logo': 'menuAbout',
 			'.corners .btn-notifications': 'toggleNotifications',
 			
 			'.container .btn-meetup': 'viewTalks',
@@ -184,7 +184,7 @@
 				
 				setTimeout(function() {
 					self.$('.meetup').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
-				}, 0);
+				}, 200);
 				
 				setTimeout(function() {
 					self.$('.states').velocity({ bottom: 0 }, { duration: 500, easing: 'easeOutSine' });
@@ -350,29 +350,32 @@
 		},
 		
 		setMeetup: function() {
-		
-			var meetup = app.data.meetups.next;
 			
-			var $talks = this.$('.btn-talks');
+			var meetup = app.parseMeetup();
 			
-			var $name = this.$('.meetup-name'),
-				$days = this.$('.meetup-days'),
-				$date = this.$('.meetup-date'),
-				$place = this.$('.meetup-place');
+			var $state = this.$('.meetup-state').show(),
+				$name = this.$('.meetup-name').show(),
+				$days = this.$('.meetup-days').show(),
+				$date = this.$('.meetup-date').show(),
+				$place = this.$('.meetup-place').show();
 			
 			var $calendar = this.$('.btn-calendar');
 			
-			var meetupInProgress = meetup && meetup.starts && meetup.ends ? moment().isAfter(moment(meetup.starts)) && moment().isBefore(moment(meetup.ends)) : false;
+			var startDate = meetup.data.starts ? moment(meetup.data.starts) : false,
+				endDate = meetup.data.ends ? moment(meetup.data.ends) : false;
 			
-			var startDate = meetup && meetup.starts ? moment(meetup.starts) : false,
-				endDate = meetup && meetup.ends ? moment(meetup.ends) : false;
+			$state.html((meetup.next ? 'Next' : 'Last') + ' Meetup');
+			$name.html(meetup.data.name);
+			$days.html(meetup.next && (meetup.inProgress || startDate) ? (meetup.inProgress ? 'Now' : startDate.fromNow(true)) : '');
+			$date.html(startDate ? startDate.format('ddd, DD MMM') + ' &#8212; ' + startDate.format('h:mma') + '-' + endDate.format('h:mma') : '');
+			$place.html(meetup.map || 'Level 6, 341 George St');
 			
-			$name.html(meetup.name);
-			$days.html(meetupInProgress || startDate ? (meetupInProgress ? 'Now' : startDate.fromNow(true)) : 'Standby');
-			$date.html(startDate ? startDate.format('ddd, DD MMM') + ' &#8212; ' + startDate.format('h:mma') + '-' + endDate.format('h:mma') : 'Sharkie\'s on it...');
-			$place.html(meetup.map);
+			$calendar.find('.number').html(meetup.next && meetup.data.starts ? startDate.format('DD') : '');
 			
-			meetup && meetup.starts && $calendar.find('.number').html(startDate.format('DD'));
+			if (!meetup.next) $days.hide();
+			
+			this.$('.actions')[meetup.next ? 'removeClass' : 'addClass']('single');
+			this.$('.meetup')[meetup.next ? 'removeClass' : 'addClass']('last');
 		
 		},
 		
@@ -380,7 +383,6 @@
 			
 			if (!app._device.system || !app._device.system.match(/ios|android/)) {
 				return app.showNotification('Alert', 'Sorry, calendar functionality can only be configured on actual devices.');
-				return;
 			}
 			
 			var meetup = app.data.meetups.next;
@@ -479,7 +481,7 @@
 				break;
 				case 'right':
 					$right.data('button').disable();
-					$left.find('.text').velocity({ opacity: 0 }, { duration: duration, easing: 'linear' });
+					$left.find('.text').velocity({ opacity: 0 }, { duration: duration, easing: easing });
 					$left.find('.icon').velocity({ opacity: 1, rotateZ: '90deg' }, { delay: duration, duration: duration, easing: 'easeOutSine' });
 					$right.find('.text').text(rightText).velocity({ opacity: 1 }, { duration: duration, easing: easing });
 					$right.find('.icon').velocity({ opacity: 0, rotateZ: '-135deg' }, { duration: duration, easing: 'easeOutSine' });
@@ -494,7 +496,6 @@
 			
 			var meetup = app.data.meetups.next;
 			
-			// RSVP States
 			var $states = this.$('.states');
 			
 			var $rsvp = $states.find('.rsvp'),

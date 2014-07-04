@@ -285,6 +285,16 @@ _.extend(app, {
 	
 	},
 	
+	parseMeetup: function() {
+	
+		return {
+			next: app.data.meetups.next ? true : false,
+			data: app.data.meetups.next || app.data.meetups.last,
+			inProgress: app.data.meetups.next && app.data.meetups.next.starts && app.data.meetups.next.ends ? moment().isAfter(moment(app.data.meetups.next.starts)) && moment().isBefore(moment(app.data.meetups.next.ends)) : false
+		}
+	
+	},
+	
 	/* Sign Out */
 	
 	signOut: function() {

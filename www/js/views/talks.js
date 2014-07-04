@@ -49,7 +49,7 @@
 			var $list = this.$('.list');
 				$list.html('');
 			
-			var talks = app.data.meetups.next.talks;
+			var talks = app.parseMeetup().data.talks;
 			
 			$list.css('padding-bottom', 25);
 			
