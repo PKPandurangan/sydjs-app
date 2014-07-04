@@ -166,6 +166,7 @@
 			
 			this.$('.corners').css({ 'transform': 'translateY(-15px)', opacity: 0 });
 			this.$('.logo').css('marginTop', logoPosition);
+			this.$('.remaining').css('transform', 'translateY(' + app.viewportSize.height + 'px)');
 			this.$('.states').css('transform', 'translateY(' + app.viewportSize.height + 'px)');
 			
 			this.$('.logo').velocity({
@@ -186,7 +187,13 @@
 				}, 200);
 				
 				setTimeout(function() {
-					self.$('.states').velocity({ translateY: [app.viewportSize.height - 95, app.viewportSize.height] }, { duration: 500, easing: 'easeOutSine' });
+					self.$('.states').velocity({ translateY: [app.viewportSize.height - 95, app.viewportSize.height] }, { duration: 500, easing: 'easeOutSine', complete: function() {
+						if (!meetup.ticketsRemaining) return;
+						self.$('.remaining').velocity({
+							translateX: ['-50%', '-50%'],
+							translateY: [app.viewportSize.height - 95 - 35, app.viewportSize.height - 95]
+						}, { duration: 500, easing: 'easeOutSine' });
+					}});
 				}, 300);
 				
 				setTimeout(function() {
@@ -373,6 +380,8 @@
 			$place.html(meetup.map || 'Level 6, 341 George St');
 			
 			$calendar.find('.number').html(meetup.next && meetup.data.starts ? startDate.format('DD') : '');
+			
+			this.$('.remaining .text').html(meetup.data.ticketsRemaining + ' Tickets Remaining');
 			
 			if (!meetup.next) $days.hide();
 			
