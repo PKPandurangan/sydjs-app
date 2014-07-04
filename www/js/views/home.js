@@ -99,7 +99,7 @@
 		
 		buttons: {
 			'.corners .btn-menu': 'toggleMenu',
-			'.corners .btn-logo': 'menuAbout',
+			'.corners .btn-logo': 'viewTalks',
 			'.corners .btn-notifications': 'toggleNotifications',
 			
 			'.container .btn-meetup': 'viewTalks',
@@ -552,7 +552,7 @@
 				// Set form to no longer processing (after 500 milliseconds of animations)
 				setTimeout(function() {
 					self._processingForm = false;
-				}, 500);
+				}, 350);
 				
 			}
 			
@@ -582,9 +582,9 @@
 					// Set form to no longer processing (after 500 milliseconds of animations)
 					setTimeout(function() {
 						self._processingForm = false;
-					}, 500);
+					}, 350);
 				
-				}, 500);
+				}, 350);
 				
 			}
 			
