@@ -701,7 +701,7 @@
 		},
 		
 		menuCredits: function() {
-			// app.view('credits').show('slide-down');
+			app.view('credits').show('slide-down');
 		},
 		
 		easterEgg: function() {
