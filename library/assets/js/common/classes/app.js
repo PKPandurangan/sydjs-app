@@ -165,6 +165,8 @@ _.extend(App.prototype, Backbone.Events, {
 	
 	showLoadingSpinner: function(label, then) {
 		
+		var self = this;
+		
 		// cater for native spinner (if it exists)
 		/*
 		if (window.plugins && window.plugins.spinnerDialog) {
@@ -176,18 +178,23 @@ _.extend(App.prototype, Backbone.Events, {
 			return;
 		}
 		*/
-		
-		if (this._spinnerVisible) {
-			app.hideLoadingSpinner();
-			this._spinnerVisible = false;
-			app.showLoadingSpinner(label, then);
-			// app.showNotification('Alert',  "[showLoadingSpinner] - Tried to show spinner but it's already visible." );
+	
+		if (this._hidingSpinner) {
+			$('#app-loading').velocity('stop');
+			this._hidingSpinner = false;
+			$('#app-loading').velocity({ opacity: 1 }, {
+				duration: 300,
+				easing: 'easeInOutSine'
+			});
 			return;
 		}
 		
+		if (this._showingSpinner) return;
+		if (this._spinnerVisible) return;
+		
 		console.log( "[showLoadingSpinner] - Showing loading spinner." );
 		
-		this._spinnerVisible = true;
+		this._showingSpinner = true;
 		
 		$('#app-loading').css({
 			'z-index': this.currentViewZ() + 99,
@@ -196,9 +203,12 @@ _.extend(App.prototype, Backbone.Events, {
 		}).velocity({
 			opacity: 1
 		}, {
-			duration: 400,
+			duration: 300,
 			easing: 'easeInOutSine',
 			complete: function() {
+				
+				self._showingSpinner = false;
+				self._spinnerVisible = true;
 				
 				if (then) {
 					console.log( "[showLoadingSpinner] - Has then() callback." );
@@ -220,6 +230,8 @@ _.extend(App.prototype, Backbone.Events, {
 	
 	hideLoadingSpinner: function(then) {
 		
+		var self = this;
+		
 		// cater for native spinner (if it exists)
 		/*
 		if (window.plugins && window.plugins.spinnerDialog) {
@@ -232,22 +244,25 @@ _.extend(App.prototype, Backbone.Events, {
 		}
 		*/
 		
-		if (!this._spinnerVisible) {
-			// app.showNotification('Alert',  "[hideLoadingSpinner] - Tried to hide spinner but it's not visible." );
-			return;
-		}
+		if (!this._spinnerVisible) return;
+		if (this._hidingSpinner) return;
 		
 		console.log( "[hideLoadingSpinner] - Hiding loading spinner." );
 		
-		this._spinnerVisible = false;
+		this._hidingSpinner = true;
 		
 		$('#app-loading').velocity({
 			opacity: 0
 		}, {
-			duration: 400,
+			duration: 2000,
 			easing: 'easeInOutSine',
 			complete: function() {
 			
+				if (!self._hidingSpinner) return;
+				
+				self._hidingSpinner = false;
+				self._spinnerVisible = false;
+				
 				$('#app-loading').hide();
 				$('#app-loading .spinner').spinner('stop');
 				

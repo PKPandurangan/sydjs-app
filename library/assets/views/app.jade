@@ -34,7 +34,6 @@ html
 	body
 		//- the viewport element contains each view the app includes
 		#viewport
-			//- #preloader
 			#app-loading: .box
 				.spinner
 				.label
@@ -64,28 +63,12 @@ html
 		script(src='components/async.js')
 		script(src='components/moment.js')
 		script.
-			moment.lang('en', {
-				relativeTime: {
-					future: 'in %s',
-					past: '%s ago',
-					s: 'seconds',
-					m: '1 minute',
-					mm: '%d minutes',
-					h: '1 hour',
-					hh: '%d hours',
-					d: '1 day',
-					dd: '%d days',
-					M: '1 month',
-					MM: '%d months',
-					y: '1 year',
-					yy: '%d years'
-				}
-			});
+			moment.lang('en', { relativeTime: { future: 'in %s', past: '%s ago', s: 'seconds', m: '1 minute', mm: '%d minutes', h: '1 hour', hh: '%d hours', d: '1 day', dd: '%d days', M: '1 month', MM: '%d months', y: '1 year', yy: '%d years' } });
 		
 		//- include cordova js library
 		script(src='cordova.js')
 		
-		//- init containers
+		//- init data containers
 		script.
 			var collections = {},
 				config = {
@@ -134,9 +117,7 @@ html
 				} else {
 					console.log( '[root] - Detected mobile device, setting device ready event...' );
 					$(document).on('deviceready', function() {
-						if (navigator.splashscreen && navigator.splashscreen.hide) {
-							navigator.splashscreen.hide();
-						}
+						navigator.splashscreen && navigator.splashscreen.hide && navigator.splashscreen.hide();
 						console.log( '[root] - Mobile device is ready...' );
 						console.log( '[root] - Triggering app init.' );
 						app.init();

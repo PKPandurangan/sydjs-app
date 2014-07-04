@@ -202,6 +202,16 @@ _.extend(app, {
 		var date = localStorage.getItem( 'session_date' ),
 			user = localStorage.getItem( 'session_userId' );
 		
+		// Function to handle retries
+		var retry = function() {
+			app.showNotification('Oops!', 'There was an error communicating with SydJS, please wait while we attempt to re-connect in 5 seconds.');
+			app.showLoadingSpinner('Retrying');
+			setTimeout(function() {
+				app.resumeSession();
+			}, 5000);
+			return;
+		}
+		
 		// Check for timestamp and valid code
 		if ( date && user)
 		{
@@ -214,8 +224,8 @@ _.extend(app, {
 			
 			console.log('[resumeSession] - Session info retrieved from [' + moment( parseInt( date ) ).format('DD/MM/YYYY h:mm:ssa') + ']...');
 			
-			app.getStatus(function() {
-				// $( '#preloader' ).velocity({ opacity: 0 }, { duration: 250 });
+			app.getStatus(function(err) {
+				if (err) return retry();
 				app.view('home').show();
 			});
 		}
@@ -225,8 +235,8 @@ _.extend(app, {
 			console.log('[resumeSession] - No existing data found...');
 			console.log('[resumeSession] - Showing [signin] screen.');
 			
-			app.getStatus(function() {
-				// $( '#preloader' ).velocity({ opacity: 0 }, { duration: 250 });
+			app.getStatus(function(err) {
+				if (err) return retry();
 				app.view('home').show();
 			});
 		}
@@ -263,7 +273,7 @@ _.extend(app, {
 		
 		var error = function() {
 			
-			console.log('[getStatus] - Failed getting status, assuming success anyway.');
+			console.log('[getStatus] - Failed getting status, aborting');
 			
 			return callback(true);
 			
