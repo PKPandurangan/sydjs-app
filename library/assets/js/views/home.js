@@ -215,65 +215,6 @@
 			}, { duration: 500, easing: 'easeOutSine' });
 		},
 		
-		animateCalendar: function(direction) {
-			
-			return;
-			
-			var self = this;
-			
-			var $calendar = this.$('.btn-calendar'),
-				$meetup = this.$('.meetup');
-			
-			var duration = 500,
-				easing = 'easeOutSine';
-			
-			var meetupPosition = function() {
-				return parseInt(self.$('.meetup').css('margin-top'));
-			}
-			
-			switch(direction) {
-				case 'up':
-				
-					if ($calendar.is(':visible')) return;
-					
-					$meetup.velocity({
-						marginTop: meetupPosition() - 40
-					}, { duration: duration, easing: easing });
-					
-					$calendar.show();
-					$calendar.css({
-						opacity: 0,
-						marginTop: meetupPosition() + 140,
-						marginLeft: app.viewportSize.width / 2 - $calendar.width() / 2
-					});
-					
-					$calendar.velocity({
-						marginTop: meetupPosition() + 100,
-						opacity: 1
-					}, { duration: duration, easing: easing });
-				
-				break;
-				
-				case 'down':
-				
-					if (!$calendar.is(':visible')) return;
-					
-					$meetup.velocity({
-						marginTop: meetupPosition() + 40
-					}, { duration: duration, easing: easing });
-					
-					$calendar.velocity({
-						marginTop: meetupPosition() + 180,
-						opacity: 0
-					}, { duration: duration, easing: easing, complete: function() {
-						$calendar.hide();
-					}});
-				
-				break;
-			}
-		
-		},
-		
 		toggleMenu: function(hideOnly) {
 			
 			var self = this;
