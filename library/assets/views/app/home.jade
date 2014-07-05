@@ -4,45 +4,74 @@
 		.btn-menu: .cross: span
 		.btn-logo
 		.btn-notifications: img(src='img/ui/icon-alarm-white.svg')
-	.container
-		//- .btn-talks: img(src='img/ui/icon-talks-white.svg')
-		.btn-about.logo
-		.meetup
-			.btn-meetup
-				.meetup-state
-				.meetup-days
-				.meetup-name
-				.meetup-date
-				.meetup-place
-			span.actions
-				.left.btn-talks
-					span.icon
-					span.text View Talks
-				.right.btn-calendar
-					span.icon
-						.number
-						img(src='img/ui/icon-calendar-white.svg')
-					span.text &nbsp;
-		.remaining: .text
-		.states
-			.rsvp
-				.btn-plain.btn-left
-					.text Attending
-					.icon: img(src='img/ui/icon-close-black.svg')
-				.btn-plain.btn-right
-					.text Nope
-					.icon: img(src='img/ui/icon-close-black.svg')
-			.sold-out
-				.btn-plain.dark-grey: .text.strike Tickets sold out
-			.soon
-				.btn-plain.dark-grey: .text Next meetup soon
-		.squid
-			.wiggler: img(src='img/ui/squid.svg', width=65)
+	.home
+		.container
+			.btn-about.logo
+			.meetup
+				.btn-meetup
+					.meetup-state
+					.meetup-days
+					.meetup-name
+					.meetup-date
+					.meetup-place
+				span.actions
+					.left.btn-talks
+						span.icon
+						span.text View Talks
+					.right.btn-calendar
+						span.icon
+							.number
+							img(src='img/ui/icon-calendar-white.svg')
+						span.text &nbsp;
+			.remaining: .text
+			.states
+				.rsvp
+					.btn-plain.btn-left
+						.text Attending
+						.icon: img(src='img/ui/icon-close-black.svg')
+					.btn-plain.btn-right
+						.text Nope
+						.icon: img(src='img/ui/icon-close-black.svg')
+				.sold-out
+					.btn-plain.dark-grey: .text.strike Tickets sold out
+				.soon
+					.btn-plain.dark-grey: .text Next meetup soon
+			.squid
+				.wiggler: img(src='img/ui/squid.svg', width=65)
 	.menu
 		.buttons
 			.btn-join.button: .wrap Join
 			.btn-signout.button: .wrap Sign out
 			.btn-about.button: .wrap About
 			.btn-credits.button: .wrap Credits
+		.about
+			.container.scrollable
+				.logo
+				.text
+					p <strong>On the third wednesday of each month</strong>, some of Sydney’s most talented and enthusiastic hackers get together to share ideas, techniques and stories, powered by great sponsors, free pizza and a large selection of fine beers. Join us.
+					p This app was conceived during the Decompress hack day at the JS Conf by <span class="link" data-link="http://thinkmill.com.au">Thinkmill</span> using <span class="link" data-link="http://keystonejs.com">KeystoneJS</span>.
+					p SydJS is held at <span class="link" data-link="https://www.google.com.au/maps/place/Atlassian/@-33.867267,151.20689,17z">Level 6, 341 George St (Atlassian)</span> from 6pm to 9pm.
+			.footer
+				.btn-plain.light-blue.close
+		.credits
+			.container.scrollable
+				.text
+					.title Built by
+					ul
+						li Tom (Dev)
+						li Boris (UX/UI)
+						li Jed (Dev)
+						li Joss (Dev)
+						li Tuan (Dev)
+					.title Built with
+					ul
+						li <span class="link" data-link="http://cordova.apache.org">Cordova</span>
+						li <span class="link" data-link="http://velocityjs.org">Velocity.js</span>
+					.title Open source
+					p This app is open source and available on <span class="link" data-link="http://github.com/bladey/sydjs-app" class="link">GitHub</span>.
+			.footer
+				.btn-plain.light-blue.close
+	.footer
+		.btn-plain.light-blue.close
 	.gradient
 	.background(data-parallaxify-range-x='30', data-parallaxify-range-y='30')
