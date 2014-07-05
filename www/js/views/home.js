@@ -39,7 +39,7 @@
 				
 				this.setNotifications();
 				this.setMeetup();
-				this.setState(true);
+				this.setState();
 				this.setSession();
 				
 				// preload green notifications icon
@@ -193,10 +193,6 @@
 						self.animateRemaining();
 					}});
 				}, 300);
-				
-				setTimeout(function() {
-					meetup && meetup.rsvped && meetup.attending && self.animateCalendar('up');
-				}, 750);
 				
 			}});
 			
@@ -511,7 +507,7 @@
 			
 		},
 		
-		setState: function(initial) {
+		setState: function() {
 			
 			var self = this;
 			
@@ -530,15 +526,12 @@
 			if (meetup && meetup.rsvped && meetup.attending) {
 				$rsvp.show();
 				this.moveButtons('left');
-				if (!initial) this.animateCalendar('up');
 			} else if (meetup && meetup.rsvped && !meetup.attending) {
 				$rsvp.show();
 				this.moveButtons('right');
-				if (!initial) this.animateCalendar('down');
 			} else if (meetup && meetup.ticketsAvailable && meetup.ticketsRemaining) {
 				$rsvp.show();
 				this.moveButtons('middle');
-				if (!initial) this.animateCalendar('down');
 			} else if (meetup && meetup.ticketsAvailable && meetup.ticketsAvailable == 0) {
 				$soldOut.show();
 			} else {
