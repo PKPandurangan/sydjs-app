@@ -799,7 +799,7 @@
 		easterEgg: function() {
 			
 			var $squid = this.$('.squid'),
-				$logo = this.$('.logo');
+				$logo = this.$('.btn-logo');
 			
 			if ($squid.is(':visible')) return;
 			
@@ -822,7 +822,7 @@
 			$squid.css('marginTop', -(topOffset) - $squid.height());
 			
 			$squid.velocity({
-				marginTop: 0
+				marginTop: 60
 			}, { easing: 'easeOutBounce', duration: 1000 });
 			
 		}
