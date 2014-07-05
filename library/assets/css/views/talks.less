@@ -17,10 +17,28 @@
 	ul.list {
 		margin: 0px;
 		padding: 0px 40px 100px;
+		text-align: center;
 		li {
 			list-style-type: none;
 			margin-bottom: 20px;
 			color: #212121;
+			.images {
+				position: relative;
+				margin: 0px auto 10px auto;
+				margin-bottom: 10px;
+				display: block;
+				width: 100%;
+				img {
+					border-radius: 50%;
+					width: 80px;
+					margin: 5px;
+				}
+				.mini {
+					width: 60px;
+				}
+				
+				&.shift { width: 140px; }
+			}
 			.title {
 				display: block;
 				font-size: 18px;
@@ -30,7 +48,7 @@
 			.people {
 				.authors {
 					display: block;
-					margin-top: 5px;
+					margin-top: 10px;
 					.author {
 						font-size: 16px;
 					}
