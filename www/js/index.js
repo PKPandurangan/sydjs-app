@@ -267,6 +267,9 @@ _.extend(app, {
 			// Set user data
 			if (data.user) app.data.session = data.user;
 			
+			// Preload meetup
+			app.preloadMeetup();
+			
 			return callback(false);
 			
 		}
@@ -302,6 +305,42 @@ _.extend(app, {
 			data: app.data.meetups.next || app.data.meetups.last,
 			inProgress: app.data.meetups.next && app.data.meetups.next.starts && app.data.meetups.next.ends ? moment().isAfter(moment(app.data.meetups.next.starts)) && moment().isBefore(moment(app.data.meetups.next.ends)) : false
 		}
+	
+	},
+	
+	preloadMeetup: function() {
+		
+		var self = this;
+		
+		// console.log('[preloadMeetup] - Preload requested...');
+		
+		if (!app.data.meetups.next) return;
+		
+		async.each(app.data.meetups.next.talks, function(talk, loadedTalk) {
+			
+			async.each(talk.who, function(person, loadedPerson) {
+			
+				if (!person.avatarUrl) return loadedPerson();
+				
+				var $image = $(new Image());
+				
+				$image.on({
+					load: function() { loadedPerson() },
+					error: function() { loadedPerson() }
+				});
+				
+				$image.prop('src', person.avatarUrl);
+				
+				// console.log('[preloadMeetup] - Loading [' + person.avatarUrl + '].');
+			
+			}, function(err) {
+				// console.log('[preloadMeetup] - Preloaded talk.');
+				return loadedTalk();
+			});
+			
+		}, function(err) {
+			// console.log('[preloadMeetup] - Preloaded meetup.');
+		});
 	
 	},
 	
