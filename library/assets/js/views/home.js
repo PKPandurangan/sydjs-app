@@ -556,9 +556,18 @@
 				cancel: options.cancel
 			};
 			
+			var hasRSVPed = app.data.meetups.next.rsvped,
+				isAttending = app.data.meetups.next.attending;
+			
 			var success = function(data) {
 				
 				console.log("[toggleAttending] - RSVP successful.", data);
+				console.log(rsvpData);
+				
+				// Update remaining tickets
+				if (hasRSVPed && isAttending && options.cancel) app.data.meetups.next.ticketsRemaining++;
+				if (!hasRSVPed && options.attending) app.data.meetups.next.ticketsRemaining--;
+				self.$('.remaining .text').html(app.data.meetups.next.ticketsRemaining + ' Tickets Remaining');
 				
 				// Set form to no longer processing (after 500 milliseconds of animations)
 				setTimeout(function() {
