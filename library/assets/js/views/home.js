@@ -189,10 +189,7 @@
 				setTimeout(function() {
 					self.$('.states').velocity({ translateY: [app.viewportSize.height - 95, app.viewportSize.height] }, { duration: 500, easing: 'easeOutSine', complete: function() {
 						if (!meetup.ticketsRemaining) return;
-						self.$('.remaining').velocity({
-							translateX: ['-50%', '-50%'],
-							translateY: [app.viewportSize.height - 95 - 35, app.viewportSize.height - 95]
-						}, { duration: 500, easing: 'easeOutSine' });
+						self.animateRemaining();
 					}});
 				}, 300);
 				
@@ -204,6 +201,17 @@
 			
 			this._animated = true;
 		
+		},
+		
+		animateRemaining: function(hide) {
+			
+			var translateY = [app.viewportSize.height - 95 - 35, app.viewportSize.height - 95]
+			if (hide) translateY.reverse();
+			
+			this.$('.remaining').velocity({
+				translateX: ['-50%', '-50%'],
+				translateY: translateY
+			}, { duration: 500, easing: 'easeOutSine' });
 		},
 		
 		animateCalendar: function(direction) {
@@ -381,7 +389,8 @@
 			
 			$calendar.find('.number').html(meetup.next && meetup.data.starts ? startDate.format('DD') : '');
 			
-			this.$('.remaining .text').html(meetup.data.ticketsRemaining + ' Tickets Remaining');
+			if (meetup.next && meetup.data.ticketsRemaining) this.$('.remaining .text').html(meetup.data.ticketsRemaining + ' Tickets Remaining');
+			if (meetup.next && !meetup.data.ticketsRemaining) this.animateRemaining(true);
 			
 			if (!meetup.next) $days.hide();
 			
@@ -568,6 +577,7 @@
 				if (hasRSVPed && isAttending && options.cancel) app.data.meetups.next.ticketsRemaining++;
 				if (!hasRSVPed && options.attending) app.data.meetups.next.ticketsRemaining--;
 				self.$('.remaining .text').html(app.data.meetups.next.ticketsRemaining + ' Tickets Remaining');
+				if (!app.data.meetups.next.ticketsRemaining) self.animateRemaining(true);
 				
 				// Set form to no longer processing (after 500 milliseconds of animations)
 				setTimeout(function() {
