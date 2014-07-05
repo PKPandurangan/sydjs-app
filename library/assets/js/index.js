@@ -311,6 +311,11 @@ _.extend(app, {
 	
 		app.data.session = {};
 		
+		if (app.data.meetups.next) {
+			app.data.meetups.next.rsvped = false;
+			app.data.meetups.next.attending = false;
+		}
+		
 		localStorage.clear();
 		
 		app.view('signout').show('slide-up');

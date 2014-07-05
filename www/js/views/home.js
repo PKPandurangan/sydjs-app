@@ -50,6 +50,7 @@
 				// they come back from signup)
 				if (this._action) {
 					if (_.isEmpty(app.data.session)) return this._action = undefined;
+					if (app.data.meetups.next && app.data.meetups.next.rsvped) return this._action = undefined;
 					setTimeout(function() {
 						switch(self._action) {
 							case 'attending': self.rsvpAttending(); break;
