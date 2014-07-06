@@ -33,12 +33,13 @@
 				var self = this;
 				
 				this.setBackground();
+				this.showBackground();
 				
 				this.animateView();
 				
 				this.setNotifications();
 				this.setMeetup();
-				this.setState(true);
+				this.setState();
 				this.setSession();
 				
 				// preload green notifications icon
@@ -49,6 +50,7 @@
 				// they come back from signup)
 				if (this._action) {
 					if (_.isEmpty(app.data.session)) return this._action = undefined;
+					if (app.data.meetups.next && app.data.meetups.next.rsvped) return this._action = undefined;
 					setTimeout(function() {
 						switch(self._action) {
 							case 'attending': self.rsvpAttending(); break;
@@ -57,9 +59,6 @@
 						self._action = undefined;
 					}, 750);
 				}
-				
-				// enable tilting background
-				this.$('.background').removeClass('disabled');
 				
 				// add shake event for easter egg
 				this._shakes = 0;
@@ -85,11 +84,10 @@
 			hidden: function() {
 			
 				// make sure menu is hidden
-				this.$('.menu').css('opacity', 0).hide();
-				this._menuOpen = false;
+				this.toggleMenu(true);
 				
-				// disable tilting background
-				this.$('.background').addClass('disabled');
+				// destroy the parallaxify effect
+				this.destroyBackground();
 				
 				// stop watching for shake event
 				if (window.shake) window.shake.stopWatch();
@@ -102,51 +100,57 @@
 		
 		buttons: {
 			'.corners .btn-menu': 'toggleMenu',
+			'.corners .btn-logo': 'viewTalks',
 			'.corners .btn-notifications': 'toggleNotifications',
-			// '.corners .btn-talks': 'viewTalks',
 			
-			// '.container .btn-about': 'viewAbout',
-			'.container .btn-meetup': 'viewTalks',
+			'.home .btn-meetup': 'viewTalks',
+			'.home .actions .btn-talks': 'viewTalks',
+			'.home .actions .btn-calendar': 'addToCalendar',
 			
-			'.container .btn-calendar': 'addToCalendar',
+			'.home .rsvp .btn-left': 'leftRSVP',
+			'.home .rsvp .btn-right': 'rightRSVP',
 			
-			'.container .rsvp .btn-left': 'leftRSVP',
-			'.container .rsvp .btn-right': 'rightRSVP',
-			
-			'.container .rsvp-not-attending .btn-cancel': 'rsvpCancel',
-			'.container .rsvp-attending .btn-cancel': 'rsvpCancel',
+			'.home .rsvp-not-attending .btn-cancel': 'rsvpCancel',
+			'.home .rsvp-attending .btn-cancel': 'rsvpCancel',
 			
 			'.menu .btn-join': 'menuJoin',
 			'.menu .btn-signout': 'menuSignout',
 			'.menu .btn-about': 'menuAbout',
+			'.menu .about .close': 'menuAboutBack',
 			'.menu .btn-credits': 'menuCredits',
+			'.menu .credits .close': 'menuCreditsBack',
+			
+			'.link': 'openLink'
 		},
 		
 		setBackground: function() {
 			
-			var self = this;
-			
 			var $background = this.$('.background');
 			
-			$background.css('margin-left', -(640 - (app.viewportSize.width / 2)));
-			$background.css('margin-top', -(400 - (app.viewportSize.height / 2)));
+			$background.css('margin-left', -(410 - (app.viewportSize.width / 2)));
+			$background.css('margin-top', -(361 - (app.viewportSize.height / 2))); // 400
 			
-			/*
-			$background.css('opacity', 0);
-			$background.velocity({
-				opacity: 1
-			}, {
-				duration: 500, easing: 'linear'
-			});
-			*/
-			
-			this.$el.parallaxify({
+			this._parallaxify = this.$el.parallaxify({
 				positionProperty: 'transform',
-				motionType: 'natural',
-				motionAngleX: 120,
-				motionAngleY: 120
+				motionType: 'gaussian',
+				useMouseMove: false,
+				alphaFilter: 0.9,
+				adjustBasePosition: false
 			});
 			
+		},
+		
+		showBackground: function() {
+			
+			// velocity causes visual artifacts if it's used for opacity
+			// using a standard css transition here
+			this.$('.background').addClass('show');
+			
+		},
+		
+		destroyBackground: function() {
+			if (!this._parallaxify || !this._parallaxify.data('plugin_parallaxify')) return;
+			this._parallaxify && this._parallaxify.data('plugin_parallaxify').destroy();
 		},
 		
 		animateView: function() {
@@ -157,47 +161,42 @@
 			
 			var meetup = app.data.meetups.next;
 			
-			var $logo = this.$('.logo');
-			
 			var availableHeight = app.viewportSize.height - this.$('.statusbar').height();
 			
 			// If it's the first time this view is visible, animate the elements in
-			var logoHeight = $logo.height(),
+			var logoHeight = this.$('.logo').height(),
 				meetupHeight = this.$('.meetup').height();
 			
-			$logo.css('marginTop', (availableHeight / 2) - ($logo.height() / 2));
+			var logoPosition = (availableHeight / 2) - (this.$('.logo').height() / 2) - this.$('.statusbar').height();
 			
-			$logo.velocity({
-				marginTop: this.$('.statusbar').height() - 32,
-				scaleX: 0.4,
-				scaleY: 0.4
+			this.$('.corners').css({ 'transform': 'translateY(-15px)', opacity: 0 });
+			this.$('.home .logo').css('marginTop', logoPosition);
+			this.$('.home .remaining').css('transform', 'translateY(' + app.viewportSize.height + 'px)');
+			this.$('.home .states').css('transform', 'translateY(' + app.viewportSize.height + 'px)');
+			
+			this.$('.home .logo').velocity({
+				opacity: 0
 			}, {
-				delay: 0, duration: 1000, easing: 'easeInOutCubic', complete: function() {
+				duration: 300, easing: 'easeOut', complete: function() {
 				
-				var logoPosition = self.$('.logo').offset(),
-					logoParentPosition = self.$('.logo').parent().offset();
-				
-				var offset = logoPosition.top - logoParentPosition.top;
-				
-				self.$('.meetup').css({
-					marginTop: offset + meetupHeight + self.$('.statusbar').height() + 150
+				self.$('.home .meetup').css({
+					marginTop: ((availableHeight / 2) - (self.$('.meetup').height() / 2) - self.$('.statusbar').height()) + 10
 				});
 				
-				self.$('.btn-menu').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
-				self.$('.btn-notifications').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
-				// meetup && meetup.talks && meetup.talks.length && self.$('.btn-talks').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
+				setTimeout(function() {
+					self.$('.corners').velocity({ translateY: [0, -15], opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
+				}, 400);
 				
 				setTimeout(function() {
-					self.$('.meetup').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
-				}, 250);
+					self.$('.home .meetup').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
+				}, 200);
 				
 				setTimeout(function() {
-					self.$('.states').velocity({ bottom: 0 }, { duration: 500, easing: 'easeOutSine' });
-				}, 500);
-				
-				setTimeout(function() {
-					meetup && meetup.rsvped && meetup.attending && self.animateCalendar('up');
-				}, 750);
+					self.$('.home .states').velocity({ translateY: [app.viewportSize.height - 95, app.viewportSize.height] }, { duration: 500, easing: 'easeOutSine', complete: function() {
+						if (!meetup.ticketsRemaining) return;
+						self.animateRemaining();
+					}});
+				}, 300);
 				
 			}});
 			
@@ -205,94 +204,55 @@
 		
 		},
 		
-		animateCalendar: function(direction) {
-		
-			var self = this;
+		animateRemaining: function(hide) {
 			
-			var $calendar = this.$('.btn-calendar'),
-				$meetup = this.$('.meetup');
+			var translateY = [app.viewportSize.height - 95 - 35, app.viewportSize.height - 95]
+			if (hide) translateY.reverse();
 			
-			var duration = 500,
-				easing = 'easeOutSine';
-			
-			var meetupPosition = function() {
-				return parseInt(self.$('.meetup').css('margin-top'));
-			}
-			
-			switch(direction) {
-				case 'up':
-				
-					if ($calendar.is(':visible')) return;
-					
-					$meetup.velocity({
-						marginTop: meetupPosition() - 40
-					}, { duration: duration, easing: easing });
-					
-					$calendar.show();
-					$calendar.css({
-						opacity: 0,
-						marginTop: meetupPosition() + 140,
-						marginLeft: app.viewportSize.width / 2 - $calendar.width() / 2
-					});
-					
-					$calendar.velocity({
-						marginTop: meetupPosition() + 100,
-						opacity: 1
-					}, { duration: duration, easing: easing });
-				
-				break;
-				
-				case 'down':
-				
-					if (!$calendar.is(':visible')) return;
-					
-					$meetup.velocity({
-						marginTop: meetupPosition() + 40
-					}, { duration: duration, easing: easing });
-					
-					$calendar.velocity({
-						marginTop: meetupPosition() + 180,
-						opacity: 0
-					}, { duration: duration, easing: easing, complete: function() {
-						$calendar.hide();
-					}});
-				
-				break;
-			}
-		
+			this.$('.remaining').velocity({
+				translateX: ['-50%', '-50%'],
+				translateY: translateY
+			}, { duration: 500, easing: 'easeOutSine' });
 		},
 		
-		toggleMenu: function() {
+		toggleMenu: function(hideOnly) {
 			
 			var self = this;
 			
 			if (this._menuOpen) {
 				this.$('.btn-menu .cross').removeClass('open');
+				this.$('.corners .btn-logo, .corners .btn-notifications').velocity({
+					opacity: 1
+				}, { duration: 150, easing: 'easeOutSine' });
 				this.$('.menu').velocity({
 					opacity: 0
-				}, { duration: 250, easing: 'easeOutSine', complete: function() {
+				}, { duration: 150, easing: 'easeOutSine', complete: function() {
 					self.$('.menu').hide();
 				}});
 				this._menuOpen = false;
 				return;
 			}
 			
+			if (typeof hideOnly == 'boolean') return;
+			
 			this._menuOpen = true;
 			
-			var availableHeight = app.viewportSize.height -
-				this.$('.statusbar').height();
+			var availableHeight = app.viewportSize.height - this.$('.statusbar').height();
 			
-			this.$('.menu').css('opacity', 0).show();
+			this.$('.corners .btn-logo, .corners .btn-notifications').velocity({ opacity: 0 }, { duration: 150, easing: 'easeOutSine' });
 			
-			this.$('.buttons').css({
-				marginTop: (availableHeight / 2) - (this.$('.buttons').height() / 2) + this.$('.statusbar').height()
-			});
+			this.$('.menu .about').hide();
+			this.$('.menu .credits').hide();
+			
+			this.$('.menu').css({ 'background-color': '#2697de', 'opacity': 0 }).show();
+			
+			this.$('.buttons').css({ transform: 'translateY(' + ((availableHeight / 2) - (this.$('.buttons').height() / 2) + this.$('.statusbar').height()) + 'px)' });
 			
 			this.$('.btn-menu .cross').addClass('open');
 			
 			this.$('.menu').velocity({
 				opacity: 1
-			}, { duration: 250, easing: 'easeOutSine' });
+			}, { duration: 150, easing: 'easeOutSine' });
 			
 		},
 		
@@ -333,6 +293,7 @@
 		},
 		
 		viewTalks: function() {
+			this.destroyBackground();
 			app.view('talks').show('slide-up');
 		},
 		
@@ -351,24 +312,35 @@
 		},
 		
 		setMeetup: function() {
-		
-			var meetup = app.data.meetups.next;
 			
-			var $talks = this.$('.btn-talks');
+			var meetup = app.parseMeetup();
 			
-			var $days = this.$('.meetup-days'),
-				$date = this.$('.meetup-date');
+			var $state = this.$('.meetup-state').show(),
+				$name = this.$('.meetup-name').show(),
+				$days = this.$('.meetup-days').show(),
+				$date = this.$('.meetup-date').show(),
+				$place = this.$('.meetup-place').show();
 			
 			var $calendar = this.$('.btn-calendar');
 			
-			var meetupInProgress = meetup && meetup.starts && meetup.ends ? moment().isAfter(moment(meetup.starts)) && moment().isBefore(moment(meetup.ends)) : false;
+			var startDate = meetup.data.starts ? moment(meetup.data.starts) : false,
+				endDate = meetup.data.ends ? moment(meetup.data.ends) : false;
 			
-			var startDate = meetup && meetup.starts ? moment(meetup.starts) : false;
+			$state.html((meetup.next ? 'Next' : 'Last') + ' Meetup');
+			$name.html(meetup.data.name);
+			$days.html(meetup.next && (meetup.inProgress || startDate) ? (meetup.inProgress ? 'Now' : startDate.fromNow(true)) : '');
+			$date.html(startDate ? startDate.format('ddd, DD MMM') + ' &#8212; ' + startDate.format('h:mma') + '-' + endDate.format('h:mma') : '');
+			$place.html(meetup.map || 'Level 6, 341 George St');
 			
-			$days.html(meetupInProgress || startDate ? (meetupInProgress ? 'Now' : startDate.fromNow(true)) : 'Standby');
-			$date.html(startDate ? startDate.format('ddd, DD MMMM YYYY') : 'Sharkie\'s on it...');
+			$calendar.find('.number').html(meetup.next && meetup.data.starts ? startDate.format('DD') : '');
 			
-			meetup && meetup.starts && $calendar.find('.number').html(startDate.format('DD'));
+			if (meetup.next && meetup.data.ticketsRemaining) this.$('.remaining .text').html(meetup.data.ticketsRemaining + ' Tickets Remaining');
+			if (meetup.next && !meetup.data.ticketsRemaining) this.animateRemaining(true);
+			
+			if (!meetup.next) $days.hide();
+			
+			this.$('.actions')[meetup.next ? 'removeClass' : 'addClass']('single');
+			this.$('.meetup')[meetup.next ? 'removeClass' : 'addClass']('last');
 		
 		},
 		
@@ -376,7 +348,6 @@
 			
 			if (!app._device.system || !app._device.system.match(/ios|android/)) {
 				return app.showNotification('Alert', 'Sorry, calendar functionality can only be configured on actual devices.');
-				return;
 			}
 			
 			var meetup = app.data.meetups.next;
@@ -409,8 +380,8 @@
 		
 		moveButtons: function(direction) {
 		
-			var $left = $('.rsvp .btn-left'),
-				$right = $('.rsvp .btn-right');
+			var $left = $('.home .rsvp .btn-left'),
+				$right = $('.home .rsvp .btn-right');
 			
 			var left = '0%',
 				right = '0%',
@@ -475,7 +446,7 @@
 				break;
 				case 'right':
 					$right.data('button').disable();
-					$left.find('.text').velocity({ opacity: 0 }, { duration: duration, easing: 'linear' });
+					$left.find('.text').velocity({ opacity: 0 }, { duration: duration, easing: easing });
 					$left.find('.icon').velocity({ opacity: 1, rotateZ: '90deg' }, { delay: duration, duration: duration, easing: 'easeOutSine' });
 					$right.find('.text').text(rightText).velocity({ opacity: 1 }, { duration: duration, easing: easing });
 					$right.find('.icon').velocity({ opacity: 0, rotateZ: '-135deg' }, { duration: duration, easing: 'easeOutSine' });
@@ -484,13 +455,12 @@
 			
 		},
 		
-		setState: function(initial) {
+		setState: function() {
 			
 			var self = this;
 			
 			var meetup = app.data.meetups.next;
 			
-			// RSVP States
 			var $states = this.$('.states');
 			
 			var $rsvp = $states.find('.rsvp'),
@@ -504,15 +474,12 @@
 			if (meetup && meetup.rsvped && meetup.attending) {
 				$rsvp.show();
 				this.moveButtons('left');
-				if (!initial) this.animateCalendar('up');
 			} else if (meetup && meetup.rsvped && !meetup.attending) {
 				$rsvp.show();
 				this.moveButtons('right');
-				if (!initial) this.animateCalendar('down');
 			} else if (meetup && meetup.ticketsAvailable && meetup.ticketsRemaining) {
 				$rsvp.show();
 				this.moveButtons('middle');
-				if (!initial) this.animateCalendar('down');
 			} else if (meetup && meetup.ticketsAvailable && meetup.ticketsAvailable == 0) {
 				$soldOut.show();
 			} else {
@@ -540,14 +507,24 @@
 				cancel: options.cancel
 			};
 			
+			var hasRSVPed = app.data.meetups.next.rsvped,
+				isAttending = app.data.meetups.next.attending;
+			
 			var success = function(data) {
 				
 				console.log("[toggleAttending] - RSVP successful.", data);
+				console.log(rsvpData);
+				
+				// Update remaining tickets
+				if (hasRSVPed && isAttending && options.cancel) app.data.meetups.next.ticketsRemaining++;
+				if (!hasRSVPed && options.attending) app.data.meetups.next.ticketsRemaining--;
+				self.$('.remaining .text').html(app.data.meetups.next.ticketsRemaining + ' Tickets Remaining');
+				if (!app.data.meetups.next.ticketsRemaining) self.animateRemaining(true);
 				
 				// Set form to no longer processing (after 500 milliseconds of animations)
 				setTimeout(function() {
 					self._processingForm = false;
-				}, 500);
+				}, 350);
 				
 			}
 			
@@ -577,9 +554,9 @@
 					// Set form to no longer processing (after 500 milliseconds of animations)
 					setTimeout(function() {
 						self._processingForm = false;
-					}, 500);
+					}, 350);
 				
-				}, 500);
+				}, 350);
 				
 			}
 			
@@ -617,6 +594,13 @@
 		toggleRSVP: function(button) {
 			
 			if (_.isEmpty(app.data.session)) {
+				var action = false;
+				switch(button) {
+					case 'left': if (!app.data.meetups.next.rsvped) action = 'attending'; break;
+					case 'right': if (!app.data.meetups.next.rsvped) action = 'notAttending'; break;
+				}
+				app.view('home')._action = action;
+				this.destroyBackground();
 				app.view('signin').show('slide-up', true);
 				return;
 				/*
@@ -628,6 +612,7 @@
 				app.showConfirm('Attendance', 'You must sign in to mark your attendance.', 'No‚ thanks,Sign in', function(pressed) {
 					if (pressed == 2) {
 						app.view('home')._action = action;
+						this.destroyBackground();
 						app.view('signin').show('slide-up', true);
 					}
 				});
@@ -678,6 +663,7 @@
 		},
 		
 		menuJoin: function() {
+			this.destroyBackground();
 			app.view('signin').show('slide-up', true);
 		},
 		
@@ -686,17 +672,75 @@
 		},
 		
 		menuAbout: function() {
-			app.view('about').show('slide-down');
+			this.menuView('about');
 		},
 		
 		menuCredits: function() {
-			// app.view('credits').show('slide-down');
+			this.$('.menu .credits .text').css({
+				marginTop: 50
+			});
+			this.menuView('credits');
+		},
+		
+		menuAboutBack: function() {
+			this.menuBack('about');
+		},
+		
+		menuCreditsBack: function() {
+			this.menuBack('credits');
+		},
+		
+		menuView: function(view) {
+			
+			var matrixToArray = function(str) { return str.match(/(-?[0-9\.]+)/g); };
+			var transformValue = _.last(matrixToArray(this.$('.menu .buttons').css('transform')));
+			
+			this.$('.menu .buttons').velocity({
+				translateY: [0 - this.$('.menu .buttons').height(), transformValue]
+			}, { easing: 'easeOut', duration: 750 });
+			
+			this.$('.menu .' + view).show();
+			this.$('.menu .' + view).css({ 'transform': 'translateY(' + app.viewportSize.height + 'px)' });
+			this.$('.menu .' + view).velocity({
+				translateY: [0, app.viewportSize.height],
+			}, { easing: 'easeIn', duration: 750 });
+			
+			switch(view) {
+				case 'credits':
+					this.$('.menu').velocity({ backgroundColorRed: 241, backgroundColorGreen: 119, backgroundColorBlue: 99 }, { easing: 'easeIn', duration: 750 });
+					this.$('.menu .' + view + ' .btn-plain').velocity({ backgroundColorRed: 205, backgroundColorGreen: 101, backgroundColorBlue: 84 }, { easing: 'easeIn', duration: 750 });
+				break;
+			}
+			
+		},
+		
+		menuBack: function(view) {
+			
+			this.$('.menu').velocity({ backgroundColorRed: 38, backgroundColorGreen: 151, backgroundColorBlue: 222 }, { easing: 'easeIn', duration: 750 });
+			this.$('.menu .' + view + ' .btn-plain').velocity({ backgroundColorRed: 32, backgroundColorGreen: 128, backgroundColorBlue: 189 }, { easing: 'easeIn', duration: 750 });
+			
+			this.$('.menu .' + view).velocity({
+				translateY: -(app.viewportSize.height)
+			}, { easing: 'easeIn', duration: 750 });
+			
+			var availableHeight = app.viewportSize.height - this.$('.statusbar').height();
+			
+			var to = (availableHeight / 2) - (this.$('.buttons').height() / 2) + this.$('.statusbar').height();
+			
+			this.$('.menu .buttons').velocity({
+				translateY: [to, app.viewportSize.height]
+			}, { easing: 'easeIn', duration: 750 });
+			
+		},
+		
+		openLink: function(e) {
+			window.open($(e.target).data().link, '_system');
 		},
 		
 		easterEgg: function() {
 			
 			var $squid = this.$('.squid'),
-				$logo = this.$('.logo');
+				$logo = this.$('.btn-logo');
 			
 			if ($squid.is(':visible')) return;
 			
@@ -719,7 +763,7 @@
 			$squid.css('marginTop', -(topOffset) - $squid.height());
 			
 			$squid.velocity({
-				marginTop: 0
+				marginTop: 60
 			}, { easing: 'easeOutBounce', duration: 1000 });
 			
 		}

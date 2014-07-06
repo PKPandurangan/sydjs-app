@@ -1,6 +1,6 @@
 (function() {
 	
-	new View('signed-in', {
+	new View('signin-successful', {
 		
 		on: {
 			layout: function() {
@@ -26,11 +26,9 @@
 			}
 		},
 		
-		buttons: {
-			//
-		},
-		
 		animateView: function() {
+			
+			this.$('.heading').html('Hi ' + (app.data.session.name.first || 'there') + '!');
 			
 			var availableHeight = app.viewportSize.height;
 			
@@ -38,20 +36,22 @@
 			
 			this.$('.message').css({
 				opacity: 0,
-				marginTop: position + 50
+				transform: 'translateY(' + position + 50 + 'px)'
 			});
 			
 			this.$('.message').velocity({
 				opacity: 1
 			}, { duration: 500, easing: 'linear' });
 			
+			this.$('.avatar').css('background-image', 'url(' + app.data.session.avatar + ')');
+			
 			this.$('.message').velocity({
-				marginTop: position - 50,
-			}, { duration: 2000, easing: 'linear', queue: false });
+				translateY: [position - 50, position + 50],
+			}, { duration: 2500, easing: 'linear', queue: false });
 			
 			setTimeout(function() {
 				app.view('home').reveal('slide-up');
-			}, 2000);
+			}, 2500);
 		
 		}
 		

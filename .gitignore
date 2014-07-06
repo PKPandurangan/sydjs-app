@@ -15,3 +15,6 @@ node_modules
 
 *.DS_Store
 *.env
+
+platforms/ios/Notificare.plist
+platforms/android/assets/notificareconfig.properties

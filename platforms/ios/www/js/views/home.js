@@ -39,7 +39,7 @@
 				
 				this.setNotifications();
 				this.setMeetup();
-				this.setState(true);
+				this.setState();
 				this.setSession();
 				
 				// preload green notifications icon
@@ -50,6 +50,7 @@
 				// they come back from signup)
 				if (this._action) {
 					if (_.isEmpty(app.data.session)) return this._action = undefined;
+					if (app.data.meetups.next && app.data.meetups.next.rsvped) return this._action = undefined;
 					setTimeout(function() {
 						switch(self._action) {
 							case 'attending': self.rsvpAttending(); break;
@@ -102,20 +103,24 @@
 			'.corners .btn-logo': 'viewTalks',
 			'.corners .btn-notifications': 'toggleNotifications',
 			
-			'.container .btn-meetup': 'viewTalks',
-			'.container .actions .btn-talks': 'viewTalks',
-			'.container .actions .btn-calendar': 'addToCalendar',
+			'.home .btn-meetup': 'viewTalks',
+			'.home .actions .btn-talks': 'viewTalks',
+			'.home .actions .btn-calendar': 'addToCalendar',
 			
-			'.container .rsvp .btn-left': 'leftRSVP',
-			'.container .rsvp .btn-right': 'rightRSVP',
+			'.home .rsvp .btn-left': 'leftRSVP',
+			'.home .rsvp .btn-right': 'rightRSVP',
 			
-			'.container .rsvp-not-attending .btn-cancel': 'rsvpCancel',
-			'.container .rsvp-attending .btn-cancel': 'rsvpCancel',
+			'.home .rsvp-not-attending .btn-cancel': 'rsvpCancel',
+			'.home .rsvp-attending .btn-cancel': 'rsvpCancel',
 			
 			'.menu .btn-join': 'menuJoin',
 			'.menu .btn-signout': 'menuSignout',
 			'.menu .btn-about': 'menuAbout',
+			'.menu .about .close': 'menuAboutBack',
 			'.menu .btn-credits': 'menuCredits',
+			'.menu .credits .close': 'menuCreditsBack',
+			
+			'.link': 'openLink'
 		},
 		
 		setBackground: function() {
@@ -165,16 +170,16 @@
 			var logoPosition = (availableHeight / 2) - (this.$('.logo').height() / 2) - this.$('.statusbar').height();
 			
 			this.$('.corners').css({ 'transform': 'translateY(-15px)', opacity: 0 });
-			this.$('.logo').css('marginTop', logoPosition);
-			this.$('.remaining').css('transform', 'translateY(' + app.viewportSize.height + 'px)');
-			this.$('.states').css('transform', 'translateY(' + app.viewportSize.height + 'px)');
+			this.$('.home .logo').css('marginTop', logoPosition);
+			this.$('.home .remaining').css('transform', 'translateY(' + app.viewportSize.height + 'px)');
+			this.$('.home .states').css('transform', 'translateY(' + app.viewportSize.height + 'px)');
 			
-			this.$('.logo').velocity({
+			this.$('.home .logo').velocity({
 				opacity: 0
 			}, {
 				duration: 300, easing: 'easeOut', complete: function() {
 				
-				self.$('.meetup').css({
+				self.$('.home .meetup').css({
 					marginTop: ((availableHeight / 2) - (self.$('.meetup').height() / 2) - self.$('.statusbar').height()) + 10
 				});
 				
@@ -183,22 +188,15 @@
 				}, 400);
 				
 				setTimeout(function() {
-					self.$('.meetup').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
+					self.$('.home .meetup').velocity({ opacity: 1 }, { duration: 500, easing: 'easeOutSine' });
 				}, 200);
 				
 				setTimeout(function() {
-					self.$('.states').velocity({ translateY: [app.viewportSize.height - 95, app.viewportSize.height] }, { duration: 500, easing: 'easeOutSine', complete: function() {
+					self.$('.home .states').velocity({ translateY: [app.viewportSize.height - 95, app.viewportSize.height] }, { duration: 500, easing: 'easeOutSine', complete: function() {
 						if (!meetup.ticketsRemaining) return;
-						self.$('.remaining').velocity({
-							translateX: ['-50%', '-50%'],
-							translateY: [app.viewportSize.height - 95 - 35, app.viewportSize.height - 95]
-						}, { duration: 500, easing: 'easeOutSine' });
+						self.animateRemaining();
 					}});
 				}, 300);
-				
-				setTimeout(function() {
-					meetup && meetup.rsvped && meetup.attending && self.animateCalendar('up');
-				}, 750);
 				
 			}});
 			
@@ -206,63 +204,15 @@
 		
 		},
 		
-		animateCalendar: function(direction) {
+		animateRemaining: function(hide) {
 			
-			return;
+			var translateY = [app.viewportSize.height - 95 - 35, app.viewportSize.height - 95]
+			if (hide) translateY.reverse();
 			
-			var self = this;
-			
-			var $calendar = this.$('.btn-calendar'),
-				$meetup = this.$('.meetup');
-			
-			var duration = 500,
-				easing = 'easeOutSine';
-			
-			var meetupPosition = function() {
-				return parseInt(self.$('.meetup').css('margin-top'));
-			}
-			
-			switch(direction) {
-				case 'up':
-				
-					if ($calendar.is(':visible')) return;
-					
-					$meetup.velocity({
-						marginTop: meetupPosition() - 40
-					}, { duration: duration, easing: easing });
-					
-					$calendar.show();
-					$calendar.css({
-						opacity: 0,
-						marginTop: meetupPosition() + 140,
-						marginLeft: app.viewportSize.width / 2 - $calendar.width() / 2
-					});
-					
-					$calendar.velocity({
-						marginTop: meetupPosition() + 100,
-						opacity: 1
-					}, { duration: duration, easing: easing });
-				
-				break;
-				
-				case 'down':
-				
-					if (!$calendar.is(':visible')) return;
-					
-					$meetup.velocity({
-						marginTop: meetupPosition() + 40
-					}, { duration: duration, easing: easing });
-					
-					$calendar.velocity({
-						marginTop: meetupPosition() + 180,
-						opacity: 0
-					}, { duration: duration, easing: easing, complete: function() {
-						$calendar.hide();
-					}});
-				
-				break;
-			}
-		
+			this.$('.remaining').velocity({
+				translateX: ['-50%', '-50%'],
+				translateY: translateY
+			}, { duration: 500, easing: 'easeOutSine' });
 		},
 		
 		toggleMenu: function(hideOnly) {
@@ -291,9 +241,12 @@
 			
 			this.$('.corners .btn-logo, .corners .btn-notifications').velocity({ opacity: 0 }, { duration: 150, easing: 'easeOutSine' });
 			
-			this.$('.menu').css('opacity', 0).show();
+			this.$('.menu .about').hide();
+			this.$('.menu .credits').hide();
 			
-			this.$('.buttons').css({ marginTop: (availableHeight / 2) - (this.$('.buttons').height() / 2) + this.$('.statusbar').height() });
+			this.$('.menu').css({ 'background-color': '#2697de', 'opacity': 0 }).show();
+			
+			this.$('.buttons').css({ transform: 'translateY(' + ((availableHeight / 2) - (this.$('.buttons').height() / 2) + this.$('.statusbar').height()) + 'px)' });
 			
 			this.$('.btn-menu .cross').addClass('open');
 			
@@ -381,7 +334,8 @@
 			
 			$calendar.find('.number').html(meetup.next && meetup.data.starts ? startDate.format('DD') : '');
 			
-			this.$('.remaining .text').html(meetup.data.ticketsRemaining + ' Tickets Remaining');
+			if (meetup.next && meetup.data.ticketsRemaining) this.$('.remaining .text').html(meetup.data.ticketsRemaining + ' Tickets Remaining');
+			if (meetup.next && !meetup.data.ticketsRemaining) this.animateRemaining(true);
 			
 			if (!meetup.next) $days.hide();
 			
@@ -426,8 +380,8 @@
 		
 		moveButtons: function(direction) {
 		
-			var $left = $('.rsvp .btn-left'),
-				$right = $('.rsvp .btn-right');
+			var $left = $('.home .rsvp .btn-left'),
+				$right = $('.home .rsvp .btn-right');
 			
 			var left = '0%',
 				right = '0%',
@@ -501,7 +455,7 @@
 			
 		},
 		
-		setState: function(initial) {
+		setState: function() {
 			
 			var self = this;
 			
@@ -520,15 +474,12 @@
 			if (meetup && meetup.rsvped && meetup.attending) {
 				$rsvp.show();
 				this.moveButtons('left');
-				if (!initial) this.animateCalendar('up');
 			} else if (meetup && meetup.rsvped && !meetup.attending) {
 				$rsvp.show();
 				this.moveButtons('right');
-				if (!initial) this.animateCalendar('down');
 			} else if (meetup && meetup.ticketsAvailable && meetup.ticketsRemaining) {
 				$rsvp.show();
 				this.moveButtons('middle');
-				if (!initial) this.animateCalendar('down');
 			} else if (meetup && meetup.ticketsAvailable && meetup.ticketsAvailable == 0) {
 				$soldOut.show();
 			} else {
@@ -556,9 +507,19 @@
 				cancel: options.cancel
 			};
 			
+			var hasRSVPed = app.data.meetups.next.rsvped,
+				isAttending = app.data.meetups.next.attending;
+			
 			var success = function(data) {
 				
 				console.log("[toggleAttending] - RSVP successful.", data);
+				console.log(rsvpData);
+				
+				// Update remaining tickets
+				if (hasRSVPed && isAttending && options.cancel) app.data.meetups.next.ticketsRemaining++;
+				if (!hasRSVPed && options.attending) app.data.meetups.next.ticketsRemaining--;
+				self.$('.remaining .text').html(app.data.meetups.next.ticketsRemaining + ' Tickets Remaining');
+				if (!app.data.meetups.next.ticketsRemaining) self.animateRemaining(true);
 				
 				// Set form to no longer processing (after 500 milliseconds of animations)
 				setTimeout(function() {
@@ -711,19 +672,75 @@
 		},
 		
 		menuAbout: function() {
-			this.destroyBackground();
-			app.view('about').show('slide-down');
+			this.menuView('about');
 		},
 		
 		menuCredits: function() {
-			this.destroyBackground();
-			app.view('credits').show('slide-down');
+			this.$('.menu .credits .text').css({
+				marginTop: 50
+			});
+			this.menuView('credits');
+		},
+		
+		menuAboutBack: function() {
+			this.menuBack('about');
+		},
+		
+		menuCreditsBack: function() {
+			this.menuBack('credits');
+		},
+		
+		menuView: function(view) {
+			
+			var matrixToArray = function(str) { return str.match(/(-?[0-9\.]+)/g); };
+			var transformValue = _.last(matrixToArray(this.$('.menu .buttons').css('transform')));
+			
+			this.$('.menu .buttons').velocity({
+				translateY: [0 - this.$('.menu .buttons').height(), transformValue]
+			}, { easing: 'easeOut', duration: 750 });
+			
+			this.$('.menu .' + view).show();
+			this.$('.menu .' + view).css({ 'transform': 'translateY(' + app.viewportSize.height + 'px)' });
+			this.$('.menu .' + view).velocity({
+				translateY: [0, app.viewportSize.height],
+			}, { easing: 'easeIn', duration: 750 });
+			
+			switch(view) {
+				case 'credits':
+					this.$('.menu').velocity({ backgroundColorRed: 241, backgroundColorGreen: 119, backgroundColorBlue: 99 }, { easing: 'easeIn', duration: 750 });
+					this.$('.menu .' + view + ' .btn-plain').velocity({ backgroundColorRed: 205, backgroundColorGreen: 101, backgroundColorBlue: 84 }, { easing: 'easeIn', duration: 750 });
+				break;
+			}
+			
+		},
+		
+		menuBack: function(view) {
+			
+			this.$('.menu').velocity({ backgroundColorRed: 38, backgroundColorGreen: 151, backgroundColorBlue: 222 }, { easing: 'easeIn', duration: 750 });
+			this.$('.menu .' + view + ' .btn-plain').velocity({ backgroundColorRed: 32, backgroundColorGreen: 128, backgroundColorBlue: 189 }, { easing: 'easeIn', duration: 750 });
+			
+			this.$('.menu .' + view).velocity({
+				translateY: -(app.viewportSize.height)
+			}, { easing: 'easeIn', duration: 750 });
+			
+			var availableHeight = app.viewportSize.height - this.$('.statusbar').height();
+			
+			var to = (availableHeight / 2) - (this.$('.buttons').height() / 2) + this.$('.statusbar').height();
+			
+			this.$('.menu .buttons').velocity({
+				translateY: [to, app.viewportSize.height]
+			}, { easing: 'easeIn', duration: 750 });
+			
+		},
+		
+		openLink: function(e) {
+			window.open($(e.target).data().link, '_system');
 		},
 		
 		easterEgg: function() {
 			
 			var $squid = this.$('.squid'),
-				$logo = this.$('.logo');
+				$logo = this.$('.btn-logo');
 			
 			if ($squid.is(':visible')) return;
 			
@@ -746,7 +763,7 @@
 			$squid.css('marginTop', -(topOffset) - $squid.height());
 			
 			$squid.velocity({
-				marginTop: 0
+				marginTop: 60
 			}, { easing: 'easeOutBounce', duration: 1000 });
 			
 		}

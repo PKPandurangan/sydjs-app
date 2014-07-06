@@ -80,9 +80,9 @@
 			// TODO: Check switcher being reset
 			
 			var fields = [];
-				fields.push(['signin-username', 'signin-password']);
-				fields.push(['signup-firstName', 'signup-lastName', 'signup-email', 'signup-password', 'signup-website', 'signup-alertsNotifications']);
-				fields.push(['recover-email']);
+				fields.push('signin-email', 'signin-password');
+				fields.push('signup-firstName', 'signup-lastName', 'signup-email', 'signup-password', 'signup-website', 'signup-alertsNotifications');
+				fields.push('recover-email');
 			
 			_.each(fields, function(key) {
 				self.field(key).val('');
@@ -162,7 +162,7 @@
 			// Validate the form data
 			if (!inputData.username.trim().length) {
 				self._processingForm = false;
-				app.showNotification('Alert', 'Please enter your username.');
+				app.showNotification('Alert', 'Please enter your email.');
 				return;
 			}
 			 
@@ -205,8 +205,18 @@
 				self._processingForm = false;
 				
 				// Go to another view
-				app.getStatus(function() {
-					app.view('home').show('slide-up');
+				app.getStatus(function(err) {
+					if (err) {
+						app.showNotification('Oops!', 'There was an error communicating with SydJS, please wait while we attempt to re-connect in 5 seconds.');
+						app.showLoadingSpinner('Retrying');
+						setTimeout(function() {
+							success(data);
+						}, 5000);
+						return;
+					}
+					app.preloadUser(function() {
+						app.view('signin-successful').show('slide-up');
+					});
 				});
 			
 			}
@@ -327,7 +337,19 @@
 				self.clearFields();
 				
 				// Go to another view
-				app.view('home').show('slide-up');
+				app.getStatus(function(err) {
+					if (err) {
+						app.showNotification('Oops!', 'There was an error communicating with SydJS, please wait while we attempt to re-connect in 5 seconds.');
+						app.showLoadingSpinner('Retrying');
+						setTimeout(function() {
+							success(data);
+						}, 5000);
+						return;
+					}
+					app.preloadUser(function() {
+						app.view('signin-successful').show('slide-up');
+					});
+				});
 				
 			}
 			

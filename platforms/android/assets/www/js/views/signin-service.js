@@ -162,8 +162,18 @@
 				self.clearFields();
 				
 				// Go to another view
-				app.getStatus(function() {
-					app.view('home').show('slide-up');
+				app.getStatus(function(err) {
+					if (err) {
+						app.showNotification('Oops!', 'There was an error communicating with SydJS, please wait while we attempt to re-connect in 5 seconds.');
+						app.showLoadingSpinner('Retrying');
+						setTimeout(function() {
+							success(data);
+						}, 5000);
+						return;
+					}
+					app.preloadUser(function() {
+						app.view('signin-successful').show('slide-up');
+					});
 				});
 				
 			}

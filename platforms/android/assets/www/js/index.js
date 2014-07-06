@@ -144,6 +144,19 @@ _.extend(app, {
 	
 	},
 	
+	preloadUser: function(callback) {
+		
+		var $image = $(new Image());
+		
+		$image.on({
+			load: function() { callback() },
+			error: function() { callback() }
+		});
+		
+		$image.prop('src', app.data.session.avatar);
+		
+	},
+	
 	generateUser: function() {
 	
 		var key = '',
@@ -189,6 +202,16 @@ _.extend(app, {
 		var date = localStorage.getItem( 'session_date' ),
 			user = localStorage.getItem( 'session_userId' );
 		
+		// Function to handle retries
+		var retry = function() {
+			app.showNotification('Oops!', 'There was an error communicating with SydJS, please wait while we attempt to re-connect in 5 seconds.');
+			app.showLoadingSpinner('Retrying');
+			setTimeout(function() {
+				app.resumeSession();
+			}, 5000);
+			return;
+		}
+		
 		// Check for timestamp and valid code
 		if ( date && user)
 		{
@@ -201,8 +224,8 @@ _.extend(app, {
 			
 			console.log('[resumeSession] - Session info retrieved from [' + moment( parseInt( date ) ).format('DD/MM/YYYY h:mm:ssa') + ']...');
 			
-			app.getStatus(function() {
-				// $( '#preloader' ).velocity({ opacity: 0 }, { duration: 250 });
+			app.getStatus(function(err) {
+				if (err) return retry();
 				app.view('home').show();
 			});
 		}
@@ -212,8 +235,8 @@ _.extend(app, {
 			console.log('[resumeSession] - No existing data found...');
 			console.log('[resumeSession] - Showing [signin] screen.');
 			
-			app.getStatus(function() {
-				// $( '#preloader' ).velocity({ opacity: 0 }, { duration: 250 });
+			app.getStatus(function(err) {
+				if (err) return retry();
 				app.view('home').show();
 			});
 		}
@@ -244,13 +267,16 @@ _.extend(app, {
 			// Set user data
 			if (data.user) app.data.session = data.user;
 			
+			// Preload meetup
+			app.preloadMeetup();
+			
 			return callback(false);
 			
 		}
 		
 		var error = function() {
 			
-			console.log('[getStatus] - Failed getting status, assuming success anyway.');
+			console.log('[getStatus] - Failed getting status, aborting');
 			
 			return callback(true);
 			
@@ -272,11 +298,62 @@ _.extend(app, {
 	
 	},
 	
+	parseMeetup: function() {
+	
+		return {
+			next: app.data.meetups.next ? true : false,
+			data: app.data.meetups.next || app.data.meetups.last,
+			inProgress: app.data.meetups.next && app.data.meetups.next.starts && app.data.meetups.next.ends ? moment().isAfter(moment(app.data.meetups.next.starts)) && moment().isBefore(moment(app.data.meetups.next.ends)) : false
+		}
+	
+	},
+	
+	preloadMeetup: function() {
+		
+		var self = this;
+		
+		// console.log('[preloadMeetup] - Preload requested...');
+		
+		if (!app.data.meetups.next) return;
+		
+		async.each(app.data.meetups.next.talks, function(talk, loadedTalk) {
+			
+			async.each(talk.who, function(person, loadedPerson) {
+			
+				if (!person.avatarUrl) return loadedPerson();
+				
+				var $image = $(new Image());
+				
+				$image.on({
+					load: function() { loadedPerson() },
+					error: function() { loadedPerson() }
+				});
+				
+				$image.prop('src', person.avatarUrl);
+				
+				// console.log('[preloadMeetup] - Loading [' + person.avatarUrl + '].');
+			
+			}, function(err) {
+				// console.log('[preloadMeetup] - Preloaded talk.');
+				return loadedTalk();
+			});
+			
+		}, function(err) {
+			// console.log('[preloadMeetup] - Preloaded meetup.');
+		});
+	
+	},
+	
 	/* Sign Out */
 	
 	signOut: function() {
 	
 		app.data.session = {};
+		
+		if (app.data.meetups.next) {
+			app.data.meetups.next.rsvped = false;
+			app.data.meetups.next.attending = false;
+		}
 		
 		localStorage.clear();
 		
@@ -426,6 +503,9 @@ app.on('init', function() {
 	// Show the loading view immeidately, which is a clone of the home view with the SydJS logo
 	// in the starting position
 	app.view('loading').show();
+	
+	// set the home background so it's inited before we reach the view
+	app.view('home').setBackground();
 	
 	// Logging
 	console.log('[init] - App init finished, resuming session...');

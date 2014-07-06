@@ -38,7 +38,7 @@
 			
 			this.$('.message').css({
 				opacity: 0,
-				marginTop: position + 50
+				transform: 'translateY(' + position + 50 + 'px)'
 			});
 			
 			this.$('.message').velocity({
@@ -46,12 +46,12 @@
 			}, { duration: 500, easing: 'linear' });
 			
 			this.$('.message').velocity({
-				marginTop: position - 50,
-			}, { duration: 2000, easing: 'linear', queue: false });
+				translateY: [position - 50, position + 50],
+			}, { duration: 2500, easing: 'linear', queue: false });
 			
 			setTimeout(function() {
 				app.view('home').reveal('slide-up');
-			}, 2000);
+			}, 2500);
 		
 		}
 		

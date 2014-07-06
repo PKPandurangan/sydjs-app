@@ -56,21 +56,30 @@
 			_.each(talks, function(talk) {
 			
 				var html = '<li>' +
+					'<span class="images"></span>' +
 					'<span class="title">' + talk.name + '</span>' +
 					'<span class="people">';
 				
 				var names = [],
-					twitters = [];
+					twitters = [],
+					images = [];
 				
 				_.each(talk.who, function(who) {
 					if (who.name) names.push(who.name.first + ' ' + who.name.last);
 					if (who.twitter) twitters.push(who.twitter);
+					if (who.avatarUrl) images.push(who.avatarUrl);
 				});
+				
+				// img(src=speaker.photo.exists ? speaker._.photo.thumbnail(320,320) : speaker.avatarUrl || '/images/avatar.png', width=160, height=160, alt=speaker.name.full, class=talk.who.length > 1 ? 'talk__photo--mini' : null).talk__photo
 				
 				if (names.length) {
 					html += '<span class="authors">';
 					_.each(names, function(name, index) {
-						if (names.length > 1 && names.length == index + 1) html += ' & ';
+						if (names.length > 1 && names.length == index + 1) {
+							html += ' & ';
+						} else if (names.length > 1 && index != 0) {
+							html += ', ';
+						}
 						html += '<span class="author">' + name + '</span>';
 					});
 					html += '</span>';
@@ -79,7 +88,11 @@
 				if (twitters.length) {
 					html += '<span class="twitters">';
 					_.each(twitters, function(twitter, index) {
-						if (twitters.length > 1 && twitters.length == index + 1) html += ' & ';
+						if (twitters.length > 1 && twitters.length == index + 1) {
+							html += ' & ';
+						} else if (twitters.length > 1 && index != 0) {
+							html += ', ';
+						}
 						if (twitter.slice(0,1) != '@') twitter = '@' + twitter;
 						html += '<a href="http://twitter.com/' + twitter.slice(1) + '" class="twitter" target="_blank">' + twitter + '</a>';
 					});
@@ -95,7 +108,19 @@
 				html += '</span>' +
 					'</li>';
 				
-				$(html).appendTo($list);
+				var $html = $(html)
+				
+				if (images.length) {
+					var $images = $html.find('.images');
+					$images.addClass(images.length == 4 ? 'shift' : '');
+					_.each(images, function(image, index) {
+						var $img = $('<img src="' + image + '">');
+						if (images.length > 1) $img.addClass('mini');
+						$img.appendTo($images)
+					});
+				}
+				
+				$html.appendTo($list);
 			
 			});
 			
