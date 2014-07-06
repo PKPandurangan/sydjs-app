@@ -700,6 +700,12 @@
 			}, { easing: 'easeOut', duration: 750 });
 			
 			this.$('.menu .' + view).show();
+			
+			var availableHeight = app.viewportSize.height -
+				this.$('.statusbar').height() -
+				this.$('.menu .' + view + ' .footer').height();
+			
+			this.$('.menu .' + view + ' .container').css({ height: availableHeight });
 			this.$('.menu .' + view).css({ 'transform': 'translateY(' + app.viewportSize.height + 'px)' });
 			this.$('.menu .' + view).velocity({
 				translateY: [0, app.viewportSize.height],

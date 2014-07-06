@@ -23,8 +23,6 @@
 			},
 			visible: function() {
 				
-				this.renderTalks();
-				
 				this.animateView();
 				
 				// iOS: Change status bar style to match view style

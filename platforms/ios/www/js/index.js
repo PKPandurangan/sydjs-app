@@ -270,6 +270,9 @@ _.extend(app, {
 			// Preload meetup
 			app.preloadMeetup();
 			
+			// Render talks (in background)
+			app.view('talks').renderTalks();
+			
 			return callback(false);
 			
 		}
