@@ -11,10 +11,11 @@ logs
 results
 
 npm-debug.log
-node_modules
 
 *.DS_Store
 *.env
+
+source/*/node_modules
 
 platforms/ios/Notificare.plist
 platforms/android/assets/notificareconfig.properties
