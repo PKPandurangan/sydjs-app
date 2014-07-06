@@ -332,7 +332,7 @@
 			$name.html(meetup.data.name);
 			$days.html(meetup.next && (meetup.inProgress || startDate) ? (meetup.inProgress ? 'Now' : startDate.fromNow(true)) : '');
 			$date.html(startDate ? startDate.format('ddd, DD MMM') + ' &#8212; ' + startDate.format('h:mma') + '-' + endDate.format('h:mma') : '');
-			$place.html(meetup.map || 'Level 6, 341 George St');
+			$place.html(meetup.data.map || 'Level 6, 341 George St');
 			
 			$calendar.find('.number').html(meetup.next && meetup.data.starts ? startDate.format('DD') : '');
 			

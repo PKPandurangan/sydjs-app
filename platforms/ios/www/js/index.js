@@ -212,6 +212,12 @@ _.extend(app, {
 			return;
 		}
 		
+		var outcome = function(err) {
+			if (err) return retry();
+			app.setStatusInterval();
+			app.view('home').show();
+		}
+		
 		// Check for timestamp and valid code
 		if ( date && user)
 		{
@@ -225,8 +231,7 @@ _.extend(app, {
 			console.log('[resumeSession] - Session info retrieved from [' + moment( parseInt( date ) ).format('DD/MM/YYYY h:mm:ssa') + ']...');
 			
 			app.getStatus(function(err) {
-				if (err) return retry();
-				app.view('home').show();
+				return outcome(err);
 			});
 		}
 		// If we don't have any data, just show the home screen (default behaviour)
@@ -236,8 +241,7 @@ _.extend(app, {
 			console.log('[resumeSession] - Showing [signin] screen.');
 			
 			app.getStatus(function(err) {
-				if (err) return retry();
-				app.view('home').show();
+				return outcome(err);
 			});
 		}
 		
@@ -257,6 +261,9 @@ _.extend(app, {
 			
 			console.log('[getStatus] - Successfully retrieved status.');
 			
+			// Determine if meetup data has changed
+			var meetupChanged = !app.data.meetups.next || (app.data.meetups.next && data.meetups.next && (app.data.meetups.next.hash != data.meetups.next.hash));
+			
 			// Set config data
 			if (data.config) app.data.config = data.config;
 			app.checkConfig();
@@ -267,13 +274,17 @@ _.extend(app, {
 			// Set user data
 			if (data.user) app.data.session = data.user;
 			
-			// Preload meetup
-			app.preloadMeetup();
+			// Handle meetup data (if it changes)
+			if (meetupChanged) {
+				console.log('[getStatus] - Meetup data changed!');
+				app.preloadMeetup();
+				app.view('talks').renderTalks();
+				app.view('home').setMeetup();
+			} else {
+				console.log('[getStatus] - Meetup data has not changed.');
+			}
 			
-			// Render talks (in background)
-			app.view('talks').renderTalks();
-			
-			return callback(false);
+			return callback && callback(false);
 			
 		}
 		
@@ -281,7 +292,7 @@ _.extend(app, {
 			
 			console.log('[getStatus] - Failed getting status, aborting');
 			
-			return callback(true);
+			return callback && callback(true);
 			
 		}
 		
@@ -299,6 +310,16 @@ _.extend(app, {
 			}
 		});
 	
+	},
+	
+	setStatusInterval: function() {
+		
+		app._statusInterval && clearInterval(app._statusInterval);
+		
+		app._statusInterval = setInterval(function() {
+			app.getStatus();
+		}, 10000);
+		
 	},
 	
 	parseMeetup: function() {
