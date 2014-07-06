@@ -174,13 +174,15 @@
 			this.$('.home .remaining').css('transform', 'translateY(' + app.viewportSize.height + 'px)');
 			this.$('.home .states').css('transform', 'translateY(' + app.viewportSize.height + 'px)');
 			
+			app._device.size && app._device.size == 'short' && this.$('.meetup').addClass('short');
+			
 			this.$('.home .logo').velocity({
 				opacity: 0
 			}, {
 				duration: 300, easing: 'easeOut', complete: function() {
 				
 				self.$('.home .meetup').css({
-					marginTop: ((availableHeight / 2) - (self.$('.meetup').height() / 2) - self.$('.statusbar').height()) + 10
+					marginTop: ((availableHeight / 2) - (self.$('.meetup').height() / 2) - self.$('.statusbar').height()) - self.$('.remaining').height() + 10
 				});
 				
 				setTimeout(function() {
@@ -330,7 +332,7 @@
 			$name.html(meetup.data.name);
 			$days.html(meetup.next && (meetup.inProgress || startDate) ? (meetup.inProgress ? 'Now' : startDate.fromNow(true)) : '');
 			$date.html(startDate ? startDate.format('ddd, DD MMM') + ' &#8212; ' + startDate.format('h:mma') + '-' + endDate.format('h:mma') : '');
-			$place.html(meetup.map || 'Level 6, 341 George St');
+			$place.html(meetup.data.map || 'Level 6, 341 George St');
 			
 			$calendar.find('.number').html(meetup.next && meetup.data.starts ? startDate.format('DD') : '');
 			
@@ -695,11 +697,19 @@
 			var matrixToArray = function(str) { return str.match(/(-?[0-9\.]+)/g); };
 			var transformValue = _.last(matrixToArray(this.$('.menu .buttons').css('transform')));
 			
+			this.$('.corners .btn-menu').velocity({ opacity: 0 }, { duration: 150, easing: 'easeOutSine' });
+			
 			this.$('.menu .buttons').velocity({
 				translateY: [0 - this.$('.menu .buttons').height(), transformValue]
 			}, { easing: 'easeOut', duration: 750 });
 			
 			this.$('.menu .' + view).show();
+			
+			var availableHeight = app.viewportSize.height -
+				this.$('.statusbar').height() -
+				this.$('.menu .' + view + ' .footer').height();
+			
+			this.$('.menu .' + view + ' .container').css({ height: availableHeight });
 			this.$('.menu .' + view).css({ 'transform': 'translateY(' + app.viewportSize.height + 'px)' });
 			this.$('.menu .' + view).velocity({
 				translateY: [0, app.viewportSize.height],
@@ -730,6 +740,8 @@
 			this.$('.menu .buttons').velocity({
 				translateY: [to, app.viewportSize.height]
 			}, { easing: 'easeIn', duration: 750 });
+			
+			this.$('.corners .btn-menu').velocity({ opacity: 1 }, { delay: 750, duration: 150, easing: 'easeOutSine' });
 			
 		},
 		

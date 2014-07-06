@@ -364,37 +364,9 @@ _.extend(App.prototype, Backbone.Events, {
 			}
 		}
 		
-		if (userAgent.match('windows phone')) {
-			app._device.system = 'windows phone';
-		}
-		
-		if (userAgent.match('blackberry')) {
-			app._device.system = 'blackberry';
-		}
-		
-		// Detect iOS browser (Opera is unique, while Chrome and Safari useragents are identical except for CriOS included for Chrome only)
-		if ( app._device.system == 'ios' ) {
-			if ( userAgent.match('opera mini')) {
-				app._device.browser = 'opera';
-			} else if (userAgent.match('crios')) {
-				app._device.browser = 'chrome';
-			} else {
-				app._device.browser = 'safari'
-			}
-		}
-		
-		// Detect Android browser (seperated from above browser detection for clarity)
-		if ( app._device.system == 'android' ) {
-			if ( userAgent.match('opera mini')) {
-				app._device.browser = 'opera';
-			} else {
-				app._device.browser = 'safari'
-			}
-		}
-		
 		// Detect iOS model
-		if ( app._device.system == 'ios' && ( app._device.model == 'iphone' || app._device.model == 'ipod' ) ) {
-			if ( $(window).height() <= 460 ) {
+		if (app._device.system == 'ios' && (app._device.model == 'iphone' || app._device.model == 'ipod')) {
+			if ( $(window).height() <= 480 ) {
 				app._device.size = 'short';
 			} else {
 				app._device.size = 'tall';
@@ -405,7 +377,7 @@ _.extend(App.prototype, Backbone.Events, {
 		
 		// Android: In some cases, Android doesn't include the Roboto font, add it via Google Web Fonts,
 		// it would be better if we detected if it didn't exist but this looks a bit tricky
-		if ( app._device.system == 'android' ) {
+		if (app._device.system == 'android') {
 			WebFontConfig = {
 				google: {
 					families: ['Roboto']
