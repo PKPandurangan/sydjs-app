@@ -695,6 +695,8 @@
 			var matrixToArray = function(str) { return str.match(/(-?[0-9\.]+)/g); };
 			var transformValue = _.last(matrixToArray(this.$('.menu .buttons').css('transform')));
 			
+			this.$('.corners .btn-menu').velocity({ opacity: 0 }, { duration: 150, easing: 'easeOutSine' });
+			
 			this.$('.menu .buttons').velocity({
 				translateY: [0 - this.$('.menu .buttons').height(), transformValue]
 			}, { easing: 'easeOut', duration: 750 });
@@ -736,6 +738,8 @@
 			this.$('.menu .buttons').velocity({
 				translateY: [to, app.viewportSize.height]
 			}, { easing: 'easeIn', duration: 750 });
+			
+			this.$('.corners .btn-menu').velocity({ opacity: 1 }, { delay: 750, duration: 150, easing: 'easeOutSine' });
 			
 		},
 		
