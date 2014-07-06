@@ -254,7 +254,7 @@ _.extend(App.prototype, Backbone.Events, {
 		$('#app-loading').velocity({
 			opacity: 0
 		}, {
-			duration: 2000,
+			duration: 300,
 			easing: 'easeInOutSine',
 			complete: function() {
 			
