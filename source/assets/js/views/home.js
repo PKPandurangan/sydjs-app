@@ -174,13 +174,15 @@
 			this.$('.home .remaining').css('transform', 'translateY(' + app.viewportSize.height + 'px)');
 			this.$('.home .states').css('transform', 'translateY(' + app.viewportSize.height + 'px)');
 			
+			app._device.size && app._device.size == 'short' && this.$('.meetup').addClass('short');
+			
 			this.$('.home .logo').velocity({
 				opacity: 0
 			}, {
 				duration: 300, easing: 'easeOut', complete: function() {
 				
 				self.$('.home .meetup').css({
-					marginTop: ((availableHeight / 2) - (self.$('.meetup').height() / 2) - self.$('.statusbar').height()) + 10
+					marginTop: ((availableHeight / 2) - (self.$('.meetup').height() / 2) - self.$('.statusbar').height()) - self.$('.remaining').height() + 10
 				});
 				
 				setTimeout(function() {
