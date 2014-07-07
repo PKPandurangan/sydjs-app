@@ -89,7 +89,16 @@
 					html += '</span>';
 				}
 				
-				html += '</span>' +
+				html += '</span>';
+				
+				if (talk.slides || talk.link) {
+					html += '<span class="links">' +
+							(talk.slides ? '<span class="btn-text" data-link="' + talk.slides + '"><span class="pill">Slides<span class="icon"></span></span></span>' : '') +
+							(talk.link ? '<span class="btn-text" data-link="' + talk.link + '"><span class="pill">Link<span class="icon"></span></span></span>' : '') +
+						'</span>';
+				}
+				
+				html += '</span>' + 
 					'</span>' +
 				'</li>';
 				
@@ -116,6 +125,16 @@
 					e.preventDefault();
 					if (app.inTransition()) return;
 					window.open($link.prop('href'), '_system');
+				});
+			});
+			
+			$list.find('.btn-text').each(function() {
+				var $link = $(this);
+				$link.button();
+				$link.click(function(e) {
+					e.preventDefault();
+					if (app.inTransition()) return;
+					window.open($link.data().link, '_system');
 				});
 			});
 		
