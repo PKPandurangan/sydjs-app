@@ -216,7 +216,6 @@ _.extend(app, {
 				app.getStatus();
 			}, 10000);
 			app.view('home').show();
-			app.view('talks').renderTalks();
 		}
 		
 		// Check for timestamp and valid code

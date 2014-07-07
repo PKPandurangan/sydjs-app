@@ -42,6 +42,11 @@
 				this.setState();
 				this.setSession();
 				
+				// render the talks view after a slight delay so it's ready for us
+				setTimeout(function() {
+					!app.view('talks')._renderedTalks && app.view('talks').renderTalks();
+				}, 1250);
+				
 				// preload green notifications icon
 				var $image = $(new Image());
 					$image.prop('src', 'img/ui/icon-alarm-green.svg');
