@@ -45,13 +45,13 @@ _.extend(app, {
 		
 		// Check if major current version is behind major compatibility version
 		if ( Number(versions.current[0]) < Number(versions.compatibility[0]) ) {
-			console.log('[checkConfig] - Users current major version is behind compatibility major version.');
+			// console.log('[checkConfig] - Users current major version is behind compatibility major version.');
 			return app.showConfigNotification('versionIncompatibility');
 		}
 		
 		// Check if major current version is behind major production version
 		if ( Number(versions.current[0]) < Number(versions.production[0]) ) {
-			console.log('[checkConfig] - Users current major version is behind production major version.');
+			// console.log('[checkConfig] - Users current major version is behind production major version.');
 			return app.showConfigNotification('versionIncompatibility');
 		}
 	
@@ -138,7 +138,7 @@ _.extend(app, {
 		
 		app.setIdentity(app.data.user.key);
 		
-		console.log('[populateUser] - Set user key as [' + app.data.user.key + '], push notifications as [' + app.data.user.pushNotifications + '].');
+		// console.log('[populateUser] - Set user key as [' + app.data.user.key + '], push notifications as [' + app.data.user.pushNotifications + '].');
 	
 	},
 	
@@ -172,7 +172,7 @@ _.extend(app, {
 	
 	storeSessionInfo: function(data) {
 		
-		console.log('[storeSessionInfo] - Storing session info into local storage.');
+		// console.log('[storeSessionInfo] - Storing session info into local storage.');
 		
 		// populate local storage with date and user date
 		localStorage.setItem( 'session_date', data.date );
@@ -184,7 +184,7 @@ _.extend(app, {
 	
 	populateSessionInfo: function(data) {
 		
-		console.log('[populateSessionInfo] - Populating session info into app.');
+		// console.log('[populateSessionInfo] - Populating session info into app.');
 		
 		_.extend(app.data.session, _.pick(data, 'date', 'userId'));
 		
@@ -192,10 +192,10 @@ _.extend(app, {
 	
 	resumeSession: function() {
 		
-		console.log('[resumeSession] - Resuming session...');
+		// console.log('[resumeSession] - Resuming session...');
 		
 		// Check local storage for session data
-		console.log('[resumeSession] - Checking local storage...');
+		// console.log('[resumeSession] - Checking local storage...');
 		
 		var date = localStorage.getItem( 'session_date' ),
 			user = localStorage.getItem( 'session_userId' );
@@ -212,7 +212,9 @@ _.extend(app, {
 		
 		var outcome = function(err) {
 			if (err) return retry();
-			app.setStatusInterval();
+			app._statusInterval = setTimeout(function() {
+				app.getStatus();
+			}, 10000);
 			app.view('home').show();
 			app.view('talks').renderTalks();
 		}
@@ -220,14 +222,14 @@ _.extend(app, {
 		// Check for timestamp and valid code
 		if ( date && user)
 		{
-			console.log('[resumeSession] - Existing data found, populating data from local storage...');
+			// console.log('[resumeSession] - Existing data found, populating data from local storage...');
 			
 			app.populateSessionInfo({
 				date: localStorage.getItem( 'session_date' ),
 				userId: JSON.parse( localStorage.getItem( 'session_userId' ) )
 			});
 			
-			console.log('[resumeSession] - Session info retrieved from [' + moment( parseInt( date ) ).format('DD/MM/YYYY h:mm:ssa') + ']...');
+			// console.log('[resumeSession] - Session info retrieved from [' + moment( parseInt( date ) ).format('DD/MM/YYYY h:mm:ssa') + ']...');
 			
 			app.getStatus(function(err) {
 				return outcome(err);
@@ -236,8 +238,8 @@ _.extend(app, {
 		// If we don't have any data, just show the home screen (default behaviour)
 		else
 		{
-			console.log('[resumeSession] - No existing data found...');
-			console.log('[resumeSession] - Showing [signin] screen.');
+			// console.log('[resumeSession] - No existing data found...');
+			// console.log('[resumeSession] - Showing [signin] screen.');
 			
 			app.getStatus(function(err) {
 				return outcome(err);
@@ -302,7 +304,7 @@ _.extend(app, {
 		
 		var error = function() {
 			
-			console.log('[getStatus] - Failed getting status, aborting');
+			// console.log('[getStatus] - Failed getting status, aborting');
 			
 			return callback && callback(true);
 			
@@ -322,16 +324,6 @@ _.extend(app, {
 			}
 		});
 	
-	},
-	
-	setStatusInterval: function() {
-		
-		app._statusInterval && clearInterval(app._statusInterval);
-		
-		app._statusInterval = setInterval(function() {
-			app.getStatus();
-		}, 2500);
-		
 	},
 	
 	parseMeetup: function() {
@@ -409,7 +401,7 @@ _.extend(app, {
 		
 		Notificare.once('registration', function(deviceId) {
 			
-			console.log('[enableNotifications] - Notification response...');
+			// console.log('[enableNotifications] - Notification response...');
 			
 			var userId = (user && user.userId ? user.userId : app.data.user.key),
 				userName = (user && user.name && user.name.full ? user.name.full : 'Unknown');
@@ -422,7 +414,7 @@ _.extend(app, {
 			
 			}, function(err) {
 			
-				console.log('[enableNotifications] - Failed enabling notifications.', err );
+				// console.log('[enableNotifications] - Failed enabling notifications.', err );
 				
 				app.showNotification('Alert', 'Sorry, there was an issue registering you for notifications. Please try again.');
 				
@@ -483,12 +475,12 @@ _.extend(app, {
 		
 		if (window.mixpanel) {
 			
-			console.log('[trackEvent] - Logging event to Mixpanel with the following data:', options.label, options.properties);
+			// console.log('[trackEvent] - Logging event to Mixpanel with the following data:', options.label, options.properties);
 			
 			try {
 				mixpanel.track('Viewing ' + options.label, options.properties);
 			} catch(e) {
-				console.log('[trackEvent] - Encountered an issue while logging an event to Mixpanel...', e);
+				// console.log('[trackEvent] - Encountered an issue while logging an event to Mixpanel...', e);
 			}
 			
 		}
@@ -504,12 +496,12 @@ _.extend(app, {
 				value: options.value || 0
 			}
 			
-			console.log('[trackEvent] - Logging event to Google Analytics with the following data:', data);
+			// console.log('[trackEvent] - Logging event to Google Analytics with the following data:', data);
 			
 			try {
 				ga('send', 'event', data.category, data.action, data.label, data.value);
 			} catch(e) {
-				console.log('[trackEvent] - Encountered an issue while logging an event to Google Analytics...', e);
+				// console.log('[trackEvent] - Encountered an issue while logging an event to Google Analytics...', e);
 			}
 			
 		}
@@ -521,7 +513,7 @@ _.extend(app, {
 app.on('init', function() {
 	
 	// Logging
-	console.log('[init] - App init started...');
+	// console.log('[init] - App init started...');
 	
 	// Set specific flags based on what device we're using, which will enable/disable certain
 	// effects around the app to improve performance, this must happen before any views are shown
@@ -538,7 +530,7 @@ app.on('init', function() {
 	app.view('home').setBackground();
 	
 	// Logging
-	console.log('[init] - App init finished, resuming session...');
+	// console.log('[init] - App init finished, resuming session...');
 	
 	// Resume the session
 	app.resumeSession();

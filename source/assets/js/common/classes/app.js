@@ -175,7 +175,7 @@ _.extend(App.prototype, Backbone.Events, {
 		if (window.plugins && window.plugins.spinnerDialog) {
 			window.plugins.spinnerDialog.show();
 			if (then) {
-				console.log( "[showLoadingSpinner] - Has then() callback." );
+				// console.log( "[showLoadingSpinner] - Has then() callback." );
 				then();
 			}
 			return;
@@ -195,7 +195,7 @@ _.extend(App.prototype, Backbone.Events, {
 		if (this._showingSpinner) return;
 		if (this._spinnerVisible) return;
 		
-		console.log( "[showLoadingSpinner] - Showing loading spinner." );
+		// console.log( "[showLoadingSpinner] - Showing loading spinner." );
 		
 		this._showingSpinner = true;
 		
@@ -214,7 +214,7 @@ _.extend(App.prototype, Backbone.Events, {
 				self._spinnerVisible = true;
 				
 				if (then) {
-					console.log( "[showLoadingSpinner] - Has then() callback." );
+					// console.log( "[showLoadingSpinner] - Has then() callback." );
 					then();
 				}
 			
@@ -251,7 +251,7 @@ _.extend(App.prototype, Backbone.Events, {
 		if (!this._spinnerVisible) return;
 		if (this._hidingSpinner) return;
 		
-		console.log( "[hideLoadingSpinner] - Hiding loading spinner." );
+		// console.log( "[hideLoadingSpinner] - Hiding loading spinner." );
 		
 		this._hidingSpinner = true;
 		
@@ -271,7 +271,7 @@ _.extend(App.prototype, Backbone.Events, {
 				$('#app-loading .spinner').spinner('stop');
 				
 				if (then) {
-					console.log( "[hideLoadingSpinner] - Has then() callback." );
+					// console.log( "[hideLoadingSpinner] - Has then() callback." );
 					then();
 				}
 			

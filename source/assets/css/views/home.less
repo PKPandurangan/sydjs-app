@@ -353,13 +353,14 @@
 				.rsvp {
 					position: relative;
 					overflow: hidden;
+					width: 100%;
+					height: 75px;
 					.btn-plain {
 						float: left;
 						width: 50%;
 						display: table-cell;
-						background-color: rgba(255,255,255,1);
 						&:last-of-type {
-							border-left: 1px solid #000;
+							// border-left: 1px solid #000;
 						}
 						
 						.text {
@@ -383,6 +384,14 @@
 								.translate(-50%, -50%);
 							}
 						}
+					}
+					.divider {
+						background: #000;
+						position: absolute;
+						left: 50%;
+						width: 1px;
+						height: 100%;
+						z-index: 1;
 					}
 				}
 				

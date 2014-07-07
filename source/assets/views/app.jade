@@ -68,8 +68,8 @@ html
 			var collections = {},
 				config = {
 					environment: 'development',
-					baseURL: 'http://localhost:3000'
-					// baseURL: 'http://sydjs-beta.herokuapp.com'
+					// baseURL: 'http://localhost:3000'
+					baseURL: 'http://sydjs-beta.herokuapp.com'
 					// baseURL: 'http://beta.sydjs.com'
 					// baseURL: 'http://www.sydjs.com'
 				};
@@ -102,17 +102,17 @@ html
 		//- app init
 		script.
 			$(function() {
-				console.log( '[root] - App running locally...' );
+				// console.log( '[root] - App running locally...' );
 				app._local = true;
 				if (!/(iphone)|(ipad)|(android)/i.test(navigator.userAgent) ) {
-					console.log( '[root] - Detected non-mobile device, initalising app...' );
+					// console.log( '[root] - Detected non-mobile device, initalising app...' );
 					app.init();
 				} else {
 					console.log( '[root] - Detected mobile device, setting device ready event...' );
 					$(document).on('deviceready', function() {
 						navigator.splashscreen && navigator.splashscreen.hide && navigator.splashscreen.hide();
-						console.log( '[root] - Mobile device is ready...' );
-						console.log( '[root] - Triggering app init.' );
+						// console.log( '[root] - Mobile device is ready...' );
+						// console.log( '[root] - Triggering app init.' );
 						app.init();
 					});
 				}
