@@ -382,9 +382,10 @@
 		
 		moveButtons: function(direction) {
 		
-			var $left = $('.home .rsvp .btn-left'),
-				$right = $('.home .rsvp .btn-right'),
-				$divider = $('.home .rsvp .divider');
+			var $rsvp = $('.home .rsvp'),
+				$left = $rsvp.find('.btn-left'),
+				$right = $rsvp.find('.btn-right'),
+				$divider = $rsvp.find('.divider');
 			
 			var left = 0,
 				right = 0,
@@ -432,7 +433,7 @@
 				width: right
 			}, { duration: 400, easing: 'easeOutSine' });
 			
-			$('.home .rsvp').velocity({
+			$rsvp.velocity({
 				backgroundColorRed: color[0],
 				backgroundColorGreen: color[1],
 				backgroundColorBlue: color[2]

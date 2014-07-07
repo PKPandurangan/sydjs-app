@@ -250,7 +250,7 @@ _.extend(View.prototype, Backbone.Events, {
 				$input = $switcher.find('input');
 			
 			if (!$input.length) {
-				console.log('Switchers require an supplimentary input field.', $switcher);
+				// console.log('Switchers require an supplimentary input field.', $switcher);
 				return;
 			}
 			
@@ -300,7 +300,7 @@ _.extend(View.prototype, Backbone.Events, {
 	// Animation options are `slide-up`, `slide-down`, `slide-left`, and `slide-right`
 	show: function(anim, quick) {
 		
-		console.log("[show] - view [" + this.id + "]:show(" + ( anim || '' ) + ")");
+		// console.log("[show] - view [" + this.id + "]:show(" + ( anim || '' ) + ")");
 		
 		if (app.inTransition() || this.isVisible()) {
 			// console.log("[show] - view [" + this.id + "]:show() bailing, app.inTransition: " + app.inTransition() + ", this.isVisible: " + this.isVisible());
@@ -371,10 +371,10 @@ _.extend(View.prototype, Backbone.Events, {
 	// to the currently visible screen (if there is one)
 	reveal: function(anim, quick) {
 		
-		console.log("[reveal] - view [" + this.id + "]:reveal(" + ( anim || '' ) + ")");
+		// console.log("[reveal] - view [" + this.id + "]:reveal(" + ( anim || '' ) + ")");
 		
 		if (app.inTransition() || this.isVisible()) {
-			console.log("[reveal] - view [" + this.id + "]:reveal() bailing, app.inTransition: " + app.inTransition() + ", this.isVisible: " + this.isVisible());
+			// console.log("[reveal] - view [" + this.id + "]:reveal() bailing, app.inTransition: " + app.inTransition() + ", this.isVisible: " + this.isVisible());
 			return;
 		}
 		
@@ -457,7 +457,7 @@ _.extend(View.prototype, Backbone.Events, {
 		
 		var self = this;
 		
-		console.log("[hide] - view [" + this.id + "]:hide()");
+		// console.log("[hide] - view [" + this.id + "]:hide()");
 		
 		app.hideKeyboard();
 		

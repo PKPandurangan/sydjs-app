@@ -382,78 +382,96 @@
 		
 		moveButtons: function(direction) {
 		
-			var $left = $('.home .rsvp .btn-left'),
-				$right = $('.home .rsvp .btn-right');
+			var $rsvp = $('.home .rsvp'),
+				$left = $rsvp.find('.btn-left'),
+				$right = $rsvp.find('.btn-right'),
+				$divider = $rsvp.find('.divider');
 			
-			var left = '0%',
-				right = '0%',
+			var left = 0,
+				right = 0,
+				divider = false,
 				color = [255, 255, 255],
 				leftText = '',
 				rightText = '';
 			
+			var buttonSpacing = app.viewportSize.width / 4;
+			
 			switch(direction) {
 				case 'left':
-					left = '75%';
-					right = '25%';
+					left = buttonSpacing * 3;
+					right = buttonSpacing;
+					divider = buttonSpacing;
 					color = [114, 240, 132];
 					leftText = 'Attending';
 				break;
 				case 'middle':
-					left = '50%';
-					right = '50%';
+					left = buttonSpacing * 2;
+					right = buttonSpacing * 2;
+					divider = 0;
 					color = [96, 216, 255];
 					leftText = 'Attending';
 					rightText = 'Nope';
 				break;
 				case 'right':
-					left = '25%';
-					right = '75%';
+					left = buttonSpacing;
+					right = buttonSpacing * 3;
+					divider = -(buttonSpacing);
 					color = [241, 119, 99];
 					rightText = 'I\'m not attending';
 				break;
 			}
 			
+			$divider.velocity({
+				translateX: divider
+			}, { easing: 'easeOutSine', duration: 400 });
+			
 			$left.velocity({
-				width: left,
-				backgroundColorRed: color[0],
-				backgroundColorGreen: color[1],
-				backgroundColorBlue: color[2]
+				width: left
 			}, { duration: 400, easing: 'easeOutSine' });
 			
 			$right.velocity({
-				width: right,
+				width: right
+			}, { duration: 400, easing: 'easeOutSine' });
+			
+			$rsvp.velocity({
 				backgroundColorRed: color[0],
 				backgroundColorGreen: color[1],
 				backgroundColorBlue: color[2]
 			}, { duration: 400, easing: 'easeOutSine' });
 			
-			var duration = 175,
-				easing = 'linear';
+			var duration = 200,
+				easing = 'easeOutSine';
 			
 			switch(direction) {
 				case 'left':
 					$left.data('button').disable();
 					$right.data('button').enable();
+					
 					$left.find('.text').text(leftText).velocity({ opacity: 1 }, { duration: duration, easing: easing });
-					$left.find('.icon').velocity({ opacity: 0, rotateZ: '135deg' }, { duration: duration, easing: 'easeOutSine' });
 					$right.find('.text').velocity({ opacity: 0 }, { duration: duration, easing: easing });
-					$right.find('.icon').velocity({ opacity: 1, rotateZ: '-90deg' }, { delay: duration, duration: duration, easing: 'easeOutSine' });
+					
+					$left.find('.icon').velocity({ opacity: 0, rotateZ: '135deg' }, { duration: duration, easing: easing });
+					$right.find('.icon').velocity({ opacity: 1, rotateZ: '-90deg' }, { delay: duration, duration: duration, easing: easing });
 				break;
 				case 'middle':
 					$left.data('button').enable();
 					$right.data('button').enable();
+					
 					$left.find('.text').text(leftText).velocity({ opacity: 1 }, { delay: duration, duration: duration, easing: easing });
-					$left.find('.icon').velocity({ opacity: 0, rotateZ: '135deg' }, { duration: duration, easing: 'easeOutSine' });
 					$right.find('.text').text(rightText).velocity({ opacity: 1 }, { delay: duration, duration: duration, easing: easing });
-					$right.find('.icon').velocity({ opacity: 0, rotateZ: '-135deg' }, { duration: duration, easing: 'easeOutSine' });
+					
+					$left.find('.icon').velocity({ opacity: 0, rotateZ: '135deg' }, { duration: duration, easing: easing });
+					$right.find('.icon').velocity({ opacity: 0, rotateZ: '-135deg' }, { duration: duration, easing: easing });
 				break;
 				case 'right':
 					$left.data('button').enable();
 					$right.data('button').disable();
+					
 					$left.find('.text').velocity({ opacity: 0 }, { duration: duration, easing: easing });
-					$left.find('.icon').velocity({ opacity: 1, rotateZ: '90deg' }, { delay: duration, duration: duration, easing: 'easeOutSine' });
 					$right.find('.text').text(rightText).velocity({ opacity: 1 }, { duration: duration, easing: easing });
-					$right.find('.icon').velocity({ opacity: 0, rotateZ: '-135deg' }, { duration: duration, easing: 'easeOutSine' });
+					
+					$left.find('.icon').velocity({ opacity: 1, rotateZ: '90deg' }, { delay: duration, duration: duration, easing: easing });
+					$right.find('.icon').velocity({ opacity: 0, rotateZ: '-135deg' }, { duration: duration, easing: easing });
 				break;
 			}
 			
@@ -497,7 +515,7 @@
 			var self = this;
 			
 			if (self._processingForm) {
-				console.log('[toggleAttending] - User tried to submit form but is already in a processing state.');
+				// console.log('[toggleAttending] - User tried to submit form but is already in a processing state.');
 				return;
 			}
 			
@@ -518,8 +536,7 @@
 			
 			var success = function(data) {
 				
-				console.log("[toggleAttending] - RSVP successful.", data);
-				console.log(rsvpData);
+				// console.log("[toggleAttending] - RSVP successful.", data);
 				
 				// Update remaining tickets
 				if (hasRSVPed && isAttending && options.cancel) app.data.meetups.next.ticketsRemaining++;
@@ -530,13 +547,13 @@
 				// Set form to no longer processing (after 575 milliseconds of animations)
 				setTimeout(function() {
 					self._processingForm = false;
-				}, 600);
+				}, 400);
 				
 			}
 			
 			var error = function(data) {
 				
-				console.log("[toggleAttending] - RSVP failed, advise user to retry.", data);
+				// console.log("[toggleAttending] - RSVP failed, advise user to retry.", data);
 				
 				// Reset RSVP state
 				app.showLoadingSpinner();
@@ -561,7 +578,7 @@
 					// Set form to no longer processing (after 575 milliseconds of animations)
 					setTimeout(function() {
 						self._processingForm = false;
-					}, 600);
+					}, 400);
 				
 				}, 350);
 				

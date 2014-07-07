@@ -1,1 +1,0 @@
-startup-blank.png is specifically offset by it's center of 18px, this is critical to the app startup looking correct
