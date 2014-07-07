@@ -6,17 +6,15 @@
 
 _.extend(app.data, {
 	
-	version: '1.0.0', // Current local version
+	version: '1.0.0', // Current app version, compared against config we get back from the server
 	
 	config: {}, // Stores the config settings we get back from every status request
 	
-	user: {}, // Stores a user key we generate on startup that allows consistant analytics tracking
+	user: {}, // Stores a user key we generate on startup that allows consistant analytics tracking, also stores the push notification preference
 	
-	session: {}, // Session related data (code used etc)
+	session: {}, // Stores user related data when signed in
 	
-	meetups: {}, // Meetup related data
-	
-	pushNotifications: {}
+	meetups: {} // Stores the next and last meetup data including talks
 	
 });
 
@@ -26,7 +24,7 @@ _.extend(app, {
 	
 	setPerformanceConditions: function() {
 	
-		//
+		// TBC
 	
 	},
 	
@@ -216,6 +214,7 @@ _.extend(app, {
 			if (err) return retry();
 			app.setStatusInterval();
 			app.view('home').show();
+			app.view('talks').renderTalks();
 		}
 		
 		// Check for timestamp and valid code
@@ -251,7 +250,7 @@ _.extend(app, {
 	
 	getStatus: function(callback) {
 	
-		console.log('[getStatus] - Retrieving status data from server...');
+		// console.log('[getStatus] - Retrieving status data from server...');
 		
 		var data = {};
 		
@@ -259,29 +258,42 @@ _.extend(app, {
 		
 		var success = function(data) {
 			
-			console.log('[getStatus] - Successfully retrieved status.');
-			
-			// Determine if meetup data has changed
-			var meetupChanged = !app.data.meetups.next || (app.data.meetups.next && data.meetups.next && (app.data.meetups.next.hash != data.meetups.next.hash));
+			// console.log('[getStatus] - Successfully retrieved status.');
 			
 			// Set config data
 			if (data.config) app.data.config = data.config;
 			app.checkConfig();
 			
-			// Set meetup status
+			// Set meetup data
 			if (data.meetups) app.data.meetups = data.meetups;
+			
+			// Set RSVP data
+			if (!_.isEmpty(app.data.rsvp) && data.rsvp) {
+				if (moment(app.data.rsvp.date).isSame(moment(data.rsvp.date))) {
+					// console.log('[getStatus] - Client-side RSVP matches server RSVP, ignoring.');
+				} else if (moment(app.data.rsvp.date).isAfter(moment(data.rsvp.date))) {
+					// console.log('[getStatus] - Client-side RSVP is AFTER server RSVP, ignoring.');
+				} else {
+					// console.log('[getStatus] - Client-side RSVP is BEFORE server RSVP, overwritten.');
+					app.data.rsvp = data.rsvp;
+					app.view('home').setState();
+				}
+			} else {
+				// console.log('[getStatus] - No client-side RSVP set, setting.');
+				app.data.rsvp = data.rsvp;
+			}
 			
 			// Set user data
 			if (data.user) app.data.session = data.user;
 			
-			// Handle meetup data (if it changes)
-			if (meetupChanged) {
-				console.log('[getStatus] - Meetup data changed!');
+			// Determine if meetup data has changed (if it changes)
+			if (!app.data.meetups.next || (app.data.meetups.next && data.meetups.next && (app.data.meetups.next.hash != data.meetups.next.hash))) {
+				// console.log('[getStatus] - Meetup data changed!');
 				app.preloadMeetup();
 				app.view('talks').renderTalks();
 				app.view('home').setMeetup();
 			} else {
-				console.log('[getStatus] - Meetup data has not changed.');
+				// console.log('[getStatus] - Meetup data has not changed.');
 			}
 			
 			return callback && callback(false);
@@ -318,7 +330,7 @@ _.extend(app, {
 		
 		app._statusInterval = setInterval(function() {
 			app.getStatus();
-		}, 10000);
+		}, 2500);
 		
 	},
 	
@@ -375,8 +387,8 @@ _.extend(app, {
 		app.data.session = {};
 		
 		if (app.data.meetups.next) {
-			app.data.meetups.next.rsvped = false;
-			app.data.meetups.next.attending = false;
+			app.data.rsvp.responded = false;
+			app.data.rsvp.attending = false;
 		}
 		
 		localStorage.clear();
@@ -458,9 +470,6 @@ _.extend(app, {
 	
 	trackIdentity: function(options) {
 		
-		// TODO: Decide what to do with this
-		// if (app.checkTestCode()) return;
-		
 		if (!window.mixpanel) return;
 		
 		try {
@@ -471,9 +480,6 @@ _.extend(app, {
 	},
 	
 	trackEvent: function(options) {
-		
-		// TODO: Decide on what to do with this
-		// if (app.checkTestCode()) return;
 		
 		if (window.mixpanel) {
 			

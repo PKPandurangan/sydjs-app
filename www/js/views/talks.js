@@ -126,6 +126,7 @@
 				var $link = $(this);
 				$link.click(function(e) {
 					e.preventDefault();
+					if (app.inTransition()) return;
 					window.open($link.prop('href'), '_system');
 				});
 			});

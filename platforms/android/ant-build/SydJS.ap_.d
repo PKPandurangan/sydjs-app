@@ -647,13 +647,13 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/components/underscore.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/components/velocity.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/app.css \
-/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/background-alt.jpg \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/background.jpg \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/backgrounds \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/icon-alarm-black.svg \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/icon-alarm-green.svg \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/icon-alarm-white.svg \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/icon-arrow-down.png \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/icon-arrow-up.png \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/icon-backarrow-black.svg \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/icon-backarrow-white.svg \

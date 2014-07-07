@@ -73,12 +73,13 @@ _.extend(App.prototype, Backbone.Events, {
 				width: $(window).width(),
 				height: $(window).height()
 			};
-			// determine if a status bar take up real estate
+			// determine if a status bar should take up real estate
 			if (!app._device.system || app._device.system == 'ios') {
 				$('.statusbar').css('height', 21);
 				app._device.system == 'ios' && $('.statusbar').addClass('native');
 			}
-			// assume we're on a desktop if we have no system
+			// assume we're on a desktop if we have no system and set
+			// the viewport size appropriately
 			if (!app._device.system) {
 				app.viewportSize = {
 					width: $('#viewport').width(),
@@ -109,10 +110,11 @@ _.extend(App.prototype, Backbone.Events, {
 	
 	view: function(key) {
 		var view = this._views[key];
-		if (view)
+		if (view) {
 			return view;
-		else
+		} else {
 			app.showNotification('Alert', 'Invalid view (' + key + ') requested.');
+		}
 	},
 	
 	currentView: function(view, hidePrevious) {
@@ -168,6 +170,7 @@ _.extend(App.prototype, Backbone.Events, {
 		var self = this;
 		
 		// cater for native spinner (if it exists)
+		// NOTE: disable until a more consistant style can be achieved
 		/*
 		if (window.plugins && window.plugins.spinnerDialog) {
 			window.plugins.spinnerDialog.show();
@@ -233,6 +236,7 @@ _.extend(App.prototype, Backbone.Events, {
 		var self = this;
 		
 		// cater for native spinner (if it exists)
+		// NOTE: disable until a more consistant style can be achieved
 		/*
 		if (window.plugins && window.plugins.spinnerDialog) {
 			window.plugins.spinnerDialog.hide();
@@ -254,7 +258,7 @@ _.extend(App.prototype, Backbone.Events, {
 		$('#app-loading').velocity({
 			opacity: 0
 		}, {
-			duration: 2000,
+			duration: 300,
 			easing: 'easeInOutSine',
 			complete: function() {
 			
@@ -273,13 +277,6 @@ _.extend(App.prototype, Backbone.Events, {
 			
 			}
 		});
-	},
-	
-	// hide the keyboard when hiding a screen (blur active element)
-	hideKeyboard: function() {
-		if (document.activeElement.tagName.toLowerCase().match(/input|textarea|select/)) {
-			document.activeElement.blur();
-		}
 	},
 	
 	// iOS/Desktop: changes the colour of the transparent statusbar
@@ -304,6 +301,7 @@ _.extend(App.prototype, Backbone.Events, {
 		}, delay || 0);
 	},
 	
+	// scrolls any container back up to the top when leaving a view
 	scrollContainer: function(view) {
 		if ( view.disableAutoScroll ) {
 			return;
@@ -311,6 +309,13 @@ _.extend(App.prototype, Backbone.Events, {
 		var scrollingContainer = view.$el.find( '.container' );
 		if ( scrollingContainer.length ) {
 			_.first(scrollingContainer).scrollTop = 0;
+		}
+	},
+	
+	// hide the keyboard when hiding a screen (blur active element)
+	hideKeyboard: function() {
+		if (document.activeElement.tagName.toLowerCase().match(/input|textarea|select/)) {
+			document.activeElement.blur();
 		}
 	},
 	
@@ -344,7 +349,7 @@ _.extend(App.prototype, Backbone.Events, {
 			size: false // iOS specific
 		};
 		
-		// Detect system and tablet
+		// Detect iOS devices
 		if (userAgent.match(/iphone|ipad|ipod/)) {
 			app._device.system = 'ios';
 			if (userAgent.match('iphone')) {
@@ -355,21 +360,20 @@ _.extend(App.prototype, Backbone.Events, {
 				app._device.model = 'ipad';
 				app._device.tablet = true;
 			}
+			if (app._device.model == 'iphone' || app._device.model == 'ipod') {
+				if ($(window).height() <= 480) {
+					app._device.size = 'short';
+				} else {
+					app._device.size = 'tall';
+				}
+			}
 		}
 		
+		// Detect Android devices
 		if (userAgent.match('android')) {
 			app._device.system = 'android';
 			if (!userAgent.match('mobile')) {
 				app._device.tablet = true;
-			}
-		}
-		
-		// Detect iOS model
-		if (app._device.system == 'ios' && (app._device.model == 'iphone' || app._device.model == 'ipod')) {
-			if ( $(window).height() <= 480 ) {
-				app._device.size = 'short';
-			} else {
-				app._device.size = 'tall';
 			}
 		}
 		
@@ -394,12 +398,7 @@ _.extend(App.prototype, Backbone.Events, {
 			})();
 		}
 		
-		// Add mobile class so orientation detection is only used on mobile devices
-		if (app._device.mobile) {
-			$('#viewport').addClass( 'device-mobile' );
-		}
-		
-		// Assume we're on a desktop if we have no system
+		// Add desktop class if we have no system set (so we can emulate dimensions in the browser)
 		if (!app._device.system) {
 			$('#viewport').addClass( 'device-desktop' );
 		}
