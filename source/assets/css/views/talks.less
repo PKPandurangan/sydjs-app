@@ -1,71 +1,44 @@
 #view-talks {
 	background: #f0efe9;
 	
-	.icon {
-		position: relative;
-		margin-top: 60px;
-		margin-bottom: 40px;
-		img {
-			position: relative;
-			width: 63.5px;
-			height: 48.5px;
-			left: 50%;
-			.translate(-50%, 0px);
-		}
-	}
-	
 	ul.list {
 		margin: 0px;
-		padding: 0px 40px 100px;
-		text-align: center;
+		padding: 20px 30px 100px 30px;
+		text-align: left;
 		li {
 			list-style-type: none;
 			margin-bottom: 20px;
 			color: #212121;
+			.clearfix();
+			
 			.images {
-				position: relative;
-				margin: 0px auto 10px auto;
-				margin-bottom: 10px;
-				display: block;
-				width: 100%;
+				float: right;
 				img {
 					border-radius: 50%;
-					width: 80px;
-					margin: 5px;
+					width: 40px;
+					margin-bottom: 5px;
+					display: block;
 				}
-				.mini {
-					width: 60px;
+			}
+			.text {
+				padding-right: 50px;
+				display: block;
+				.title {
+					display: block;
+					font-size: 16px;
+					font-weight: 800;
 				}
-				
-				&.shift { width: 140px; }
-			}
-			.title {
-				display: block;
-				font-size: 18px;
-				font-weight: 800;
-				display: block;
-			}
-			.people {
-				.authors {
+				.people {
 					display: block;
 					margin-top: 10px;
-					.author {
-						font-size: 16px;
-					}
-				}
-				.twitters {
-					display: block;
-					margin-top: 5px;
-					.twitter {
-						font-size: 16px;
-					}
-				}
-				.description {
 					font-size: 14px;
-				}
-				a {
-					color: #2697de;
-					text-decoration: none;
+					.description {
+						font-size: 14px;
+					}
+					a {
+						color: #2697de;
+						text-decoration: none;
+					}
 				}
 			}
 		}
