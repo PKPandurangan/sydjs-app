@@ -214,6 +214,7 @@ _.extend(app, {
 			if (err) return retry();
 			app.setStatusInterval();
 			app.view('home').show();
+			app.view('talks').renderTalks();
 		}
 		
 		// Check for timestamp and valid code
@@ -268,7 +269,6 @@ _.extend(app, {
 			
 			// Set RSVP data
 			if (!_.isEmpty(app.data.rsvp) && data.rsvp) {
-				console.log(moment(app.data.rsvp.date).toDate(), moment(data.rsvp.date).toDate());
 				if (moment(app.data.rsvp.date).isSame(moment(data.rsvp.date))) {
 					// console.log('[getStatus] - Client-side RSVP matches server RSVP, ignoring.');
 				} else if (moment(app.data.rsvp.date).isAfter(moment(data.rsvp.date))) {

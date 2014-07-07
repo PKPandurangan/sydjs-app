@@ -766,6 +766,7 @@
 		},
 		
 		openLink: function(e) {
+			if (app.inTransition()) return;
 			window.open($(e.target).data().link, '_system');
 		},
 		
