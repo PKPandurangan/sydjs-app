@@ -50,7 +50,7 @@
 				// they come back from signup)
 				if (this._action) {
 					if (_.isEmpty(app.data.session)) return this._action = undefined;
-					if (app.data.meetups.next && app.data.meetups.next.rsvped) return this._action = undefined;
+					if (app.data.meetups.next && app.data.rsvp.responded) return this._action = undefined;
 					setTimeout(function() {
 						switch(self._action) {
 							case 'attending': self.rsvpAttending(); break;
@@ -433,6 +433,7 @@
 			switch(direction) {
 				case 'left':
 					$left.data('button').disable();
+					$right.data('button').enable();
 					$left.find('.text').text(leftText).velocity({ opacity: 1 }, { duration: duration, easing: easing });
 					$left.find('.icon').velocity({ opacity: 0, rotateZ: '135deg' }, { duration: duration, easing: 'easeOutSine' });
 					$right.find('.text').velocity({ opacity: 0 }, { duration: duration, easing: easing });
@@ -447,6 +448,7 @@
 					$right.find('.icon').velocity({ opacity: 0, rotateZ: '-135deg' }, { duration: duration, easing: 'easeOutSine' });
 				break;
 				case 'right':
+					$left.data('button').enable();
 					$right.data('button').disable();
 					$left.find('.text').velocity({ opacity: 0 }, { duration: duration, easing: easing });
 					$left.find('.icon').velocity({ opacity: 1, rotateZ: '90deg' }, { delay: duration, duration: duration, easing: 'easeOutSine' });
@@ -461,7 +463,8 @@
 			
 			var self = this;
 			
-			var meetup = app.data.meetups.next;
+			var meetup = app.data.meetups.next,
+				rsvp = app.data.rsvp;
 			
 			var $states = this.$('.states');
 			
@@ -473,10 +476,10 @@
 			$soldOut.hide();
 			$ticketsSoon.hide();
 			
-			if (meetup && meetup.rsvped && meetup.attending) {
+			if (meetup && rsvp.responded && rsvp.attending) {
 				$rsvp.show();
 				this.moveButtons('left');
-			} else if (meetup && meetup.rsvped && !meetup.attending) {
+			} else if (meetup && rsvp.responded && !rsvp.attending) {
 				$rsvp.show();
 				this.moveButtons('right');
 			} else if (meetup && meetup.ticketsAvailable && meetup.ticketsRemaining) {
@@ -506,11 +509,12 @@
 				user: user.userId,
 				meetup: app.data.meetups.next.id,
 				attending: options.attending,
-				cancel: options.cancel
+				cancel: options.cancel,
+				changed: moment().toDate()
 			};
 			
-			var hasRSVPed = app.data.meetups.next.rsvped,
-				isAttending = app.data.meetups.next.attending;
+			var hasRSVPed = app.data.rsvp.responded,
+				isAttending = app.data.rsvp.attending;
 			
 			var success = function(data) {
 				
@@ -523,10 +527,10 @@
 				self.$('.remaining .text').html(app.data.meetups.next.ticketsRemaining + ' Tickets Remaining');
 				if (!app.data.meetups.next.ticketsRemaining) self.animateRemaining(true);
 				
-				// Set form to no longer processing (after 500 milliseconds of animations)
+				// Set form to no longer processing (after 575 milliseconds of animations)
 				setTimeout(function() {
 					self._processingForm = false;
-				}, 350);
+				}, 600);
 				
 			}
 			
@@ -544,8 +548,9 @@
 					app.showNotification('Alert', 'Sorry, we couldn\'t mark your attendance, please try again.' + (data && data.message && data.message.length ? '\n\n' + data.message : ''));
 					
 					// Reset local cached data
-					app.data.meetups.next.attending = !app.data.meetups.next.attending;
-					app.data.meetups.next.rsvped = !app.data.meetups.next.rsvped;
+					app.data.rsvp.responded = !app.data.rsvp.responded;
+					app.data.rsvp.attending = !app.data.rsvp.attending;
+					app.data.rsvp.date = false;
 					
 					// Update status
 					self.setState();
@@ -553,10 +558,10 @@
 					// Hide spinner
 					app.hideLoadingSpinner();
 					
-					// Set form to no longer processing (after 500 milliseconds of animations)
+					// Set form to no longer processing (after 575 milliseconds of animations)
 					setTimeout(function() {
 						self._processingForm = false;
-					}, 350);
+					}, 600);
 				
 				}, 350);
 				
@@ -577,8 +582,9 @@
 			});
 			
 			// Update local cached data
-			app.data.meetups.next.attending = rsvpData.attending;
-			app.data.meetups.next.rsvped = !options.cancel ? true : false;
+			app.data.rsvp.responded = !options.cancel ? true : false;
+			app.data.rsvp.attending = rsvpData.attending;
+			app.data.rsvp.date = rsvpData.changed;
 			
 			// Update status
 			self.setState();
@@ -598,8 +604,8 @@
 			if (_.isEmpty(app.data.session)) {
 				var action = false;
 				switch(button) {
-					case 'left': if (!app.data.meetups.next.rsvped) action = 'attending'; break;
-					case 'right': if (!app.data.meetups.next.rsvped) action = 'notAttending'; break;
+					case 'left': if (!app.data.rsvp.responded) action = 'attending'; break;
+					case 'right': if (!app.data.rsvp.responded) action = 'notAttending'; break;
 				}
 				app.view('home')._action = action;
 				this.destroyBackground();
@@ -608,8 +614,8 @@
 				/*
 				var action = false;
 				switch(button) {
-					case 'left': if (!app.data.meetups.next.rsvped) action = 'attending'; break;
-					case 'right': if (!app.data.meetups.next.rsvped) action = 'notAttending'; break;
+					case 'left': if (!app.data.rsvp.responded) action = 'attending'; break;
+					case 'right': if (!app.data.rsvp.responded) action = 'notAttending'; break;
 				}
 				app.showConfirm('Attendance', 'You must sign in to mark your attendance.', 'No‚ thanks,Sign in', function(pressed) {
 					if (pressed == 2) {
@@ -624,17 +630,17 @@
 			
 			switch(button) {
 				case 'left':
-					if (app.data.meetups.next.rsvped && !app.data.meetups.next.attending) {
+					if (app.data.rsvp.responded && !app.data.rsvp.attending) {
 						this.rsvpCancel();
-					} else if (!app.data.meetups.next.rsvped) {
+					} else if (!app.data.rsvp.responded) {
 						this.rsvpAttending();
 					}
 				break;
 				
 				case 'right':
-					if (app.data.meetups.next.rsvped && app.data.meetups.next.attending) {
+					if (app.data.rsvp.responded && app.data.rsvp.attending) {
 						this.rsvpCancel();
-					} else if (!app.data.meetups.next.rsvped) {
+					} else if (!app.data.rsvp.responded) {
 						this.rsvpNotAttending();
 					}
 				break;
