@@ -176,44 +176,6 @@ _.extend(View.prototype, Backbone.Events, {
 	initTabs: function() {
 		
 		var self = this,
-			tabs = this.$('.tabs');
-		
-		_.each(tabs, function(container) {
-		
-			var tabItems = $(container).find('.tab'),
-				data = $(container).data();
-			
-			if (!tabItems.size())
-				return;
-			
-			tabItems.each(function() {
-				$(this).button().on('press', function() {
-					var selected = $(this).data('tab');
-					// select this tab
-					$(container).find('.tab').each(function() {
-						var $tab = $(this);
-						$tab[$tab.data('tab') == selected ? 'addClass' : 'removeClass']('selected');
-					});
-					// show the container, hide the rest
-					self.$('.tabs-content[data-tabs=' + data.tabs + '] .tab-content').each(function() {
-						var $content = $(this);
-						if ($content.data('tab') == selected) {
-							$content.show();
-							// scroll to the top of the container's parent
-							var parent = $content.parent();
-							if (parent.size())
-								parent[0].scrollTop = 0;
-						} else {
-							$content.hide();
-						}
-					});
-				});
-			}).first().trigger('press');
-			
-		});
-		
-		/* Original - one set of tabs per view code
-		var self = this,
 			tabs = this.$('.tabs .tab');
 		
 		if (!tabs.size())
@@ -249,7 +211,6 @@ _.extend(View.prototype, Backbone.Events, {
 		}).on('swipeRight', function(e) {
 			self.$('.tab.selected').prev().trigger('press');
 		});
-		*/
 	
 	},
 	
@@ -487,7 +448,6 @@ _.extend(View.prototype, Backbone.Events, {
 	},
 	
 	// Sets the z-index of the view
-	// TODO: May need to update the z-index of contained elements also...
 	setZ: function(z) {
 		this.$el.css('z-index', z);
 	},
@@ -503,7 +463,6 @@ _.extend(View.prototype, Backbone.Events, {
 		
 		app.scrollContainer(self);
 		
-		// TODO: Handle animation
 		this.$el.hide();
 		this.trigger('hidden');
 		
