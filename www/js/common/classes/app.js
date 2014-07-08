@@ -143,6 +143,7 @@ _.extend(App.prototype, Backbone.Events, {
 		// Fallback to browser alerts
 		} else {
 			alert(message);
+			if (callback) return callback();
 		}
 	
 	},
@@ -153,7 +154,7 @@ _.extend(App.prototype, Backbone.Events, {
 		
 		// Use native Cordova confirm dialogs
 		if (navigator.notification && navigator.notification.confirm) {
-			navigator.notification.confirm(message, callback, title || 'Confirm', labels || 'OK,Cancel');
+			navigator.notification.confirm(message, callback, title || 'Confirm', labels || ['OK', 'Cancel']);
 		// Fallback to browser confirms (1 = OK, 2 = Cancel)
 		} else {
 			if (!confirm(message)) {
@@ -181,7 +182,9 @@ _.extend(App.prototype, Backbone.Events, {
 			return;
 		}
 		*/
-	
+		
+		console.log( "[showLoadingSpinner] - Showing loading spinner." );
+		
 		if (this._hidingSpinner) {
 			$('#app-loading').velocity('stop');
 			this._hidingSpinner = false;
@@ -195,9 +198,8 @@ _.extend(App.prototype, Backbone.Events, {
 		if (this._showingSpinner) return;
 		if (this._spinnerVisible) return;
 		
-		// console.log( "[showLoadingSpinner] - Showing loading spinner." );
-		
 		this._showingSpinner = true;
+		this._spinnerVisible = true;
 		
 		$('#app-loading').css({
 			'z-index': this.currentViewZ() + 99,
@@ -211,7 +213,6 @@ _.extend(App.prototype, Backbone.Events, {
 			complete: function() {
 				
 				self._showingSpinner = false;
-				self._spinnerVisible = true;
 				
 				if (then) {
 					// console.log( "[showLoadingSpinner] - Has then() callback." );
@@ -248,10 +249,10 @@ _.extend(App.prototype, Backbone.Events, {
 		}
 		*/
 		
-		if (!this._spinnerVisible) return;
-		if (this._hidingSpinner) return;
+		console.log( "[hideLoadingSpinner] - Hiding loading spinner." );
 		
-		// console.log( "[hideLoadingSpinner] - Hiding loading spinner." );
+		if (this._hidingSpinner) return;
+		if (!this._spinnerVisible) return;
 		
 		this._hidingSpinner = true;
 		

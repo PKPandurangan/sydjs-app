@@ -199,7 +199,7 @@
 				}, 200);
 				
 				setTimeout(function() {
-					self.$('.home .states').velocity({ translateY: [app.viewportSize.height - 95, app.viewportSize.height] }, { duration: 500, easing: 'easeOutSine', complete: function() {
+					self.$('.home .states').velocity({ translateY: [app.viewportSize.height - 75 - self.$('.statusbar').height(), app.viewportSize.height] }, { duration: 500, easing: 'easeOutSine', complete: function() {
 						if (!meetup.ticketsRemaining) return;
 						self.animateRemaining();
 					}});
@@ -213,7 +213,7 @@
 		
 		animateRemaining: function(hide) {
 			
-			var translateY = [app.viewportSize.height - 95 - 35, app.viewportSize.height - 95]
+			var translateY = [app.viewportSize.height - 75 - this.$('.statusbar').height() - 35, app.viewportSize.height - 75 - self.$('.statusbar').height()]
 			if (hide) translateY.reverse();
 			
 			this.$('.remaining').velocity({
@@ -281,7 +281,7 @@
 					app.hideLoadingSpinner();
 				});
 			} else {
-				app.showConfirm('New Meetups', 'Would you like a notification when a new meetup is announced?', 'No‚ thanks,Notify Me', function(pressed) {
+				app.showConfirm('Notifications', 'Would you like to receive push notifications when new meetups are announced?', ['No, thanks', 'Notify Me'], function(pressed) {
 					switch(pressed) {
 						case 1: // No
 							// app.showNotification('Alert', 'User declined enable notifications.');
@@ -493,11 +493,11 @@
 			
 			var $rsvp = $states.find('.rsvp'),
 				$soldOut = $states.find('.sold-out'),
-				$ticketsSoon = $states.find('.tickets-soon');
+				$soon = $states.find('.soon');
 			
 			$rsvp.hide();
 			$soldOut.hide();
-			$ticketsSoon.hide();
+			$soon.hide();
 			
 			if (meetup && rsvp.responded && rsvp.attending) {
 				$rsvp.show();
@@ -511,7 +511,7 @@
 			} else if (meetup && meetup.ticketsAvailable && meetup.ticketsAvailable == 0) {
 				$soldOut.show();
 			} else {
-				$ticketsSoon.show();
+				$soon.show();
 			}
 		},
 		
@@ -639,7 +639,7 @@
 					case 'left': if (!app.data.rsvp.responded) action = 'attending'; break;
 					case 'right': if (!app.data.rsvp.responded) action = 'notAttending'; break;
 				}
-				app.showConfirm('Attendance', 'You must sign in to mark your attendance.', 'No‚ thanks,Sign in', function(pressed) {
+				app.showConfirm('Attendance', 'You must sign in to mark your attendance.', ['No, thanks', 'Sign in'], function(pressed) {
 					if (pressed == 2) {
 						app.view('home')._action = action;
 						this.destroyBackground();

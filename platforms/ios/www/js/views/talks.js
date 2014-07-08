@@ -149,7 +149,7 @@
 			var self = this;
 			
 			this.$('.footer').css('transform', 'translateY(' + app.viewportSize.height + 'px)');
-			this.$('.footer').velocity({ translateY: [app.viewportSize.height - 95, app.viewportSize.height] }, { delay: 250, duration: 500, easing: 'easeOutSine', complete: function() {
+			this.$('.footer').velocity({ translateY: [app.viewportSize.height - 75 - this.$('.statusbar').height(), app.viewportSize.height] }, { delay: 250, duration: 500, easing: 'easeOutSine', complete: function() {
 				self.$('.container').css('height', self.$('.container').height() - 75);
 				self.$('.list').css('padding-bottom', 25);
 			}});
@@ -157,17 +157,17 @@
 			var images = this.$('.list li img');
 			
 			images.css({
-				transform: 'translateX(70px)'
+				opacity: 0
 			});
 			
 			setTimeout(function() {
 				async.eachLimit(images, 1, function(image, animated) {
 				
-					$(image).velocity({ translateX: [0, 70] }, { duration: 250, easing: 'easeOutSine' });
+					$(image).velocity({ opacity: 1 }, { duration: 200, easing: 'easeOutSine' });
 					
 					setTimeout(function() {
 						return animated();
-					}, 125);
+					}, 100);
 				
 				});
 			}, 300);

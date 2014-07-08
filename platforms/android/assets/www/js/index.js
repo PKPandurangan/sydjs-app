@@ -202,11 +202,12 @@ _.extend(app, {
 		
 		// Function to handle retries
 		var retry = function() {
-			app.showNotification('Oops!', 'There was an error communicating with SydJS, please wait while we attempt to re-connect in 5 seconds.');
-			app.showLoadingSpinner('Retrying');
-			setTimeout(function() {
-				app.resumeSession();
-			}, 5000);
+			app.showNotification('Oops!', 'There was an error communicating with SydJS, please wait while we attempt to re-connect in 5 seconds.', false, function() {
+				app.showLoadingSpinner('Retrying');
+				setTimeout(function() {
+					app.resumeSession();
+				}, 5000);
+			});
 			return;
 		}
 		
@@ -297,7 +298,7 @@ _.extend(app, {
 				// console.log('[getStatus] - Meetup data has not changed.');
 			}
 			
-			return callback && callback(false);
+			if (callback) return callback(false);
 			
 		}
 		
@@ -305,7 +306,7 @@ _.extend(app, {
 			
 			// console.log('[getStatus] - Failed getting status, aborting');
 			
-			return callback && callback(true);
+			if (callback) return callback(true);
 			
 		}
 		
@@ -392,7 +393,7 @@ _.extend(app, {
 	
 	enableNotifications: function(callback) {
 		
-		// app.showNotification('Alert', '[enableNotifications] - Enabling notifications...');
+		console.log('[enableNotifications] - Enabling notifications...');
 		
 		var user = app.data.session;
 		
@@ -400,20 +401,20 @@ _.extend(app, {
 		
 		Notificare.once('registration', function(deviceId) {
 			
-			// console.log('[enableNotifications] - Notification response...');
+			console.log('[enableNotifications] - Notification response...');
 			
 			var userId = (user && user.userId ? user.userId : app.data.user.key),
 				userName = (user && user.name && user.name.full ? user.name.full : 'Unknown');
 			
 			Notificare.registerDevice(deviceId, userId, userName, function() {
 				
-				// app.showNotification('Alert', 'Registered for notifications with device id: [' + deviceId + '], user id: [' + userId + '], name: [' + userName + '].');
+				console.log('[enableNotifications] - Registered for notifications with device id: [' + deviceId + '], user id: [' + userId + '], name: [' + userName + '].');
 				
 				app.setNotifications(true, callback);
 			
 			}, function(err) {
 			
-				// console.log('[enableNotifications] - Failed enabling notifications.', err );
+				console.log('[enableNotifications] - Failed enabling notifications.', err );
 				
 				app.showNotification('Alert', 'Sorry, there was an issue registering you for notifications. Please try again.');
 				
@@ -427,7 +428,7 @@ _.extend(app, {
 	
 	disableNotifications: function(callback) {
 	
-		// app.showNotification('Alert', '[disableNotifications] - Disabling notifications...');
+		console.log('[disableNotifications] - Disabling notifications...');
 		
 		Notificare.disableNotifications(function() {
 			app.setNotifications(false, callback);
@@ -437,13 +438,13 @@ _.extend(app, {
 	
 	setNotifications: function(enable, callback) {
 	
-		// app.showNotification('Alert', '[setNotifications] - enable: [' + enable + '].');
+		console.log('[setNotifications] - enable: [' + enable + '].');
 		
 		app.data.user.pushNotifications = enable;
 		
-		localStorage.setItem( 'user_pushNotifications', enable );
+		localStorage.setItem('user_pushNotifications', enable);
 		
-		return callback && callback();
+		if (callback) return callback();
 	
 	},
 	

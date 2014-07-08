@@ -1950,7 +1950,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name com.sydjs:icon
         */
-        public static final int ActionBar_icon = 7;
+        public static final int ActionBar_icon = 1;
         /**
           <p>
           @attr description
@@ -1993,7 +1993,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>This is a private symbol.
           @attr name com.sydjs:logo
         */
-        public static final int ActionBar_logo = 8;
+        public static final int ActionBar_logo = 1;
         /**
           <p>
           @attr description

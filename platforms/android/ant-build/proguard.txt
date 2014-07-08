@@ -49,6 +49,9 @@
 # view AndroidManifest.xml #generated:6
 -keep class com.sydjs.SydJS { <init>(...); }
 
+# view AndroidManifest.xml #generated:5
+-keep class re.notifica.cordova.BaseApplication { <init>(...); }
+
 # view AndroidManifest.xml #generated:21
 -keep class re.notifica.cordova.IntentReceiver { <init>(...); }
 

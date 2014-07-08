@@ -12,7 +12,7 @@
 				
 				var self = this;
 				
-				this.$('.titlebar').css('height', parseInt(this.$('.titlebar .wrap').css('height'), 10) + 21);
+				this.$('.titlebar').css('height', parseInt(this.$('.titlebar .wrap').css('height'), 10) + this.$('.statusbar').height());
 				
 				var availableHeight = app.viewportSize.height
 					- this.$('.titlebar').height();
