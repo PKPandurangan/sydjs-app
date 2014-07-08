@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.sydjs" version="0.1.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.sydjs" version="0.1.6" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <preference name="DisallowOverscroll" value="true" />
     <preference name="AutoHideSplashScreen" value="false" />
     <preference name="FadeSplashScreen" value="true" />
@@ -7,9 +7,7 @@
     <preference name="ShowSplashScreenSpinner" value="false" />
     <!-- <preference name="TopActivityIndicator" value="whiteLarge" /> -->
     <name>SydJS</name>
-    <description>
-        A companion app to the SydJS website.
-    </description>
+    <description></description>
     <author email="hello@thinkmill.com.au" href="http://thinkmill.com.au">
         Thinkmill
     </author>
