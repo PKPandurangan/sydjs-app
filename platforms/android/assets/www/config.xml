@@ -5,7 +5,6 @@
     <preference name="FadeSplashScreen" value="true" />
     <preference name="FadeSplashScreenDuration" value="0.5f" />
     <preference name="ShowSplashScreenSpinner" value="false" />
-    <!-- <preference name="TopActivityIndicator" value="whiteLarge" /> -->
     <name>SydJS</name>
     <description></description>
     <author email="hello@thinkmill.com.au" href="http://thinkmill.com.au">
