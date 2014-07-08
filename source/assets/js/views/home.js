@@ -230,10 +230,10 @@
 				this.$('.btn-menu .cross').removeClass('open');
 				this.$('.corners .btn-logo, .corners .btn-notifications').velocity({
 					opacity: 1
-				}, { duration: 150, easing: 'easeOutSine' });
+				}, { duration: 250, easing: 'easeOutSine' });
 				this.$('.menu').velocity({
 					opacity: 0
-				}, { duration: 150, easing: 'easeOutSine', complete: function() {
+				}, { duration: 250, easing: 'easeOutSine', complete: function() {
 					self.$('.menu').hide();
 				}});
 				this._menuOpen = false;
@@ -246,7 +246,7 @@
 			
 			var availableHeight = app.viewportSize.height - this.$('.statusbar').height();
 			
-			this.$('.corners .btn-logo, .corners .btn-notifications').velocity({ opacity: 0 }, { duration: 150, easing: 'easeOutSine' });
+			this.$('.corners .btn-logo, .corners .btn-notifications').velocity({ opacity: 0 }, { duration: 250, easing: 'easeOutSine' });
 			
 			this.$('.menu .about').hide();
 			this.$('.menu .credits').hide();
@@ -259,7 +259,7 @@
 			
 			this.$('.menu').velocity({
 				opacity: 1
-			}, { duration: 150, easing: 'easeOutSine' });
+			}, { duration: 250, easing: 'easeOutSine' });
 			
 		},
 		
@@ -738,8 +738,8 @@
 			this.$('.corners .btn-menu').velocity({ opacity: 0 }, { duration: 150, easing: 'easeOutSine' });
 			
 			this.$('.menu .buttons').velocity({
-				translateY: [-(this.$('.menu .buttons').height()), transformValue]
-			}, { easing: 'easeOutSine', duration: 400 });
+				translateY: [-(app.viewportSize.height), transformValue]
+			}, { easing: 'easeOutSine', duration: 500 });
 			
 			this.$('.menu .' + view).show();
 			
@@ -751,16 +751,16 @@
 			this.$('.menu .' + view).css({ 'transform': 'translateY(' + app.viewportSize.height + 'px)' });
 			this.$('.menu .' + view).velocity({
 				translateY: [0, app.viewportSize.height],
-			}, { easing: 'easeOutSine', duration: 400 });
+			}, { easing: 'easeOutSine', duration: 500 });
 			
 			switch(view) {
 				case 'about':
-					this.$('.menu').velocity({ backgroundColorRed: 31, backgroundColorGreen: 199, backgroundColorBlue: 168 }, { easing: 'linear', duration: 400 });
-					this.$('.menu .' + view + ' .btn-plain').velocity({ backgroundColorRed: 26, backgroundColorGreen: 169, backgroundColorBlue: 143 }, { easing: 'linear', duration: 400 });
+					this.$('.menu').velocity({ backgroundColorRed: 31, backgroundColorGreen: 199, backgroundColorBlue: 168 }, { easing: 'easeOutSine', duration: 500 });
+					this.$('.menu .' + view + ' .btn-plain').velocity({ backgroundColorRed: 26, backgroundColorGreen: 169, backgroundColorBlue: 143 }, { easing: 'easeOutSine', duration: 500 });
 				break;
 				case 'credits':
-					this.$('.menu').velocity({ backgroundColorRed: 241, backgroundColorGreen: 119, backgroundColorBlue: 99 }, { easing: 'linear', duration: 400 });
-					this.$('.menu .' + view + ' .btn-plain').velocity({ backgroundColorRed: 205, backgroundColorGreen: 101, backgroundColorBlue: 84 }, { easing: 'linear', duration: 400 });
+					this.$('.menu').velocity({ backgroundColorRed: 241, backgroundColorGreen: 119, backgroundColorBlue: 99 }, { easing: 'easeOutSine', duration: 500 });
+					this.$('.menu .' + view + ' .btn-plain').velocity({ backgroundColorRed: 205, backgroundColorGreen: 101, backgroundColorBlue: 84 }, { easing: 'easeOutSine', duration: 500 });
 				break;
 			}
 			
@@ -768,20 +768,20 @@
 		
 		menuBack: function(view) {
 			
-			this.$('.menu').velocity({ backgroundColorRed: 38, backgroundColorGreen: 151, backgroundColorBlue: 222 }, { easing: 'linear', duration: 400 });
-			this.$('.menu .' + view + ' .btn-plain').velocity({ backgroundColorRed: 32, backgroundColorGreen: 128, backgroundColorBlue: 189 }, { easing: 'linear', duration: 400 });
+			this.$('.menu').velocity({ backgroundColorRed: 38, backgroundColorGreen: 151, backgroundColorBlue: 222 }, { easing: 'easeOutSine', duration: 500 });
+			this.$('.menu .' + view + ' .btn-plain').velocity({ backgroundColorRed: 32, backgroundColorGreen: 128, backgroundColorBlue: 189 }, { easing: 'easeOutSine', duration: 500 });
 			
 			this.$('.menu .' + view).velocity({
 				translateY: app.viewportSize.height
-			}, { easing: 'easeOutSine', duration: 400 });
+			}, { easing: 'easeOutSine', duration: 500 });
 			
 			var availableHeight = app.viewportSize.height - this.$('.statusbar').height();
 			
 			var to = (availableHeight / 2) - (this.$('.buttons').height() / 2) + this.$('.statusbar').height();
 			
 			this.$('.menu .buttons').velocity({
-				translateY: [to, -(this.$('.menu .buttons').height())]
-			}, { easing: 'easeOutSine', duration: 400 });
+				translateY: [to, -(app.viewportSize.height)]
+			}, { easing: 'easeOutSine', duration: 500 });
 			
 			this.$('.corners .btn-menu').velocity({ opacity: 1 }, { delay: 300, duration: 150, easing: 'easeOutSine' });
 			

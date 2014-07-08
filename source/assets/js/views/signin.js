@@ -90,6 +90,8 @@
 		
 		serviceSignin: function(el) {
 			
+			var self = this;
+			
 			var service = $(el.target).data().service;
 			
 			var options = 'location=no,toolbar=yes,toolbarposition=top,closebuttoncaption=Cancel';
@@ -112,19 +114,91 @@
 							
 							authWindow.close();
 							
-							app.view('signin-service')._service = service;
-							app.view('signin-service')._authUser = JSON.parse(authUser);
+							self._service = service;
+							self._authUser = JSON.parse(authUser);
 							
-							app.view('signin-service').show('slide-up');
-							
-							// alert(authUser);
+							self.checkExisting();
 							
 						}
 					);
 					
-				});
+				}, 100);
 				
 			});
+			
+		},
+		
+		checkExisting: function() {
+		
+			var self = this;
+			
+			var success = function(data) {
+				
+				// console.log("[checkExisting] - Processed succesfully, showing message.", data);
+				
+				// Hide loading spinner
+				app.hideLoadingSpinner();
+				
+				if (data.session) {
+					
+					// Put data in local storage
+					app.storeSessionInfo(data);
+					
+					// Go to another view
+					app.getStatus(function(err) {
+						if (err) {
+							app.showNotification('Oops!', 'There was an error communicating with SydJS, please wait while we attempt to re-connect in 5 seconds.');
+							app.showLoadingSpinner('Retrying');
+							setTimeout(function() {
+								success(data);
+							}, 5000);
+							return;
+						}
+						app.preloadUser(function() {
+							app.view('signin-successful').show('slide-up');
+						});
+					});
+					
+				} else {
+					
+					// Pass through data
+					app.view('signin-service')._service = self._service;
+					app.view('signin-service')._authUser = self._authUser;
+					
+					app.view('signin-service').show('slide-up');
+					
+				}
+				
+			}
+			
+			var error = function(data) {
+			
+				// console.log("[checkExisting] - Update failed, advise user to retry details.", data);
+				
+				// Hide loading spinner
+				app.hideLoadingSpinner();
+				
+				// Show message
+				app.showNotification('Alert', 'Sorry, your account could not be processed. Please try again.' + (data && data.message && data.message.length ? '\n\n' + data.message : ''));
+			
+			}
+			
+			$.ajax({
+				url: app.getAPIEndpoint('signin-service-check'),
+				type: 'post',
+				data: {
+					authUser: this._authUser
+				},
+				dataType: 'json',
+				cache: false,
+				success: function(data) {
+					return data.success ? success(data) : error(data);
+				},
+				error: function() {
+					return error();
+				}
+			});
+		
 		}
 		
 	});

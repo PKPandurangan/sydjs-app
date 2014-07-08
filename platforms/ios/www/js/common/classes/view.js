@@ -420,8 +420,8 @@ _.extend(View.prototype, Backbone.Events, {
 					translateX: [translateX, 0],
 					translateY: [translateY, 0]
 				}, {
-					duration: quick ? 300 : 300, // while these values are the same, the check is here for consistancy
-					easing: quick ? 'easeInOutSine' : 'easeOutSine',
+					duration: quick ? 300 : 400,
+					easing: quick ? 'easeOutSine' : 'easeOutSine',
 					complete: function() {
 						
 						// console.log("[reveal] - view [" + self.id + "]:reveal animation complete");
