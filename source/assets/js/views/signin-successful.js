@@ -3,11 +3,7 @@
 	new View('signin-successful', {
 		
 		on: {
-			layout: function() {
-				
-				//
-				
-			},
+			layout: function() {},
 			visible: function() {
 				
 				this.animateView();
@@ -19,11 +15,7 @@
 				app.trackEvent({ label: 'Signed In', category: 'view', action: 'visible' });
 				
 			},
-			hidden: function() {
-				
-				//
-				
-			}
+			hidden: function() {}
 		},
 		
 		animateView: function() {

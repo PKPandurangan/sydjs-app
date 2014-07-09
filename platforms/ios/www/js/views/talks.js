@@ -2,12 +2,6 @@
 	
 	new View('talks', {
 		
-		initialize: function() {
-		
-			//
-		
-		},
-		
 		on: {
 			layout: function() {
 				
@@ -33,7 +27,8 @@
 				// analytics
 				app.trackEvent({ label: 'Talks', category: 'view', action: 'visible' });
 				
-			}
+			},
+			hidden: function() {}
 		},
 		
 		buttons: {
@@ -171,6 +166,8 @@
 				
 				});
 			}, 300);
+			
+			
 			
 		}
 		

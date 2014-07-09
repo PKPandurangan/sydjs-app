@@ -2,12 +2,6 @@
 	
 	new View('home', {
 		
-		initialize: function() {
-		
-			//
-		
-		},
-		
 		on: {
 			layout: function() {
 				

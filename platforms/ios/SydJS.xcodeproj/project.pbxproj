@@ -52,6 +52,7 @@
 		8B189E146DD64A38B364B0CA /* CDVConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = E461C3C8B31E4D3F98CC7A96 /* CDVConnection.m */; };
 		8DAEF0EBE164476C9E833FEA /* NotificareAppDelegateSurrogate.m in Sources */ = {isa = PBXBuildFile; fileRef = F652D99535F0485CA8EC0A0A /* NotificareAppDelegateSurrogate.m */; };
 		91491FD2190CD1820085AFE9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91491FD1190CD1820085AFE9 /* Images.xcassets */; };
+		9183B945196CBD4300DF5341 /* Default-Portrait@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 9183B944196CBD4300DF5341 /* Default-Portrait@2x~iphone.png */; };
 		91CEA4C11902158C0062B0E3 /* Notificare.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91CEA4C01902158C0062B0E3 /* Notificare.plist */; };
 		9AAB06D0F9DD4A0BB6072628 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB222BE485B74504BDB93016 /* EventKit.framework */; };
 		9BA946D5A557457DAF1CEE87 /* CDVVibration.m in Sources */ = {isa = PBXBuildFile; fileRef = BC47DF2FB4C54698BE148684 /* CDVVibration.m */; };
@@ -178,6 +179,7 @@
 		8BD7C9BEE6C84D34A05CF35B /* NotificareCustom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareCustom.h; path = re.notifica.cordova/NotificareCustom.h; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* SydJS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "SydJS-Info.plist"; path = "../SydJS-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		91491FD1190CD1820085AFE9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SydJS/Images.xcassets; sourceTree = SOURCE_ROOT; };
+		9183B944196CBD4300DF5341 /* Default-Portrait@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x~iphone.png"; sourceTree = "<group>"; };
 		91CEA4C01902158C0062B0E3 /* Notificare.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Notificare.plist; sourceTree = "<group>"; };
 		94E5510CF77B4F2DB54ACEB7 /* NotificareMKNetworkKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareMKNetworkKit.h; path = re.notifica.cordova/NotificareMKNetworkKit.h; sourceTree = "<group>"; };
 		9526FBA7B5654711B5E9F86D /* ActionType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ActionType.h; path = re.notifica.cordova/ActionType.h; sourceTree = "<group>"; };
@@ -215,7 +217,6 @@
 		E5296961787A4CB4B5E6BB69 /* AudioToolbox.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		E72534F6689D4E9CA333EF47 /* NotificareAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareAlert.h; path = re.notifica.cordova/NotificareAlert.h; sourceTree = "<group>"; };
 		E8868BCC064646FFA21A30A3 /* libicucore.dylib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
-		EB87FDF21871DA7A0020F90C /* merges */ = {isa = PBXFileReference; lastKnownFileType = folder; name = merges; path = ../../merges; sourceTree = "<group>"; };
 		EB87FDF31871DA8E0020F90C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../www; sourceTree = "<group>"; };
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
 		F1C4BE1218814C35B3AE58CD /* UIKit.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -299,7 +300,6 @@
 				91CEA4C01902158C0062B0E3 /* Notificare.plist */,
 				EB87FDF41871DAF40020F90C /* config.xml */,
 				EB87FDF31871DA8E0020F90C /* www */,
-				EB87FDF21871DA7A0020F90C /* merges */,
 				EB87FDF11871DA420020F90C /* Staging */,
 				301BF52D109A57CC0062928A /* CordovaLib.xcodeproj */,
 				080E96DDFE201D6D7F000001 /* Classes */,
@@ -478,6 +478,7 @@
 		308D05311370CCF300D202BF /* splash */ = {
 			isa = PBXGroup;
 			children = (
+				9183B944196CBD4300DF5341 /* Default-Portrait@2x~iphone.png */,
 				D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */,
 				3088BBB7154F3926009F9C59 /* Default-Landscape@2x~ipad.png */,
 				3088BBB8154F3926009F9C59 /* Default-Landscape~ipad.png */,
@@ -601,6 +602,7 @@
 				1F766FE113BBADB100FB74C0 /* Localizable.strings in Resources */,
 				302D95F214D2391D003F00A1 /* MainViewController.xib in Resources */,
 				7E7966E01810823500FA85AD /* icon-50.png in Resources */,
+				9183B945196CBD4300DF5341 /* Default-Portrait@2x~iphone.png in Resources */,
 				7E7966E31810823500FA85AD /* icon-60@2x.png in Resources */,
 				91491FD2190CD1820085AFE9 /* Images.xcassets in Resources */,
 				30A0434814DC770100060A13 /* Localizable.strings in Resources */,

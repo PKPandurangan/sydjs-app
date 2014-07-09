@@ -2,9 +2,6 @@ var View;
 
 (function() {
 
-// this variable controls whether show / reveal / hide events are console.logged
-var debug = true;
-
 // Cached regex to split keys for `delegate`. **MUST** be the same as Backbone's.
 var delegateEventSplitter = /^(\S+)\s*(.*)$/;
 

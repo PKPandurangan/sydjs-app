@@ -3,11 +3,7 @@
 	new View('signin', {
 		
 		on: {
-			layout: function() {
-				
-				//
-				
-			},
+			layout: function() {},
 			visible: function() {
 				
 				var self = this;
@@ -37,11 +33,7 @@
 				app.trackEvent({ label: 'Signin', category: 'view', action: 'visible' });
 				
 			},
-			hidden: function() {
-				
-				//
-				
-			}
+			hidden: function() {}
 		},
 		
 		buttons: {

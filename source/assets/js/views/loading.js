@@ -2,12 +2,6 @@
 	
 	new View('loading', {
 		
-		initialize: function() {
-		
-			//
-		
-		},
-		
 		on: {
 			layout: function() {
 				
@@ -35,7 +29,8 @@
 				// analytics
 				app.trackEvent({ label: 'Loading', category: 'view', action: 'visible' });
 				
-			}
+			},
+			hidden: function() {}
 		}
 		
 	});

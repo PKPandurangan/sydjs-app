@@ -2,12 +2,6 @@
 	
 	new View('home', {
 		
-		initialize: function() {
-		
-			//
-		
-		},
-		
 		on: {
 			layout: function() {
 				
@@ -133,7 +127,9 @@
 			var $background = this.$('.background');
 			
 			$background.css('margin-left', -(410 - (app.viewportSize.width / 2)));
-			$background.css('margin-top', -(361 - (app.viewportSize.height / 2))); // 400
+			$background.css('margin-top', -(361 - (app.viewportSize.height / 2)));
+			
+			if (this._parallaxify) return;
 			
 			this._parallaxify = this.$el.parallaxify({
 				positionProperty: 'transform',
@@ -156,6 +152,7 @@
 		destroyBackground: function() {
 			if (!this._parallaxify || !this._parallaxify.data('plugin_parallaxify')) return;
 			this._parallaxify && this._parallaxify.data('plugin_parallaxify').destroy();
+			this._parallaxify = false;
 		},
 		
 		animateView: function() {
