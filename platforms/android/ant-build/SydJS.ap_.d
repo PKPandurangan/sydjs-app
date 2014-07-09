@@ -631,7 +631,6 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/_where-is-www.txt \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/notificareconfig.properties \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www \
-/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/components \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/config.xml \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/cordova.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/cordova_plugins.js \
@@ -640,12 +639,6 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/index.html \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/plugins \
-/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/components/async.js \
-/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/components/backbone.js \
-/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/components/jquery.js \
-/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/components/moment.js \
-/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/components/underscore.js \
-/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/components/velocity.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/app.css \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/background.jpg \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/logos \
@@ -677,6 +670,7 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/icons/google.png \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/icons/twitter.png \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/components \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/index.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/views \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/classes \
@@ -686,6 +680,12 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/classes/view.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/ui/button.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/ui/spinner.js \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/components/async.js \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/components/backbone.js \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/components/jquery.js \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/components/moment.js \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/components/underscore.js \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/components/velocity.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/views/home.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/views/loading.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/views/signin-email.js \

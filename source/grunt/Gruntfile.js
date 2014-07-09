@@ -61,12 +61,12 @@ module.exports = function(grunt) {
 					mangle: false
 				},
 				files: {
-					'../../www/components/async.js': ['../assets/components/async/lib/async.js'],
-					'../../www/components/backbone.js': ['../assets/components/backbone/backbone.js'],
-					'../../www/components/jquery.js': ['../assets/components/jquery/dist/jquery.js'],
-					'../../www/components/moment.js': ['../assets/components/moment/moment.js'],
-					'../../www/components/underscore.js': ['../assets/components/underscore/underscore.js'],
-					'../../www/components/velocity.js': ['../assets/components/velocity/jquery.velocity.js']
+					'../../www/js/components/async.js': ['../assets/components/async/lib/async.js'],
+					'../../www/js/components/backbone.js': ['../assets/components/backbone/backbone.js'],
+					'../../www/js/components/jquery.js': ['../assets/components/jquery/dist/jquery.js'],
+					'../../www/js/components/moment.js': ['../assets/components/moment/moment.js'],
+					'../../www/js/components/underscore.js': ['../assets/components/underscore/underscore.js'],
+					'../../www/js/components/velocity.js': ['../assets/components/velocity/jquery.velocity.js']
 				}
 			}
 		},
