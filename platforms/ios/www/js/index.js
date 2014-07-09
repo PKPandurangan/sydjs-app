@@ -119,19 +119,32 @@ _.extend(app, {
 	/* User Data */
 	
 	storeUser: function() {
-	
+		
 		var userKey = app.generateUser();
 		
 		localStorage.setItem( 'user_key', userKey );
 		
 		return userKey;
+		
+	},
 	
+	generateUser: function() {
+		
+		var key = '',
+			possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+			
+		for(var i = 0; i < 24; i++) {
+			key += possible.charAt(Math.floor(Math.random() * possible.length));
+		}
+		
+		return key;
+		
 	},
 	
 	populateUser: function() {
 	
-		var userKey = localStorage.getItem( 'user_key' ),
-			userPushNotifications = localStorage.getItem( 'user_pushNotifications' ) == 'true' ? true : false;
+		var userKey = localStorage.getItem('user_key'),
+			userPushNotifications = localStorage.getItem('user_pushNotifications') == 'true' ? true : false;
 		
 		app.data.user.key = userKey || app.storeUser();
 		app.data.user.pushNotifications = userPushNotifications;
@@ -153,19 +166,6 @@ _.extend(app, {
 		
 		$image.prop('src', app.data.session.avatar);
 		
-	},
-	
-	generateUser: function() {
-	
-		var key = '',
-			possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-		
-		for( var i = 0; i < 24; i++ ) {
-			key += possible.charAt(Math.floor(Math.random() * possible.length));
-		}
-		
-		return key;
-	
 	},
 	
 	/* Session Data */
@@ -450,6 +450,17 @@ _.extend(app, {
 	
 	/* Analytics */
 	
+	initAnalytics: function() {
+	
+		ga('create', 'UA-52640025-1', {
+			'storage' : 'none',
+			'clientId': app.data.user.key
+		});
+		ga('set', 'checkProtocolTask', function() {});
+		ga('send', 'pageview');
+	
+	},
+	
 	setIdentity: function(key) {
 	
 		if (!window.mixpanel) return;
@@ -521,6 +532,9 @@ app.on('init', function() {
 	
 	// Make sure we have a user set for analytics tracking
 	app.populateUser();
+	
+	// Init analytics
+	app.initAnalytics();
 	
 	// Show the loading view immeidately, which is a clone of the home view with the SydJS logo
 	// in the starting position
