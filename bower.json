@@ -12,6 +12,6 @@
     "moment": "*",
     "backbone": "*",
     "async": "*",
-    "velocity": "*"
+    "velocity": "0.4.0"
   }
 }

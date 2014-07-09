@@ -777,7 +777,7 @@
 					this.$('.menu').velocity({ backgroundColorRed: 241, backgroundColorGreen: 119, backgroundColorBlue: 99 }, { easing: 'easeOutSine', duration: 500 });
 					this.$('.menu .credits .btn-plain').velocity({ backgroundColorRed: 205, backgroundColorGreen: 101, backgroundColorBlue: 84 }, { easing: 'easeOutSine', duration: 500 });
 					
-					var images = this.$('.menu .credits ul.people li .person');
+					var images = this.$('.menu .credits ul.people li .person .image');
 					
 					images.css({ opacity: 0 });
 					

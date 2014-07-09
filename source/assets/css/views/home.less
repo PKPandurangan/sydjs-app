@@ -553,7 +553,7 @@
 								width: 100%;
 								z-index: 1;
 							}
-							.circle, img {
+							.circle, .image {
 								position: absolute;
 								left: 0px;
 								border-radius: 50%;
@@ -561,6 +561,15 @@
 								height: 40px;
 								margin-bottom: 10px;
 								display: block;
+								background-repeat: no-repeat;
+								background-position: center;
+								background-size: 40px;
+								
+								&.tom { background-image: url('../img/people/tom.jpg'); }
+								&.boris { background-image: url('../img/people/boris.jpg'); }
+								&.jed { background-image: url('../img/people/jed.jpg'); }
+								&.joss { background-image: url('../img/people/joss.jpg'); }
+								&.tuan { background-image: url('../img/people/tuan.jpg'); }
 							}
 							.circle {
 								background-color: #fff;
@@ -569,8 +578,7 @@
 					}
 					&.built-with {
 						list-style-type: disc;
-						margin-left: 8px;
-						padding-left: 7px;
+						margin-left: 15px;
 						li {
 							display: list-item;
 							paddin-left: 2px;
