@@ -3,11 +3,7 @@
 	new View('signout', {
 		
 		on: {
-			layout: function() {
-				
-				//
-				
-			},
+			layout: function() {},
 			visible: function() {
 				
 				this.animateView();
@@ -19,15 +15,7 @@
 				app.trackEvent({ label: 'Signout', category: 'view', action: 'visible' });
 				
 			},
-			hidden: function() {
-				
-				//
-				
-			}
-		},
-		
-		buttons: {
-			//
+			hidden: function() {}
 		},
 		
 		animateView: function() {

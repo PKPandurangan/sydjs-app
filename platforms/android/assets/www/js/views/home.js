@@ -2,12 +2,6 @@
 	
 	new View('home', {
 		
-		initialize: function() {
-		
-			//
-		
-		},
-		
 		on: {
 			layout: function() {
 				
@@ -91,7 +85,7 @@
 				// make sure menu is hidden
 				this.toggleMenu(true);
 				
-				// destroy the parallaxify effect
+				// destroy the background effect
 				this.destroyBackground();
 				
 				// stop watching for shake event
@@ -130,32 +124,51 @@
 		
 		setBackground: function() {
 			
-			var $background = this.$('.background');
+			var $background = this.$('.background'),
+				$image = $background.find('.image');
 			
-			$background.css('margin-left', -(410 - (app.viewportSize.width / 2)));
-			$background.css('margin-top', -(361 - (app.viewportSize.height / 2))); // 400
+			$background.css('margin-left', -805 - 35);
+			$background.css('margin-top', -(1073.5 / 4) - 35);
 			
-			this._parallaxify = this.$el.parallaxify({
-				positionProperty: 'transform',
-				motionType: 'gaussian',
-				useMouseMove: false,
-				alphaFilter: 0.9,
-				adjustBasePosition: false
-			});
+			if (window.DeviceOrientationEvent) {
+				
+				$(window).on('deviceorientation', function(e) {
+					
+					console.log(e);
+					
+					var beta = e.originalEvent.beta,
+						gamma = e.originalEvent.gamma;
+					
+					var pad = 60;
+					
+					if (gamma > 90) gamma = 180 - gamma;
+					if (gamma < -90) gamma = -180 - gamma;
+					
+					var yTilt = -beta / 180 * pad;
+					var xTilt = -gamma / 180 * pad;
+					
+					// console.log('beta: ' + beta.toFixed(1) + '\ngamma: ' + gamma.toFixed(1) + '\nyTilt: ' + yTilt + '\nxTilt: ' + xTilt);
+					
+					var position = 'translate3d(' + xTilt + 'px, ' + yTilt + 'px, ' + pad + 'px)';
+					
+					_.first($image).style.transform = position;
+					_.first($image).style.webkitTransform = position;
+					
+				});
+				
+			}
+			
 			
 		},
 		
 		showBackground: function() {
-			
 			// velocity causes visual artifacts if it's used for opacity
 			// using a standard css transition here
 			this.$('.background').addClass('show');
-			
 		},
 		
 		destroyBackground: function() {
-			if (!this._parallaxify || !this._parallaxify.data('plugin_parallaxify')) return;
-			this._parallaxify && this._parallaxify.data('plugin_parallaxify').destroy();
+			$(window).off('deviceorientation');
 		},
 		
 		animateView: function() {
@@ -178,6 +191,9 @@
 			this.$('.home .logo').css('marginTop', logoPosition);
 			this.$('.home .remaining').css('transform', 'translateY(' + app.viewportSize.height + 'px)');
 			this.$('.home .states').css('transform', 'translateY(' + app.viewportSize.height + 'px)');
+			
+			this.$('.home .logo').show();
+			this.$('.home .meetup').css('opacity', 0);
 			
 			app._device.size && app._device.size == 'short' && this.$('.meetup').addClass('short');
 			
@@ -486,7 +502,7 @@
 			
 			var self = this;
 			
-			var meetup = app.data.meetups.next,
+			var meetup = app.parseMeetup(),
 				rsvp = app.data.rsvp;
 			
 			var $states = this.$('.states');
@@ -499,16 +515,16 @@
 			$soldOut.hide();
 			$soon.hide();
 			
-			if (meetup && rsvp.responded && rsvp.attending) {
+			if (meetup.next && rsvp.responded && rsvp.attending) {
 				$rsvp.show();
 				this.moveButtons('left');
-			} else if (meetup && rsvp.responded && !rsvp.attending) {
+			} else if (meetup.next && rsvp.responded && !rsvp.attending) {
 				$rsvp.show();
 				this.moveButtons('right');
-			} else if (meetup && meetup.ticketsAvailable && meetup.ticketsRemaining) {
+			} else if (meetup.next && meetup.data.ticketsAvailable && meetup.data.ticketsRemaining) {
 				$rsvp.show();
 				this.moveButtons('middle');
-			} else if (meetup && meetup.ticketsAvailable && meetup.ticketsAvailable == 0) {
+			} else if (meetup.next && meetup.data.ticketsAvailable && meetup.data.ticketsAvailable == 0) {
 				$soldOut.show();
 			} else {
 				$soon.show();
@@ -716,9 +732,6 @@
 		},
 		
 		menuCredits: function() {
-			this.$('.menu .credits .text').css({
-				marginTop: 50
-			});
 			this.menuView('credits');
 		},
 		
@@ -731,6 +744,8 @@
 		},
 		
 		menuView: function(view) {
+			
+			var self = this;
 			
 			var matrixToArray = function(str) { return str.match(/(-?[0-9\.]+)/g); };
 			var transformValue = _.last(matrixToArray(this.$('.menu .buttons').css('transform')));
@@ -756,11 +771,28 @@
 			switch(view) {
 				case 'about':
 					this.$('.menu').velocity({ backgroundColorRed: 31, backgroundColorGreen: 199, backgroundColorBlue: 168 }, { easing: 'easeOutSine', duration: 500 });
-					this.$('.menu .' + view + ' .btn-plain').velocity({ backgroundColorRed: 26, backgroundColorGreen: 169, backgroundColorBlue: 143 }, { easing: 'easeOutSine', duration: 500 });
+					this.$('.menu .about .btn-plain').velocity({ backgroundColorRed: 26, backgroundColorGreen: 169, backgroundColorBlue: 143 }, { easing: 'easeOutSine', duration: 500 });
 				break;
 				case 'credits':
 					this.$('.menu').velocity({ backgroundColorRed: 241, backgroundColorGreen: 119, backgroundColorBlue: 99 }, { easing: 'easeOutSine', duration: 500 });
-					this.$('.menu .' + view + ' .btn-plain').velocity({ backgroundColorRed: 205, backgroundColorGreen: 101, backgroundColorBlue: 84 }, { easing: 'easeOutSine', duration: 500 });
+					this.$('.menu .credits .btn-plain').velocity({ backgroundColorRed: 205, backgroundColorGreen: 101, backgroundColorBlue: 84 }, { easing: 'easeOutSine', duration: 500 });
+					
+					var images = this.$('.menu .credits ul.people li .person');
+					
+					images.css({ opacity: 0 });
+					
+					setTimeout(function() {
+						async.eachLimit(images, 1, function(image, animated) {
+						
+							$(image).velocity({ opacity: 1 }, { duration: 200, easing: 'easeOutSine' });
+							
+							setTimeout(function() {
+								return animated();
+							}, 100);
+						
+						});
+					}, 500);
+				
 				break;
 			}
 			
@@ -784,6 +816,8 @@
 			}, { easing: 'easeOutSine', duration: 500 });
 			
 			this.$('.corners .btn-menu').velocity({ opacity: 1 }, { delay: 300, duration: 150, easing: 'easeOutSine' });
+			
+			app.scrollContainer(this);
 			
 		},
 		

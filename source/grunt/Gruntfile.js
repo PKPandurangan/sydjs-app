@@ -67,7 +67,6 @@ module.exports = function(grunt) {
 					'../../www/components/moment.js': ['../assets/components/moment/moment.js'],
 					'../../www/components/underscore.js': ['../assets/components/underscore/underscore.js'],
 					'../../www/components/velocity.js': ['../assets/components/velocity/jquery.velocity.js']
-					// '../../www/components/parallaxify.js': ['../assets/components/jquery.parallaxify/jquery.parallaxify.js']
 				}
 			}
 		},

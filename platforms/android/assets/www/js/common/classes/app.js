@@ -302,15 +302,13 @@ _.extend(App.prototype, Backbone.Events, {
 		}, delay || 0);
 	},
 	
-	// scrolls any container back up to the top when leaving a view
+	// scrolls any containers back up to the top when leaving a view
 	scrollContainer: function(view) {
-		if ( view.disableAutoScroll ) {
-			return;
-		}
-		var scrollingContainer = view.$el.find( '.container' );
-		if ( scrollingContainer.length ) {
-			_.first(scrollingContainer).scrollTop = 0;
-		}
+		if (view.disableAutoScroll) return;
+		var scrollingContainers = view.$el.find('.container');
+		_.each(scrollingContainers, function($el) {
+			$el.scrollTop = 0;
+		});
 	},
 	
 	// hide the keyboard when hiding a screen (blur active element)

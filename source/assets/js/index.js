@@ -289,14 +289,14 @@ _.extend(app, {
 			var meetup = app.parseMeetup();
 			
 			if (app._lastHash && meetup.data.hash != app._lastHash) {
-				console.log('[getStatus] - Meetup data changed!');
+				// console.log('[getStatus] - Meetup data changed!');
 				app.preloadMeetup();
 				app.view('talks').renderTalks();
 				app.view('home').setMeetup();
 				app.view('home').setState();
 				app._lastHash = meetup.data.hash;
 			} else {
-				console.log('[getStatus] - Meetup data has not changed.');
+				// console.log('[getStatus] - Meetup data has not changed.');
 				app._lastHash = meetup.data.hash;
 			}
 			

@@ -119,19 +119,32 @@ _.extend(app, {
 	/* User Data */
 	
 	storeUser: function() {
-	
+		
 		var userKey = app.generateUser();
 		
 		localStorage.setItem( 'user_key', userKey );
 		
 		return userKey;
+		
+	},
 	
+	generateUser: function() {
+		
+		var key = '',
+			possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+			
+		for(var i = 0; i < 24; i++) {
+			key += possible.charAt(Math.floor(Math.random() * possible.length));
+		}
+		
+		return key;
+		
 	},
 	
 	populateUser: function() {
 	
-		var userKey = localStorage.getItem( 'user_key' ),
-			userPushNotifications = localStorage.getItem( 'user_pushNotifications' ) == 'true' ? true : false;
+		var userKey = localStorage.getItem('user_key'),
+			userPushNotifications = localStorage.getItem('user_pushNotifications') == 'true' ? true : false;
 		
 		app.data.user.key = userKey || app.storeUser();
 		app.data.user.pushNotifications = userPushNotifications;
@@ -153,19 +166,6 @@ _.extend(app, {
 		
 		$image.prop('src', app.data.session.avatar);
 		
-	},
-	
-	generateUser: function() {
-	
-		var key = '',
-			possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-		
-		for( var i = 0; i < 24; i++ ) {
-			key += possible.charAt(Math.floor(Math.random() * possible.length));
-		}
-		
-		return key;
-	
 	},
 	
 	/* Session Data */
@@ -197,8 +197,8 @@ _.extend(app, {
 		// Check local storage for session data
 		// console.log('[resumeSession] - Checking local storage...');
 		
-		var date = localStorage.getItem( 'session_date' ),
-			user = localStorage.getItem( 'session_userId' );
+		var date = localStorage.getItem('session_date'),
+			user = localStorage.getItem('session_userId');
 		
 		// Function to handle retries
 		var retry = function() {
@@ -213,9 +213,6 @@ _.extend(app, {
 		
 		var outcome = function(err) {
 			if (err) return retry();
-			app._statusInterval = setTimeout(function() {
-				app.getStatus();
-			}, 10000);
 			app.view('home').show();
 		}
 		
@@ -289,14 +286,24 @@ _.extend(app, {
 			if (data.user) app.data.session = data.user;
 			
 			// Determine if meetup data has changed (if it changes)
-			if (!app.data.meetups.next || (app.data.meetups.next && data.meetups.next && (app.data.meetups.next.hash != data.meetups.next.hash))) {
+			var meetup = app.parseMeetup();
+			
+			if (app._lastHash && meetup.data.hash != app._lastHash) {
 				// console.log('[getStatus] - Meetup data changed!');
 				app.preloadMeetup();
 				app.view('talks').renderTalks();
 				app.view('home').setMeetup();
+				app.view('home').setState();
+				app._lastHash = meetup.data.hash;
 			} else {
 				// console.log('[getStatus] - Meetup data has not changed.');
+				app._lastHash = meetup.data.hash;
 			}
+			
+			// Add timeout for next status call
+			app._statusInterval = setTimeout(function() {
+				app.getStatus();
+			}, 10000);
 			
 			if (callback) return callback(false);
 			
@@ -450,6 +457,17 @@ _.extend(app, {
 	
 	/* Analytics */
 	
+	initAnalytics: function() {
+	
+		ga('create', 'UA-52640025-1', {
+			'storage' : 'none',
+			'clientId': app.data.user.key
+		});
+		ga('set', 'checkProtocolTask', function() {});
+		ga('send', 'pageview');
+	
+	},
+	
 	setIdentity: function(key) {
 	
 		if (!window.mixpanel) return;
@@ -521,6 +539,9 @@ app.on('init', function() {
 	
 	// Make sure we have a user set for analytics tracking
 	app.populateUser();
+	
+	// Init analytics
+	app.initAnalytics();
 	
 	// Show the loading view immeidately, which is a clone of the home view with the SydJS logo
 	// in the starting position

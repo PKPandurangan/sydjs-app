@@ -648,7 +648,17 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/components/velocity.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/css/app.css \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/background.jpg \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/logos \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/people \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/logos/cordova.png \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/logos/credits.png \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/logos/thinkmill.png \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/people/boris.jpg \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/people/jed.jpg \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/people/joss.jpg \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/people/tom.jpg \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/people/tuan.jpg \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/icon-alarm-green.svg \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/icon-alarm-white.svg \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/icon-arrow-down.png \
@@ -672,7 +682,6 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/classes \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/ui \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/classes/app.js \
-/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/classes/parallaxify.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/classes/touch.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/classes/view.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/ui/button.js \

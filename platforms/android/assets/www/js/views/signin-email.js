@@ -333,9 +333,6 @@
 				// Set form to no longer processing
 				self._processingForm = false;
 				
-				// Clear fields
-				self.clearFields();
-				
 				// Go to another view
 				app.getStatus(function(err) {
 					if (err) {
@@ -348,6 +345,7 @@
 					}
 					app.preloadUser(function() {
 						app.view('signin-successful').show('slide-up');
+						app.view('signin-email').clearFields();
 					});
 				});
 				

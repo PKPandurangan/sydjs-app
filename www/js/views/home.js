@@ -85,7 +85,7 @@
 				// make sure menu is hidden
 				this.toggleMenu(true);
 				
-				// destroy the parallaxify effect
+				// destroy the background effect
 				this.destroyBackground();
 				
 				// stop watching for shake event
@@ -124,35 +124,51 @@
 		
 		setBackground: function() {
 			
-			var $background = this.$('.background');
+			var $background = this.$('.background'),
+				$image = $background.find('.image');
 			
-			$background.css('margin-left', -(805 / 2));
-			$background.css('margin-top', -(1073.5 / 2) + 100);
+			$background.css('margin-left', -805 - 35);
+			$background.css('margin-top', -(1073.5 / 4) - 35);
 			
-			if (this._parallaxify) return;
+			if (window.DeviceOrientationEvent) {
+				
+				$(window).on('deviceorientation', function(e) {
+					
+					console.log(e);
+					
+					var beta = e.originalEvent.beta,
+						gamma = e.originalEvent.gamma;
+					
+					var pad = 60;
+					
+					if (gamma > 90) gamma = 180 - gamma;
+					if (gamma < -90) gamma = -180 - gamma;
+					
+					var yTilt = -beta / 180 * pad;
+					var xTilt = -gamma / 180 * pad;
+					
+					// console.log('beta: ' + beta.toFixed(1) + '\ngamma: ' + gamma.toFixed(1) + '\nyTilt: ' + yTilt + '\nxTilt: ' + xTilt);
+					
+					var position = 'translate3d(' + xTilt + 'px, ' + yTilt + 'px, ' + pad + 'px)';
+					
+					_.first($image).style.transform = position;
+					_.first($image).style.webkitTransform = position;
+					
+				});
+				
+			}
 			
-			this._parallaxify = this.$el.parallaxify({
-				positionProperty: 'transform',
-				motionType: 'gaussian',
-				useMouseMove: false,
-				alphaFilter: 0.9,
-				adjustBasePosition: false
-			});
 			
 		},
 		
 		showBackground: function() {
-			
 			// velocity causes visual artifacts if it's used for opacity
 			// using a standard css transition here
 			this.$('.background').addClass('show');
-			
 		},
 		
 		destroyBackground: function() {
-			if (!this._parallaxify || !this._parallaxify.data('plugin_parallaxify')) return;
-			this._parallaxify && this._parallaxify.data('plugin_parallaxify').destroy();
-			this._parallaxify = false;
+			$(window).off('deviceorientation');
 		},
 		
 		animateView: function() {

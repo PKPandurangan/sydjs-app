@@ -2,12 +2,6 @@
 	
 	new View('talks', {
 		
-		initialize: function() {
-		
-			//
-		
-		},
-		
 		on: {
 			layout: function() {
 				
@@ -33,7 +27,8 @@
 				// analytics
 				app.trackEvent({ label: 'Talks', category: 'view', action: 'visible' });
 				
-			}
+			},
+			hidden: function() {}
 		},
 		
 		buttons: {
@@ -156,9 +151,7 @@
 			
 			var images = this.$('.list li img');
 			
-			images.css({
-				opacity: 0
-			});
+			images.css({ opacity: 0 });
 			
 			setTimeout(function() {
 				async.eachLimit(images, 1, function(image, animated) {

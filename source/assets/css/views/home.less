@@ -1,14 +1,19 @@
 #view-home {
 	.background {
-		width: 805px;
-		height: 1073.5px;
-		position: absolute;
-		top: 50%;
-		left: 50%;
+		position: relative;
 		z-index: 0;
-		background-image: url('../img/background.jpg');
-		background-repeat: no-repeat;
-		background-size: 100% auto;
+		.image {
+			width: 805px;
+			height: 1073.5px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			background-image: url('../img/background.jpg');
+			background-repeat: no-repeat;
+			background-size: 100% auto;
+			-webkit-transition: -webkit-transform .1s;
+			transition: transform .1s;
+		}
 		opacity: 0;
 		
 		@-webkit-keyframes fade {
@@ -23,6 +28,7 @@
 			-webkit-animation: fade 0.75s forwards;
 			animation: fade 0.75s forwards;
 		}
+		
 	}
 	.gradient {
 		.fill;
