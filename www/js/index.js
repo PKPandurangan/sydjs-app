@@ -197,8 +197,8 @@ _.extend(app, {
 		// Check local storage for session data
 		// console.log('[resumeSession] - Checking local storage...');
 		
-		var date = localStorage.getItem( 'session_date' ),
-			user = localStorage.getItem( 'session_userId' );
+		var date = localStorage.getItem('session_date'),
+			user = localStorage.getItem('session_userId');
 		
 		// Function to handle retries
 		var retry = function() {
@@ -213,9 +213,6 @@ _.extend(app, {
 		
 		var outcome = function(err) {
 			if (err) return retry();
-			app._statusInterval = setTimeout(function() {
-				app.getStatus();
-			}, 10000);
 			app.view('home').show();
 		}
 		
@@ -289,14 +286,24 @@ _.extend(app, {
 			if (data.user) app.data.session = data.user;
 			
 			// Determine if meetup data has changed (if it changes)
-			if (!app.data.meetups.next || (app.data.meetups.next && data.meetups.next && (app.data.meetups.next.hash != data.meetups.next.hash))) {
-				// console.log('[getStatus] - Meetup data changed!');
+			var meetup = app.parseMeetup();
+			
+			if (app._lastHash && meetup.data.hash != app._lastHash) {
+				console.log('[getStatus] - Meetup data changed!');
 				app.preloadMeetup();
 				app.view('talks').renderTalks();
 				app.view('home').setMeetup();
+				app.view('home').setState();
+				app._lastHash = meetup.data.hash;
 			} else {
-				// console.log('[getStatus] - Meetup data has not changed.');
+				console.log('[getStatus] - Meetup data has not changed.');
+				app._lastHash = meetup.data.hash;
 			}
+			
+			// Add timeout for next status call
+			app._statusInterval = setTimeout(function() {
+				app.getStatus();
+			}, 10000);
 			
 			if (callback) return callback(false);
 			

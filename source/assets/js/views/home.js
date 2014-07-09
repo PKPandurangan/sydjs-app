@@ -176,6 +176,9 @@
 			this.$('.home .remaining').css('transform', 'translateY(' + app.viewportSize.height + 'px)');
 			this.$('.home .states').css('transform', 'translateY(' + app.viewportSize.height + 'px)');
 			
+			this.$('.home .logo').show();
+			this.$('.home .meetup').css('opacity', 0);
+			
 			app._device.size && app._device.size == 'short' && this.$('.meetup').addClass('short');
 			
 			this.$('.home .logo').velocity({
@@ -483,7 +486,7 @@
 			
 			var self = this;
 			
-			var meetup = app.data.meetups.next,
+			var meetup = app.parseMeetup(),
 				rsvp = app.data.rsvp;
 			
 			var $states = this.$('.states');
@@ -496,16 +499,16 @@
 			$soldOut.hide();
 			$soon.hide();
 			
-			if (meetup && rsvp.responded && rsvp.attending) {
+			if (meetup.next && rsvp.responded && rsvp.attending) {
 				$rsvp.show();
 				this.moveButtons('left');
-			} else if (meetup && rsvp.responded && !rsvp.attending) {
+			} else if (meetup.next && rsvp.responded && !rsvp.attending) {
 				$rsvp.show();
 				this.moveButtons('right');
-			} else if (meetup && meetup.ticketsAvailable && meetup.ticketsRemaining) {
+			} else if (meetup.next && meetup.data.ticketsAvailable && meetup.data.ticketsRemaining) {
 				$rsvp.show();
 				this.moveButtons('middle');
-			} else if (meetup && meetup.ticketsAvailable && meetup.ticketsAvailable == 0) {
+			} else if (meetup.next && meetup.data.ticketsAvailable && meetup.data.ticketsAvailable == 0) {
 				$soldOut.show();
 			} else {
 				$soon.show();
