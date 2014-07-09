@@ -779,11 +779,12 @@
 					
 					var images = this.$('.menu .credits ul.people li .person .image');
 					
-					images.css({ opacity: 0 });
+					images.hide();
 					
 					setTimeout(function() {
 						async.eachLimit(images, 1, function(image, animated) {
 						
+							$(image).show().css('opacity', 0);
 							$(image).velocity({ opacity: 1 }, { duration: 200, easing: 'easeOutSine' });
 							
 							setTimeout(function() {
