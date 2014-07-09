@@ -126,8 +126,8 @@
 			
 			var $background = this.$('.background');
 			
-			$background.css('margin-left', -(410 - (app.viewportSize.width / 2)));
-			$background.css('margin-top', -(361 - (app.viewportSize.height / 2)));
+			$background.css('margin-left', -(805 / 2));
+			$background.css('margin-top', -(1073.5 / 2) + 100);
 			
 			if (this._parallaxify) return;
 			
