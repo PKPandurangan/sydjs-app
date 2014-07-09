@@ -716,9 +716,6 @@
 		},
 		
 		menuCredits: function() {
-			this.$('.menu .credits .text').css({
-				marginTop: 50
-			});
 			this.menuView('credits');
 		},
 		
@@ -731,6 +728,8 @@
 		},
 		
 		menuView: function(view) {
+			
+			var self = this;
 			
 			var matrixToArray = function(str) { return str.match(/(-?[0-9\.]+)/g); };
 			var transformValue = _.last(matrixToArray(this.$('.menu .buttons').css('transform')));
@@ -756,11 +755,28 @@
 			switch(view) {
 				case 'about':
 					this.$('.menu').velocity({ backgroundColorRed: 31, backgroundColorGreen: 199, backgroundColorBlue: 168 }, { easing: 'easeOutSine', duration: 500 });
-					this.$('.menu .' + view + ' .btn-plain').velocity({ backgroundColorRed: 26, backgroundColorGreen: 169, backgroundColorBlue: 143 }, { easing: 'easeOutSine', duration: 500 });
+					this.$('.menu .about .btn-plain').velocity({ backgroundColorRed: 26, backgroundColorGreen: 169, backgroundColorBlue: 143 }, { easing: 'easeOutSine', duration: 500 });
 				break;
 				case 'credits':
 					this.$('.menu').velocity({ backgroundColorRed: 241, backgroundColorGreen: 119, backgroundColorBlue: 99 }, { easing: 'easeOutSine', duration: 500 });
-					this.$('.menu .' + view + ' .btn-plain').velocity({ backgroundColorRed: 205, backgroundColorGreen: 101, backgroundColorBlue: 84 }, { easing: 'easeOutSine', duration: 500 });
+					this.$('.menu .credits .btn-plain').velocity({ backgroundColorRed: 205, backgroundColorGreen: 101, backgroundColorBlue: 84 }, { easing: 'easeOutSine', duration: 500 });
+					
+					var images = this.$('.menu .credits ul.people li .person');
+					
+					images.css({ opacity: 0 });
+					
+					setTimeout(function() {
+						async.eachLimit(images, 1, function(image, animated) {
+						
+							$(image).velocity({ opacity: 1 }, { duration: 200, easing: 'easeOutSine' });
+							
+							setTimeout(function() {
+								return animated();
+							}, 100);
+						
+						});
+					}, 500);
+				
 				break;
 			}
 			

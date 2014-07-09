@@ -126,8 +126,8 @@
 			
 			var $background = this.$('.background');
 			
-			$background.css('margin-left', -(410 - (app.viewportSize.width / 2)));
-			$background.css('margin-top', -(361 - (app.viewportSize.height / 2)));
+			$background.css('margin-left', -(805 / 2));
+			$background.css('margin-top', -(1073.5 / 2) + 100);
 			
 			if (this._parallaxify) return;
 			
@@ -716,9 +716,6 @@
 		},
 		
 		menuCredits: function() {
-			this.$('.menu .credits .text').css({
-				marginTop: 50
-			});
 			this.menuView('credits');
 		},
 		
@@ -731,6 +728,8 @@
 		},
 		
 		menuView: function(view) {
+			
+			var self = this;
 			
 			var matrixToArray = function(str) { return str.match(/(-?[0-9\.]+)/g); };
 			var transformValue = _.last(matrixToArray(this.$('.menu .buttons').css('transform')));
@@ -761,6 +760,23 @@
 				case 'credits':
 					this.$('.menu').velocity({ backgroundColorRed: 241, backgroundColorGreen: 119, backgroundColorBlue: 99 }, { easing: 'easeOutSine', duration: 500 });
 					this.$('.menu .' + view + ' .btn-plain').velocity({ backgroundColorRed: 205, backgroundColorGreen: 101, backgroundColorBlue: 84 }, { easing: 'easeOutSine', duration: 500 });
+					
+					var images = this.$('.menu .' + view + ' ul.people li');
+					
+					images.css({ opacity: 0 });
+					
+					setTimeout(function() {
+						async.eachLimit(images, 1, function(image, animated) {
+						
+							$(image).velocity({ opacity: 1 }, { duration: 200, easing: 'easeOutSine' });
+							
+							setTimeout(function() {
+								return animated();
+							}, 100);
+						
+						});
+					}, 500);
+				
 				break;
 			}
 			

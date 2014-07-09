@@ -151,9 +151,7 @@
 			
 			var images = this.$('.list li img');
 			
-			images.css({
-				opacity: 0
-			});
+			images.css({ opacity: 0 });
 			
 			setTimeout(function() {
 				async.eachLimit(images, 1, function(image, animated) {
