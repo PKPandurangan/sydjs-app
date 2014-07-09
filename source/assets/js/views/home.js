@@ -801,6 +801,8 @@
 			
 			this.$('.corners .btn-menu').velocity({ opacity: 1 }, { delay: 300, duration: 150, easing: 'easeOutSine' });
 			
+			app.scrollContainer(this);
+			
 		},
 		
 		openLink: function(e) {
