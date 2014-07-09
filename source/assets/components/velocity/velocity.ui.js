@@ -4,7 +4,7 @@
 
 /*!
 * velocity.ui.js: UI effects pack for Velocity. Load this file after jquery.velocity.js.
-* @version 3.0.0
+* @version 4.0.0
 * @docs http://velocityjs.org/#uiPack
 * @support <=IE8: Callouts will have no effect, and transitions will simply fade in/out. IE9/Android 2.3: Most effects are fully supported, the rest fade in/out. All other browsers: Full support.
 * @license Copyright Julian Shapiro. MIT License: http://en.wikipedia.org/wiki/MIT_License
@@ -13,15 +13,164 @@
 */   
 
 (function() {
+
+    /*************
+        Setup
+    *************/
+
     var Container = (window.jQuery || window.Zepto || window);
 
     if (!Container.Velocity || !Container.Velocity.Utilities) {
-        console.log("Velocity UI Pack: Velocity must first be loaded. Aborting.");
+        console.log("Velocity UI Pack: Velocity must be loaded first. Aborting.");
 
         return;
     }
 
-    var effects = 
+    if (!Container.Velocity.version) {
+        var abortError = "Velocity UI Pack: You need to update your jquery.velocity.js to a newer version. Visit http://github.com/julianshapiro/velocity.";
+
+        alert(abortError);
+        throw new Error(abortError);
+    }
+
+    /******************
+       Registration
+    ******************/
+
+    Container.Velocity.RegisterUI = function (effectName, properties) {
+        /* Animate the expansion/contraction of the elements' parent's height for In/Out effects. */
+        function animateParentHeight (elements, direction, totalDuration, stagger) {
+            var totalHeightDelta = 0,
+                parentNode;
+
+            /* Sum the total height (including padding and margin) of all targeted elements. */
+            Container.Velocity.Utilities.each(elements, function(i, element) {
+                if (stagger) {
+                    /* Increase the totalDuration by the successive delay amounts produced by the stagger option. */
+                    totalDuration += i * stagger;
+                }
+
+                parentNode = element.parentNode;
+
+                Container.Velocity.Utilities.each([ "height", "paddingTop", "paddingBottom", "marginTop", "marginBottom"], function(i, property) {
+                    totalHeightDelta += parseFloat(Container.Velocity.CSS.getPropertyValue(element, property));
+                });
+            });
+
+            /* Animate the parent element's height adjustment (with a varying duration multiplier for aesthetic benefits). */
+            Container.Velocity.animate(
+                parentNode,
+                { height: (direction === "In" ? "+" : "-") + "=" + totalHeightDelta },
+                { queue: false, easing: "ease-in-out", duration: totalDuration * (direction === "In" ? 0.6 : 1.1) }
+            );
+        }
+
+        /* Register a custom sequence for each effect. */
+        Container.Velocity.Sequences[effectName] = function (element, sequenceOptions, elementsIndex, elementsSize, elements, promiseData) {
+            var finalElement = (elementsIndex === elementsSize - 1);
+
+            /* Iterate through each effect's call array. */
+            for (var callIndex = 0; callIndex < properties.calls.length; callIndex++) {
+                var call = properties.calls[callIndex],
+                    propertyMap = call[0],
+                    sequenceDuration = (sequenceOptions.duration || properties.defaultDuration || 1000),
+                    durationPercentage = call[1],
+                    callOptions = call[2] || {},
+                    opts = {};
+
+                /* Assign the whitelisted per-call options. */
+                opts.duration = sequenceDuration * (durationPercentage || 1);
+                opts.queue = sequenceOptions.queue || "";
+                opts.easing = callOptions.easing || "ease";
+                opts.delay = callOptions.delay || 0;
+
+                /* Special processing for the first effect call. */
+                if (callIndex === 0) {
+                    /* If a delay was passed into the sequence, combine it with the first call's delay. */
+                    opts.delay += (sequenceOptions.delay || 0);
+
+                    if (elementsIndex === 0) {
+                        opts.begin = function() {
+                            /* Only trigger a begin callback on the first effect call with the first element in the set. */
+                            sequenceOptions.begin && sequenceOptions.begin.call(elements, elements);
+
+                            /* Only trigger animateParentHeight() if we're using an In/Out transition. */
+                            var direction = effectName.match(/(In|Out)$/);
+                            if (sequenceOptions.animateParentHeight && direction) {
+                                animateParentHeight(elements, direction[0], sequenceDuration + opts.delay, sequenceOptions.stagger);
+                            }
+                        }
+                    }
+
+                    /* If the user isn't overriding the display option, default to block/inline for "In"-suffixed transitions. */
+                    if (sequenceOptions.display !== null) {
+                        if (sequenceOptions.display && sequenceOptions.display !== "none") {
+                            opts.display = sequenceOptions.display;
+                        } else if (/In$/.test(effectName)) {
+                            opts.display = Container.Velocity.CSS.Values.getDisplayType(element);
+                        }
+                    }
+                }
+
+                /* Special processing for the last effect call. */
+                if (callIndex === properties.calls.length - 1) {
+                    /* Append promise resolving onto the user's sequence callback. */ 
+                    function injectFinalCallbacks () {
+                        sequenceOptions.complete && sequenceOptions.complete.call(elements, elements);
+
+                        if (promiseData) {
+                            promiseData.resolver(elements || element);
+                        }
+                    }
+
+                    opts.complete = function() {
+                        if (properties.reset) {
+                            for (var resetProperty in properties.reset) {
+                                var resetValue = properties.reset[resetProperty];
+
+                                /* Format each non-array value in the reset property map to [ value, value ] so that changes apply
+                                   immediately and DOM querying is avoided (via forcefeeding). */
+                                if (typeof resetValue === "string" || typeof resetValue === "number") {
+                                    properties.reset[resetProperty] = [ properties.reset[resetProperty], properties.reset[resetProperty] ];
+                                }
+                            }
+
+                            /* So that the reset values are applied instantly upon the next rAF tick, use a zero duration and parallel queueing. */
+                            var resetOptions = { duration: 0, queue: false };
+
+                            /* Since the reset option uses up the complete callback, we trigger the user's complete callback at the end of ours. */
+                            if (finalElement) {
+                                resetOptions.complete = injectFinalCallbacks;
+                            }  
+
+                            Container.Velocity.animate(element, properties.reset, resetOptions);
+                        /* Only trigger the user's complete callback on the last effect call with the last element in the set. */
+                        } else if (finalElement) {
+                            injectFinalCallbacks();
+                        }
+                    };
+
+                    /* If the user isn't overriding the display option, default to "none" for "Out"-suffixed transitions. */
+                    if (sequenceOptions.display !== null) {
+                        if (sequenceOptions.display) {
+                            opts.display = sequenceOptions.display;
+                        } else if (/Out$/.test(effectName)) {
+                            opts.display = "none";                        
+                        }
+                    }
+                }
+
+                Container.Velocity.animate(element, propertyMap, opts);
+            }
+        };
+    };
+
+    /*********************
+       Packaged Effects
+    *********************/
+
+    /* Externalize the packagedEffects data so that they can optionally be modified and re-registered. */
+    Container.Velocity.RegisterUI.packagedEffects = 
         { 
             /* Animate.css */
             "callout.bounce": {
@@ -90,6 +239,18 @@
                     [ "reverse", 0.125 ],
                     [ "reverse", 0.125 ],
                     [ { scaleX: 1, scaleY: 1, rotateZ: 0 }, 0.20 ]
+                ]
+            },
+            "transition.fadeIn": {
+                defaultDuration: 400,
+                calls: [
+                    [ { opacity: [ 1, 0 ] } ]
+                ]
+            },
+            "transition.fadeOut": {
+                defaultDuration: 400,
+                calls: [
+                    [ { opacity: [ 0, 1 ] } ]
                 ]
             },
             /* Support: Loses rotation in IE9/Android 2.3 (fades only). */
@@ -493,92 +654,8 @@
             }
         };
 
-    /* UI Pack sequence registration. */
-    Container.Velocity.RegisterUI = function (effectName, properties) {
-        /* Register a multi-element-aware custom sequence. */
-        Container.Velocity.Sequences[effectName] = function (element, sequenceOptions, elementsIndex, elementsSize) {
-            var finalElement = (elementsIndex === elementsSize - 1);
-
-            /* Iterate through each effect's call array. */
-            for (var callIndex = 0; callIndex < properties.calls.length; callIndex++) {
-                var call = properties.calls[callIndex],
-                    propertyMap = call[0],
-                    durationPercentage = call[1],
-                    callOptions = call[2] || {},
-                    opts = {};
-
-                /* Assign the whitelisted per-call options. */
-                opts.duration = (sequenceOptions.duration || properties.defaultDuration || 1000) * (durationPercentage || 1);
-                opts.queue = sequenceOptions.queue || "";
-                opts.easing = callOptions.easing || "ease";
-                opts.delay = callOptions.delay || 0;
-
-                /* Special processing for the first effect call. */
-                if (callIndex === 0) {
-                    /* If a delay was passed into the sequence, combine it with the first call's delay. */
-                    opts.delay += (sequenceOptions.delay || 0);
-
-                    /* Only trigger a begin callback on the first effect call with the first element in the set. */
-                    if (elementsIndex === 0) {
-                        opts.begin = sequenceOptions.begin;
-                    }
-
-                    /* If the user isn't overriding the display option, default to block/inline for "In"-suffixed transitions. */
-                    if (sequenceOptions.display !== null) {
-                        if (sequenceOptions.display && sequenceOptions.display !== "none") {
-                            opts.display = sequenceOptions.display;
-                        } else if (/In$/.test(effectName)) {
-                            opts.display = Container.Velocity.CSS.Values.getDisplayType(element);
-                        }
-                    }
-                }
-
-                /* Special processing for the last effect call. */
-                if (callIndex === properties.calls.length - 1) {
-                    if (properties.reset) {
-                        opts.complete = function() {
-                            for (var resetProperty in properties.reset) {
-                                var resetValue = properties.reset[resetProperty];
-
-                                /* Format each non-array value in the reset property map to [ value, value ] so that changes apply
-                                   immediately and DOM querying is avoided (via forcefeeding). */
-                                if (typeof resetValue === "string" || typeof resetValue === "number") {
-                                    properties.reset[resetProperty] = [ properties.reset[resetProperty], properties.reset[resetProperty] ];
-                                }
-                            }
-
-                            /* So that the reset values are applied instantly upon the next rAF tick, use a zero duration and parallel queueing. */
-                            var resetOptions = { duration: 0, queue: false };
-
-                            /* Since the reset option uses up the complete callback, we trigger the user's complete callback at the end of ours. */
-                            if (finalElement && sequenceOptions.complete) {
-                                resetOptions.complete = sequenceOptions.complete;
-                            }  
-
-                            Container.Velocity.animate(element, properties.reset, resetOptions);
-                        };
-                    /* Only trigger the user's complete callback on the last effect call with the last element in the set. */
-                    } else if (finalElement && sequenceOptions.complete) {
-                        opts.complete = sequenceOptions.complete;
-                    }
-
-                    /* If the user isn't overriding the display option, default to "none" for "Out"-suffixed transitions. */
-                    if (sequenceOptions.display !== null) {
-                        if (sequenceOptions.display) {
-                            opts.display = sequenceOptions.display;
-                        } else if (/Out$/.test(effectName)) {
-                            opts.display = "none";                        
-                        }
-                    }
-                }
-
-                Container.Velocity.animate(element, propertyMap, opts);
-            }
-        };
-    };
-
-    /* Register the included effects. */
-    for (var effectName in effects) {
-        Container.Velocity.RegisterUI(effectName, effects[effectName]);
+    /* Register the packaged effects. */
+    for (var effectName in Container.Velocity.RegisterUI.packagedEffects) {
+        Container.Velocity.RegisterUI(effectName, Container.Velocity.RegisterUI.packagedEffects[effectName]);
     }
 })();
