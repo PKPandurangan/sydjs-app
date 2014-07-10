@@ -137,7 +137,7 @@
 					var beta = e.originalEvent.beta,
 						gamma = e.originalEvent.gamma;
 					
-					var pad = 40;
+					var pad = 50;
 					
 					if (gamma > 90) gamma = 180 - gamma;
 					if (gamma < -90) gamma = -180 - gamma;
