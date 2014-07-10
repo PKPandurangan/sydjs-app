@@ -54,7 +54,7 @@
         touch.x2 = e.originalEvent.touches[0].pageX
         touch.y2 = e.originalEvent.touches[0].pageY
       })
-      .bind('touchend', function(e){
+      .bind('touchend', function(){
          cancelLongTap()
 
         // swipe

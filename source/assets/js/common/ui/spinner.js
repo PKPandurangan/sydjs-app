@@ -24,7 +24,7 @@
 	// Spinner Class
 	// ============
 	
-	var Spinner = function(el, options) {
+	var Spinner = function(el) {
 		this.$el = $(el);
 	}
 	

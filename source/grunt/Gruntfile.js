@@ -56,7 +56,19 @@ module.exports = function(grunt) {
 			}
 		},
 		uglify: {
-			my_target: {
+			core: {
+				options: {
+					mangle: true,
+					compress: true
+				},
+				files: [{
+					expand: true,
+					cwd: '../../www/js/common',
+					src: '**/*.js',
+					dest: '../../www/js/common'
+				}]
+			},
+			components: {
 				options: {
 					mangle: false
 				},
@@ -120,7 +132,7 @@ module.exports = function(grunt) {
 					'../assets/**/*.less',
 					'../assets/**/*.js'
 				],
-				tasks: ['copy', 'jade', 'less', 'relativeRoot'] // Does not include 'watch' which would spawn additional grunt processes
+				tasks: ['copy', 'uglify:core', 'jade', 'less', 'relativeRoot'] // Does not include 'watch' which would spawn additional grunt processes
 			}
 		}
 	});
@@ -135,7 +147,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	
 	// Set tasks to run
-	grunt.registerTask('components', ['uglify']);
-	grunt.registerTask('default', ['copy', 'jade', 'less', 'relativeRoot', 'watch']);
+	grunt.registerTask('nuclear', ['clean']);
+	grunt.registerTask('components', ['uglify:components']);
+	grunt.registerTask('core', ['copy', 'uglify:core', 'jade', 'less', 'relativeRoot', 'watch']);
 	
 };

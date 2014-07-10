@@ -203,9 +203,9 @@ _.extend(View.prototype, Backbone.Events, {
 		}).first().trigger('press');
 		
 		// make swipes on the title change the current tab
-		this.$('.titlebar .title').on('swipeLeft', function(e) {
+		this.$('.titlebar .title').on('swipeLeft', function() {
 			self.$('.tab.selected').next().trigger('press');
-		}).on('swipeRight', function(e) {
+		}).on('swipeRight', function() {
 			self.$('.tab.selected').prev().trigger('press');
 		});
 	
@@ -236,8 +236,7 @@ _.extend(View.prototype, Backbone.Events, {
 	// Looks for switchers, and if found, initialises them
 	initSwitchers: function() {
 	
-		var self = this,
-			switchers = this.$('.switcher');
+		var switchers = this.$('.switcher');
 		
 		if (!switchers.size()) return;
 		
@@ -251,8 +250,9 @@ _.extend(View.prototype, Backbone.Events, {
 				return;
 			}
 			
-			var $state = $('<div class="state">On</div>').appendTo($switcher),
-				$handle = $('<div class="handle"></div>').appendTo($switcher);
+			var $state = $('<div class="state">On</div>').appendTo($switcher);
+			
+			$('<div class="handle"></div>').appendTo($switcher);
 			
 			var toggle = function() {
 				
@@ -270,7 +270,7 @@ _.extend(View.prototype, Backbone.Events, {
 				
 			}
 			
-			$switcher.on('click', function(e) {
+			$switcher.on('click', function() {
 				return toggle();
 			});
 			

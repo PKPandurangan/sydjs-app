@@ -44,7 +44,7 @@
 		this.options = _.extend({}, $.fn.button.defaults, options);
 		this.disabled = false;
 		
-		this.$el.on((touchSupport ? 'touchstart' : 'mousedown'), function(e) {
+		this.$el.on((touchSupport ? 'touchstart' : 'mousedown'), function() {
 			if (self.disabled || self.pressed) return;
 			self.pressed = true;
 			//self.offset = $(this).offset(); // for detecting movement away from the button, see todo below
@@ -56,12 +56,13 @@
 			setTimeout(function() { self.$el.removeClass('pressed'); }, 1); // needs to be in a timeout or it messes with the touch event
 		}
 		
-		this.$el.on((touchSupport ? 'touchcancel' : 'mouseout'), function(e) {
-			if (self.pressed)
+		this.$el.on((touchSupport ? 'touchcancel' : 'mouseout'), function() {
+			if (self.pressed) {
 				cancelPress();
+			}
 		});
 		
-		this.$el.on((touchSupport ? 'touchend' : 'mouseup'), function(e) {
+		this.$el.on((touchSupport ? 'touchend' : 'mouseup'), function() {
 			if (self.disabled || !self.pressed) return;
 			cancelPress();
 			// moved to tap / click event - see below
@@ -79,7 +80,7 @@
 			console.log(self.offset.top + ' < ' + e.pageY + ' < ' + (self.offset.top + self.offset.height));
 		});*/
 		
-		this.$el.on((touchSupport ? 'tap' : 'click'), function(e) {
+		this.$el.on((touchSupport ? 'tap' : 'click'), function() {
 			if (self.disabled) return;
 			self.$el.trigger('press');
 		});
