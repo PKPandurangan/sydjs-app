@@ -644,9 +644,8 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/logos \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/people \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui \
-/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/logos/cordova.png \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/logos/credits.png \
-/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/logos/thinkmill.png \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/logos/sydjs.png \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/people/boris.jpg \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/people/jed.jpg \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/people/joss.jpg \
@@ -662,7 +661,6 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/icons \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/ios-statusbar-black.png \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/ios-statusbar-white.png \
-/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/logo.png \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/squid.svg \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/icons/email.png \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/img/ui/icons/facebook.png \

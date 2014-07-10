@@ -150,5 +150,6 @@ module.exports = function(grunt) {
 	grunt.registerTask('nuclear', ['clean']);
 	grunt.registerTask('components', ['uglify:components']);
 	grunt.registerTask('core', ['copy', 'uglify:core', 'jade', 'less', 'relativeRoot', 'watch']);
+	grunt.registerTask('all', ['clean', 'uglify:components', 'copy', 'uglify:core', 'jade', 'less', 'relativeRoot']);
 	
 };
