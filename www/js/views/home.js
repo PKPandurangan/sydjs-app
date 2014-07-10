@@ -1,4 +1,4 @@
-(function() {
+;(function() {
 	
 	new View('home', {
 		
@@ -128,7 +128,7 @@
 				$image = $background.find('.image');
 			
 			$background.css('margin-left', -805 - 35);
-			$background.css('margin-top', -(1073.5 / 4) - 35);
+			$background.css('margin-top', (-(1073.5 / 4) - 35) + 100);
 			
 			if (window.DeviceOrientationEvent) {
 				

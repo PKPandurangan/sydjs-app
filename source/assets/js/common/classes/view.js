@@ -262,25 +262,27 @@ _.extend(View.prototype, Backbone.Events, {
 				$state.text(on ? 'Off' : 'On');
 				
 				$state.css('opacity', 0);
-				$state.animate({ opacity: 1 });
+				$state.velocity({ opacity: 1 });
 				
-				$switcher.removeClass('on off');
-				$switcher.addClass(on ? 'off' : 'on');
+				setTimeout(function() {
+					$switcher.removeClass('on off');
+					$switcher.addClass(on ? 'off' : 'on');
+				}, 0);
 				
 				$input.val(on ? 'no' : 'yes');
 				
 			}
 			
-			$switcher.on('click', function() {
+			$switcher.on(app.touchSupport ? 'tap' : 'click', function() {
 				return toggle();
 			});
 			
 			$switcher.on('swipeRight', function() {
-				if (!on) return toggle();
+				if (!$switcher.hasClass('on')) return toggle();
 			});
 			
 			$switcher.on('swipeLeft', function() {
-				if (on) return toggle();
+				if ($switcher.hasClass('on')) return toggle();
 			});
 		
 		});
