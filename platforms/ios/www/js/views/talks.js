@@ -161,10 +161,10 @@
 					
 					setTimeout(function() {
 						return animated();
-					}, 100);
+					}, 0);
 				
 				});
-			}, 300);
+			}, 750);
 			
 		}
 		

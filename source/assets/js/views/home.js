@@ -251,10 +251,13 @@
 					self.$('.menu').hide();
 				}});
 				this._menuOpen = false;
+				this.setBackground();
 				return;
 			}
 			
 			if (typeof hideOnly == 'boolean') return;
+			
+			this.destroyBackground();
 			
 			this._menuOpen = true;
 			
@@ -647,21 +650,6 @@
 				this.destroyBackground();
 				app.view('signin').show('slide-up', true);
 				return;
-				/*
-				var action = false;
-				switch(button) {
-					case 'left': if (!app.data.rsvp.responded) action = 'attending'; break;
-					case 'right': if (!app.data.rsvp.responded) action = 'notAttending'; break;
-				}
-				app.showConfirm('Attendance', 'You must sign in to mark your attendance.', ['No, thanks', 'Sign in'], function(pressed) {
-					if (pressed == 2) {
-						app.view('home')._action = action;
-						this.destroyBackground();
-						app.view('signin').show('slide-up', true);
-					}
-				});
-				return;
-				*/
 			}
 			
 			switch(button) {
@@ -775,7 +763,7 @@
 					this.$('.menu').velocity({ backgroundColorRed: 241, backgroundColorGreen: 119, backgroundColorBlue: 99 }, { easing: 'easeOutSine', duration: 500 });
 					this.$('.menu .credits .btn-plain').velocity({ backgroundColorRed: 205, backgroundColorGreen: 101, backgroundColorBlue: 84 }, { easing: 'easeOutSine', duration: 500 });
 					
-					var images = this.$('.menu .credits ul.people li .person .image');
+					var images = this.$('.menu .credits .image');
 					
 					images.hide();
 					
