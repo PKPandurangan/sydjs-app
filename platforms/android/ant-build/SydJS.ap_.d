@@ -674,10 +674,10 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/classes \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/ui \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/classes/app.js \
-/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/classes/touch.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/classes/view.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/ui/button.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/ui/spinner.js \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/common/ui/touch.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/components/async.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/components/backbone.js \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/assets/www/js/components/jquery.js \

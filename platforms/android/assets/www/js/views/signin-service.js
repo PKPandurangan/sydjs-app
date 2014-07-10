@@ -1,4 +1,4 @@
-(function() {
+;(function() {
 	
 	new View('signin-service', {
 		
@@ -50,6 +50,8 @@
 				
 			},
 			hidden: function() {
+				
+				this._service = false;
 				
 				this.clearFields();
 				
@@ -152,14 +154,8 @@
 				// Put data in local storage
 				app.storeSessionInfo(data);
 				
-				// Hide loading spinner
-				app.hideLoadingSpinner();
-				
 				// Set form to no longer processing
 				self._processingForm = false;
-				
-				// Clear fields
-				self.clearFields();
 				
 				// Go to another view
 				app.getStatus(function(err) {
@@ -172,6 +168,7 @@
 						return;
 					}
 					app.preloadUser(function() {
+						app.hideLoadingSpinner();
 						app.view('signin-successful').show('slide-up');
 					});
 				});

@@ -1,4 +1,4 @@
-(function() {
+;(function() {
 	
 	new View('home', {
 		
@@ -128,7 +128,7 @@
 				$image = $background.find('.image');
 			
 			$background.css('margin-left', -805 - 35);
-			$background.css('margin-top', -(1073.5 / 4) - 35);
+			$background.css('margin-top', (-(1073.5 / 4) - 35) + 100);
 			
 			if (window.DeviceOrientationEvent) {
 				
@@ -137,7 +137,7 @@
 					var beta = e.originalEvent.beta,
 						gamma = e.originalEvent.gamma;
 					
-					var pad = 20;
+					var pad = 50;
 					
 					if (gamma > 90) gamma = 180 - gamma;
 					if (gamma < -90) gamma = -180 - gamma;

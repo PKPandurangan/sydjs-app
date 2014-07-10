@@ -1,4 +1,4 @@
-(function() {
+;(function() {
 	
 	new View('signin-email', {
 		
@@ -198,9 +198,6 @@
 				// Put data in local storage
 				app.storeSessionInfo(data);
 				
-				// Hide loading spinner
-				app.hideLoadingSpinner();
-				
 				// Set form to no longer processing
 				self._processingForm = false;
 				
@@ -215,6 +212,7 @@
 						return;
 					}
 					app.preloadUser(function() {
+						app.hideLoadingSpinner();
 						app.view('signin-successful').show('slide-up');
 					});
 				});
@@ -327,9 +325,6 @@
 				// Put data in local storage
 				app.storeSessionInfo(data);
 				
-				// Hide loading spinner
-				app.hideLoadingSpinner();
-				
 				// Set form to no longer processing
 				self._processingForm = false;
 				
@@ -344,6 +339,7 @@
 						return;
 					}
 					app.preloadUser(function() {
+						app.hideLoadingSpinner();
 						app.view('signin-successful').show('slide-up');
 						app.view('signin-email').clearFields();
 					});

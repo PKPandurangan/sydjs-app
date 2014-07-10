@@ -1,4 +1,4 @@
-(function() {
+;(function() {
 	
 	new View('signin', {
 		
@@ -85,6 +85,7 @@
 			var self = this;
 			
 			var service = $(el.target).data().service;
+			self._service = service;
 			
 			var options = 'location=no,toolbar=yes,toolbarposition=top,closebuttoncaption=Cancel';
 			
@@ -106,7 +107,6 @@
 							
 							authWindow.close();
 							
-							self._service = service;
 							self._authUser = JSON.parse(authUser);
 							
 							self.checkExisting();
