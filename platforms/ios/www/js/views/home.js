@@ -32,7 +32,7 @@
 				this.animateView();
 				
 				this.setNotifications();
-				this.setMeetup();
+				this.setMeetup(true);
 				this.setState();
 				this.setSession();
 				
@@ -175,7 +175,8 @@
 			
 			if (this._animated) return;
 			
-			var meetup = app.data.meetups.next;
+			var meetup = app.parseMeetup(),
+				rsvp = app.data.rsvp;
 			
 			var availableHeight = app.viewportSize.height - this.$('.statusbar').height();
 			
@@ -192,6 +193,7 @@
 			
 			this.$('.home .logo').show();
 			this.$('.home .meetup').css('opacity', 0);
+			this.$('.home .remaining').hide();
 			
 			app._device.size && app._device.size == 'short' && this.$('.meetup').addClass('short');
 			
@@ -214,8 +216,7 @@
 				
 				setTimeout(function() {
 					self.$('.home .states').velocity({ translateY: [app.viewportSize.height - 75 - self.$('.statusbar').height(), app.viewportSize.height] }, { duration: 500, easing: 'easeOutSine', complete: function() {
-						if (!meetup.ticketsRemaining) return;
-						self.animateRemaining();
+						if (meetup.next && meetup.data.ticketsRemaining && !rsvp.responded) self.animateRemaining();
 					}});
 				}, 300);
 				
@@ -227,13 +228,26 @@
 		
 		animateRemaining: function(hide) {
 			
+			var self = this;
+			
+			if (hide && !this.$('.remaining:visible').length) return;
+			
 			var translateY = [app.viewportSize.height - 75 - this.$('.statusbar').height() - 35, app.viewportSize.height - 75 - self.$('.statusbar').height()]
-			if (hide) translateY.reverse();
+			
+			if (hide) {
+				translateY.reverse();
+			} else {
+				this.$('.remaining .text').html(app.data.meetups.next.ticketsRemaining + ' Tickets Remaining');
+				this.$('.remaining').css('transform', 'translate3d(-50%, ' + translateY + 'px)').show();
+			}
 			
 			this.$('.remaining').velocity({
 				translateX: ['-50%', '-50%'],
 				translateY: translateY
-			}, { duration: 500, easing: 'easeOutSine' });
+			}, { duration: 250, easing: 'easeOutSine', complete: function() {
+				if (hide) self.$('.remaining').hide();
+			}});
+			
 		},
 		
 		toggleMenu: function(hideOnly) {
@@ -331,13 +345,17 @@
 			
 			if (pushNotifications) {
 				$notifications.html('<img src="img/ui/icon-alarm-green.svg" />');
+				$notifications.velocity({rotateZ: ['15deg','-15deg']}, { duration: 100, easing: 'easeSine', loop: 5, complete: function() {
+					$notifications.velocity({rotateZ: '0deg'}, { duration: 50, easing: 'easeOut' });
+				}});
 			}
 		
 		},
 		
-		setMeetup: function() {
+		setMeetup: function(initial) {
 			
-			var meetup = app.parseMeetup();
+			var meetup = app.parseMeetup(),
+				rsvp = app.data.rsvp;
 			
 			var $state = this.$('.meetup-state').show(),
 				$name = this.$('.meetup-name').show(),
@@ -358,10 +376,11 @@
 			
 			$calendar.find('.number').html(meetup.next && meetup.data.starts ? startDate.format('DD') : '');
 			
-			if (meetup.next && meetup.data.ticketsRemaining) this.$('.remaining .text').html(meetup.data.ticketsRemaining + ' Tickets Remaining');
-			if (meetup.next && !meetup.data.ticketsRemaining) this.animateRemaining(true);
-			
 			if (!meetup.next) $days.hide();
+			if (!initial && !meetup.next) this.$('.remaining').hide();
+			
+			if (meetup.next && meetup.data.ticketsRemaining) this.$('.remaining .text').html(meetup.data.ticketsRemaining + ' Tickets Remaining');
+			if (!initial && meetup.next && !rsvp.responded) this.animateRemaining(meetup.data.ticketsRemaining);
 			
 			this.$('.actions')[meetup.next ? 'removeClass' : 'addClass']('single');
 			this.$('.meetup')[meetup.next ? 'removeClass' : 'addClass']('last');
@@ -522,10 +541,10 @@
 			} else if (meetup.next && rsvp.responded && !rsvp.attending) {
 				$rsvp.show();
 				this.moveButtons('right');
-			} else if (meetup.next && meetup.data.ticketsAvailable && meetup.data.ticketsRemaining) {
+			} else if (meetup.next && meetup.data.ticketsRemaining) {
 				$rsvp.show();
 				this.moveButtons('middle');
-			} else if (meetup.next && meetup.data.ticketsAvailable && meetup.data.ticketsAvailable == 0) {
+			} else if (meetup.next && !meetup.data.ticketsRemaining) {
 				$soldOut.show();
 			} else {
 				$soon.show();
@@ -553,18 +572,9 @@
 				changed: moment().toDate()
 			};
 			
-			var hasRSVPed = app.data.rsvp.responded,
-				isAttending = app.data.rsvp.attending;
-			
 			var success = function(data) {
 				
 				// console.log("[toggleAttending] - RSVP successful.", data);
-				
-				// Update remaining tickets
-				if (hasRSVPed && isAttending && options.cancel) app.data.meetups.next.ticketsRemaining++;
-				if (!hasRSVPed && options.attending) app.data.meetups.next.ticketsRemaining--;
-				self.$('.remaining .text').html(app.data.meetups.next.ticketsRemaining + ' Tickets Remaining');
-				if (!app.data.meetups.next.ticketsRemaining) self.animateRemaining(true);
 				
 				// Set form to no longer processing (after 575 milliseconds of animations)
 				setTimeout(function() {
@@ -620,13 +630,23 @@
 				}
 			});
 			
+			// Determine state of RSVP
+			var hasRSVPed = app.data.rsvp.responded,
+				isAttending = app.data.rsvp.attending;
+			
+			if (hasRSVPed && isAttending && options.cancel) app.data.meetups.next.ticketsRemaining++;
+			else if (!hasRSVPed && options.attending) app.data.meetups.next.ticketsRemaining--;
+			
 			// Update local cached data
 			app.data.rsvp.responded = !options.cancel ? true : false;
 			app.data.rsvp.attending = rsvpData.attending;
 			app.data.rsvp.date = rsvpData.changed;
 			
+			// Update remaining
+			this.animateRemaining(app.data.rsvp.responded);
+			
 			// Update status
-			self.setState();
+			this.setState();
 		
 		},
 		
