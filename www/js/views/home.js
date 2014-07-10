@@ -331,6 +331,9 @@
 			
 			if (pushNotifications) {
 				$notifications.html('<img src="img/ui/icon-alarm-green.svg" />');
+				$notifications.velocity({rotateZ: ['15deg','-15deg']}, { duration: 100, easing: 'easeSine', loop: 5, complete: function() {
+					$notifications.velocity({rotateZ: '0deg'}, { duration: 50, easing: 'easeOut' });
+				}});
 			}
 		
 		},
