@@ -134,8 +134,6 @@
 				
 				$(window).on('deviceorientation', function(e) {
 					
-					console.log(e);
-					
 					var beta = e.originalEvent.beta,
 						gamma = e.originalEvent.gamma;
 					

@@ -107,9 +107,9 @@
 					var $images = $html.find('.images');
 					_.each(images, function(image, index) {
 						if (image.twitter) {
-							var $img = $('<a href="http://twitter.com/' + image.twitter + '" class="twitter" target="_blank"><img src="' + image.avatarUrl + '" width="40" height="40"></a>').appendTo($images);
+							var $img = $('<span class="image"><span class="circle"></span><a href="http://twitter.com/' + image.twitter + '" class="twitter" target="_blank"><img src="' + image.avatarUrl + '" width="40" height="40"></a></span>').appendTo($images);
 						} else {
-							var $img = $('<img src="' + image.avatarUrl + '" width="40" height="40">').appendTo($images);
+							var $img = $('<span class="image"><span class="circle"></span><img src="' + image.avatarUrl + '" width="40" height="40"></span>').appendTo($images);
 						}
 					});
 				}
@@ -151,11 +151,12 @@
 			
 			var images = this.$('.list li img');
 			
-			images.css({ opacity: 0 });
+			images.hide();
 			
 			setTimeout(function() {
 				async.eachLimit(images, 1, function(image, animated) {
 				
+					$(image).show().css('opacity', 0);
 					$(image).velocity({ opacity: 1 }, { duration: 200, easing: 'easeOutSine' });
 					
 					setTimeout(function() {
