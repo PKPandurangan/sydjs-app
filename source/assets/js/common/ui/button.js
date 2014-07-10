@@ -4,7 +4,7 @@
 // Implements a basic button that handles its states and responds to events.
 // Listen to the 'press' event to perform the action.
 
-(function() {
+;(function() {
 	
 	// Which events to use?
 	var touchSupport = 'ontouchstart' in document.documentElement;
@@ -27,9 +27,7 @@
 		});
 	};
 
-	$.fn.button.defaults = {
-		
-	};
+	$.fn.button.defaults = {};
 
 	$.fn.button.Constructor = Button;
 	

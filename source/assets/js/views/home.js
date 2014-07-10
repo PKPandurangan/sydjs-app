@@ -1,4 +1,4 @@
-(function() {
+;(function() {
 	
 	new View('home', {
 		

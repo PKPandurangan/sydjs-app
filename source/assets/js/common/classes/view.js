@@ -1,3 +1,15 @@
+// View
+// -------------
+
+// Views are based on Backbone Views, with specific behaviours for use as
+// screens in the app.
+// 
+// Supported events (`on` option):
+// *	`init` - before the view is shown for the first time
+// *	`layout` - before the view is shown, and when the viewport is resized
+// *	`visible` - after the view becomes visible
+// *	`hidden` - after the view becomes hidden
+
 var View;
 
 (function() {
@@ -23,17 +35,6 @@ if (!app.touchSupport) {
 	}
 }
 
-// View
-// -------------
-
-// Views are based on Backbone Views, with specific behaviours for use as
-// screens in the app.
-// 
-// Supported events (`on` option):
-// *	`init` - before the view is shown for the first time
-// *	`layout` - before the view is shown, and when the viewport is resized
-// *	`visible` - after the view becomes visible
-// *	`hidden` - after the view becomes hidden
 View = function(id, options) {
 	
 	this.id = id;
