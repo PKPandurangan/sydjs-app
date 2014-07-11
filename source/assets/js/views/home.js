@@ -128,7 +128,7 @@
 				$image = $background.find('.image');
 			
 			$background.css('margin-left', -805 - 35);
-			$background.css('margin-top', (-(1073.5 / 4) - 35) + 100);
+			$background.css('margin-top', (-(1073.5 / 4) - 35) + 50);
 			
 			if (window.DeviceOrientationEvent) {
 				
@@ -305,6 +305,8 @@
 			
 			var pushNotifications = app.data.user.pushNotifications;
 			
+			var $notifications = this.$('.btn-notifications');
+			
 			if (pushNotifications) {
 				app.showLoadingSpinner();
 				app.disableNotifications(function() {
@@ -322,6 +324,9 @@
 							app.enableNotifications(function() {
 								self.setNotifications();
 								app.hideLoadingSpinner();
+								$notifications.velocity({ rotateZ: ['15deg','-15deg'] }, { duration: 100, easing: 'easeInOut', loop: 5, complete: function() {
+									$notifications.velocity({ rotateZ: '0deg' }, { duration: 100, easing: 'easeOut' });
+								}});
 							});
 						break;
 					}
@@ -345,9 +350,6 @@
 			
 			if (pushNotifications) {
 				$notifications.html('<img src="img/ui/icon-alarm-green.svg" />');
-				$notifications.velocity({rotateZ: ['15deg','-15deg']}, { duration: 100, easing: 'easeSine', loop: 5, complete: function() {
-					$notifications.velocity({rotateZ: '0deg'}, { duration: 50, easing: 'easeOut' });
-				}});
 			}
 		
 		},
@@ -783,15 +785,15 @@
 					this.$('.menu').velocity({ backgroundColorRed: 241, backgroundColorGreen: 119, backgroundColorBlue: 99 }, { easing: 'easeOutSine', duration: 500 });
 					this.$('.menu .credits .btn-plain').velocity({ backgroundColorRed: 205, backgroundColorGreen: 101, backgroundColorBlue: 84 }, { easing: 'easeOutSine', duration: 500 });
 					
-					var images = this.$('.menu .credits .image');
+					var images = this.$('.menu .credits .people li');
 					
-					images.hide();
+					images.find('.image').hide();
 					
 					setTimeout(function() {
 						async.eachLimit(images, 1, function(image, animated) {
 						
-							$(image).show().css('opacity', 0);
-							$(image).velocity({ opacity: 1 }, { duration: 200, easing: 'easeOutSine' });
+							$(image).find('.image').show().css('opacity', 0);
+							$(image).find('.image').velocity({ opacity: 1 }, { duration: 200, easing: 'easeOutSine' });
 							
 							setTimeout(function() {
 								return animated();

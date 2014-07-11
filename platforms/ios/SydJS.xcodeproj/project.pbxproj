@@ -721,7 +721,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Thinkmill Pty Ltd (VXT6F3A96H)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -750,7 +750,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = SydJS;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "43873958-1731-45E6-ABEB-F988C65A6D32";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -760,7 +760,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Thinkmill Pty Ltd (VXT6F3A96H)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SydJS/SydJS-Prefix.pch";
@@ -787,7 +787,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = SydJS;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "43873958-1731-45E6-ABEB-F988C65A6D32";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
