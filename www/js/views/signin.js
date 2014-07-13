@@ -18,10 +18,6 @@
 					top: this.$('.titlebar').height()
 				});
 				
-				$('.btn-service').css({
-					top: availableHeight
-				});
-				
 				setTimeout(function() {
 					self.animateView();
 				}, 150);
@@ -62,15 +58,18 @@
 			
 				var $button = self.$('.btn-' + button);
 				
+				var spacing = Math.ceil(availableHeight / 5),
+					height = Math.ceil(availableHeight) - (index + 1 != types.length ? (spacing * (index - 1)) + spacing : (spacing * 4 - (spacing * 1)));
+				
 				$button.css({
 					top: availableHeight,
-					height: Math.ceil(availableHeight) - (Math.ceil(availableHeight / 5) + (index + 1 == types.length ? Math.ceil(availableHeight / 10) : 0) * index)
+					height: height
 				});
 				
-				$button.find('.action').css('height', Math.ceil(availableHeight / 5));
+				$button.find('.action').css('height', spacing);
 				
 				$button.velocity({
-					top: Math.ceil(availableHeight / 5) * index
+					top: spacing * index
 				}, { delay: index * 100, duration: 1000, easing: [ 600, 30 ] }); 
 				
 			});
