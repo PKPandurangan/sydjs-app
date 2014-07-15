@@ -1,17 +1,14 @@
-## SydJS App
-
 ![SydJS App](http://sydjs.com/images/icon.png)
-===================================
 
 ## About
 
-[SydJS App](http://sydjs.com) is a companion app to the SydJS Website built on the Cordova platform for iOS & Android.
+A companion app to the [SydJS Website](http://sydjs.com) built on the Cordova platform for iOS & Android.
 
 This is the complete source code for iOS & Android platforms.
 
 More detailed documentation will be provided soon after the launch of the app.
 
-If you have ideas or questions, tweet at [@bladey](https://twitter.com/bladey) or [@borisbozic](https://twitter.com/borisbozic) on Twitter.
+If you have questions or ideas, tweet at [@bladey](https://twitter.com/bladey) or [@borisbozic](https://twitter.com/borisbozic) on Twitter.
 
 ## License
 
