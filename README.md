@@ -2,7 +2,7 @@
 
 ## About
 
-A companion app to the [SydJS Website](http://sydjs.com) built on the Cordova platform for iOS & Android.
+A companion app to the [SydJS Website](http://sydjs.com) built on the Cordova platform for iOS & Android by [Tom Walker](https://github.com/bladey) & [Boris Bozic](https://github.com/borisbozic).
 
 This is the complete source code for iOS & Android platforms.
 
