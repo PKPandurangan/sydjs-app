@@ -1,4 +1,4 @@
-![SydJS App](http://sydjs.com/images/logo.png)
+![SydJS App](http://sydjs.com/images/icon.png)
 ===================================
 
 [SydJS App](http://sydjs.com) is a companion app to the SydJS Website.
