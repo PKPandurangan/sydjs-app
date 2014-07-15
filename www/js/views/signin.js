@@ -70,7 +70,7 @@
 				
 				$button.velocity({
 					top: spacing * index
-				}, { delay: index * 100, duration: 1000, easing: [ 600, 30 ] }); 
+				}, { delay: index * 100, duration: 1000, easing: [600, 30] }); 
 				
 			});
 		},
