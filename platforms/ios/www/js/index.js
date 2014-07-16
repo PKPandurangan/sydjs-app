@@ -251,9 +251,9 @@ _.extend(app, {
 	
 		// console.log('[getStatus] - Retrieving status data from server...');
 		
-		var data = {};
+		var apiData = {};
 		
-		if (app.data.session.userId) data.user = app.data.session.userId;
+		if (app.data.session.userId) apiData.user = app.data.session.userId;
 		
 		var success = function(data) {
 			
@@ -283,7 +283,7 @@ _.extend(app, {
 			}
 			
 			// Set user data
-			if (data.user) app.data.session = data.user;
+			if (apiData.user && data.user) app.data.session = data.user;
 			
 			// Determine if meetup data has changed (if it changes)
 			var meetup = app.parseMeetup();
@@ -320,7 +320,7 @@ _.extend(app, {
 		$.ajax({
 			url: app.getAPIEndpoint('status'),
 			type: 'post',
-			data: data,
+			data: apiData,
 			dataType: 'json',
 			cache: false,
 			success: function(data) {
