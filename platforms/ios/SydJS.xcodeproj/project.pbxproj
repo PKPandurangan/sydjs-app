@@ -63,13 +63,13 @@
 		B049AF5F9859400BAD1721E0 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C1916CAF410491585694C1A /* CoreMotion.framework */; };
 		B227A3E73A53485E8E2D3779 /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5D90D4EB814A7B863CE6BC /* CDVInAppBrowser.m */; };
 		B661FB81141E47C79B014543 /* CDVAccelerometer.m in Sources */ = {isa = PBXBuildFile; fileRef = 06A69D297C2840A2A0399080 /* CDVAccelerometer.m */; };
-		B900B905A43341F68E279207 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99957169729A4BA7937EEF91 /* PassKit.framework */; };
 		BF2F51875E7D46AD91272442 /* NotificarePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 335219DFA1FB4305A2A60900 /* NotificarePlugin.m */; };
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
 		D4D75C1B741C4ACF9C9FA67B /* CDVSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D1200AC30E4EF1BB1BC15C /* CDVSplashScreen.m */; };
 		DD90DE092BBF4D9BB3E642C9 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7D6611D4C244772B1DBA7DF /* Security.framework */; };
 		F6E2B8975D974050AFF7ED05 /* CDVStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A05E15D59C4D3D8D953D72 /* CDVStatusBar.m */; };
 		FDA625AC97C5416D9CFEF6CD /* Calendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 77769A06D855484A94A43954 /* Calendar.m */; };
+		FF5B61898ADA41AA90F1C856 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D371516281334C63A01CADC9 /* PassKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -178,6 +178,7 @@
 		8B31799D8F51400AB6B8864E /* NSString+FromBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+FromBundle.h"; path = "re.notifica.cordova/NSString+FromBundle.h"; sourceTree = "<group>"; };
 		8BD7C9BEE6C84D34A05CF35B /* NotificareCustom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareCustom.h; path = re.notifica.cordova/NotificareCustom.h; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* SydJS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "SydJS-Info.plist"; path = "../SydJS-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		913A709F1979F047009C6782 /* SydJS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = SydJS.entitlements; path = SydJS/SydJS.entitlements; sourceTree = "<group>"; };
 		91491FD1190CD1820085AFE9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SydJS/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		9183B944196CBD4300DF5341 /* Default-Portrait@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x~iphone.png"; sourceTree = "<group>"; };
 		91CEA4C01902158C0062B0E3 /* Notificare.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Notificare.plist; sourceTree = "<group>"; };
@@ -189,7 +190,6 @@
 		97C9CBC2236048AB9CFB0CAB /* NotificareMKNetworkOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareMKNetworkOperation.h; path = re.notifica.cordova/NotificareMKNetworkOperation.h; sourceTree = "<group>"; };
 		98CF7F249EA9440F92BA41CB /* NSData+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Hex.h"; path = "re.notifica.cordova/NSData+Hex.h"; sourceTree = "<group>"; };
 		98DE5AB0989545AFB24FF33C /* ActionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ActionDelegate.h; path = re.notifica.cordova/ActionDelegate.h; sourceTree = "<group>"; };
-		99957169729A4BA7937EEF91 /* PassKit.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 		9C1916CAF410491585694C1A /* CoreMotion.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		9E150688EC94477F99B43B53 /* SocketRocket-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = unknown; name = "SocketRocket-Prefix.pch"; path = "re.notifica.cordova/SocketRocket-Prefix.pch"; sourceTree = "<group>"; };
 		A73FFEBEEA6C47FD8B6628C4 /* NotificarePushLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificarePushLib.h; path = re.notifica.cordova/NotificarePushLib.h; sourceTree = "<group>"; };
@@ -225,6 +225,7 @@
 		F763A22C05CC42F9A8063E3C /* NotificareApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareApp.h; path = re.notifica.cordova/NotificareApp.h; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = SydJS/config.xml; sourceTree = "<group>"; };
 		FE81B6C07510423F9F39F854 /* UIImage+FromBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+FromBundle.h"; path = "re.notifica.cordova/UIImage+FromBundle.h"; sourceTree = "<group>"; };
+		D371516281334C63A01CADC9 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "PassKit.framework"; path = "System/Library/Frameworks/PassKit.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -244,13 +245,13 @@
 				40D58BECF1FF4F7880581719 /* libicucore.dylib in Frameworks */,
 				35A7A4A9232F4E1E86E5B6E0 /* UIKit.framework in Frameworks */,
 				9E5636423E4442748D11A915 /* Foundation.framework in Frameworks */,
-				B900B905A43341F68E279207 /* PassKit.framework in Frameworks */,
 				6EEBA43800EF48F68CF571AB /* MapKit.framework in Frameworks */,
 				DD90DE092BBF4D9BB3E642C9 /* Security.framework in Frameworks */,
 				0CA761BFF0A44AC49DD29FA6 /* CFNetwork.framework in Frameworks */,
 				9AAB06D0F9DD4A0BB6072628 /* EventKit.framework in Frameworks */,
 				4BCF755DCA08489691F6BBED /* EventKitUI.framework in Frameworks */,
 				B049AF5F9859400BAD1721E0 /* CoreMotion.framework in Frameworks */,
+				FF5B61898ADA41AA90F1C856 /* PassKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +298,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				913A709F1979F047009C6782 /* SydJS.entitlements */,
 				91CEA4C01902158C0062B0E3 /* Notificare.plist */,
 				EB87FDF41871DAF40020F90C /* config.xml */,
 				EB87FDF31871DA8E0020F90C /* www */,
@@ -354,13 +356,13 @@
 				E8868BCC064646FFA21A30A3 /* libicucore.dylib */,
 				F1C4BE1218814C35B3AE58CD /* UIKit.framework */,
 				35984AD96D004BBCBAFC991B /* Foundation.framework */,
-				99957169729A4BA7937EEF91 /* PassKit.framework */,
 				4F7BCD4822AA4E8DAB0C5252 /* MapKit.framework */,
 				A7D6611D4C244772B1DBA7DF /* Security.framework */,
 				12815CFF48BE48419B90F3C2 /* CFNetwork.framework */,
 				AB222BE485B74504BDB93016 /* EventKit.framework */,
 				63C8441FCA314324BBA4570C /* EventKitUI.framework */,
 				9C1916CAF410491585694C1A /* CoreMotion.framework */,
+				D371516281334C63A01CADC9 /* PassKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -547,6 +549,14 @@
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						DevelopmentTeam = VXT6F3A96H;
+						SystemCapabilities = {
+							com.apple.Passbook = {
+								enabled = 0;
+							};
+							com.apple.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -721,7 +731,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Thinkmill Pty Ltd (VXT6F3A96H)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Tom Walker (43GJM8668J)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -750,7 +760,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = SydJS;
-				PROVISIONING_PROFILE = "43873958-1731-45E6-ABEB-F988C65A6D32";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -760,7 +770,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Thinkmill Pty Ltd (VXT6F3A96H)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Tom Walker (43GJM8668J)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SydJS/SydJS-Prefix.pch";
@@ -787,7 +797,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = SydJS;
-				PROVISIONING_PROFILE = "43873958-1731-45E6-ABEB-F988C65A6D32";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
