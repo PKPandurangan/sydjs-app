@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		0CA761BFF0A44AC49DD29FA6 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12815CFF48BE48419B90F3C2 /* CFNetwork.framework */; };
 		11B2C8408E324805AB0C848D /* CDVSpinnerDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = B39845E00CBF41A3B828C6FA /* CDVSpinnerDialog.m */; };
@@ -178,7 +179,6 @@
 		8B31799D8F51400AB6B8864E /* NSString+FromBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+FromBundle.h"; path = "re.notifica.cordova/NSString+FromBundle.h"; sourceTree = "<group>"; };
 		8BD7C9BEE6C84D34A05CF35B /* NotificareCustom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareCustom.h; path = re.notifica.cordova/NotificareCustom.h; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* SydJS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "SydJS-Info.plist"; path = "../SydJS-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
-		913A709F1979F047009C6782 /* SydJS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = SydJS.entitlements; path = SydJS/SydJS.entitlements; sourceTree = "<group>"; };
 		91491FD1190CD1820085AFE9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SydJS/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		9183B944196CBD4300DF5341 /* Default-Portrait@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x~iphone.png"; sourceTree = "<group>"; };
 		91CEA4C01902158C0062B0E3 /* Notificare.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Notificare.plist; sourceTree = "<group>"; };
@@ -207,6 +207,7 @@
 		C748A76D9E6C46E9BBE6BBC8 /* libNotificarePushLib.a */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = archive.ar; name = libNotificarePushLib.a; path = SydJS/Plugins/re.notifica.cordova/libNotificarePushLib.a; sourceTree = "<group>"; };
 		CF102FD78630469AA0107D3B /* CDVStatusBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVStatusBar.h; path = org.apache.cordova.statusbar/CDVStatusBar.h; sourceTree = "<group>"; };
 		D1EBC9A0171949B5B6E6F526 /* NotificarePassbook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificarePassbook.h; path = re.notifica.cordova/NotificarePassbook.h; sourceTree = "<group>"; };
+		D371516281334C63A01CADC9 /* PassKit.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 		D48A4C07C2BB4B83909620EA /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = base64.h; path = re.notifica.cordova/base64.h; sourceTree = "<group>"; };
 		D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x~iphone.png"; sourceTree = "<group>"; };
 		DBC923508DEC45BAB17AE62B /* Attachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Attachment.h; path = re.notifica.cordova/Attachment.h; sourceTree = "<group>"; };
@@ -225,7 +226,6 @@
 		F763A22C05CC42F9A8063E3C /* NotificareApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificareApp.h; path = re.notifica.cordova/NotificareApp.h; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = SydJS/config.xml; sourceTree = "<group>"; };
 		FE81B6C07510423F9F39F854 /* UIImage+FromBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+FromBundle.h"; path = "re.notifica.cordova/UIImage+FromBundle.h"; sourceTree = "<group>"; };
-		D371516281334C63A01CADC9 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "PassKit.framework"; path = "System/Library/Frameworks/PassKit.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -298,7 +298,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				913A709F1979F047009C6782 /* SydJS.entitlements */,
 				91CEA4C01902158C0062B0E3 /* Notificare.plist */,
 				EB87FDF41871DAF40020F90C /* config.xml */,
 				EB87FDF31871DA8E0020F90C /* www */,
@@ -731,7 +730,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Tom Walker (43GJM8668J)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Thinkmill Pty Ltd (VXT6F3A96H)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -760,7 +759,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = SydJS;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "43873958-1731-45E6-ABEB-F988C65A6D32";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -770,7 +769,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Tom Walker (43GJM8668J)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Thinkmill Pty Ltd (VXT6F3A96H)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SydJS/SydJS-Prefix.pch";
@@ -797,7 +796,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = SydJS;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "43873958-1731-45E6-ABEB-F988C65A6D32";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
