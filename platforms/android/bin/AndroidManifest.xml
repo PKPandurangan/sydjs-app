@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<manifest android:hardwareAccelerated="true" android:versionCode="1" android:versionName="1.0.0" android:windowSoftInputMode="adjustPan" package="com.sydjs" xmlns:android="http://schemas.android.com/apk/res/android">
-    <supports-screens android:anyDensity="true" android:largeScreens="true" android:normalScreens="true" android:resizeable="true" android:smallScreens="true" android:xlargeScreens="true" />
+<manifest android:hardwareAccelerated="true" android:versionCode="10000" android:versionName="1.0.0" android:windowSoftInputMode="adjustPan" package="com.sydjs" xmlns:android="http://schemas.android.com/apk/res/android">
+    <supports-screens android:anyDensity="true" android:largeScreens="false" android:normalScreens="true" android:resizeable="true" android:smallScreens="true" android:xlargeScreens="false" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <application android:hardwareAccelerated="true" android:icon="@drawable/icon" android:label="@string/app_name">
-        <activity android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale" android:label="@string/app_name" android:name="SydJS" android:theme="@android:style/Theme.Black.NoTitleBar">
+    <application android:hardwareAccelerated="true" android:icon="@drawable/icon" android:label="@string/app_name" android:name="re.notifica.cordova.BaseApplication">
+        <activity android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale" android:label="@string/app_name" android:name="SydJS" android:screenOrientation="portrait" android:theme="@android:style/Theme.Black.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -31,4 +31,8 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <permission android:name="com.sydjs.permission.C2D_MESSAGE" android:protectionLevel="signature" />
     <uses-permission android:name="com.sydjs.permission.C2D_MESSAGE" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 </manifest>

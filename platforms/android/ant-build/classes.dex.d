@@ -18,6 +18,7 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/com/google/android/gms/R$id.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/com/google/android/gms/R$integer.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/com/google/android/gms/R$string.class \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/com/google/android/gms/R$style.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/com/google/android/gms/R$styleable.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/com/google/android/gms/R.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/com/sydjs/BuildConfig.class \
@@ -88,6 +89,8 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/org/apache/cordova/networkinformation/NetworkManager.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/org/apache/cordova/splashscreen/SplashScreen.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/org/apache/cordova/vibration/Vibration.class \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/re/notifica/cordova/BaseActivity.class \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/re/notifica/cordova/BaseApplication.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/re/notifica/cordova/IntentReceiver$1.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/re/notifica/cordova/IntentReceiver.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/ant-build/classes/re/notifica/cordova/NotificarePlugin$1.class \
