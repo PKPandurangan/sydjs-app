@@ -325,7 +325,9 @@
 								self.setNotifications();
 								app.hideLoadingSpinner();
 								$notifications.velocity({ rotateZ: ['15deg','-15deg'] }, { duration: 100, easing: 'easeInOut', loop: 5, complete: function() {
-									$notifications.velocity({ rotateZ: '0deg' }, { duration: 100, easing: 'easeOut' });
+									$notifications.velocity({ rotateZ: '0deg' }, { duration: 100, easing: 'easeOut', complete: function() {
+										$notifications.css({ transform: 'rotateX(0deg)' });
+									}});
 								}});
 							});
 						break;
