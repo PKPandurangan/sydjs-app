@@ -19,3 +19,5 @@ source/*/node_modules
 
 platforms/ios/Notificare.plist
 platforms/android/assets/notificareconfig.properties
+
+notes.txt
