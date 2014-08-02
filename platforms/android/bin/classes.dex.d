@@ -89,6 +89,8 @@
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/bin/classes/org/apache/cordova/networkinformation/NetworkManager.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/bin/classes/org/apache/cordova/splashscreen/SplashScreen.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/bin/classes/org/apache/cordova/vibration/Vibration.class \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/bin/classes/re/notifica/cordova/BaseActivity.class \
+/Users/bladey/Sites/bladey/sydjs-app/platforms/android/bin/classes/re/notifica/cordova/BaseApplication.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/bin/classes/re/notifica/cordova/IntentReceiver$1.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/bin/classes/re/notifica/cordova/IntentReceiver.class \
 /Users/bladey/Sites/bladey/sydjs-app/platforms/android/bin/classes/re/notifica/cordova/NotificarePlugin$1.class \

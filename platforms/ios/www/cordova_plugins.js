@@ -108,7 +108,7 @@ module.exports.metadata =
     "org.apache.cordova.statusbar": "0.1.3",
     "org.apache.cordova.dialogs": "0.2.6",
     "org.apache.cordova.splashscreen": "0.2.7",
-    "re.notifica.cordova": "0.1.1",
+    "re.notifica.cordova": "0.2.0",
     "nl.x-services.plugins.calendar": "4.2.3",
     "org.apache.cordova.inappbrowser": "0.4.1-dev",
     "hu.dpal.phonegap.plugins.SpinnerDialog": "0.2.1",
